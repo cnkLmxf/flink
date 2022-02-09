@@ -50,6 +50,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * These RPC utilities contain helper methods around RPC use, such as starting an RPC service, or
  * constructing RPC addresses.
+ * 这些 RPC 实用程序包含围绕 RPC 使用的辅助方法，例如启动 RPC 服务或构造 RPC 地址。
  */
 public class AkkaRpcServiceUtils {
 

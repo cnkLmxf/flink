@@ -36,7 +36,9 @@ import java.util.function.Function;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Default implementation of {@link LogicalTopology}. It is an adapter of {@link JobGraph}. */
+/** Default implementation of {@link LogicalTopology}. It is an adapter of {@link JobGraph}.
+ * {@link LogicalTopology} 的默认实现。 它是 {@link JobGraph} 的适配器。
+ * */
 public class DefaultLogicalTopology implements LogicalTopology {
 
     private final List<DefaultLogicalVertex> verticesSorted;

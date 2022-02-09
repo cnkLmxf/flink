@@ -26,6 +26,7 @@ import java.util.Objects;
 /**
  * Any operation key for the {@link AbstractAsynchronousOperationHandlers} must extend this class.
  * It is used to store the trigger id.
+ * {@link AbstractAsynchronousOperationHandlers} 的任何操作键都必须扩展此类。 它用于存储触发器 ID。
  */
 public class OperationKey {
 
@@ -37,6 +38,7 @@ public class OperationKey {
 
     /**
      * Get the trigger id for the given operation key.
+     * 获取给定操作键的触发器 ID。
      *
      * @return trigger id
      */

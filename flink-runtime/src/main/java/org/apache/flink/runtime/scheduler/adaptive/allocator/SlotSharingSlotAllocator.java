@@ -43,7 +43,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/** {@link SlotAllocator} implementation that supports slot sharing. */
+/** {@link SlotAllocator} implementation that supports slot sharing.
+ * 支持插槽共享的 {@link SlotAllocator} 实现。
+ * */
 public class SlotSharingSlotAllocator implements SlotAllocator {
 
     private final ReserveSlotFunction reserveSlotFunction;

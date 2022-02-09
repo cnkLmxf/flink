@@ -29,10 +29,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Runtime identifier of a produced {@link IntermediateResultPartition}.
+ * 生成的 {@link IntermediateResultPartition} 的运行时标识符。
  *
  * <p>In failure cases the {@link IntermediateResultPartitionID} is not enough to uniquely identify
  * a result partition. It needs to be associated with the producing task as well to ensure correct
  * tracking of failed/restarted tasks.
+ * 在失败情况下，{@link IntermediateResultPartitionID} 不足以唯一标识结果分区。
+ * 它还需要与生产任务相关联，以确保正确跟踪失败/重新启动的任务。
  */
 public final class ResultPartitionID implements Serializable {
 

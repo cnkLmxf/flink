@@ -47,6 +47,8 @@ public final class ClusterEntrypointUtils {
      * Parses passed String array using the parameter definitions of the passed {@code
      * ParserResultFactory}. The method will call {@code System.exit} and print the usage
      * information to stdout in case of a parsing error.
+     * 使用传递的 {@code ParserResultFactory} 的参数定义解析传递的字符串数组。
+     * 该方法将调用 {@code System.exit} 并将使用信息打印到标准输出以防解析错误。
      *
      * @param args The String array that shall be parsed.
      * @param parserResultFactory The {@code ParserResultFactory} that collects the parameter
@@ -72,6 +74,7 @@ public final class ClusterEntrypointUtils {
 
     /**
      * Tries to find the user library directory.
+     * 尝试查找用户库目录。
      *
      * @return the user library directory if it exits, returns {@link Optional#empty()} if there is
      *     none
@@ -100,6 +103,7 @@ public final class ClusterEntrypointUtils {
 
     /**
      * Gets and verify the io-executor pool size based on configuration.
+     * 根据配置获取并验证 io-executor 池大小。
      *
      * @param config The configuration to read.
      * @return The legal io-executor pool size.

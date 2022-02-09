@@ -51,6 +51,7 @@ import static org.apache.flink.runtime.state.CompositeKeySerializationUtils.read
 /**
  * Implementation of heap savepoint restore operation. Savepoint shares a common unified binary
  * format across all state backends.
+ * 执行堆保存点恢复操作。 Savepoint 在所有状态后端共享一个通用的统一二进制格式。
  *
  * @param <K> The data type that the serializer serializes.
  */

@@ -25,12 +25,15 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
-/** Strategy how to find a matching slot. */
+/** Strategy how to find a matching slot.
+ * 策略如何找到匹配的插槽。
+ * */
 public interface SlotMatchingStrategy {
 
     /**
      * Finds a matching slot for the requested {@link ResourceProfile} given the collection of free
      * slots and the total number of slots per TaskExecutor.
+     * 给定空闲槽的集合和每个 TaskExecutor 的槽总数，为请求的 {@link ResourceProfile} 找到匹配的槽。
      *
      * @param requestedProfile to find a matching slot for
      * @param freeSlots collection of free slots

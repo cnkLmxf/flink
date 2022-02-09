@@ -60,16 +60,22 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * The default implementation of the {@link OperatorCoordinator} for the {@link Source}.
+ * {@link Source} 的 {@link OperatorCoordinator} 的默认实现。
  *
  * <p>The <code>SourceCoordinator</code> provides an event loop style thread model to interact with
  * the Flink runtime. The coordinator ensures that all the state manipulations are made by its event
  * loop thread. It also helps keep track of the necessary split assignments history per subtask to
  * simplify the {@link SplitEnumerator} implementation.
+ * <code>SourceCoordinator</code> 提供了一个事件循环样式的线程模型来与 Flink 运行时交互。
+ * 协调器确保所有状态操作都由其事件循环线程进行。 它还有助于跟踪每个子任务的必要拆分分配历史记录，
+ * 以简化 {@link SplitEnumerator} 实现。
  *
  * <p>The coordinator maintains a {@link
  * org.apache.flink.api.connector.source.SplitEnumeratorContext SplitEnumeratorContxt} and shares it
  * with the enumerator. When the coordinator receives an action request from the Flink runtime, it
  * sets up the context, and calls corresponding method of the SplitEnumerator to take actions.
+ * 协调器维护一个 {@link org.apache.flink.api.connector.source.SplitEnumeratorContext SplitEnumeratorContxt} 并与枚举器共享。
+ * 当协调器收到 Flink 运行时的动作请求时，它会设置上下文，并调用 SplitEnumerator 的相应方法来执行动作。
  */
 @Internal
 public class SourceCoordinator<SplitT extends SourceSplit, EnumChkT>

@@ -31,8 +31,10 @@ import javax.annotation.Nullable;
  * A DeclarativeTaskManagerSlot represents a slot located in a TaskExecutor. It contains the
  * necessary information for initiating the allocation of the slot, and keeps track of the state of
  * the slot.
+ * DeclarativeTaskManagerSlot 表示位于 TaskExecutor 中的插槽。 它包含启动槽分配的必要信息，并跟踪槽的状态。
  *
  * <p>This class is the declarative-resource-management version of the {@link TaskManagerSlot}.
+ * 此类是 {@link TaskManagerSlot} 的声明性资源管理版本。
  */
 class DeclarativeTaskManagerSlot implements TaskManagerSlotInformation {
 
@@ -42,7 +44,9 @@ class DeclarativeTaskManagerSlot implements TaskManagerSlotInformation {
     /** The resource profile of this slot. */
     private final ResourceProfile resourceProfile;
 
-    /** Gateway to the TaskExecutor which owns the slot. */
+    /** Gateway to the TaskExecutor which owns the slot.
+     * 拥有该插槽的 TaskExecutor 的网关。
+     * */
     private final TaskExecutorConnection taskManagerConnection;
 
     /** Job id for which this slot has been allocated. */

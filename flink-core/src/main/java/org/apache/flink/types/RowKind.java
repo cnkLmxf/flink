@@ -20,7 +20,9 @@ package org.apache.flink.types;
 
 import org.apache.flink.annotation.PublicEvolving;
 
-/** Lists all kinds of changes that a row can describe in a changelog. */
+/** Lists all kinds of changes that a row can describe in a changelog.
+ * 列出行可以在更改日志中描述的所有类型的更改。
+ * */
 @PublicEvolving
 public enum RowKind {
 
@@ -36,6 +38,8 @@ public enum RowKind {
      * <p>This kind SHOULD occur together with {@link #UPDATE_AFTER} for modelling an update that
      * needs to retract the previous row first. It is useful in cases of a non-idempotent update,
      * i.e., an update of a row that is not uniquely identifiable by a key.
+     * 这种应该与 {@link #UPDATE_AFTER} 一起出现，用于建模需要首先收回前一行的更新。
+     * 它在非幂等更新的情况下很有用，即更新不能由键唯一标识的行。
      */
     UPDATE_BEFORE("-U", (byte) 1),
 

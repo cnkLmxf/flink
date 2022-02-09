@@ -22,14 +22,18 @@ import org.apache.flink.runtime.jobmaster.SlotRequestId;
 
 import java.util.concurrent.CompletableFuture;
 
-/** The provider serves physical slot requests. */
+/** The provider serves physical slot requests.
+ * 提供者服务于物理槽请求。
+ * */
 public interface PhysicalSlotProvider {
 
     /**
      * Submit a request to allocate a physical slot.
+     * 提交分配物理槽的请求。
      *
      * <p>The physical slot can be either allocated from the slots, which are already available for
      * the job, or a new one can be requeted from the resource manager.
+     * 物理槽可以从已经可用于作业的槽中分配，也可以从资源管理器重新请求一个新槽。
      *
      * @param physicalSlotRequest slot requirements
      * @return a future of the allocated slot
@@ -39,8 +43,10 @@ public interface PhysicalSlotProvider {
 
     /**
      * Cancels the slot request with the given {@link SlotRequestId}.
+     * 使用给定的 {@link SlotRequestId} 取消槽请求。
      *
      * <p>If the request is already fulfilled with a physical slot, the slot will be released.
+     * 如果请求已经通过物理槽完成，则该槽将被释放。
      *
      * @param slotRequestId identifying the slot request to cancel
      * @param cause of the cancellation

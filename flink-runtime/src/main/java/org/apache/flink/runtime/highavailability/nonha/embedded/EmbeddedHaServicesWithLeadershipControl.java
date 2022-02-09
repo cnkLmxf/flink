@@ -27,7 +27,9 @@ import org.apache.flink.runtime.checkpoint.StandaloneCheckpointIDCounter;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-/** {@link EmbeddedHaServices} extension to expose leadership granting and revoking. */
+/** {@link EmbeddedHaServices} extension to expose leadership granting and revoking.
+ * {@link EmbeddedHaServices} 扩展以公开授予和撤销领导权。
+ * */
 public class EmbeddedHaServicesWithLeadershipControl extends EmbeddedHaServices
         implements HaLeadershipControl {
     private final CheckpointRecoveryFactory testingCheckpointRecoveryFactory;

@@ -26,7 +26,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-/** Collection of queues that are used for the communication between the threads. */
+/** Collection of queues that are used for the communication between the threads.
+ * 用于线程之间通信的队列集合。
+ * */
 final class CircularQueues<E> implements StageRunner.StageMessageDispatcher<E> {
     private final BlockingQueue<CircularElement<E>> empty;
     private final BlockingQueue<CircularElement<E>> sort;
@@ -34,6 +36,7 @@ final class CircularQueues<E> implements StageRunner.StageMessageDispatcher<E> {
     /**
      * The close and take methods might be called from multiple threads (reading, sorting, spilling,
      * ...), therefore it must be volatile.
+     * close 和 take 方法可能会从多个线程（读取、排序、溢出等）调用，因此它必须是易失的。
      */
     private volatile boolean isFinished = false;
 
@@ -41,6 +44,8 @@ final class CircularQueues<E> implements StageRunner.StageMessageDispatcher<E> {
      * The iterator to be returned by the sort-merger. This variable is null, while receiving and
      * merging is still in progress and it will be set once we have &lt; merge factor sorted
      * sub-streams that will then be streamed sorted.
+     * 排序合并器返回的迭代器。 此变量为 null，而接收和合并仍在进行中，一旦我们有 &lt; 就会设置它。
+     * 合并因子排序的子流，然后将流排序。
      */
     private final CompletableFuture<MutableObjectIterator<E>> iteratorFuture =
             new CompletableFuture<>();

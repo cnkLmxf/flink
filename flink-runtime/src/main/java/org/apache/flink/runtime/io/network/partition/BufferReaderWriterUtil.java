@@ -37,9 +37,11 @@ import java.nio.channels.FileChannel;
 /**
  * Putting and getting of a sequence of buffers to/from a FileChannel or a ByteBuffer. This class
  * handles the headers, length encoding, memory slicing.
+ * 将一系列缓冲区放入/从 FileChannel 或 ByteBuffer 中获取。 此类处理标头、长度编码、内存切片。
  *
  * <p>The encoding is the same across FileChannel and ByteBuffer, so this class can write to a file
  * and read from the byte buffer that results from mapping this file to memory.
+ * FileChannel 和 ByteBuffer 之间的编码是相同的，因此此类可以写入文件并从将该文件映射到内存所产生的字节缓冲区中读取。
  */
 public final class BufferReaderWriterUtil {
 

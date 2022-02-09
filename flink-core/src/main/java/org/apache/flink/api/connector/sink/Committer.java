@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * The {@code Committer} is responsible for committing the data staged by the sink.
+ * {@code Committer} 负责提交由 sink 暂存的数据。
  *
  * @param <CommT> The type of information needed to commit the staged data
  */
@@ -34,6 +35,7 @@ public interface Committer<CommT> extends AutoCloseable {
 
     /**
      * Commit the given list of {@link CommT}.
+     * 提交给定的 {@link CommT} 列表。
      *
      * @param committables A list of information needed to commit data staged by the sink.
      * @return A list of {@link CommT} needed to re-commit, which is needed in case we implement a

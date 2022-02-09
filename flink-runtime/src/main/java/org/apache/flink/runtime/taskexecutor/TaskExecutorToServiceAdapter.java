@@ -23,6 +23,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Simple adapter for {@link TaskExecutor} to adapt to {@link
  * TaskManagerRunner.TaskExecutorService}.
+ * {@link TaskExecutor} 的简单适配器以适应 {@link TaskManagerRunner.TaskExecutorService}。
  */
 public class TaskExecutorToServiceAdapter implements TaskManagerRunner.TaskExecutorService {
 

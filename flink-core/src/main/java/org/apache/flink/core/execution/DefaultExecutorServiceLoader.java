@@ -37,6 +37,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * The default implementation of the {@link PipelineExecutorServiceLoader}. This implementation uses
  * Java service discovery to find the available {@link PipelineExecutorFactory executor factories}.
+ * {@link PipelineExecutorServiceLoader} 的默认实现。
+ * 此实现使用 Java 服务发现来查找可用的 {@link PipelineExecutorFactory 执行器工厂}。
  */
 @Internal
 public class DefaultExecutorServiceLoader implements PipelineExecutorServiceLoader {
@@ -47,7 +49,8 @@ public class DefaultExecutorServiceLoader implements PipelineExecutorServiceLoad
     // ExecutorServiceLoader
     // to know about the ClusterClientServiceLoader. Remove duplication when package structure has
     // improved.
-
+    // TODO：此代码几乎与 ClusterClientServiceLoader 及其默认实现相同。
+    // 这种重复的原因是包结构不允许 ExecutorServiceLoader 知道 ClusterClientServiceLoader。 当包结构改进时删除重复项。
     private static final Logger LOG = LoggerFactory.getLogger(DefaultExecutorServiceLoader.class);
 
     @Override

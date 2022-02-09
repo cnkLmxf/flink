@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 /**
  * Specification of resources to use in running {@link
  * org.apache.flink.runtime.taskexecutor.TaskExecutor}.
+ * 运行 {@link org.apache.flink.runtime.taskexecutor.TaskExecutor} 时使用的资源规范。
  */
 public class TaskExecutorResourceSpec {
     private final CPUResource cpuCores;

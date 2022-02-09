@@ -25,6 +25,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Gauge metric measuring the input buffers usage for {@link SingleInputGate}s under credit based
  * mode.
+ * 在基于信用的模式下测量 {@link SingleInputGate} 的输入缓冲区使用情况的计量指标。
  */
 public class CreditBasedInputBuffersUsageGauge extends AbstractBuffersUsageGauge {
 

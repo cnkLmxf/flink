@@ -23,6 +23,8 @@ import org.apache.flink.annotation.Public;
 /**
  * Similar to a {@link Runnable}, this interface is used to capture a block of code to be executed.
  * In contrast to {@code Runnable}, this interface allows throwing checked exceptions.
+ * 与 {@link Runnable} 类似，此接口用于捕获要执行的代码块。
+ * 与 {@code Runnable} 相比，此接口允许抛出已检查的异常。
  */
 @Public
 @FunctionalInterface

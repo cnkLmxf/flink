@@ -25,10 +25,13 @@ import java.io.Serializable;
 /**
  * Interface for Join functions. Joins combine two data sets by joining their elements on specified
  * keys. This function is called with each pair of joining elements.
+ * 加入功能的接口。 连接通过在指定的键上连接它们的元素来组合两个数据集。 使用每对连接元素调用此函数。
  *
  * <p>By default, the joins follows strictly the semantics of an "inner join" in SQL. the semantics
  * are those of an "inner join", meaning that elements are filtered out if their key is not
  * contained in the other data set.
+ * 默认情况下，连接严格遵循 SQL 中“内部连接”的语义。
+ * 语义是“内部连接”的语义，这意味着如果元素的键不包含在其他数据集中，则元素将被过滤掉。
  *
  * <p>The basic syntax for using Join on two data sets is as follows:
  *
@@ -44,6 +47,7 @@ import java.io.Serializable;
  * <p>The Join function is an optional part of a join operation. If no JoinFunction is provided, the
  * result of the operation is a sequence of 2-tuples, where the elements in the tuple are those that
  * the JoinFunction would have been invoked with.
+ * join函数是联接操作的可选部分。 如果未提供 JoinFunction，则操作的结果是一个 2 元组序列，其中元组中的元素是调用 JoinFunction 的元素。
  *
  * <p>Note: You can use a {@link CoGroupFunction} to perform an outer join.
  *
@@ -57,6 +61,7 @@ public interface JoinFunction<IN1, IN2, OUT> extends Function, Serializable {
 
     /**
      * The join method, called once per joined pair of elements.
+     * join 方法，每对连接的元素调用一次。
      *
      * @param first The element from first input.
      * @param second The element from second input.

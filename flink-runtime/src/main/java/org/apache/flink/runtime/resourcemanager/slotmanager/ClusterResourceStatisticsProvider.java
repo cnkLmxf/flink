@@ -21,33 +21,53 @@ package org.apache.flink.runtime.resourcemanager.slotmanager;
 import org.apache.flink.runtime.clusterframework.types.ResourceProfile;
 import org.apache.flink.runtime.instance.InstanceID;
 
-/** Provides statistics of cluster resources. */
+/** Provides statistics of cluster resources.
+ * 提供集群资源的统计信息。
+ * */
 public interface ClusterResourceStatisticsProvider {
 
-    /** Get total number of registered slots. */
+    /** Get total number of registered slots.
+     * 获取已注册插槽的总数。
+     * */
     int getNumberRegisteredSlots();
 
-    /** Get number of registered slots from the TaskManager with the given instance id. */
+    /** Get number of registered slots from the TaskManager with the given instance id.
+     * 从具有给定实例 id 的 TaskManager 中获取已注册的插槽数。
+     * */
     int getNumberRegisteredSlotsOf(InstanceID instanceId);
 
-    /** Get total number of free slots. */
+    /** Get total number of free slots.
+     * 获取空闲插槽的总数。
+     * */
     int getNumberFreeSlots();
 
-    /** Get number of free slots from the TaskManager with the given instance id. */
+    /** Get number of free slots from the TaskManager with the given instance id.
+     * 从具有给定实例 id 的 TaskManager 中获取空闲槽的数量。
+     * */
     int getNumberFreeSlotsOf(InstanceID instanceId);
 
-    /** Get profile of total registered resources. */
+    /** Get profile of total registered resources.
+     * 获取总注册资源的概况。
+     * */
     ResourceProfile getRegisteredResource();
 
-    /** Get profile of registered resources from the TaskManager with the given instance id. */
+    /** Get profile of registered resources from the TaskManager with the given instance id.
+     * 从具有给定实例 ID 的 TaskManager 获取已注册资源的配置文件。
+     * */
     ResourceProfile getRegisteredResourceOf(InstanceID instanceId);
 
-    /** Get profile of total free resources. */
+    /** Get profile of total free resources.
+     * 获取总免费资源的概况。
+     * */
     ResourceProfile getFreeResource();
 
-    /** Get profile of free resources from the TaskManager with the given instance id. */
+    /** Get profile of free resources from the TaskManager with the given instance id.
+     * 从具有给定实例 ID 的 TaskManager 获取免费资源的配置文件。
+     * */
     ResourceProfile getFreeResourceOf(InstanceID instanceId);
 
-    /** Get profile of total pending resources. */
+    /** Get profile of total pending resources.
+     * 获取总待处理资源的配置文件。
+     * */
     ResourceProfile getPendingResource();
 }

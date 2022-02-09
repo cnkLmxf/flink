@@ -30,17 +30,19 @@ import java.io.UTFDataFormatException;
  * contains all decoding methods to read data from a page and detect page boundary crossing. The
  * concrete sub classes must implement the methods to provide the next memory page once the boundary
  * is crossed.
+ * 由多个内存页面支持的所有输入视图的基类。 该基类包含从页面读取数据和检测页面边界交叉的所有解码方法。
+ * 一旦跨越边界，具体的子类必须实现提供下一个内存页的方法。
  */
 public abstract class AbstractPagedInputView implements DataInputView {
 
     private MemorySegment currentSegment;
 
     protected final int
-            headerLength; // the number of bytes to skip at the beginning of each segment
+            headerLength; // the number of bytes to skip at the beginning of each segment 每段开头要跳过的字节数
 
-    private int positionInSegment; // the offset in the current segment
+    private int positionInSegment; // the offset in the current segment 当前段的偏移量
 
-    private int limitInSegment; // the limit in the current segment before switching to the next
+    private int limitInSegment; // the limit in the current segment before switching to the next，切换到下一个之前当前段的limit
 
     private byte[] utfByteBuffer; // reusable byte buffer for utf-8 decoding
     private char[] utfCharBuffer; // reusable char buffer for utf-8 decoding
@@ -54,6 +56,8 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * header of the given page. If the header size is zero, it starts at the beginning. The
      * specified initial limit describes up to which position data may be read from the current
      * segment, before the view must advance to the next segment.
+     * 创建一个以给定segment开头的新视图。 输入直接在给定page的header之后开始。
+     * 如果header大小为零，则从头开始。 指定的initialLimit描述了在视图必须前进到下一个段之前可以从当前段读取的位置数据。
      *
      * @param initialSegment The memory segment to start reading from.
      * @param initialLimit The position one after the last valid byte in the initial segment.
@@ -70,9 +74,11 @@ public abstract class AbstractPagedInputView implements DataInputView {
     /**
      * Creates a new view that is initially not bound to a memory segment. This constructor is
      * typically for views that always seek first.
+     * 创建一个最初未绑定到内存段的新视图。 此构造函数通常用于始终首先查找的视图。
      *
      * <p>WARNING: The view is not readable until the first call to either {@link #advance()}, or to
      * {@link #seekInput(MemorySegment, int, int)}.
+     * 在第一次调用 {@link #advance()} 或 {@link #seekInput(MemorySegment, int, int)} 之前，视图是不可读的。
      *
      * @param headerLength The number of bytes to skip at the beginning of each segment for the
      *     header.
@@ -90,6 +96,9 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * exactly exhausted, meaning that the last byte read was the last byte available in the
      * segment, then this segment will not serve the next bytes. The segment to serve the next bytes
      * will be obtained through the {@link #nextSegment(MemorySegment)} method.
+     * 获取将用于从中读取下一个字节的内存段。
+     * 如果该段完全耗尽，意味着读取的最后一个字节是该段中的最后一个可用字节，则该段将不会为下一个字节提供服务。
+     * 服务下一个字节的段将通过 {@link #nextSegment(MemorySegment)} 方法获得。
      *
      * @return The current memory segment.
      */
@@ -100,6 +109,7 @@ public abstract class AbstractPagedInputView implements DataInputView {
     /**
      * Gets the position from which the next byte will be read. If that position is equal to the
      * current limit, then the next byte will be read from next segment.
+     * 获取将读取下一个字节的位置。 如果该位置等于当前限制，则将从下一个segment读取下一个字节。
      *
      * @return The position from which the next byte will be read.
      * @see #getCurrentSegmentLimit()
@@ -111,6 +121,7 @@ public abstract class AbstractPagedInputView implements DataInputView {
     /**
      * Gets the current limit in the memory segment. This value points to the byte one after the
      * last valid byte in the memory segment.
+     * 获取内存段中的当前限制。 该值指向内存段中最后一个有效字节之后的字节。
      *
      * @return The current limit in the memory segment.
      * @see #getCurrentPositionInSegment()
@@ -123,11 +134,15 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * The method by which concrete subclasses realize page crossing. This method is invoked when
      * the current page is exhausted and a new page is required to continue the reading. If no
      * further page is available, this method must throw an {@link EOFException}.
+     * 具体子类实现跨页的方法。 当前页用完，需要新页继续读取时调用此方法。
+     * 如果没有其他页面可用，则此方法必须抛出 {@link EOFException}。
      *
      * @param current The current page that was read to its limit. May be {@code null}, if this
      *     method is invoked for the first time.
+     *     已读取到limit限制的当前页面。 如果第一次调用此方法，则可能为 {@code null}。
      * @return The next page from which the reading should continue. May not be {@code null}. If the
      *     input is exhausted, an {@link EOFException} must be thrown instead.
+     *     应继续阅读的下一页。 可能不是 {@code null}。 如果输入已用尽，则必须抛出 {@link EOFException}。
      * @throws EOFException Thrown, if no further segment is available.
      * @throws IOException Thrown, if the method cannot provide the next page due to an I/O related
      *     problem.
@@ -140,6 +155,8 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * position of the byte after the last valid byte in the given memory segment. When the position
      * returned by this method is reached, the view will attempt to switch to the next memory
      * segment.
+     * 获取从给定内存段读取字节的限制。 此方法必须返回给定内存段中最后一个有效字节之后的字节位置。
+     * 当到达此方法返回的位置时，视图将尝试切换到下一个内存段。
      *
      * @param segment The segment to determine the limit for.
      * @return The limit for the given memory segment.
@@ -150,6 +167,9 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * Advances the view to the next memory segment. The reading will continue after the header of
      * the next segment. This method uses {@link #nextSegment(MemorySegment)} and {@link
      * #getLimitForSegment(MemorySegment)} to get the next segment and set its limit.
+     * 将视图推进到下一个内存段。 读取将在下一个段的标题之后继续。
+     * 此方法使用 {@link #nextSegment(MemorySegment)} 和 {@link #getLimitForSegment(MemorySegment)}
+     * 来获取下一个段并设置其限制。
      *
      * @throws IOException Thrown, if the next segment could not be obtained.
      * @see #nextSegment(MemorySegment)
@@ -162,6 +182,7 @@ public abstract class AbstractPagedInputView implements DataInputView {
     protected void doAdvance() throws IOException {
         // note: this code ensures that in case of EOF, we stay at the same position such that
         // EOF is reproducible (if nextSegment throws a reproducible EOFException)
+        // 注意：这段代码确保在 EOF 的情况下，我们保持在相同的位置，这样 EOF 是可重现的（如果 nextSegment 抛出一个可重现的 EOFException）
         this.currentSegment = nextSegment(this.currentSegment);
         this.limitInSegment = getLimitForSegment(this.currentSegment);
         this.positionInSegment = this.headerLength;
@@ -176,6 +197,7 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * Sets the internal state of the view such that the next bytes will be read from the given
      * memory segment, starting at the given position. The memory segment will provide bytes up to
      * the given limit position.
+     * 设置视图的内部状态，以便从给定的内存段读取下一个字节，从给定的位置开始。 内存段将提供直到给定限制位置的字节。
      *
      * @param segment The segment to read the next bytes from.
      * @param positionInSegment The position in the segment to start reading from.
@@ -192,6 +214,8 @@ public abstract class AbstractPagedInputView implements DataInputView {
      * Clears the internal state of the view. After this call, all read attempts will fail, until
      * the {@link #advance()} or {@link #seekInput(MemorySegment, int, int)} method have been
      * invoked.
+     * 清除视图的内部状态。
+     * 在此调用之后，所有读取尝试都将失败，直到调用了 {@link #advance()} 或 {@link #seekInput(MemorySegment, int, int)} 方法。
      */
     protected void clear() {
         this.currentSegment = null;

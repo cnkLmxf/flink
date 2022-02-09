@@ -29,6 +29,8 @@ import java.util.List;
  * to write yet un-staged data, e.g. in-progress files. The data (or metadata pointing to where the
  * actual data is staged) ready to commit is returned to the system by the {@link
  * #prepareCommit(boolean)}.
+ * {@code SinkWriter} 负责写入数据并处理用于写入未暂存数据的任何潜在 tmp 区域，例如 进行中的文件。
+ * {@link #prepareCommit(boolean)} 将准备好提交的数据（或指向实际数据暂存位置的元数据）返回给系统。
  *
  * @param <InputT> The type of the sink writer's input
  * @param <CommT> The type of information needed to commit data staged by the sink
@@ -50,6 +52,7 @@ public interface SinkWriter<InputT, CommT, WriterStateT> extends AutoCloseable {
      * Prepare for a commit.
      *
      * <p>This will be called before we checkpoint the Writer's state in Streaming execution mode.
+     * 这将在我们在 Streaming 执行模式下检查 Writer 的状态之前调用。
      *
      * @param flush Whether flushing the un-staged data or not
      * @return The data is ready to commit.
@@ -63,7 +66,9 @@ public interface SinkWriter<InputT, CommT, WriterStateT> extends AutoCloseable {
      */
     List<WriterStateT> snapshotState() throws IOException;
 
-    /** Context that {@link #write} can use for getting additional data about an input record. */
+    /** Context that {@link #write} can use for getting additional data about an input record.
+     * {@link #write} 可用于获取有关输入记录的附加数据的上下文。
+     * */
     interface Context {
 
         /** Returns the current event-time watermark. */
@@ -72,6 +77,7 @@ public interface SinkWriter<InputT, CommT, WriterStateT> extends AutoCloseable {
         /**
          * Returns the timestamp of the current input record or {@code null} if the element does not
          * have an assigned timestamp.
+         * 如果元素没有指定的时间戳，则返回当前输入记录的时间戳或 {@code null}。
          */
         Long timestamp();
     }

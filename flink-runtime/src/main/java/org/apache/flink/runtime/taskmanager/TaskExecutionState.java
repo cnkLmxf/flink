@@ -28,11 +28,15 @@ import java.io.Serializable;
 
 /**
  * This class represents an update about a task's execution state.
+ * 此类表示有关任务执行状态的更新。
  *
  * <p><b>NOTE:</b> The exception that may be attached to the state update is not necessarily a Flink
  * or core Java exception, but may be an exception from the user code. As such, it cannot be
  * deserialized without a special class loader. For that reason, the class keeps the actual
  * exception field transient and deserialized it lazily, with the appropriate class loader.
+ * <b>注意：</b> 可能附加到状态更新的异常不一定是 Flink 或核心 Java 异常，但可能是来自用户代码的异常。
+ * 因此，如果没有特殊的类加载器，它就无法反序列化。
+ * 出于这个原因，该类使用适当的类加载器保持实际的异常字段瞬态并延迟反序列化它。
  */
 public class TaskExecutionState implements Serializable {
 

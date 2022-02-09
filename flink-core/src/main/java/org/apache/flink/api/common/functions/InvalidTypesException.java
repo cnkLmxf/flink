@@ -24,19 +24,23 @@ import org.apache.flink.api.common.InvalidProgramException;
 /**
  * A special case of the {@link InvalidProgramException}, indicating that the types used in an
  * operation are invalid or inconsistent.
+ * {@link InvalidProgramException} 的一种特殊情况，表示操作中使用的类型无效或不一致。
  */
 @Public
 public class InvalidTypesException extends InvalidProgramException {
 
     private static final long serialVersionUID = 1L;
 
-    /** Creates a new exception with no message. */
+    /** Creates a new exception with no message.
+     * 创建一个没有消息的新异常。
+     * */
     public InvalidTypesException() {
         super();
     }
 
     /**
      * Creates a new exception with the given message.
+     * 使用给定的消息创建一个新的异常。
      *
      * @param message The exception message.
      */

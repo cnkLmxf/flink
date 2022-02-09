@@ -43,26 +43,41 @@ import java.util.function.Function;
  * be represented. Alternatives may be complete or partial substitutes for the "ground truth" with a
  * higher priority (if they had a lower alternative, they would not really be alternatives).
  * Substitution is determined on a per-sub-state basis.
+ * 此类是多个替代 {@link OperatorSubtaskState} 的包装器，这些替代{@link OperatorSubtaskState}（部分）相互替代，
+ * 并对不同状态的所有替代进行优先排序，这些状态定义了操作员应尝试从中恢复状态的顺序 .
+ * 一个 OperatorSubtaskState 被视为应该表示哪个状态的“基本事实”。
+ * 替代品可能是具有更高优先级的“基本事实”的完全或部分替代品（如果它们有较低的替代品，它们将不是真正的替代品）。
+ * 替代是在每个子state的基础上确定的。
  */
 @Internal
 public class PrioritizedOperatorSubtaskState {
 
-    /** Singleton instance for an empty, non-restored operator state. */
+    /** Singleton instance for an empty, non-restored operator state.
+     * 空的、未恢复的操作员状态的单例实例。
+     * */
     private static final PrioritizedOperatorSubtaskState EMPTY_NON_RESTORED_INSTANCE =
             new PrioritizedOperatorSubtaskState.Builder(
                             OperatorSubtaskState.builder().build(), Collections.emptyList(), false)
                     .build();
 
-    /** List of prioritized snapshot alternatives for managed operator state. */
+    /** List of prioritized snapshot alternatives for managed operator state.
+     * 托管操作员状态的优先快照替代列表。
+     * */
     private final List<StateObjectCollection<OperatorStateHandle>> prioritizedManagedOperatorState;
 
-    /** List of prioritized snapshot alternatives for raw operator state. */
+    /** List of prioritized snapshot alternatives for raw operator state.
+     * 原始操作员状态的优先快照替代列表。
+     * */
     private final List<StateObjectCollection<OperatorStateHandle>> prioritizedRawOperatorState;
 
-    /** List of prioritized snapshot alternatives for managed keyed state. */
+    /** List of prioritized snapshot alternatives for managed keyed state.
+     * 托管键控状态的优先快照替代列表。
+     * */
     private final List<StateObjectCollection<KeyedStateHandle>> prioritizedManagedKeyedState;
 
-    /** List of prioritized snapshot alternatives for raw keyed state. */
+    /** List of prioritized snapshot alternatives for raw keyed state.
+     * 原始键控状态的优先快照替代列表。
+     * */
     private final List<StateObjectCollection<KeyedStateHandle>> prioritizedRawKeyedState;
 
     private final List<StateObjectCollection<InputChannelStateHandle>> prioritizedInputChannelState;
@@ -70,7 +85,9 @@ public class PrioritizedOperatorSubtaskState {
     private final List<StateObjectCollection<ResultSubpartitionStateHandle>>
             prioritizedResultSubpartitionState;
 
-    /** Signal flag if this represents state for a restored operator. */
+    /** Signal flag if this represents state for a restored operator.
+     * 如果这表示已恢复操作员的状态，则发出信号标志。
+     * */
     private final boolean restored;
 
     PrioritizedOperatorSubtaskState(
@@ -190,6 +207,8 @@ public class PrioritizedOperatorSubtaskState {
      * Returns true if this was created for a restored operator, false otherwise. Restored operators
      * are operators that participated in a previous checkpoint, even if they did not emit any state
      * snapshots.
+     * 如果这是为恢复的运算符创建的，则返回 true，否则返回 false。
+     * 恢复的算子是参与了前一个检查点的算子，即使他们没有发出任何状态快照。
      */
     public boolean isRestored() {
         return restored;

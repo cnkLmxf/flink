@@ -52,6 +52,7 @@ public final class JobManagerRunnerResult {
 
     /**
      * This method returns the initialization failure.
+     * 该方法返回初始化失败。
      *
      * @return the initialization failure
      * @throws IllegalStateException if the result is not an initialization failure

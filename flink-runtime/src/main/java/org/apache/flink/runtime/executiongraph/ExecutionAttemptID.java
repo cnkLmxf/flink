@@ -26,12 +26,15 @@ import org.apache.flink.shaded.netty4.io.netty.buffer.ByteBuf;
 /**
  * Unique identifier for the attempt to execute a tasks. Multiple attempts happen in cases of
  * failures and recovery.
+ * 尝试执行任务的唯一标识符。 在失败和恢复的情况下会发生多次尝试。
  */
 public class ExecutionAttemptID implements java.io.Serializable {
 
     private static final long serialVersionUID = -1169683445778281344L;
     // Represent the number of bytes occupied when writes ExecutionAttemptID to the ByteBuf.
     // It is the sum of two long types(lowerPart and upperPart of the executionAttemptId).
+    // 表示将ExecutionAttemptID写入ByteBuf时占用的字节数。
+    // 它是两个长类型的总和（executionAttemptId 的lowerPart 和upperPart）。
     private static final int BYTEBUF_LEN = 16;
 
     private final AbstractID executionAttemptId;

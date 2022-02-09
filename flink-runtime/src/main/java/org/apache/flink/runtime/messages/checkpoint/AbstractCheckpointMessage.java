@@ -21,18 +21,26 @@ package org.apache.flink.runtime.messages.checkpoint;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.runtime.executiongraph.ExecutionAttemptID;
 
-/** The base class of all checkpoint messages. */
+/** The base class of all checkpoint messages.
+ * 所有检查点消息的基类。
+ * */
 public abstract class AbstractCheckpointMessage implements java.io.Serializable {
 
     private static final long serialVersionUID = 186780414819428178L;
 
-    /** The job to which this message belongs */
+    /** The job to which this message belongs
+     * 此消息所属的作业
+     * */
     private final JobID job;
 
-    /** The task execution that is source/target of the checkpoint message */
+    /** The task execution that is source/target of the checkpoint message
+     * 作为检查点消息的源/目标的任务执行
+     * */
     private final ExecutionAttemptID taskExecutionId;
 
-    /** The ID of the checkpoint that this message coordinates */
+    /** The ID of the checkpoint that this message coordinates
+     * 此消息协调的检查点的 ID
+     * */
     private final long checkpointId;
 
     protected AbstractCheckpointMessage(

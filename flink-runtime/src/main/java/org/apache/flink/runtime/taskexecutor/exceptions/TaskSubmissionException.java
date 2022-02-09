@@ -20,7 +20,9 @@ package org.apache.flink.runtime.taskexecutor.exceptions;
 
 import org.apache.flink.runtime.taskmanager.Task;
 
-/** Exception indicating a problem with the {@link Task} submission at the {@link TaskException}. */
+/** Exception indicating a problem with the {@link Task} submission at the {@link TaskException}.
+ * 表示 {@link TaskException} 处的 {@link Task} 提交存在问题的异常。
+ * */
 public class TaskSubmissionException extends TaskManagerException {
 
     private static final long serialVersionUID = 4589813591317690486L;

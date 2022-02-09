@@ -37,6 +37,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * BlockChannelReader}, making it effectively a data input stream. The view reads it data in blocks
  * from the underlying channel. The view can read data that has been written by a {@link
  * FileChannelOutputView}, or that was written in blocks in another fashion.
+ * 由 {@link BlockChannelReader} 支持的 {@link org.apache.flink.core.memory.DataInputView}，
+ * 使其成为有效的数据输入流。 视图从底层通道以块的形式读取它的数据。
+ * 视图可以读取由 {@link FileChannelOutputView} 写入的数据，或者以其他方式写入块中的数据。
  */
 public class SeekableFileChannelInputView extends AbstractPagedInputView {
 

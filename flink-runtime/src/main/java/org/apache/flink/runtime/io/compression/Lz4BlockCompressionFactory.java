@@ -18,12 +18,15 @@
 
 package org.apache.flink.runtime.io.compression;
 
-/** Implementation of {@link BlockCompressionFactory} for Lz4 codec. */
+/** Implementation of {@link BlockCompressionFactory} for Lz4 codec.
+ * 为 Lz4 编解码器实现 {@link BlockCompressionFactory}。
+ * */
 public class Lz4BlockCompressionFactory implements BlockCompressionFactory {
 
     /**
      * We put two integers before each compressed block, the first integer represents the compressed
      * length of the block, and the second one represents the original length of the block.
+     * 我们在每个压缩块前放了两个整数，第一个整数表示块的压缩长度，第二个表示块的原始长度。
      */
     public static final int HEADER_LENGTH = 8;
 

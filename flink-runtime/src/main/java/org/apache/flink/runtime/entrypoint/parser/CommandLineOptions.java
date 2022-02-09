@@ -20,7 +20,9 @@ package org.apache.flink.runtime.entrypoint.parser;
 
 import org.apache.commons.cli.Option;
 
-/** Container class for command line options. */
+/** Container class for command line options.
+ * 命令行选项的容器类。
+ * */
 public class CommandLineOptions {
 
     public static final Option CONFIG_DIR_OPTION =

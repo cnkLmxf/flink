@@ -34,6 +34,7 @@ import java.util.NoSuchElementException;
 /**
  * Implementation of an iterator that fetches a block of data into main memory and offers resettable
  * access to the data in that block.
+ * 一个迭代器的实现，它将一个数据块提取到主内存中，并提供对该块中数据的可重置访问。
  */
 public class NonReusingBlockResettableIterator<T> extends AbstractBlockResettableIterator<T>
         implements ResettableIterator<T> {
@@ -190,6 +191,8 @@ public class NonReusingBlockResettableIterator<T> extends AbstractBlockResettabl
      * Checks, whether the input that is blocked by this iterator, has further elements available.
      * This method may be used to forecast (for example at the point where a block is full) whether
      * there will be more data (possibly in another block).
+     * 检查被此迭代器阻塞的输入是否有更多可用元素。
+     * 此方法可用于预测（例如在一个块已满的点）是否会有更多数据（可能在另一个块中）。
      *
      * @return True, if there will be more data, false otherwise.
      */

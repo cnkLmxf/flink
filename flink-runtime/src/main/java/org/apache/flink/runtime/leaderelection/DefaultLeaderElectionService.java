@@ -37,6 +37,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Default implementation for leader election service. Composed with different {@link
  * LeaderElectionDriver}, we could perform a leader election for the contender, and then persist the
  * leader information to various storage.
+ * 领导选举服务的默认实现。 由不同的{@link LeaderElectionDriver}组成，
+ * 我们可以对竞争者进行leader选举，然后将leader信息持久化到各种存储中。
  */
 public class DefaultLeaderElectionService
         implements LeaderElectionService, LeaderElectionEventHandler {
@@ -47,7 +49,9 @@ public class DefaultLeaderElectionService
 
     private final LeaderElectionDriverFactory leaderElectionDriverFactory;
 
-    /** The leader contender which applies for leadership. */
+    /** The leader contender which applies for leadership.
+     * 申请领导的领导竞争者。
+     * */
     private volatile LeaderContender leaderContender;
 
     @GuardedBy("lock")
@@ -170,6 +174,7 @@ public class DefaultLeaderElectionService
 
     /**
      * Returns the current leader session ID or null, if the contender is not the leader.
+     * 如果竞争者不是领导者，则返回当前领导者会话 ID 或 null。
      *
      * @return The last leader session ID or null, if the contender is not the leader
      */

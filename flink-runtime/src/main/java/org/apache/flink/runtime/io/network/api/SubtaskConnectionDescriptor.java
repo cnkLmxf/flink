@@ -25,11 +25,15 @@ import java.util.Objects;
 
 /**
  * An event that is used to (de)multiplex old channels over the same new channel.
+ * 用于在同一新通道上（解）多路复用旧通道的事件。
  *
  * <p>During unaligned checkpoint recovery, if there is a rescaling, channels from the previous run
  * may not be available anymore for restoring the data. In that case, the data of several old
  * channels is sent over the same new channel through multiplexing. Each buffer is following this
  * {@code SubtaskConnectionDescriptor} such that the receiver can demultiplex them.
+ * 在未对齐检查点恢复期间，如果进行重新缩放，则上一次运行的通道可能不再可用于恢复数据。
+ * 在这种情况下，几个旧通道的数据通过多路复用在同一个新通道上发送。
+ * 每个缓冲区都遵循这个 {@code SubtaskConnectionDescriptor} 以便接收器可以解复用它们。
  */
 public final class SubtaskConnectionDescriptor extends RuntimeEvent {
 

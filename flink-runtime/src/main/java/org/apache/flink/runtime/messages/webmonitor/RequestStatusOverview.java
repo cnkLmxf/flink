@@ -22,6 +22,8 @@ package org.apache.flink.runtime.messages.webmonitor;
  * This message requests an overview of the status, such as how many TaskManagers are currently
  * connected, how many slots are available, how many are free, ... The response to this message is a
  * {@link ClusterOverview} message.
+ * 此消息请求状态概览，例如当前连接了多少个 TaskManager，有多少可用插槽，
+ * 有多少空闲，... 对此消息的响应是 {@link ClusterOverview} 消息。
  */
 public class RequestStatusOverview implements InfoMessage {
 
@@ -57,7 +59,9 @@ public class RequestStatusOverview implements InfoMessage {
     /** No external instantiation */
     private RequestStatusOverview() {}
 
-    /** Preserve the singleton property by returning the singleton instance */
+    /** Preserve the singleton property by returning the singleton instance
+     * 通过返回单例实例来保留单例属性
+     * */
     private Object readResolve() {
         return INSTANCE;
     }

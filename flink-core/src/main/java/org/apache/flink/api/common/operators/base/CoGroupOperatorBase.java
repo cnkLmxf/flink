@@ -54,10 +54,14 @@ import java.util.List;
 public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, IN2, OUT>>
         extends DualInputOperator<IN1, IN2, OUT, FT> {
 
-    /** The ordering for the order inside a group from input one. */
+    /** The ordering for the order inside a group from input one.
+     * 从输入一开始的组内订单的排序。
+     * */
     private Ordering groupOrder1;
 
-    /** The ordering for the order inside a group from input two. */
+    /** The ordering for the order inside a group from input two.
+     * 来自输入二的组内订单的排序。
+     * */
     private Ordering groupOrder2;
 
     private Partitioner<?> customPartitioner;
@@ -101,6 +105,7 @@ public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, 
 
     /**
      * Sets the order of the elements within a group for the given input.
+     * 为给定输入设置组内元素的顺序。
      *
      * @param inputNum The number of the input (here either <i>0</i> or <i>1</i>).
      * @param order The order for the elements in a group.
@@ -117,6 +122,7 @@ public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, 
 
     /**
      * Sets the order of the elements within a group for the first input.
+     * 为第一个输入设置组内元素的顺序。
      *
      * @param order The order for the elements in a group.
      */
@@ -126,6 +132,7 @@ public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, 
 
     /**
      * Sets the order of the elements within a group for the second input.
+     * 为第二个输入设置组内元素的顺序。
      *
      * @param order The order for the elements in a group.
      */
@@ -136,6 +143,7 @@ public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, 
     /**
      * Gets the value order for an input, i.e. the order of elements within a group. If no such
      * order has been set, this method returns null.
+     * 获取输入的值顺序，即组内元素的顺序。 如果未设置此类顺序，则此方法返回 null。
      *
      * @param inputNum The number of the input (here either <i>0</i> or <i>1</i>).
      * @return The group order.
@@ -153,6 +161,7 @@ public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, 
     /**
      * Gets the order of elements within a group for the first input. If no such order has been set,
      * this method returns null.
+     * 获取第一个输入的组内元素的顺序。 如果未设置此类顺序，则此方法返回 null。
      *
      * @return The group order for the first input.
      */
@@ -163,6 +172,7 @@ public class CoGroupOperatorBase<IN1, IN2, OUT, FT extends CoGroupFunction<IN1, 
     /**
      * Gets the order of elements within a group for the second input. If no such order has been
      * set, this method returns null.
+     * 获取第二个输入的组内元素的顺序。 如果未设置此类顺序，则此方法返回 null。
      *
      * @return The group order for the second input.
      */

@@ -52,26 +52,33 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * The class {@code LocalFileSystem} is an implementation of the {@link FileSystem} interface for
  * the local file system of the machine where the JVM runs.
+ * {@code LocalFileSystem} 类是运行 JVM 的机器的本地文件系统的 {@link FileSystem} 接口的实现。
  */
 @Internal
 public class LocalFileSystem extends FileSystem {
 
-    /** The URI representing the local file system. */
+    /** The URI representing the local file system.
+     * 表示本地文件系统的 URI。
+     * */
     private static final URI LOCAL_URI =
             OperatingSystem.isWindows() ? URI.create("file:/") : URI.create("file:///");
 
-    /** The shared instance of the local file system. */
+    /** The shared instance of the local file system.
+     * 本地文件系统的共享实例。
+     * */
     private static final LocalFileSystem INSTANCE = new LocalFileSystem();
 
     /**
      * Path pointing to the current working directory. Because Paths are not immutable, we cannot
      * cache the proper path here
+     * 指向当前工作目录的路径。 因为路径不是一成不变的，我们不能在这里缓存正确的路径
      */
     private final URI workingDir;
 
     /**
      * Path pointing to the current user home directory. Because Paths are not immutable, we cannot
      * cache the proper path here.
+     * 指向当前用户主目录的路径。 因为路径不是一成不变的，所以我们不能在这里缓存正确的路径。
      */
     private final URI homeDir;
 

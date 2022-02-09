@@ -31,21 +31,30 @@ import java.io.Serializable;
 /**
  * The JobCheckpointingSettings are attached to a JobGraph and describe the settings for the
  * asynchronous checkpoints of the JobGraph, such as interval.
+ * JobCheckpointingSettings 附加到 JobGraph 并描述 JobGraph 的异步检查点的设置，例如间隔。
  */
 public class JobCheckpointingSettings implements Serializable {
 
     private static final long serialVersionUID = -2593319571078198180L;
 
-    /** Contains configuration settings for the CheckpointCoordinator */
+    /** Contains configuration settings for the CheckpointCoordinator
+     * 包含 CheckpointCoordinator 的配置设置
+     * */
     private final CheckpointCoordinatorConfiguration checkpointCoordinatorConfiguration;
 
-    /** The default state backend, if configured by the user in the job */
+    /** The default state backend, if configured by the user in the job
+     * 默认状态后端，如果用户在作业中配置
+     * */
     @Nullable private final SerializedValue<StateBackend> defaultStateBackend;
 
-    /** The default checkpoint storage, if configured by the user in the job */
+    /** The default checkpoint storage, if configured by the user in the job
+     * 默认检查点存储，如果用户在作业中配置
+     * */
     @Nullable private final SerializedValue<CheckpointStorage> defaultCheckpointStorage;
 
-    /** (Factories for) hooks that are executed on the checkpoint coordinator */
+    /** (Factories for) hooks that are executed on the checkpoint coordinator
+     * 在检查点协调器上执行的（用于）钩子的（工厂）
+     * */
     @Nullable private final SerializedValue<MasterTriggerRestoreHook.Factory[]> masterHooks;
 
     public JobCheckpointingSettings(

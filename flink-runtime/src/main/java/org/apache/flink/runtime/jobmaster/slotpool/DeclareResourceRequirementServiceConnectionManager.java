@@ -26,8 +26,10 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * {@link ServiceConnectionManager} for declaring resource requirements.
+ * {@link ServiceConnectionManager} 用于声明资源需求。
  *
  * <p>In practice the backing service will be the ResourceManager.
+ * 在实践中，支持服务将是 ResourceManager。
  */
 public interface DeclareResourceRequirementServiceConnectionManager
         extends ServiceConnectionManager<
@@ -37,12 +39,15 @@ public interface DeclareResourceRequirementServiceConnectionManager
     /**
      * Declares the given resource requirements at the connected service. If no connection is
      * established, then this call will be ignored.
+     * 在连接的服务上声明给定的资源需求。 如果没有建立连接，则此调用将被忽略。
      *
      * @param resourceRequirements resourceRequirements to declare at the connected service
      */
     void declareResourceRequirements(ResourceRequirements resourceRequirements);
 
-    /** Service that accepts resource requirements. */
+    /** Service that accepts resource requirements.
+     * 接受资源要求的服务。
+     * */
     interface DeclareResourceRequirementsService {
         CompletableFuture<Acknowledge> declareResourceRequirements(
                 ResourceRequirements resourceRequirements);

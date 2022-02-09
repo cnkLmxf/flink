@@ -31,6 +31,7 @@ import java.util.stream.Stream;
 /**
  * Base partition tracker implementation, providing underlying data-structures for storing
  * partitions, their associated keys and meta-information.
+ * 基本分区跟踪器实现，提供用于存储分区、其关联键和元信息的底层数据结构。
  */
 public abstract class AbstractPartitionTracker<K, M> implements PartitionTracker<K, M> {
 

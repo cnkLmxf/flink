@@ -22,7 +22,9 @@ import org.apache.flink.runtime.taskexecutor.TaskExecutorGateway;
 
 import java.util.Optional;
 
-/** Factory for {@link JobMasterPartitionTracker}. */
+/** Factory for {@link JobMasterPartitionTracker}.
+ * {@link JobMasterPartitionTracker} 的工厂。
+ * */
 @FunctionalInterface
 public interface PartitionTrackerFactory {
 
@@ -40,6 +42,7 @@ public interface PartitionTrackerFactory {
 
         /**
          * Returns a {@link TaskExecutorGateway} corresponding to the given ResourceID.
+         * 返回与给定 ResourceID 对应的 {@link TaskExecutorGateway}。
          *
          * @param taskExecutorId id of the task executor to look up.
          * @return optional task executor gateway

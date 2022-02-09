@@ -29,6 +29,7 @@ import java.util.Collections;
 /**
  * {@code ExecutionGraphInfo} serves as a composite class that provides different {@link
  * ExecutionGraph}-related information.
+ * {@code ExecutionGraphInfo} 用作提供不同 {@link ExecutionGraph} 相关信息的复合类。
  */
 public class ExecutionGraphInfo implements Serializable {
 

@@ -27,6 +27,8 @@ import java.io.IOException;
 /**
  * Wrapper class for a {@link SharedValue} so that we don't expose a curator dependency in our
  * internal APIs. Such an exposure is problematic due to the relocation of curator.
+ * {@link SharedValue} 的包装类，这样我们就不会在内部 API 中暴露 curator 依赖项。
+ * 由于策展人的搬迁，这种曝光是有问题的。
  */
 public class ZooKeeperSharedValue {
 

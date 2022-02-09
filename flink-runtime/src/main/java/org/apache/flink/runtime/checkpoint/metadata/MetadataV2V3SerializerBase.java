@@ -62,11 +62,14 @@ import java.util.UUID;
 
 /**
  * Base (De)serializer for checkpoint metadata format version 2 and 3.
+ * 检查点元数据格式版本 2 和 3 的基本（反）序列化程序。
  *
  * <p>The difference between versions 2 and 3 is minor. Version 3 includes operator coordinator
  * state for each operator, and drops some minor unused fields.
+ * 版本 2 和 3 之间的差异很小。 版本 3 包括每个操作员的操作员协调器状态，并删除了一些较小的未使用字段。
  *
  * <p>Basic checkpoint metadata layout:
+ * 基本检查点元数据布局：
  *
  * <pre>
  *  +--------------+---------------+-----------------+
@@ -638,17 +641,25 @@ public abstract class MetadataV2V3SerializerBase {
      * the methods. In some sense, this replaces the member fields of the class, because the
      * serializer is supposed to be "singleton stateless", and because there are multiple instances
      * involved (metadata serializer, channel state serializer).
+     * 保存序列化过程中所需信息的上下文。 该上下文由方法传递。
+     * 从某种意义上说，这取代了类的成员字段，因为序列化器应该是“单例无状态的”，并且因为涉及到多个实例（元数据序列化器、通道状态序列化器）。
      *
      * <p>The alternative to passing this context along would be to change the serializers to work
      * as actual instances so that they can keep the state. We might still want to do that, but at
      * the time of implementing this, it seems the less invasive change to use this context, and it
      * also works with static methods and with different serializers instances that do not know of
      * each other.
+     * 传递此上下文的替代方法是将序列化程序更改为实际实例，以便它们可以保持状态。
+     * 我们可能仍然想这样做，但是在实现它时，使用这个上下文似乎是侵入性较小的变化，
+     * 它也适用于静态方法和彼此不知道的不同序列化程序实例。
      *
      * <p>This context is currently hardwired to the FileSystem-based State Backends. At the moment,
      * this works because those are the only ones producing relative file paths handles, which are
      * in turn the only ones needing this context. In the future, we should refactor this, though,
      * and make the DeserializationContext a property of the used checkpoint storage. That makes
+     * 此上下文当前硬连线到基于文件系统的状态后端。
+     * 目前，这是有效的，因为它们是唯一产生相对文件路径句柄的句柄，而这些句柄又是唯一需要此上下文的句柄。
+     * 不过，将来我们应该重构它，并使 DeserializationContext 成为使用的检查点存储的属性。 这使得
      */
     protected static final class DeserializationContext {
 

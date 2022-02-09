@@ -24,12 +24,16 @@ import java.io.IOException;
 
 /**
  * A container overlay to produce a container specification.
+ * 用于生成容器规范的容器覆盖。
  *
  * <p>An overlay applies configuration elements, environment variables, system properties, and
  * artifacts to a container specification.
+ * 覆盖将配置元素、环境变量、系统属性和工件应用于容器规范。
  */
 public interface ContainerOverlay {
 
-    /** Configure the given container specification. */
+    /** Configure the given container specification.
+     * 配置给定的容器规范。
+     * */
     void configure(ContainerSpecification containerSpecification) throws IOException;
 }

@@ -54,16 +54,22 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * HTTP handlers for asynchronous triggering of savepoints.
+ * 用于异步触发保存点的 HTTP 处理程序。
  *
  * <p>Drawing savepoints is a potentially long-running operation. To avoid blocking HTTP
  * connections, savepoints must be drawn in two steps. First, an HTTP request is issued to trigger
  * the savepoint asynchronously. The request will be assigned a {@link TriggerId}, which is returned
  * in the response body. Next, the returned id should be used to poll the status of the savepoint
  * until it is finished.
+ * 绘制保存点是一项可能需要长时间运行的操作。 为避免阻塞 HTTP 连接，必须分两步绘制保存点。
+ * 首先，发出一个 HTTP 请求以异步触发保存点。 该请求将被分配一个 {@link TriggerId}，它在响应正文中返回。
+ * 接下来，应该使用返回的 id 来轮询保存点的状态，直到完成。
  *
  * <p>A savepoint is triggered by sending an HTTP {@code POST} request to {@code
  * /jobs/:jobid/savepoints}. The HTTP request may contain a JSON body to specify the target
  * directory of the savepoint, e.g.,
+ * 通过向 {@code /jobs/:jobid/savepoints} 发送 HTTP {@code POST} 请求来触发保存点。
+ * HTTP 请求可能包含一个 JSON 正文来指定保存点的目标目录，例如，
  *
  * <pre>
  * { "target-directory": "/tmp" }
@@ -72,6 +78,9 @@ import java.util.concurrent.CompletableFuture;
  * <p>If the body is omitted, or the field {@code target-property} is {@code null}, the default
  * savepoint directory as specified by {@link CheckpointingOptions#SAVEPOINT_DIRECTORY} will be
  * used. As written above, the response will contain a request id, e.g.,
+ * 如果正文被省略，或者 {@code target-property} 字段为 {@code null}，
+ * 则将使用 {@link CheckpointingOptions#SAVEPOINT_DIRECTORY} 指定的默认保存点目录。
+ * 如上所述，响应将包含一个请求 id，例如，
  *
  * <pre>
  * { "request-id": "7d273f5a62eb4730b9dea8e833733c1e" }
@@ -80,6 +89,9 @@ import java.util.concurrent.CompletableFuture;
  * <p>To poll for the status of an ongoing savepoint, an HTTP {@code GET} request is issued to
  * {@code /jobs/:jobid/savepoints/:savepointtriggerid}. If the specified savepoint is still ongoing,
  * the response will be
+ * 为了轮询正在进行的保存点的状态，
+ * 向 {@code /jobs/:jobid/savepoints/:savepointtriggerid} 发出 HTTP {@code GET} 请求。
+ * 如果指定的保存点仍在进行中，则响应将是
  *
  * <pre>
  * {
@@ -91,6 +103,7 @@ import java.util.concurrent.CompletableFuture;
  *
  * <p>If the specified savepoint has completed, the status id will transition to {@code COMPLETED},
  * and the response will additionally contain information about the savepoint, such as the location:
+ * 如果指定的保存点已完成，状态 id 将转换为 {@code COMPLETED}，并且响应将另外包含有关保存点的信息，例如位置：
  *
  * <pre>
  * {
@@ -132,7 +145,9 @@ public class SavepointHandlers
         }
     }
 
-    /** HTTP handler to stop a job with a savepoint. */
+    /** HTTP handler to stop a job with a savepoint.
+     * HTTP 处理程序使用保存点停止作业。
+     * */
     public class StopWithSavepointHandler
             extends SavepointHandlerBase<StopWithSavepointRequestBody> {
 
@@ -215,7 +230,9 @@ public class SavepointHandlers
         }
     }
 
-    /** HTTP handler to query for the status of the savepoint. */
+    /** HTTP handler to query for the status of the savepoint.
+     * 用于查询保存点状态的 HTTP 处理程序。
+     * */
     public class SavepointStatusHandler
             extends StatusHandler<RestfulGateway, SavepointInfo, SavepointStatusMessageParameters> {
 

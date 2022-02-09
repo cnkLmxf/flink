@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Public;
 /**
  * A {@link TimestampAssigner} that forwards the already-assigned timestamp. This is for use when
  * records come out of a source with valid timestamps, for example from the Kafka Metadata.
+ * 转发已分配时间戳的 {@link TimestampAssigner}。 当记录来自具有有效时间戳的source时使用，例如来自 Kafka 元数据。
  */
 @Public
 public final class RecordTimestampAssigner<E> implements TimestampAssigner<E> {

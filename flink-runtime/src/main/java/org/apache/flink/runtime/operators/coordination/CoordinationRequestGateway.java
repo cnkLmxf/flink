@@ -25,11 +25,14 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Client interface which sends out a {@link CoordinationRequest} and expects for a {@link
  * CoordinationResponse} from a {@link OperatorCoordinator}.
+ * 发送 {@link CoordinationRequest} 并期望来自 {@link OperatorCoordinator} 的
+ * {@link CoordinationResponse} 的客户端接口。
  */
 public interface CoordinationRequestGateway {
 
     /**
      * Send out a request to a specified coordinator and return the response.
+     * 向指定的协调器发送请求并返回响应。
      *
      * @param operatorId specifies which coordinator to receive the request
      * @param request the request to send

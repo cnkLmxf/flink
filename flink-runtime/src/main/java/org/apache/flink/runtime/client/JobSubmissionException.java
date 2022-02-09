@@ -20,7 +20,9 @@ package org.apache.flink.runtime.client;
 
 import org.apache.flink.api.common.JobID;
 
-/** This exception denotes an error while submitting a job to the JobManager. */
+/** This exception denotes an error while submitting a job to the JobManager.
+ * 此异常表示向 JobManager 提交作业时出错。
+ * */
 public class JobSubmissionException extends JobExecutionException {
 
     private static final long serialVersionUID = 2818087325120827526L;

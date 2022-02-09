@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 /**
  * KvState related components of each {@link TaskExecutor} instance. This service can create the
  * kvState registration for a single task.
+ * 每个 {@link TaskExecutor} 实例的 KvState 相关组件。 该服务可以为单个任务创建 kvState 注册。
  */
 public class KvStateService {
     private static final Logger LOG = LoggerFactory.getLogger(KvStateService.class);

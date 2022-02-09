@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Internal;
 /**
  * This interface provides a way for {@link TypeSerializer}s to transform a legacy {@link
  * TypeSerializerSnapshot} used in versions before Flink 1.7 during deserialization.
+ * 该接口为 {@link TypeSerializer} 在反序列化期间转换 Flink 1.7 之前的版本中使用的遗留 {@link TypeSerializerSnapshot} 提供了一种方法。
  */
 @Internal
 public interface LegacySerializerSnapshotTransformer<T> {

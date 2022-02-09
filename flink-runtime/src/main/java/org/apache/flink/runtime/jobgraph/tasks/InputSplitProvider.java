@@ -24,12 +24,14 @@ import org.apache.flink.core.io.InputSplit;
 /**
  * An input split provider can be successively queried to provide a series of {@link InputSplit}
  * objects a task is supposed to consume in the course of its execution.
+ * 可以连续查询输入拆分提供程序以提供任务在执行过程中应该使用的一系列 {@link InputSplit} 对象。
  */
 @Public
 public interface InputSplitProvider {
 
     /**
      * Requests the next input split to be consumed by the calling task.
+     * 请求调用任务使用下一个输入拆分。
      *
      * @param userCodeClassLoader used to deserialize input splits
      * @return the next input split to be consumed by the calling task or <code>null</code> if the

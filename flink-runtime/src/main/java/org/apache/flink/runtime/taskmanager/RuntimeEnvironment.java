@@ -50,7 +50,9 @@ import java.util.concurrent.Future;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** In implementation of the {@link Environment}. */
+/** In implementation of the {@link Environment}.
+ * 在 {@link Environment} 的实现中。
+ * */
 public class RuntimeEnvironment implements Environment {
 
     private final JobID jobId;

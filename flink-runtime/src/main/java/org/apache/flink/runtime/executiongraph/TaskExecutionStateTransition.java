@@ -24,7 +24,9 @@ import org.apache.flink.runtime.taskmanager.TaskExecutionState;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Wraps {@link TaskExecutionState}, along with actions to take if it is FAILED state. */
+/** Wraps {@link TaskExecutionState}, along with actions to take if it is FAILED state.
+ * 包装 {@link TaskExecutionState}，以及在 FAILED 状态下要采取的操作。
+ * */
 public class TaskExecutionStateTransition {
 
     private final TaskExecutionState taskExecutionState;
@@ -32,6 +34,8 @@ public class TaskExecutionStateTransition {
     /**
      * Indicating whether to send a RPC call to remove task from TaskManager. True if the failure is
      * fired by JobManager and the execution is already deployed. Otherwise it should be false.
+     * 指示是否发送 RPC 调用以从 TaskManager 中删除任务。
+     * 如果 JobManager 触发了失败并且已经部署了执行，则为 True。 否则应该是假的。
      */
     private final boolean cancelTask;
 

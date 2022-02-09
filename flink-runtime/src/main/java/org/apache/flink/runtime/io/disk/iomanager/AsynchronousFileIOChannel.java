@@ -36,9 +36,12 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A base class for readers and writers that accept read or write requests for whole blocks. The
  * request is delegated to an asynchronous I/O thread. After completion of the I/O request, the
  * memory segment of the block is added to a collection to be returned.
+ * 接受整个块的读取或写入请求的读取器和写入器的基类。 该请求被委托给异步 I/O 线程。
+ * 完成 I/O 请求后，将块的内存段添加到要返回的集合中。
  *
  * <p>The asynchrony of the access makes it possible to implement read-ahead or write-behind types
  * of I/O accesses.
+ * 访问的异步性使得实现预读或后写类型的 I/O 访问成为可能。
  *
  * @param <R> The type of request (e.g. <tt>ReadRequest</tt> or <tt>WriteRequest</tt> issued by this
  *     access to the I/O threads.
@@ -51,24 +54,32 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
     /**
      * The lock that is used during closing to synchronize the thread that waits for all requests to
      * be handled with the asynchronous I/O thread.
+     * 关闭期间使用的锁，用于将等待所有请求处理的线程与异步 I/O 线程同步。
      */
     protected final Object closeLock = new Object();
 
     /**
      * A request queue for submitting asynchronous requests to the corresponding IO worker thread.
+     * 一个请求队列，用于向对应的 IO 工作线程提交异步请求。
      */
     protected final RequestQueue<R> requestQueue;
 
-    /** An atomic integer that counts the number of requests that we still wait for to return. */
+    /** An atomic integer that counts the number of requests that we still wait for to return.
+     * 一个原子整数，用于计算我们仍在等待返回的请求数。
+     * */
     protected final AtomicInteger requestsNotReturned = new AtomicInteger(0);
 
     /** Handler for completed requests */
     protected final RequestDoneCallback<T> resultHandler;
 
-    /** An exception that was encountered by the asynchronous request handling thread. */
+    /** An exception that was encountered by the asynchronous request handling thread.
+     * 异步请求处理线程遇到的异常。
+     * */
     protected volatile IOException exception;
 
-    /** Flag marking this channel as closed */
+    /** Flag marking this channel as closed
+     * 标记将此频道标记为已关闭
+     * */
     protected volatile boolean closed;
 
     private NotificationListener allRequestsProcessedListener;
@@ -79,6 +90,8 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
      * Creates a new channel access to the path indicated by the given ID. The channel accepts
      * buffers to be read/written and hands them to the asynchronous I/O thread. After being
      * processed, the buffers are returned by adding the to the given queue.
+     * 创建对给定 ID 指示的路径的新通道访问。 通道接受要读取/写入的缓冲区并将它们交给异步 I/O 线程。
+     * 处理后，缓冲区通过添加到给定队列返回。
      *
      * @param channelID The id describing the path of the file that the channel accessed.
      * @param requestQueue The queue that this channel hands its IO requests to.
@@ -109,9 +122,12 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
     /**
      * Closes the channel and waits until all pending asynchronous requests are processed. The
      * underlying <code>FileChannel</code> is closed even if an exception interrupts the closing.
+     * 关闭通道并等待直到处理完所有挂起的异步请求。 即使异常中断了关闭，底层 <code>FileChannel</code> 也会关闭。
      *
      * <p><strong>Important:</strong> the {@link #isClosed()} method returns <code>true</code>
      * immediately after this method has been called even when there are outstanding requests.
+     * <strong>重要提示：</strong> {@link #isClosed()} 方法在调用此方法后立即返回 <code>true</code>，
+     * 即使有未完成的请求也是如此。
      *
      * @throws IOException Thrown, if an I/O exception occurred while waiting for the buffers, or if
      *     the closing was interrupted.
@@ -155,9 +171,11 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
     /**
      * This method waits for all pending asynchronous requests to return. When the last request has
      * returned, the channel is closed and deleted.
+     * 此方法等待所有挂起的异步请求返回。 当最后一个请求返回时，通道将关闭并删除。
      *
      * <p>Even if an exception interrupts the closing, such that not all request are handled, the
      * underlying <tt>FileChannel</tt> is closed and deleted.
+     * 即使异常中断了关闭，使得并非所有请求都被处理，底层的 <tt>FileChannel</tt> 也会被关闭并删除。
      *
      * @throws IOException Thrown, if an I/O exception occurred while waiting for the buffers, or if
      *     the closing was interrupted.
@@ -174,6 +192,7 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
     /**
      * Checks the exception state of this channel. The channel is erroneous, if one of its requests
      * could not be processed correctly.
+     * 检查此通道的异常状态。 如果无法正确处理其请求之一，则该通道是错误的。
      *
      * @throws IOException Thrown, if the channel is erroneous. The thrown exception contains the
      *     original exception that defined the erroneous state as its cause.
@@ -188,6 +207,8 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
      * Handles a processed <tt>Buffer</tt>. This method is invoked by the asynchronous IO worker
      * threads upon completion of the IO request with the provided buffer and/or an exception that
      * occurred while processing the request for that buffer.
+     * 处理一个已处理的 <tt>Buffer</tt>。 在使用提供的缓冲区完成 IO 请求和/或在处理对该缓冲区的请求时发生异常时，
+     * 异步 IO 工作线程调用此方法。
      *
      * @param buffer The buffer to be processed.
      * @param ex The exception that occurred in the I/O threads when processing the buffer's
@@ -261,13 +282,16 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
 
     /**
      * Registers a listener to be notified when all outstanding requests have been processed.
+     * 注册一个侦听器，以便在处理完所有未完成的请求时收到通知。
      *
      * <p>New requests can arrive right after the listener got notified. Therefore, it is not safe
      * to assume that the number of outstanding requests is still zero after a notification unless
      * there was a close right before the listener got called.
+     * 新请求可以在侦听器收到通知后立即到达。 因此，假设在通知之后未完成的请求数仍然为零是不安全的，除非在调用侦听器之前有关闭。
      *
      * <p>Returns <code>true</code>, if the registration was successful. A registration can fail, if
      * there are no outstanding requests when trying to register a listener.
+     * 如果注册成功，则返回 <code>true</code>。 如果在尝试注册侦听器时没有未完成的请求，则注册可能会失败。
      */
     protected boolean registerAllRequestsProcessedListener(NotificationListener listener)
             throws IOException {
@@ -292,7 +316,9 @@ public abstract class AsynchronousFileIOChannel<T, R extends IORequest>
 
 // --------------------------------------------------------------------------------------------
 
-/** Read request that reads an entire memory segment from a block reader. */
+/** Read request that reads an entire memory segment from a block reader.
+ * 从块读取器读取整个内存段的读取请求。
+ * */
 final class SegmentReadRequest implements ReadRequest {
 
     private final AsynchronousFileIOChannel<MemorySegment, ReadRequest> channel;
@@ -330,7 +356,9 @@ final class SegmentReadRequest implements ReadRequest {
 
 // --------------------------------------------------------------------------------------------
 
-/** Write request that writes an entire memory segment to the block writer. */
+/** Write request that writes an entire memory segment to the block writer.
+ * 将整个内存段写入块写入器的写入请求。
+ * */
 final class SegmentWriteRequest implements WriteRequest {
 
     private final AsynchronousFileIOChannel<MemorySegment, WriteRequest> channel;
@@ -478,7 +506,9 @@ final class FileSegmentReadRequest implements ReadRequest {
     }
 }
 
-/** Request that seeks the underlying file channel to the given position. */
+/** Request that seeks the underlying file channel to the given position.
+ * 寻找给定位置的基础文件通道的请求。
+ * */
 final class SeekRequest implements ReadRequest, WriteRequest {
 
     private final AsynchronousFileIOChannel<?, ?> channel;

@@ -33,6 +33,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A checkpoint storage location for the {@link MemoryStateBackend} when it durably persists the
  * metadata in a file system.
+ * {@link MemoryStateBackend} 将元数据持久保存在文件系统中时的检查点存储位置。
  */
 public class PersistentMetadataCheckpointStorageLocation extends MemCheckpointStreamFactory
         implements CheckpointStorageLocation {

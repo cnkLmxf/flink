@@ -37,9 +37,11 @@ import org.slf4j.LoggerFactory;
 /**
  * Cross task which is executed by a Task Manager. The task has two inputs and one or multiple
  * outputs. It is provided with a CrossFunction implementation.
+ * 由任务管理器执行的交叉任务。 该任务有两个输入和一个或多个输出。 它提供了一个 CrossFunction 实现。
  *
  * <p>The CrossTask builds the Cartesian product of the pairs of its two inputs. Each element (pair
  * of pairs) is handed to the <code>cross()</code> method of the CrossFunction.
+ * CrossTask 构建其两个输入对的笛卡尔积。 每个元素（一对对）都交给 CrossFunction 的 <code>cross()</code> 方法。
  *
  * @see org.apache.flink.api.common.functions.CrossFunction
  */

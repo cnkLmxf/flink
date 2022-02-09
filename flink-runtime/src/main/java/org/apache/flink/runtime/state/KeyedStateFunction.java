@@ -22,6 +22,7 @@ import org.apache.flink.api.common.state.State;
 
 /**
  * A function to be applied to all keyed states.
+ * 应用于所有键控状态的函数。
  *
  * @param <K> The type of key.
  * @param <S> The type of state.

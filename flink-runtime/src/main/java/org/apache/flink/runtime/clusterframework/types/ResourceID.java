@@ -24,7 +24,9 @@ import org.apache.flink.util.StringUtils;
 
 import java.io.Serializable;
 
-/** Class for Resource Ids identifying Flink's distributed components. */
+/** Class for Resource Ids identifying Flink's distributed components.
+ * 标识 Flink 分布式组件的资源 ID 类。
+ * */
 public final class ResourceID implements ResourceIDRetrievable, Serializable {
 
     private static final long serialVersionUID = 42L;
@@ -46,6 +48,7 @@ public final class ResourceID implements ResourceIDRetrievable, Serializable {
 
     /**
      * Gets the Resource Id as string.
+     * 以字符串形式获取资源 ID。
      *
      * @return Stringified version of the ResourceID
      */
@@ -82,6 +85,7 @@ public final class ResourceID implements ResourceIDRetrievable, Serializable {
 
     /**
      * A ResourceID can always retrieve a ResourceID.
+     * ResourceID 始终可以检索 ResourceID。
      *
      * @return This instance.
      */

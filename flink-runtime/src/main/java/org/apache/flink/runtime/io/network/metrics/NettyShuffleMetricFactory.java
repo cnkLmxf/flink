@@ -29,7 +29,9 @@ import java.util.Arrays;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Factory for netty shuffle service metrics. */
+/** Factory for netty shuffle service metrics.
+ * netty shuffle 服务指标的工厂。
+ * */
 public class NettyShuffleMetricFactory {
 
     // deprecated metric groups

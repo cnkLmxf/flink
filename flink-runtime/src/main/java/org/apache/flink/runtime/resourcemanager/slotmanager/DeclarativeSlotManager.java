@@ -59,7 +59,9 @@ import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-/** Implementation of {@link SlotManager} supporting declarative slot management. */
+/** Implementation of {@link SlotManager} supporting declarative slot management.
+ * 支持声明式插槽管理的 {@link SlotManager} 的实现。
+ * */
 public class DeclarativeSlotManager implements SlotManager {
     private static final Logger LOG = LoggerFactory.getLogger(DeclarativeSlotManager.class);
 
@@ -84,7 +86,9 @@ public class DeclarativeSlotManager implements SlotManager {
     /** ResourceManager's id. */
     @Nullable private ResourceManagerId resourceManagerId;
 
-    /** Executor for future callbacks which have to be "synchronized". */
+    /** Executor for future callbacks which have to be "synchronized".
+     * 必须“同步”的未来回调的执行者。
+     * */
     @Nullable private Executor mainThreadExecutor;
 
     /** Callbacks for resource (de-)allocations. */
@@ -172,6 +176,7 @@ public class DeclarativeSlotManager implements SlotManager {
 
     /**
      * Starts the slot manager with the given leader id and resource manager actions.
+     * 使用给定的领导者 ID 和资源管理器操作启动槽管理器。
      *
      * @param newResourceManagerId to use for communication with the task managers
      * @param newMainThreadExecutor to use to run code in the ResourceManager's main thread
@@ -202,7 +207,9 @@ public class DeclarativeSlotManager implements SlotManager {
                 MetricNames.TASK_SLOTS_TOTAL, () -> (long) getNumberRegisteredSlots());
     }
 
-    /** Suspends the component. This clears the internal state of the slot manager. */
+    /** Suspends the component. This clears the internal state of the slot manager.
+     * 挂起组件。 这将清除槽管理器的内部状态。
+     * */
     @Override
     public void suspend() {
         if (!started) {
@@ -290,6 +297,7 @@ public class DeclarativeSlotManager implements SlotManager {
     /**
      * Registers a new task manager at the slot manager. This will make the task managers slots
      * known and, thus, available for allocation.
+     * 在槽管理器中注册一个新的任务管理器。 这将使任务管理器插槽已知，因此可用于分配。
      *
      * @param taskExecutorConnection for the new task manager
      * @param initialSlotReport for the new task manager
@@ -366,6 +374,7 @@ public class DeclarativeSlotManager implements SlotManager {
 
     /**
      * Reports the current slot allocations for a task manager identified by the given instance id.
+     * 报告给定实例 id 标识的任务管理器的当前槽分配。
      *
      * @param instanceId identifying the task manager for which to report the slot status
      * @param slotReport containing the status for all of its slots
@@ -394,6 +403,7 @@ public class DeclarativeSlotManager implements SlotManager {
     /**
      * Free the given slot from the given allocation. If the slot is still allocated by the given
      * allocation id, then the slot will be marked as free and will be subject to new slot requests.
+     * 从给定的分配中释放给定的插槽。 如果插槽仍然由给定的分配 id 分配，则该插槽将被标记为空闲，并将接受新的插槽请求。
      *
      * @param slotId identifying the slot to free
      * @param allocationId with which the slot is presumably allocated
@@ -417,6 +427,9 @@ public class DeclarativeSlotManager implements SlotManager {
      * unfulfilled requirements are matched against pending slots, allocating more workers if no
      * matching pending slot could be found. If the requirements for a job could not be fulfilled
      * then a notification is sent to the job master informing it as such.
+     * 将资源需求与可用资源相匹配。 在第一轮中，要求与空闲槽匹配，任何匹配都会导致槽分配。
+     * 剩余未满足的要求与待处理槽匹配，如果找不到匹配的待处理槽，则分配更多工作人员。
+     * 如果无法满足作业的要求，则会向作业主管发送通知，通知它。
      *
      * <p>Performance notes: At it's core this method loops, for each job, over all free/pending
      * slots for each required slot, trying to find a matching slot. One should generally go in with
@@ -425,17 +438,26 @@ public class DeclarativeSlotManager implements SlotManager {
      * matches between requirements and pending slots are not persisted and recomputed on each call.
      * This may required further refinements in the future; e.g., persisting the matches between
      * requirements and pending slots, or not matching against pending slots at all.
+     * 性能说明：该方法的核心是针对每个作业循环遍历每个所需插槽的所有空闲/待处理插槽，以尝试找到匹配的插槽。
+     * 通常应该假设这在 numberOfJobsRequiringResources * numberOfRequiredSlots * numberOfFreeOrPendingSlots 中运行。
+     * 这在处理挂起的槽时尤其重要，因为需求和挂起的槽之间的匹配不会在每次调用时被持久化和重新计算。
+     * 这可能需要在未来进一步完善； 例如，保持需求和待处理槽之间的匹配，或者根本不匹配待处理槽。
      *
      * <p>When dealing with unspecific resource profiles (i.e., {@link ResourceProfile#ANY}/{@link
      * ResourceProfile#UNKNOWN}), then the number of free/pending slots is not relevant because we
      * only need exactly 1 comparison to determine whether a slot can be fulfilled or not, since
      * they are all the same anyway.
+     * 在处理不特定的资源配置文件（即{@link ResourceProfile#ANY}/{@link ResourceProfile#UNKNOWN}）时，
+     * 空闲/待处理槽的数量是不相关的，因为我们只需要恰好1个比较来确定槽是否可以 是否满足，因为无论如何它们都是一样的。
      *
      * <p>When dealing with specific resource profiles things can be a lot worse, with the classical
      * cases where either no matches are found, or only at the very end of the iteration. In the
      * absolute worst case, with J jobs, requiring R slots each with a unique resource profile such
      * each pair of these profiles is not matching, and S free/pending slots that don't fulfill any
      * requirement, then this method does a total of J*R*S resource profile comparisons.
+     * 在处理特定资源配置文件时，情况可能会更糟，在经典情况下，要么找不到匹配项，要么只在迭代结束时找到匹配项。
+     * 在绝对最坏的情况下，对于 J 个作业，需要每个具有唯一资源配置文件的 R 个插槽，这样每对这些配置文件都不匹配，
+     * 并且 S 个空闲/待定插槽不满足任何要求，那么此方法总共执行 J*R*S 资源配置文件比较。
      */
     private void checkResourceRequirements() {
         final Map<JobID, Collection<ResourceRequirement>> missingResources =
@@ -497,6 +519,7 @@ public class DeclarativeSlotManager implements SlotManager {
     /**
      * Tries to allocate slots for the given requirement. If there are not enough slots available,
      * the resource manager is informed to allocate more resources.
+     * 尝试为给定的需求分配插槽。 如果没有足够的可用槽位，则通知资源管理器分配更多资源。
      *
      * @param jobId job to allocate slots for
      * @param targetAddress address of the jobmaster
@@ -531,6 +554,7 @@ public class DeclarativeSlotManager implements SlotManager {
     /**
      * Allocates the given slot. This entails sending a registration message to the task manager and
      * treating failures.
+     * 分配给定的插槽。 这需要向任务管理器发送注册消息并处理失败。
      *
      * @param taskManagerSlot slot to allocate
      * @param jobId job for which the slot should be allocated for

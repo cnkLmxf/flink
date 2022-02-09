@@ -36,6 +36,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 /**
  * Adapter from {@link Future} to {@link ScheduledFuture}. This enriches the basic future with
  * scheduling information.
+ * 从 {@link Future} 到 {@link ScheduledFuture} 的适配器。 这通过调度信息丰富了基本的future。
  *
  * @param <V> value type of the future.
  */
@@ -44,13 +45,19 @@ public class ScheduledFutureAdapter<V> implements ScheduledFuture<V> {
     /** The uid sequence generator. */
     private static final AtomicLong SEQUENCE_GEN = new AtomicLong();
 
-    /** The encapsulated basic future to which execution is delegated. */
+    /** The encapsulated basic future to which execution is delegated.
+     * 委托执行的封装的基本future。
+     * */
     @Nonnull private final Future<V> delegate;
 
-    /** Tie-breaker for {@link #compareTo(Delayed)}. */
+    /** Tie-breaker for {@link #compareTo(Delayed)}.
+     * {@link #compareTo(Delayed)} 的决胜局。
+     * */
     private final long tieBreakerUid;
 
-    /** The time when this is scheduled for execution in nanoseconds. */
+    /** The time when this is scheduled for execution in nanoseconds.
+     * 计划执行的时间（以纳秒为单位）。
+     * */
     private final long scheduleTimeNanos;
 
     public ScheduledFutureAdapter(

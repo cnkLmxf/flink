@@ -68,6 +68,7 @@ import java.util.stream.Stream;
 /**
  * A {@link AbstractKeyedStateBackend} that keeps state on the Java Heap and will serialize state to
  * streams provided by a {@link CheckpointStreamFactory} upon checkpointing.
+ * 一个 {@link AbstractKeyedStateBackend} 在 Java Heap 上保持状态，并在检查点时将状态序列化为由 {@link CheckpointStreamFactory} 提供的流。
  *
  * @param <K> The key by which state is keyed.
  */

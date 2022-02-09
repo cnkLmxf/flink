@@ -21,6 +21,7 @@ package org.apache.flink.runtime.io.network;
 /**
  * A connection manager implementation to bypass setup overhead for task managers running in local
  * execution mode.
+ * 一种连接管理器实现，用于绕过在本地执行模式下运行的任务管理器的设置开销。
  */
 public class LocalConnectionManager implements ConnectionManager {
 

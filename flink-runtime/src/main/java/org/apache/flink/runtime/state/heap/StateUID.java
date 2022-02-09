@@ -24,7 +24,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Objects;
 
-/** Unique identifier for registered state in this backend. */
+/** Unique identifier for registered state in this backend.
+ * 此后端中注册状态的唯一标识符
+ * */
 final class StateUID {
 
     @Nonnull private final String stateName;

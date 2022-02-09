@@ -32,7 +32,9 @@ import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.function.Consumer;
 
-/** Gives the URLClassLoader a nicer name for debugging purposes. */
+/** Gives the URLClassLoader a nicer name for debugging purposes.
+ * 为 URLClassLoader 提供一个更好的名称以进行调试。
+ * */
 public class FlinkUserCodeClassLoaders {
 
     private FlinkUserCodeClassLoaders() {}
@@ -125,10 +127,13 @@ public class FlinkUserCodeClassLoaders {
     /**
      * Ensures that holding a reference on the context class loader outliving the scope of user code
      * does not prevent the user classloader to be garbage collected (FLINK-16245).
+     * 确保在超出用户代码范围的上下文类加载器上持有引用不会阻止用户类加载器被垃圾收集 (FLINK-16245)。
      *
      * <p>This classloader delegates to the actual user classloader. Upon {@link #close()}, the
      * delegate is nulled and can be garbage collected. Additional class resolution will be resolved
      * solely through the bootstrap classloader and most likely result in ClassNotFound exceptions.
+     * 这个类加载器委托给实际的用户类加载器。 在 {@link #close()} 时，委托为空并且可以被垃圾回收。
+     * 额外的类解析将仅通过引导类加载器解决，并且很可能导致 ClassNotFound 异常。
      */
     private static class SafetyNetWrapperClassLoader extends URLClassLoader implements Closeable {
         private static final Logger LOG =

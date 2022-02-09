@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * {@link StreamStateHandle} for state that was written to a file stream. The written data is
  * identified by the file path. The state can be read again by calling {@link #openInputStream()}.
+ * {@link StreamStateHandle} 用于写入文件流的状态。 写入的数据由文件路径标识。 可以通过调用 {@link #openInputStream()} 再次读取状态。
  */
 public class FileStateHandle implements StreamStateHandle {
 

@@ -20,7 +20,9 @@ package org.apache.flink.runtime.jobmanager.scheduler;
 
 import org.apache.flink.runtime.JobException;
 
-/** Indicates resource allocation failures. */
+/** Indicates resource allocation failures.
+ * 指示资源分配失败。
+ * */
 public class NoResourceAvailableException extends JobException {
 
     private static final long serialVersionUID = -2249953165298717803L;

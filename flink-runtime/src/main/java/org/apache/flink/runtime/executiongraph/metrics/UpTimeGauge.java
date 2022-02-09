@@ -26,8 +26,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * A gauge that returns (in milliseconds) how long a job has been running.
+ * 一个仪表，返回（以毫秒为单位）作业运行了多长时间。
  *
  * <p>For jobs that are not running any more, it returns {@value NO_LONGER_RUNNING}.
+ * 对于不再运行的作业，它返回 {@value NO_LONGER_RUNNING}。
  */
 public class UpTimeGauge implements Gauge<Long> {
 

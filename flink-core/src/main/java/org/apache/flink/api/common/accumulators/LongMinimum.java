@@ -20,7 +20,9 @@ package org.apache.flink.api.common.accumulators;
 
 import org.apache.flink.annotation.PublicEvolving;
 
-/** An accumulator that finds the minimum {@code long} value. */
+/** An accumulator that finds the minimum {@code long} value.
+ * 找到最小 {@code long} 值的累加器。
+ * */
 @PublicEvolving
 public class LongMinimum implements SimpleAccumulator<Long> {
 

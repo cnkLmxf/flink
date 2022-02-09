@@ -17,11 +17,14 @@
 
 package org.apache.flink.runtime.executiongraph.failover.flip1;
 
-/** Strategy to decide whether to restart failed tasks and the delay to do the restarting. */
+/** Strategy to decide whether to restart failed tasks and the delay to do the restarting.
+ * 决定是否重启失败任务和延迟重启的策略。
+ * */
 public interface RestartBackoffTimeStrategy {
 
     /**
      * Returns whether a restart should be conducted.
+     * 返回是否应该重新启动。
      *
      * @return whether a restart should be conducted
      */
@@ -29,6 +32,7 @@ public interface RestartBackoffTimeStrategy {
 
     /**
      * Returns the delay to do the restarting.
+     * 返回执行重新启动的延迟。
      *
      * @return the delay to do the restarting
      */
@@ -36,6 +40,7 @@ public interface RestartBackoffTimeStrategy {
 
     /**
      * Notify the strategy about the task failure cause.
+     * 将任务失败原因通知策略。
      *
      * @param cause of the task failure
      */

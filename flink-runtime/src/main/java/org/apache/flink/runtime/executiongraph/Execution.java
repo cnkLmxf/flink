@@ -96,22 +96,33 @@ import static org.apache.flink.util.Preconditions.checkState;
  * A single execution of a vertex. While an {@link ExecutionVertex} can be executed multiple times
  * (for recovery, re-computation, re-configuration), this class tracks the state of a single
  * execution of that vertex and the resources.
+ * 一个顶点的单次执行。 虽然 {@link ExecutionVertex} 可以多次执行（用于恢复、重新计算、重新配置），
+ * 但此类跟踪该顶点和资源的单次执行状态。
  *
  * <h2>Lock free state transitions</h2>
+ * 无锁状态转换
  *
  * <p>In several points of the code, we need to deal with possible concurrent state changes and
  * actions. For example, while the call to deploy a task (send it to the TaskManager) happens, the
  * task gets cancelled.
+ * 在代码的几个点中，我们需要处理可能的并发状态变化和动作。
+ * 例如，当调用部署任务（将其发送到 TaskManager）时，任务被取消。
  *
  * <p>We could lock the entire portion of the code (decision to deploy, deploy, set state to
  * running) such that it is guaranteed that any "cancel command" will only pick up after deployment
  * is done and that the "cancel command" call will never overtake the deploying call.
+ * 我们可以锁定整个代码部分（决定部署、部署、将状态设置为运行），
+ * 这样可以保证任何“取消命令”只会在部署完成后启动，并且“取消命令”调用永远不会 超越部署呼叫。
  *
  * <p>This blocks the threads big time, because the remote calls may take long. Depending of their
  * locking behavior, it may even result in distributed deadlocks (unless carefully avoided). We
  * therefore use atomic state updates and occasional double-checking to ensure that the state after
  * a completed call is as expected, and trigger correcting actions if it is not. Many actions are
  * also idempotent (like canceling).
+ * 这会长时间阻塞线程，因为远程调用可能需要很长时间。
+ * 根据它们的锁定行为，它甚至可能导致分布式死锁（除非小心避免）。
+ * 因此，我们使用原子状态更新和偶尔的双重检查来确保完成调用后的状态符合预期，如果不是，则触发更正操作。
+ * 许多动作也是幂等的（例如取消）。
  */
 public class Execution
         implements AccessExecution, Archiveable<ArchivedExecution>, LogicalSlot.Payload {
@@ -122,17 +133,24 @@ public class Execution
 
     // --------------------------------------------------------------------------------------------
 
-    /** The executor which is used to execute futures. */
+    /** The executor which is used to execute futures.
+     * 用于执行future的执行者。
+     * */
     private final Executor executor;
 
-    /** The execution vertex whose task this execution executes. */
+    /** The execution vertex whose task this execution executes.
+     * 此execution执行其任务的执行顶点。
+     * */
     private final ExecutionVertex vertex;
 
-    /** The unique ID marking the specific execution instant of the task. */
+    /** The unique ID marking the specific execution instant of the task.
+     * 标识任务具体执行时刻的唯一ID。
+     * */
     private final ExecutionAttemptID attemptId;
 
     /**
      * The timestamps when state transitions occurred, indexed by {@link ExecutionState#ordinal()}.
+     * 状态转换发生时的时间戳，由 {@link ExecutionState#ordinal()} 索引。
      */
     private final long[] stateTimestamps;
 
@@ -142,7 +160,9 @@ public class Execution
 
     private final Collection<PartitionInfo> partitionInfos;
 
-    /** A future that completes once the Execution reaches a terminal ExecutionState. */
+    /** A future that completes once the Execution reaches a terminal ExecutionState.
+     * 一旦 Execution 到达终端 ExecutionState 就完成的未来。
+     * */
     private final CompletableFuture<ExecutionState> terminalStateFuture;
 
     private final CompletableFuture<?> releaseFuture;
@@ -153,6 +173,8 @@ public class Execution
      * Gets completed successfully when the task switched to {@link ExecutionState#INITIALIZING} or
      * {@link ExecutionState#RUNNING}. If the task never switches to those state, but fails
      * immediately, then this future never completes.
+     * 当任务切换到 {@link ExecutionState#INITIALIZING} 或 {@link ExecutionState#RUNNING} 时成功完成。
+     * 如果任务从未切换到那些状态，而是立即失败，那么这个future永远不会完成。
      */
     private final CompletableFuture<?> initializingOrRunningFuture;
 
@@ -165,10 +187,13 @@ public class Execution
 
     /**
      * Information to restore the task on recovery, such as checkpoint id and task state snapshot.
+     * 在恢复时恢复任务的信息，例如检查点 ID 和任务状态快照。
      */
     @Nullable private JobManagerTaskRestore taskRestore;
 
-    /** This field holds the allocation id once it was assigned successfully. */
+    /** This field holds the allocation id once it was assigned successfully.
+     * 一旦分配成功，此字段将保存分配 ID。
+     * */
     @Nullable private AllocationID assignedAllocationID;
 
     // ------------------------ Accumulators & Metrics ------------------------
@@ -176,10 +201,13 @@ public class Execution
     /**
      * Lock for updating the accumulators atomically. Prevents final accumulators to be overwritten
      * by partial accumulators on a late heartbeat.
+     * 用于自动更新累加器的锁。 防止最终的累加器在心跳较晚时被部分累加器覆盖。
      */
     private final Object accumulatorLock = new Object();
 
-    /* Continuously updated map of user-defined accumulators */
+    /* Continuously updated map of user-defined accumulators
+    * 不断更新的用户自定义累加器图
+    * */
     private Map<String, Accumulator<?, ?>> userAccumulators;
 
     private IOMetrics ioMetrics;
@@ -191,6 +219,7 @@ public class Execution
 
     /**
      * Creates a new Execution attempt.
+     * 创建一个新的执行尝试。
      *
      * @param executor The executor used to dispatch callbacks from futures and asynchronous RPC
      *     calls.
@@ -270,6 +299,8 @@ public class Execution
     /**
      * Tries to assign the given slot to the execution. The assignment works only if the Execution
      * is in state SCHEDULED. Returns true, if the resource could be assigned.
+     * 尝试将给定的插槽分配给执行。
+     * 仅当 Execution 处于 SCHEDULED 状态时，分配才有效。 如果可以分配资源，则返回 true。
      *
      * @param logicalSlot to assign to this execution
      * @return true if the slot could be assigned to the execution, otherwise false
@@ -353,6 +384,7 @@ public class Execution
     /**
      * Sets the initial state for the execution. The serialized state is then shipped via the {@link
      * TaskDeploymentDescriptor} to the TaskManagers.
+     * 设置执行的初始状态。 然后序列化状态通过 {@link TaskDeploymentDescriptor} 发送到 TaskManagers。
      *
      * @param taskRestore information to restore the state
      */
@@ -365,13 +397,19 @@ public class Execution
      * ExecutionState#INITIALIZING} or {@link ExecutionState#RUNNING}. If this task never reaches
      * these states (for example because the task is cancelled before it was properly deployed and
      * restored), then this future will never complete.
+     * 一旦任务执行达到状态 {@link ExecutionState#INITIALIZING} 或 {@link ExecutionState#RUNNING} 之一，获取完成的future。
+     * 如果此任务从未达到这些状态（例如，因为任务在正确部署和恢复之前被取消），那么这个future将永远不会完成。
      *
      * <p>The future is completed already in the {@link ExecutionState#INITIALIZING} state, because
      * various running actions are already possible in that state (the task already accepts and
      * sends events and network data for task recovery). (Note that in earlier versions, the
      * INITIALIZING state was not separate but part of the RUNNING state).
+     * 未来已经在 {@link ExecutionState#INITIALIZING} 状态下完成，
+     * 因为在该状态下已经可以执行各种运行操作（任务已经接受并发送事件和网络数据以进行任务恢复）。
+     * （请注意，在早期版本中，INITIALIZING 状态不是独立的，而是 RUNNING 状态的一部分）。
      *
      * <p>This future is always completed from the job master's main thread.
+     * 这个未来总是从作业主机的主线程完成。
      */
     public CompletableFuture<?> getInitializingOrRunningFuture() {
         return initializingOrRunningFuture;
@@ -381,8 +419,11 @@ public class Execution
      * Gets a future that completes once the task execution reaches a terminal state. The future
      * will be completed with specific state that the execution reached. This future is always
      * completed from the job master's main thread.
+     * 获取任务执行到达终端状态后完成的未来。 未来将以执行达到的特定状态完成。
+     * 这个未来总是从作业主机的主线程完成。
      *
      * @return A future which is completed once the execution reaches a terminal state
+     * 一旦执行到达终止状态就完成的future
      */
     @Override
     public CompletableFuture<ExecutionState> getTerminalStateFuture() {
@@ -393,8 +434,10 @@ public class Execution
      * Gets the release future which is completed once the execution reaches a terminal state and
      * the assigned resource has been released. This future is always completed from the job
      * master's main thread.
+     * 获取一旦执行达到终止状态并且分配的资源已被释放时完成的发布未来。 这个未来总是从作业主机的主线程完成。
      *
      * @return A future which is completed once the assigned resource has been released
+     * 一旦分配的资源被释放就完成的未来
      */
     public CompletableFuture<?> getReleaseFuture() {
         return releaseFuture;
@@ -423,23 +466,32 @@ public class Execution
 
     /**
      * Register producedPartitions to {@link ShuffleMaster}
+     * 将producedPartitions注册到{@link ShuffleMaster}
      *
      * <p>HACK: Please notice that this method simulates asynchronous registration in a synchronous
      * way by making sure the returned {@link CompletableFuture} from {@link
      * ShuffleMaster#registerPartitionWithProducer} is completed immediately.
+     * HACK：请注意，此方法以同步方式模拟异步注册，确保立即完成从
+     * {@link ShuffleMaster#registerPartitionWithProducer} 返回的 {@link CompletableFuture}。
      *
      * <p>{@link Execution#producedPartitions} are registered through an asynchronous interface
      * {@link ShuffleMaster#registerPartitionWithProducer} to {@link ShuffleMaster}, however they
      * are not always accessed through callbacks. So, it is possible that {@link
      * Execution#producedPartitions} have not been available yet when accessed (in {@link
      * Execution#deploy} for example).
+     * {@link Execution#producedPartitions} 通过异步接口 {@link ShuffleMaster#registerPartitionWithProducer}
+     * 注册到 {@link ShuffleMaster}，但它们并不总是通过回调访问。
+     * 因此，访问时 {@link Execution#producedPartitions} 可能尚未可用（例如在 {@link Execution#deploy} 中）。
      *
      * <p>Since the only implementation of {@link ShuffleMaster} is {@link NettyShuffleMaster},
      * which indeed registers producedPartition in a synchronous way, this method enforces
      * synchronous registration under an asynchronous interface for now.
+     * 由于{@link ShuffleMaster}的唯一实现是{@link NettyShuffleMaster}，
+     * 它确实以同步的方式注册了producedPartition，所以该方法暂时在异步接口下强制同步注册。
      *
      * <p>TODO: If asynchronous registration is needed in the future, use callbacks to access {@link
      * Execution#producedPartitions}.
+     * TODO：如果以后需要异步注册，使用回调访问{@link Execution#producedPartitions}。
      *
      * @return completed future of partition deployment descriptors.
      */
@@ -512,6 +564,7 @@ public class Execution
 
     /**
      * Deploys the execution to the previously assigned resource.
+     * 将执行部署到先前分配的资源。
      *
      * @throws JobException if the execution cannot be deployed to the assigned resource
      */
@@ -775,6 +828,8 @@ public class Execution
      * This method fails the vertex due to an external condition. The task will move to state
      * FAILED. If the task was in state RUNNING or DEPLOYING before, it will send a cancel call to
      * the TaskManager.
+     * 由于外部条件，此方法使顶点失败。 任务将移动到状态 FAILED。
+     * 如果任务之前处于 RUNNING 或 DEPLOYING 状态，它将向 TaskManager 发送取消调用。
      *
      * @param t The exception that caused the task to fail.
      */
@@ -785,6 +840,7 @@ public class Execution
 
     /**
      * Notify the task of this execution about a completed checkpoint.
+     * 通知此执行的任务有关已完成的检查点。
      *
      * @param checkpointId of the completed checkpoint
      * @param timestamp of the completed checkpoint
@@ -806,6 +862,7 @@ public class Execution
 
     /**
      * Notify the task of this execution about a aborted checkpoint.
+     * 通知此执行的任务有关已中止的检查点。
      *
      * @param abortCheckpointId of the subsumed checkpoint
      * @param timestamp of the subsumed checkpoint
@@ -827,6 +884,7 @@ public class Execution
 
     /**
      * Trigger a new checkpoint on the task of this execution.
+     * 在此执行的任务上触发一个新的检查点。
      *
      * @param checkpointId of th checkpoint to trigger
      * @param timestamp of the checkpoint to trigger
@@ -839,6 +897,7 @@ public class Execution
 
     /**
      * Trigger a new checkpoint on the task of this execution.
+     * 在此执行的任务上触发一个新的检查点。
      *
      * @param checkpointId of th checkpoint to trigger
      * @param timestamp of the checkpoint to trigger
@@ -874,6 +933,7 @@ public class Execution
 
     /**
      * Sends the operator event to the Task on the Task Executor.
+     * 将操作员事件发送到任务执行器上的任务。
      *
      * @return True, of the message was sent, false is the task is currently not running.
      */
@@ -904,6 +964,8 @@ public class Execution
      * This method marks the task as failed, but will make no attempt to remove task execution from
      * the task manager. It is intended for cases where the task is known not to be running, or then
      * the TaskManager reports failure (in which case it has already removed the task).
+     * 此方法将任务标记为失败，但不会尝试从任务管理器中删除任务执行。
+     * 它适用于已知任务未运行的情况，或者 TaskManager 报告失败（在这种情况下它已经删除了任务）。
      *
      * @param t The exception that caused the task to fail.
      */
@@ -1089,6 +1151,11 @@ public class Execution
      * TaskManager when JobManager tries to fail it). The failure will be notified to SchedulerNG if
      * it is from within the ExecutionGraph. This is to trigger the failure handling of SchedulerNG
      * to recover this failed execution.
+     * 处理执行失败。 失败可以由 JobManager 触发或由 TaskManager 报告。
+     * 如果它被 JobManager 触发并且执行已经部署，它需要发送一个 PRC 调用从 TaskManager 中删除任务。
+     * 如果在部署之前失败（因为分区可能已经在外部 shuffle 服务中创建）或 JobManager 主动失败
+     * （如果 JobManager 尝试失败时它在 TaskManager 中完成），它还需要释放生成的分区。
+     * 如果失败来自 ExecutionGraph，则会通知 SchedulerNG。 这是为了触发SchedulerNG的失败处理来恢复这个失败的执行。
      *
      * @param t Failure cause
      * @param cancelTask Indicating whether to send a PRC call to remove task from TaskManager. True
@@ -1247,6 +1314,7 @@ public class Execution
 
     /**
      * This method sends a CancelTask message to the instance of the assigned slot.
+     * 此方法将 CancelTask 消息发送到已分配槽的实例。
      *
      * <p>The sending is tried up to NUM_CANCEL_CALL_TRIES times.
      */
@@ -1342,6 +1410,7 @@ public class Execution
 
     /**
      * Update the partition infos on the assigned resource.
+     * 更新分配资源的分区信息。
      *
      * @param partitionInfos for the remote task
      */
@@ -1377,6 +1446,7 @@ public class Execution
     /**
      * Releases the assigned resource and completes the release future once the assigned resource
      * has been successfully released.
+     * 成功释放分配的资源后，释放分配的资源并完成释放future。
      *
      * @param cause for the resource release, null if none
      */
@@ -1501,6 +1571,7 @@ public class Execution
 
     /**
      * Update accumulators (discarded when the Execution has already been terminated).
+     * 更新累加器（当执行已经终止时被丢弃）。
      *
      * @param userAccumulators the user accumulators
      */

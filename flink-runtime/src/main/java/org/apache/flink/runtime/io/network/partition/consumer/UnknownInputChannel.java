@@ -42,6 +42,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * An input channel place holder to be replaced by either a {@link RemoteInputChannel} or {@link
  * LocalInputChannel} at runtime.
+ * 在运行时由 {@link RemoteInputChannel} 或 {@link LocalInputChannel} 替换的输入通道占位符。
  */
 class UnknownInputChannel extends InputChannel implements ChannelStateHolder {
 
@@ -51,7 +52,9 @@ class UnknownInputChannel extends InputChannel implements ChannelStateHolder {
 
     private final ConnectionManager connectionManager;
 
-    /** Initial and maximum backoff (in ms) after failed partition requests. */
+    /** Initial and maximum backoff (in ms) after failed partition requests.
+     * 分区请求失败后的初始和最大回退（以毫秒为单位）。
+     * */
     private final int initialBackoff;
 
     private final int maxBackoff;
@@ -113,6 +116,8 @@ class UnknownInputChannel extends InputChannel implements ChannelStateHolder {
      * <p><strong>Important</strong>: It is important that the method correctly always <code>false
      * </code> for unknown input channels in order to not finish the consumption of an intermediate
      * result partition early.
+     * <strong>重要</strong>：对于未知输入通道，
+     * 该方法始终正确<code>false </code> 非常重要，以免提前完成中间结果分区的消耗。
      */
     @Override
     public boolean isReleased() {

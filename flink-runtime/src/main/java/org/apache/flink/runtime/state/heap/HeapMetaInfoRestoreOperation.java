@@ -39,6 +39,8 @@ import java.util.Map;
  * A helper class shared between the {@link HeapRestoreOperation} and {@link
  * HeapSavepointRestoreOperation} for restoring {@link StateMetaInfoSnapshot
  * StateMetaInfoSnapshots}.
+ * {@link HeapRestoreOperation} 和 {@link HeapSavepointRestoreOperation} 之间共享的帮助器类，
+ * 用于恢复 {@link StateMetaInfoSnapshot StateMetaInfoSnapshots}。
  *
  * @param <K> The key by which state is keyed.
  */

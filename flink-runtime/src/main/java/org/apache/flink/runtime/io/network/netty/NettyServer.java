@@ -186,6 +186,7 @@ class NettyServer {
     private void initNioBootstrap() {
         // Add the server port number to the name in order to distinguish
         // multiple servers running on the same host.
+        // 将服务器端口号添加到名称中，以区分在同一主机上运行的多个服务器。
         String name = NettyConfig.SERVER_THREAD_GROUP_NAME + " (" + config.getServerPort() + ")";
 
         NioEventLoopGroup nioGroup =
@@ -196,6 +197,7 @@ class NettyServer {
     private void initEpollBootstrap() {
         // Add the server port number to the name in order to distinguish
         // multiple servers running on the same host.
+        // 将服务器端口号添加到名称中，以区分在同一主机上运行的多个服务器。
         String name = NettyConfig.SERVER_THREAD_GROUP_NAME + " (" + config.getServerPort() + ")";
 
         EpollEventLoopGroup epollGroup =

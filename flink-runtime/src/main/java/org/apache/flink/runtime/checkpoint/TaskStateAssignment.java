@@ -56,6 +56,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Used by {@link StateAssignmentOperation} to store temporal information while creating {@link
  * OperatorSubtaskState}.
+ * {@link StateAssignmentOperation} 在创建 {@link OperatorSubtaskState} 时使用它来存储时间信息。
  */
 class TaskStateAssignment {
     private static final Logger LOG = LoggerFactory.getLogger(TaskStateAssignment.class);

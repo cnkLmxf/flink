@@ -27,6 +27,7 @@ public interface FailoverStrategy {
 
     /**
      * Returns a set of IDs corresponding to the set of vertices that should be restarted.
+     * 返回与应该重新启动的顶点集相对应的一组 ID。
      *
      * @param executionVertexId ID of the failed task
      * @param cause cause of the failure

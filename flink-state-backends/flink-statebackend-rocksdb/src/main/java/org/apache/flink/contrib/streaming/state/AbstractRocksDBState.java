@@ -41,6 +41,7 @@ import java.io.IOException;
  *
  * <p>State is not stored in this class but in the {@link org.rocksdb.RocksDB} instance that the
  * {@link EmbeddedRocksDBStateBackend} manages and checkpoints.
+ * 状态不存储在此类中，而是存储在 {@link EmbeddedRocksDBStateBackend} 管理和检查点的 {@link org.rocksdb.RocksDB} 实例中。
  *
  * @param <K> The type of the key.
  * @param <N> The type of the namespace.

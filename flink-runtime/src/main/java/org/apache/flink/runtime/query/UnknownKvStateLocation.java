@@ -20,8 +20,10 @@ package org.apache.flink.runtime.query;
 
 /**
  * Thrown if there is no {@link KvStateLocation} found for the requested registration name.
+ * 如果没有为请求的注册名称找到 {@link KvStateLocation}，则抛出此异常。
  *
  * <p>This indicates that the requested KvState instance is not registered under this name (yet).
+ * 这表明所请求的 KvState 实例未在此名称下注册（尚未）。
  */
 public class UnknownKvStateLocation extends Exception {
 

@@ -44,6 +44,8 @@ import java.util.Arrays;
  * Base implementation for input formats that split the input at a delimiter into records. The
  * parsing of the record bytes into the record has to be implemented in the {@link
  * #readRecord(Object, byte[], int, int)} method.
+ * 将分隔符处的输入拆分为记录的输入格式的基本实现。
+ * 将记录字节解析为记录必须在 {@link #readRecord(Object, byte[], int, int)} 方法中实现。
  *
  * <p>The default delimiter is the newline character {@code '\n'}.
  */
@@ -67,7 +69,9 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
     /** The default read buffer size = 1MB. */
     private static final int DEFAULT_READ_BUFFER_SIZE = 1024 * 1024;
 
-    /** Indication that the number of samples has not been set by the configuration. */
+    /** Indication that the number of samples has not been set by the configuration.
+     * 指示配置未设置样本数。
+     * */
     private static final int NUM_SAMPLES_UNDEFINED = -1;
 
     /** The maximum number of line samples to be taken. */
@@ -79,6 +83,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
     /**
      * The maximum size of a sample record before sampling is aborted. To catch cases where a wrong
      * delimiter is given.
+     * 中止采样前的样本记录的最大大小。 捕获给出错误分隔符的情况。
      */
     private static int MAX_SAMPLE_LEN;
 
@@ -154,6 +159,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
 
     private transient int limit;
 
+    // 找到当前记录字节序列的缓冲区
     protected transient byte[] currBuffer; // buffer in which current record byte sequence is found
     protected transient int currOffset; // offset in above buffer
     protected transient int currLen; // length of current byte sequence
@@ -170,6 +176,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
 
     // The delimiter may be set with a byte-sequence or a String. In the latter
     // case the byte representation is updated consistent with current charset.
+    // 可以使用字节序列或字符串设置分隔符。 在后一种情况下，字节表示会根据当前字符集进行更新。
     private byte[] delimiter = new byte[] {'\n'};
     private String delimiterString = null;
 
@@ -198,6 +205,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
     /**
      * Get the character set used for the row delimiter. This is also used by subclasses to
      * interpret field delimiters, comment strings, and for configuring {@link FieldParser}s.
+     * 获取用于行分隔符的字符集。 子类也使用它来解释字段分隔符、注释字符串和配置 {@link FieldParser}。
      *
      * @return the charset
      */
@@ -212,9 +220,11 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
     /**
      * Set the name of the character set used for the row delimiter. This is also used by subclasses
      * to interpret field delimiters, comment strings, and for configuring {@link FieldParser}s.
+     * 设置用于行分隔符的字符集的名称。 子类也使用它来解释字段分隔符、注释字符串和配置 {@link FieldParser}。
      *
      * <p>These fields are interpreted when set. Changing the charset thereafter may cause
      * unexpected results.
+     * 这些字段在设置时被解释。 此后更改字符集可能会导致意外结果。
      *
      * @param charset name of the charset
      */
@@ -294,6 +304,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
     /**
      * This function parses the given byte array which represents a serialized record. The function
      * returns a valid record or throws an IOException.
+     * 此函数解析表示序列化记录的给定字节数组。 该函数返回有效记录或引发 IOException。
      *
      * @param reuse An optionally reusable object.
      * @param bytes Binary data of serialized records.
@@ -312,6 +323,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
     /**
      * Configures this input format by reading the path to the file from the configuration and the
      * string that defines the record delimiter.
+     * 通过从配置中读取文件的路径和定义记录分隔符的字符串来配置此输入格式。
      *
      * @param parameters The configuration object to read the parameters from.
      */
@@ -489,6 +501,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
      * Opens the given input split. This method opens the input stream to the specified file,
      * allocates read buffers and positions the stream at the correct position, making sure that any
      * partial record at the beginning is skipped.
+     * 打开给定的输入拆分。 此方法打开指定文件的输入流，分配读取缓冲区并将流定位在正确的位置，确保跳过开头的任何部分记录。
      *
      * @param split The input split to open.
      * @see
@@ -537,6 +550,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
 
     /**
      * Checks whether the current split is at its end.
+     * 检查当前拆分是否结束。
      *
      * @return True, if the split is at its end, false otherwise.
      */
@@ -557,6 +571,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
 
     /**
      * Closes the input by releasing all buffers and closing the file input stream.
+     * 通过释放所有缓冲区并关闭文件输入流来关闭输入。
      *
      * @throws IOException Thrown, if the closing of the file stream causes an I/O error.
      */
@@ -705,7 +720,9 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
         this.currLen = len;
     }
 
-    /** Fills the read buffer with bytes read from the file starting from an offset. */
+    /** Fills the read buffer with bytes read from the file starting from an offset.
+     * 使用从偏移量开始的文件读取的字节填充读取缓冲区。
+     * */
     private boolean fillBuffer(int offset) throws IOException {
         int maxReadLength = this.readBuffer.length - offset;
         // special case for reading the whole split.
@@ -814,6 +831,7 @@ public abstract class DelimitedInputFormat<OT> extends FileInputFormat<OT>
 
     /**
      * Initialization method that is called after opening or reopening an input split.
+     * 打开或重新打开输入拆分后调用的初始化方法。
      *
      * @param split Split that was opened or reopened
      * @param state Checkpointed state if the split was reopened

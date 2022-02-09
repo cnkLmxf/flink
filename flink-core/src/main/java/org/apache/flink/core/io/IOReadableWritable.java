@@ -28,15 +28,19 @@ import java.io.IOException;
  * This interface must be implemented by every class whose objects have to be serialized to their
  * binary representation and vice-versa. In particular, records have to implement this interface in
  * order to specify how their data can be transferred to a binary representation.
+ * 该接口必须由其对象必须序列化为其二进制表示的每个类实现，反之亦然。
+ * 特别是，记录必须实现此接口，以指定如何将其数据传输为二进制表示。
  *
  * <p>When implementing this Interface make sure that the implementing class has a default
  * (zero-argument) constructor!
+ * 实现此接口时，请确保实现类具有默认（零参数）构造函数！
  */
 @Public
 public interface IOReadableWritable {
 
     /**
      * Writes the object's internal data to the given data output view.
+     * 将对象的内部数据写入给定的数据输出视图。
      *
      * @param out the output view to receive the data.
      * @throws IOException thrown if any error occurs while writing to the output stream
@@ -45,6 +49,7 @@ public interface IOReadableWritable {
 
     /**
      * Reads the object's internal data from the given data input view.
+     * 从给定的数据输入视图中读取对象的内部数据。
      *
      * @param in the input view to read the data from
      * @throws IOException thrown if any error occurs while reading from the input stream

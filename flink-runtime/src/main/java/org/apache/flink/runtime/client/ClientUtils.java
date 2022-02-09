@@ -41,6 +41,8 @@ public enum ClientUtils {
     /**
      * Extracts all files required for the execution from the given {@link JobGraph} and uploads
      * them using the {@link BlobClient} from the given {@link Supplier}.
+     * 从给定的 {@link JobGraph} 中提取执行所需的所有文件，
+     * 并使用给定 {@link Supplier} 的 {@link BlobClient} 上传它们。
      *
      * @param jobGraph jobgraph requiring files
      * @param clientSupplier supplier of blob client to upload files with
@@ -65,6 +67,8 @@ public enum ClientUtils {
     /**
      * Uploads the given jars and artifacts required for the execution of the given {@link JobGraph}
      * using the {@link BlobClient} from the given {@link Supplier}.
+     * 使用来自给定 {@link Supplier} 的 {@link BlobClient} 上传执行给定 {@link JobGraph}
+     * 所需的给定 jar 和工件。
      *
      * @param jobGraph jobgraph requiring files
      * @param userJars jars to upload
@@ -92,6 +96,7 @@ public enum ClientUtils {
     /**
      * Uploads the given user jars using the given {@link BlobClient}, and sets the appropriate
      * blobkeys on the given {@link JobGraph}.
+     * 使用给定的 {@link BlobClient} 上传给定的用户 jar，并在给定的 {@link JobGraph} 上设置适当的 blobkey。
      *
      * @param jobGraph jobgraph requiring user jars
      * @param userJars jars to upload
@@ -124,6 +129,7 @@ public enum ClientUtils {
     /**
      * Uploads the given user artifacts using the given {@link BlobClient}, and sets the appropriate
      * blobkeys on the given {@link JobGraph}.
+     * 使用给定的 {@link BlobClient} 上传给定的用户工件，并在给定的 {@link JobGraph} 上设置适当的 blobkey。
      *
      * @param jobGraph jobgraph requiring user artifacts
      * @param artifactPaths artifacts to upload

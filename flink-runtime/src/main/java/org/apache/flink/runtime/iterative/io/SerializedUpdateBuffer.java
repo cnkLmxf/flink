@@ -38,6 +38,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * {@link AbstractPagedOutputView} used by the {@code BlockingBackChannel} for transmitting
  * superstep results.
+ * {@code BlockingBackChannel} 用于传输超步结果的 {@link AbstractPagedOutputView}。
  */
 public class SerializedUpdateBuffer extends AbstractPagedOutputView {
 

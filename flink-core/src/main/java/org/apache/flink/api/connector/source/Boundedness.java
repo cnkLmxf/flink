@@ -23,6 +23,7 @@ import org.apache.flink.annotation.PublicEvolving;
 /**
  * The boundedness of a stream. A stream could either be "bounded" (a stream with finite records) or
  * "unbounded" (a stream with infinite records).
+ * 流的有界性。 流可以是“有界”（具有有限记录的流）或“无界”（具有无限记录的流）。
  */
 @PublicEvolving
 public enum Boundedness {
@@ -47,6 +48,8 @@ public enum Boundedness {
      * <p>In the context of sources, an infinite stream expects the source implementation to run
      * without an upfront indication to Flink that they will eventually stop. The sources may
      * eventually be terminated when users cancel the jobs or some source-specific condition is met.
+     * 在源的上下文中，无限流期望源实现在没有预先向 Flink 指示它们最终会停止的情况下运行。
+     * 当用户取消作业或满足某些源特定条件时，源最终可能会终止。
      *
      * <p>A CONTINUOUS_UNBOUNDED stream may also eventually stop at some point. But before that
      * happens, Flink always assumes the sources are going to run forever.

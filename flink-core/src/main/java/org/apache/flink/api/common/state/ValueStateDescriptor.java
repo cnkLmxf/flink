@@ -26,9 +26,13 @@ import org.apache.flink.api.common.typeutils.TypeSerializer;
  * {@link StateDescriptor} for {@link ValueState}. This can be used to create partitioned value
  * state using {@link
  * org.apache.flink.api.common.functions.RuntimeContext#getState(ValueStateDescriptor)}.
+ * {@link ValueState} 的 {@link StateDescriptor}。
+ * 这可用于使用 {@link org.apache.flink.api.common.functions.RuntimeContext#getState(ValueStateDescriptor)} 创建分区值状态。
  *
  * <p>If you don't use one of the constructors that set a default value the value that you get when
  * reading a {@link ValueState} using {@link ValueState#value()} will be {@code null}.
+ * 如果您不使用设置默认值的构造函数之一，
+ * 则使用 {@link ValueState#value()} 读取 {@link ValueState} 时获得的值将为 {@code null}。
  *
  * @param <T> The type of the values that the value state can hold.
  */
@@ -39,10 +43,13 @@ public class ValueStateDescriptor<T> extends StateDescriptor<ValueState<T>, T> {
 
     /**
      * Creates a new {@code ValueStateDescriptor} with the given name, type, and default value.
+     * 使用给定的名称、类型和默认值创建一个新的 {@code ValueStateDescriptor}。
      *
      * <p>If this constructor fails (because it is not possible to describe the type via a class),
      * consider using the {@link #ValueStateDescriptor(String, TypeInformation, Object)}
      * constructor.
+     * 如果此构造函数失败（因为无法通过类来描述类型），
+     * 请考虑使用 {@link #ValueStateDescriptor(String, TypeInformation, Object)} 构造函数。
      *
      * @deprecated Use {@link #ValueStateDescriptor(String, Class)} instead and manually manage the
      *     default value by checking whether the contents of the state is {@code null}.
@@ -58,6 +65,7 @@ public class ValueStateDescriptor<T> extends StateDescriptor<ValueState<T>, T> {
 
     /**
      * Creates a new {@code ValueStateDescriptor} with the given name and default value.
+     * 使用给定的名称和默认值创建一个新的 {@code ValueStateDescriptor}。
      *
      * @deprecated Use {@link #ValueStateDescriptor(String, TypeInformation)} instead and manually
      *     manage the default value by checking whether the contents of the state is {@code null}.
@@ -74,6 +82,7 @@ public class ValueStateDescriptor<T> extends StateDescriptor<ValueState<T>, T> {
     /**
      * Creates a new {@code ValueStateDescriptor} with the given name, default value, and the
      * specific serializer.
+     * 使用给定的名称、默认值和特定的序列化程序创建一个新的 {@code ValueStateDescriptor}。
      *
      * @deprecated Use {@link #ValueStateDescriptor(String, TypeSerializer)} instead and manually
      *     manage the default value by checking whether the contents of the state is {@code null}.
@@ -89,6 +98,7 @@ public class ValueStateDescriptor<T> extends StateDescriptor<ValueState<T>, T> {
 
     /**
      * Creates a new {@code ValueStateDescriptor} with the given name and type
+     * 使用给定的名称、默认值和特定的序列化程序创建一个新的 {@code ValueStateDescriptor}。
      *
      * <p>If this constructor fails (because it is not possible to describe the type via a class),
      * consider using the {@link #ValueStateDescriptor(String, TypeInformation)} constructor.

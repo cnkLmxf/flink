@@ -24,9 +24,11 @@ import java.util.List;
 
 /**
  * The processor architecture of the this system.
+ * 本系统的处理器架构。
  *
  * <p>Note that the memory address size might be different than the actual hardware architecture,
  * due to the installed OS (32bit OS) or when installing a 32 bit JRE in a 64 bit OS.
+ * 请注意，由于安装的操作系统（32 位操作系统）或在 64 位操作系统中安装 32 位 JRE 时，内存地址大小可能与实际硬件架构不同。
  */
 public enum ProcessorArchitecture {
 

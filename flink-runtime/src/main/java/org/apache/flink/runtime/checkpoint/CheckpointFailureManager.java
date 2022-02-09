@@ -29,7 +29,9 @@ import java.util.function.Consumer;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The checkpoint failure manager which centralized manage checkpoint failure processing logic. */
+/** The checkpoint failure manager which centralized manage checkpoint failure processing logic.
+ * 集中管理检查点故障处理逻辑的检查点故障管理器。
+ * */
 public class CheckpointFailureManager {
 
     public static final int UNLIMITED_TOLERABLE_FAILURE_NUMBER = Integer.MAX_VALUE;

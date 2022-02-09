@@ -31,7 +31,9 @@ import org.apache.flink.shaded.guava18.com.google.common.base.Ticker;
 import java.io.File;
 import java.io.IOException;
 
-/** Base class for session cluster entry points. */
+/** Base class for session cluster entry points.
+ * 会话集群入口点的基类。
+ * */
 public abstract class SessionClusterEntrypoint extends ClusterEntrypoint {
 
     public SessionClusterEntrypoint(Configuration configuration) {

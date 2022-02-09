@@ -96,8 +96,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Base class for the Flink cluster entry points.
+ * Flink 集群入口点的基类。
  *
  * <p>Specialization of this class can be used for the session mode and the per-job mode
+ * 此类的特化可用于会话模式和按作业模式
  */
 public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErrorHandler {
 
@@ -336,6 +338,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
 
     /**
      * Returns the port range for the common {@link RpcService}.
+     * 返回通用 {@link RpcService} 的端口范围。
      *
      * @param configuration to extract the port range from
      * @return Port range for the common {@link RpcService}
@@ -510,6 +513,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
     /**
      * Close cluster components and deregister the Flink application from the resource management
      * system by signalling the {@link ResourceManager}.
+     * 通过向 {@link ResourceManager} 发送信号，关闭集群组件并从资源管理系统中注销 Flink 应用程序。
      *
      * @param applicationStatus to terminate the application with
      * @param shutdownBehaviour shutdown behaviour
@@ -537,6 +541,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
 
     /**
      * Clean up of temporary directories created by the {@link ClusterEntrypoint}.
+     * 清理由 {@link ClusterEntrypoint} 创建的临时目录。
      *
      * @throws IOException if the temporary directories could not be cleaned up
      */

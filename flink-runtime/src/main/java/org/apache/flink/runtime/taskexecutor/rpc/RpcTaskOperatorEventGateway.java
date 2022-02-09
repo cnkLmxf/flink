@@ -32,6 +32,7 @@ import java.util.function.Consumer;
 /**
  * An OperatorEventSender that calls the RPC gateway {@link JobMasterOperatorEventGateway} to send
  * the messages to the coordinator.
+ * 调用 RPC 网关 {@link JobMasterOperatorEventGateway} 将消息发送到协调器的 OperatorEventSender。
  */
 public class RpcTaskOperatorEventGateway implements TaskOperatorEventGateway {
 

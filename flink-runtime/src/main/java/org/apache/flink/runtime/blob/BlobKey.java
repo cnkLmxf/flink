@@ -34,7 +34,9 @@ import static org.apache.flink.runtime.blob.BlobKey.BlobType.PERMANENT_BLOB;
 import static org.apache.flink.runtime.blob.BlobKey.BlobType.TRANSIENT_BLOB;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A BLOB key uniquely identifies a BLOB. */
+/** A BLOB key uniquely identifies a BLOB.
+ * BLOB 键唯一标识一个 BLOB。
+ * */
 public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     private static final long serialVersionUID = 3847117712521785209L;
@@ -45,7 +47,9 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
     /** The byte buffer storing the actual key data. */
     private final byte[] key;
 
-    /** (Internal) BLOB type - to be reflected by the inheriting sub-class. */
+    /** (Internal) BLOB type - to be reflected by the inheriting sub-class.
+     * （内部）BLOB 类型 - 由继承的子类反映。
+     * */
     private final BlobType type;
 
     /** BLOB type, i.e. permanent or transient. */
@@ -53,16 +57,20 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
         /**
          * Indicates a permanent BLOB whose lifecycle is that of a job and which is made highly
          * available.
+         * 表示永久 BLOB，其生命周期是作业的生命周期并且高度可用。
          */
         PERMANENT_BLOB,
         /**
          * Indicates a transient BLOB whose lifecycle is managed by the user and which is not made
          * highly available.
+         * 指示其生命周期由用户管理且不具有高可用性的瞬态 BLOB。
          */
         TRANSIENT_BLOB
     }
 
-    /** Random component of the key. */
+    /** Random component of the key.
+     * 密钥的随机组成部分。
+     * */
     private final AbstractID random;
 
     /**
@@ -111,6 +119,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Returns the right {@link BlobKey} subclass for the given parameters.
+     * 返回给定参数的正确 {@link BlobKey} 子类。
      *
      * @param type whether the referenced BLOB is permanent or transient
      * @return BlobKey subclass
@@ -126,6 +135,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Returns the right {@link BlobKey} subclass for the given parameters.
+     * 返回给定参数的正确 {@link BlobKey} 子类。
      *
      * @param type whether the referenced BLOB is permanent or transient
      * @param key the actual key data
@@ -141,6 +151,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Returns the right {@link BlobKey} subclass for the given parameters.
+     * 返回给定参数的正确 {@link BlobKey} 子类。
      *
      * @param type whether the referenced BLOB is permanent or transient
      * @param key the actual key data
@@ -157,6 +168,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Returns the hash component of this key.
+     * 返回此键的哈希组件。
      *
      * @return a 20 bit hash of the contents the key refers to
      */
@@ -167,6 +179,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Returns the (internal) BLOB type which is reflected by the inheriting sub-class.
+     * 返回由继承子类反映的（内部）BLOB 类型。
      *
      * @return BLOB type, i.e. permanent or transient
      */
@@ -176,6 +189,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Adds the BLOB key to the given {@link MessageDigest}.
+     * 将 BLOB 键添加到给定的 {@link MessageDigest}。
      *
      * @param md the message digest to add the BLOB key to
      */
@@ -255,6 +269,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Auxiliary method to read a BLOB key from an input stream.
+     * 从输入流中读取 BLOB 键的辅助方法。
      *
      * @param inputStream the input stream to read the BLOB key from
      * @return the read BLOB key
@@ -305,6 +320,7 @@ public abstract class BlobKey implements Serializable, Comparable<BlobKey> {
 
     /**
      * Auxiliary method to write this BLOB key to an output stream.
+     * 将此 BLOB 键写入输出流的辅助方法。
      *
      * @param outputStream the output stream to write the BLOB key to
      * @throws IOException thrown if an I/O error occurs while writing the BLOB key

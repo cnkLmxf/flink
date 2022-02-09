@@ -55,30 +55,41 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * returned state handle to ZooKeeper. The ZooKeeper node can be locked by creating an ephemeral
  * child and only allowing the deletion of the ZooKeeper node if it does not have any children. That
  * way we protect concurrent accesses from different ZooKeeperStateHandleStore instances.
+ * 通过提供的 {@link RetrievableStateStorageHelper} 存储状态并将返回的状态句柄写入 ZooKeeper 的类。
+ * ZooKeeper 节点可以通过创建一个临时子节点来锁定，并且如果 ZooKeeper 节点没有任何子节点，则只允许删除它。
+ * 这样我们就可以保护来自不同 ZooKeeperStateHandleStore 实例的并发访问。
  *
  * <p>Added state is persisted via {@link RetrievableStateHandle RetrievableStateHandles}, which in
  * turn are written to ZooKeeper. This level of indirection is necessary to keep the amount of data
  * in ZooKeeper small. ZooKeeper is build for data in the KB range whereas state can grow to
  * multiple MBs.
+ * 添加的状态通过 {@link RetrievableStateHandle RetrievableStateHandles} 持久化，然后写入 ZooKeeper。
+ * 这种间接级别对于保持 ZooKeeper 中的数据量较小是必要的。 ZooKeeper 是为 KB 范围内的数据构建的，而状态可以增长到多个 MB。
  *
  * <p>State modifications require some care, because it is possible that certain failures bring the
  * state handle backend and ZooKeeper out of sync.
+ * 状态修改需要小心，因为某些故障可能会导致状态句柄后端和 ZooKeeper 不同步。
  *
  * <p>ZooKeeper holds the ground truth about state handles, i.e. the following holds:
+ * ZooKeeper 持有关于状态句柄的基本事实，即以下持有：
  *
  * <pre>
  * State handle in ZooKeeper =&gt; State handle exists
+ * ZooKeeper 中的状态句柄 =&gt; 状态句柄存在
  * </pre>
  *
  * <p>But not:
  *
  * <pre>
  * State handle exists =&gt; State handle in ZooKeeper
+ * 状态句柄存在=> ZooKeeper 中的状态句柄
  * </pre>
  *
  * <p>There can be lingering state handles when failures happen during operation. They need to be
  * cleaned up manually (see <a href="https://issues.apache.org/jira/browse/FLINK-2513">
  * FLINK-2513</a> about a possible way to overcome this).
+ * 当操作期间发生故障时，可能会有延迟状态句柄。
+ * 它们需要手动清理（请参阅 <a href="https://issues.apache.org/jira/browse/FLINK-2513"> FLINK-2513</a> 了解可能的解决方法）。
  *
  * @param <T> Type of state
  */

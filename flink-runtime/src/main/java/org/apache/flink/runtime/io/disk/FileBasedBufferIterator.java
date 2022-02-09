@@ -35,7 +35,9 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** {@link CloseableIterator} of {@link Buffer buffers} over file content. */
+/** {@link CloseableIterator} of {@link Buffer buffers} over file content.
+ * {@link Buffer buffers} 的 {@link CloseableIterator} 覆盖文件内容。
+ * */
 @Internal
 public class FileBasedBufferIterator implements CloseableIterator<Buffer> {
 

@@ -83,12 +83,19 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * accepted, and can thus provides registered free slots even if the ResourceManager is down. The
  * slots will only be released when they are useless, e.g. when the job is fully running but we
  * still have some free slots.
+ * 槽池服务于 {@link ExecutionGraph} 发出的槽请求。 当它无法服务槽请求时，它将尝试从 ResourceManager 获取新槽。
+ * 如果当前没有 ResourceManager 可用，或者 ResourceManager 拒绝，或者请求超时，则槽请求失败。
+ * 插槽池还保存所有提供给它并接受的插槽，因此即使 ResourceManager 已关闭，也可以提供已注册的空闲插槽。
+ * 插槽只有在无用时才会被释放，例如 当作业完全运行但我们仍有一些空闲插槽时。
  *
  * <p>All the allocation or the slot offering will be identified by self generated AllocationID, we
  * will use it to eliminate ambiguities.
+ * 所有分配或插槽提供将由自行生成的 AllocationID 标识，我们将使用它来消除歧义。
  *
  * <p>TODO : Make pending requests location preference aware TODO : Make pass location preferences
  * to ResourceManager when sending a slot request
+ * TODO : 使挂起的请求知道位置首选项
+ * TODO : 在发送槽请求时将位置首选项传递给 ResourceManager
  */
 public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
@@ -97,6 +104,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * The interval (in milliseconds) in which the SlotPool writes its slot distribution on debug
      * level.
+     * SlotPool 在调试级别写入其插槽分布的时间间隔（以毫秒为单位）。
      */
     private static final long STATUS_LOG_INTERVAL_MS = 60_000;
 
@@ -105,36 +113,55 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * All registered TaskManagers, slots will be accepted and used only if the resource is
      * registered.
+     * 仅当资源已注册时，所有已注册的任务管理器、插槽才会被接受和使用。
      */
     private final HashSet<ResourceID> registeredTaskManagers;
 
-    /** The book-keeping of all allocated slots. */
+    /** The book-keeping of all allocated slots.
+     * 所有分配的插槽的簿记。
+     * */
     private final AllocatedSlots allocatedSlots;
 
-    /** The book-keeping of all available slots. */
+    /** The book-keeping of all available slots.
+     * 所有可用插槽的簿记。
+     * */
     private final AvailableSlots availableSlots;
 
-    /** All pending requests waiting for slots. */
+    /** All pending requests waiting for slots.
+     * 所有等待槽的待处理请求。
+     * */
     private final DualKeyLinkedMap<SlotRequestId, AllocationID, PendingRequest> pendingRequests;
 
-    /** The requests that are waiting for the resource manager to be connected. */
+    /** The requests that are waiting for the resource manager to be connected.
+     * 等待资源管理器连接的请求。
+     * */
     private final LinkedHashMap<SlotRequestId, PendingRequest> waitingForResourceManager;
 
-    /** Timeout for external request calls (e.g. to the ResourceManager or the TaskExecutor). */
+    /** Timeout for external request calls (e.g. to the ResourceManager or the TaskExecutor).
+     * 外部请求调用超时（例如对 ResourceManager 或 TaskExecutor）。
+     * */
     private final Time rpcTimeout;
 
-    /** Timeout for releasing idle slots. */
+    /** Timeout for releasing idle slots.
+     * 释放空闲槽超时。
+     * */
     private final Time idleSlotTimeout;
 
-    /** Timeout for batch slot requests. */
+    /** Timeout for batch slot requests.
+     * 批处理槽请求超时。
+     * */
     private final Time batchSlotTimeout;
 
     private final Clock clock;
 
-    /** the fencing token of the job manager. */
+    /** the fencing token of the job manager.
+     * job manager的围栏令牌。
+     * */
     private JobMasterId jobMasterId;
 
-    /** The gateway to communicate with resource manager. */
+    /** The gateway to communicate with resource manager.
+     * 与资源管理器通信的网关。
+     * */
     @Nullable private ResourceManagerGateway resourceManagerGateway;
 
     private String jobManagerAddress;
@@ -292,6 +319,8 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * Requests a new slot from the ResourceManager. If there is currently not ResourceManager
      * connected, then the request is stashed and send once a new ResourceManager is connected.
+     * 从 ResourceManager 请求一个新插槽。
+     * 如果当前没有连接 ResourceManager，那么一旦连接了新的 ResourceManager，请求就会被隐藏并发送。
      *
      * @param pendingRequest pending slot request
      * @return An {@link AllocatedSlot} future which is completed once the slot is offered to the
@@ -544,6 +573,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * Checks whether there exists a pending request with the given slot request id and removes it
      * from the internal data structures.
+     * 检查是否存在具有给定槽请求 ID 的待处理请求，并将其从内部数据结构中删除。
      *
      * @param requestId identifying the pending request
      * @return pending request if there is one, otherwise null
@@ -580,6 +610,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * Tries to fulfill with the given allocated slot a pending slot request or add the allocated
      * slot to the set of available slots if no matching request is available.
+     * 如果没有匹配的请求可用，则尝试使用给定的已分配插槽满足待处理的插槽请求或将已分配的插槽添加到可用插槽集合中。
      *
      * @param allocatedSlot which shall be returned
      */
@@ -692,6 +723,10 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
      * the different allocation we issued. Slot offering may be rejected if we find something
      * mismatching or there is actually no pending request waiting for this slot (maybe fulfilled by
      * some other returned slot).
+     * TaskExecutor 提供的具有 AllocationID 的插槽。
+     * AllocationID 最初是由这个池生成的，并通过 ResourceManager 传递给 TaskManager。
+     * 我们用它来区分我们发出的不同分配。
+     * 如果我们发现某些不匹配的内容或实际上没有等待此插槽的待处理请求（可能由其他返回的插槽完成），则插槽提供可能会被拒绝。
      *
      * @param taskManagerLocation location from where the offer comes from
      * @param taskManagerGateway TaskManager gateway
@@ -767,8 +802,10 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
     // TODO - periodic (every minute or so) catch slots that were lost (check all slots, if they
     // have any task active)
+    // TODO - 定期（每分钟左右）捕获丢失的插槽（检查所有插槽，如果它们有任何活动任务）
 
     // TODO - release slots that were not used to the resource manager
+    // TODO - 释放资源管理器未使用的插槽
 
     // ------------------------------------------------------------------------
     //  Error Handling
@@ -779,6 +816,9 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
      * triggered by JobManager when some slot allocation failed with rpcTimeout. Or this could be
      * triggered by TaskManager, when it finds out something went wrong with the slot, and decided
      * to take it back.
+     * 如果我们有一个指定的分配失败并释放相应的插槽。
+     * 当某些插槽分配因 rpcTimeout 失败时，这可能由 JobManager 触发。
+     * 或者这可能由 TaskManager 触发，当它发现插槽出现问题并决定将其收回时。
      *
      * @param allocationID Represents the allocation which should be failed
      * @param cause The cause of the failure
@@ -852,6 +892,8 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
      * Register TaskManager to this pool, only those slots come from registered TaskManager will be
      * considered valid. Also it provides a way for us to keep "dead" or "abnormal" TaskManagers out
      * of this pool.
+     * 将 TaskManager 注册到这个池中，只有那些来自已注册 TaskManager 的槽才会被认为是有效的。
+     * 它还为我们提供了一种将“死”或“异常”TaskManagers 排除在此池之外的方法。
      *
      * @param resourceID The id of the TaskManager
      */
@@ -868,6 +910,8 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
      * Unregister TaskManager from this pool, all the related slots will be released and tasks be
      * canceled. Called when we find some TaskManager becomes "dead" or "abnormal", and we decide to
      * not using slots from it anymore.
+     * 从这个池中注销TaskManager，所有相关的slots都将被释放并被取消。
+     * 当我们发现一些 TaskManager 变得“死”或“异常”时调用，我们决定不再使用它的插槽。
      *
      * @param resourceId The id of the TaskManager
      * @param cause for the releasing of the TaskManager
@@ -938,7 +982,9 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
         }
     }
 
-    /** Check the available slots, release the slot that is idle for a long time. */
+    /** Check the available slots, release the slot that is idle for a long time.
+     * 检查可用槽位，释放长时间空闲的槽位。
+     * */
     protected void checkIdleSlot() {
 
         // The timestamp in SlotAndTimestamp is relative
@@ -1054,7 +1100,9 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
         };
     }
 
-    /** Clear the internal state of the SlotPool. */
+    /** Clear the internal state of the SlotPool.
+     * 清除 SlotPool 的内部状态。
+     * */
     private void clear() {
         availableSlots.clear();
         allocatedSlots.clear();
@@ -1100,6 +1148,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
     /**
      * Execute the runnable in the main thread of the underlying RPC endpoint.
+     * 在底层 RPC 端点的主线程中执行 runnable。
      *
      * @param runnable Runnable to be executed in the main thread of the underlying RPC endpoint
      */
@@ -1110,6 +1159,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * Execute the runnable in the main thread of the underlying RPC endpoint, with a delay of the
      * given number of milliseconds.
+     * 在底层 RPC 端点的主线程中执行 runnable，延迟为给定的毫秒数。
      *
      * @param runnable Runnable to be executed
      * @param delay The delay after which the runnable will be executed
@@ -1121,6 +1171,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     /**
      * Execute the runnable in the main thread of the underlying RPC endpoint, with a delay of the
      * given number of milliseconds.
+     * 在底层 RPC 端点的主线程中执行 runnable，延迟为给定的毫秒数。
      *
      * @param runnable Runnable to be executed
      * @param delay The delay after which the runnable will be executed
@@ -1133,7 +1184,9 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
     //  Helper classes
     // ------------------------------------------------------------------------
 
-    /** Organize allocated slots from different points of view. */
+    /** Organize allocated slots from different points of view.
+     * 从不同的角度组织分配的插槽。
+     * */
     static class AllocatedSlots {
 
         /** All allocated slots organized by TaskManager's id. */
@@ -1150,6 +1203,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Adds a new slot to this collection.
+         * 向此集合添加一个新插槽。
          *
          * @param allocatedSlot The allocated slot
          */
@@ -1167,6 +1221,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Get allocated slot with allocation id.
+         * 使用分配 ID 获取分配的插槽。
          *
          * @param allocationID The allocation id
          * @return The allocated slot, null if we can't find a match
@@ -1178,6 +1233,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Check whether we have allocated this slot.
+         * 检查我们是否已经分配了这个槽。
          *
          * @param slotAllocationId The allocation id of the slot to check
          * @return True if we contains this slot
@@ -1188,6 +1244,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Removes the allocated slot specified by the provided slot allocation id.
+         * 删除由提供的槽分配 id 指定的分配槽。
          *
          * @param allocationID identifying the allocated slot to remove
          * @return The removed allocated slot or null.
@@ -1205,6 +1262,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Removes the allocated slot specified by the provided slot request id.
+         * 删除由提供的槽请求 ID 指定的分配槽。
          *
          * @param slotRequestId identifying the allocated slot to remove
          * @return The removed allocated slot or null.
@@ -1234,6 +1292,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Get all allocated slot from same TaskManager.
+         * 从同一个 TaskManager 获取所有分配的插槽。
          *
          * @param resourceID The id of the TaskManager
          * @return Set of slots which are allocated from the same TaskManager
@@ -1285,16 +1344,24 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
     // ------------------------------------------------------------------------
 
-    /** Organize all available slots from different points of view. */
+    /** Organize all available slots from different points of view.
+     * 从不同的角度组织所有可用的插槽。
+     * */
     protected static class AvailableSlots {
 
-        /** All available slots organized by TaskManager. */
+        /** All available slots organized by TaskManager.
+         * TaskManager 组织的所有可用插槽。
+         * */
         private final HashMap<ResourceID, Set<AllocatedSlot>> availableSlotsByTaskManager;
 
-        /** All available slots organized by host. */
+        /** All available slots organized by host.
+         * 由主机组织的所有可用插槽。
+         * */
         private final HashMap<String, Set<AllocatedSlot>> availableSlotsByHost;
 
-        /** The available slots, with the time when they were inserted. */
+        /** The available slots, with the time when they were inserted.
+         * 可用的插槽，以及它们插入的时间。
+         * */
         private final HashMap<AllocationID, SlotAndTimestamp> availableSlots;
 
         AvailableSlots() {
@@ -1305,6 +1372,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Adds an available slot.
+         * 添加一个可用的插槽。
          *
          * @param slot The slot to add
          */
@@ -1332,7 +1400,9 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
             }
         }
 
-        /** Check whether we have this slot. */
+        /** Check whether we have this slot.
+         * 检查我们是否有这个插槽。
+         * */
         boolean contains(AllocationID slotId) {
             return availableSlots.containsKey(slotId);
         }
@@ -1348,6 +1418,7 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
         /**
          * Remove all available slots come from specified TaskManager.
+         * 删除所有来自指定 TaskManager 的可用插槽。
          *
          * @param taskManager The id of the TaskManager
          * @return The set of removed slots for the given TaskManager
@@ -1549,7 +1620,9 @@ public class SlotPoolImpl implements SlotPool, SlotPoolService {
 
     // ------------------------------------------------------------------------
 
-    /** A slot, together with the timestamp when it was added. */
+    /** A slot, together with the timestamp when it was added.
+     * 一个插槽，以及添加它时的时间戳。
+     * */
     private static class SlotAndTimestamp {
 
         private final AllocatedSlot slot;

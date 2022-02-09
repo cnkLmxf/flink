@@ -30,6 +30,7 @@ import java.util.Map;
 /**
  * Listener for {@link WorkerDoneEvent} which also aggregates all aggregators from iteration tasks
  * and signals the end of the superstep.
+ * {@link WorkerDoneEvent} 的监听器，它还聚合来自迭代任务的所有聚合器并发出超级步结束的信号。
  */
 public class SyncEventHandler implements EventListener<TaskEvent> {
 

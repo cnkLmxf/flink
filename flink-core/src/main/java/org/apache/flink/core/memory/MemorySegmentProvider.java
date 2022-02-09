@@ -21,7 +21,9 @@ package org.apache.flink.core.memory;
 import java.io.IOException;
 import java.util.Collection;
 
-/** The provider used for requesting and releasing batch of memory segments. */
+/** The provider used for requesting and releasing batch of memory segments.
+ * 用于请求和释放批量内存段的提供程序。
+ * */
 public interface MemorySegmentProvider {
     Collection<MemorySegment> requestMemorySegments(int numberOfSegmentsToRequest)
             throws IOException;

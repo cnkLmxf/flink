@@ -28,6 +28,8 @@ import java.util.Collection;
  * Dispatcher implementation which spawns a {@link JobMaster} for each submitted {@link JobGraph}
  * within in the same process. This dispatcher can be used as the default for all different session
  * clusters.
+ * Dispatcher 实现在同一进程中为每个提交的 {@link JobGraph} 生成一个 {@link JobMaster}。
+ * 此调度程序可用作所有不同会话集群的默认值。
  */
 public class StandaloneDispatcher extends Dispatcher {
     public StandaloneDispatcher(

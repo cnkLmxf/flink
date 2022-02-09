@@ -37,6 +37,7 @@ import java.util.Iterator;
 /**
  * Abstract base class for snapshots of a {@link StateTable}. Offers a way to serialize the snapshot
  * (by key-group). All snapshots should be released after usage.
+ * {@link StateTable} 快照的抽象基类。 提供一种序列化快照的方法（按键组）。 所有快照都应在使用后发布。
  */
 @Internal
 abstract class AbstractStateTableSnapshot<K, N, S>

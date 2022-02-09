@@ -23,15 +23,19 @@ import javax.annotation.Nullable;
 /**
  * Base for the handles of the checkpointed states in keyed streams. When recovering from failures,
  * the handle will be passed to all tasks whose key group ranges overlap with it.
+ * 键控流中检查点状态句柄的基础。 从故障中恢复时，句柄将传递给所有与其key-group范围重叠的task。
  */
 public interface KeyedStateHandle extends CompositeStateHandle {
 
-    /** Returns the range of the key groups contained in the state. */
+    /** Returns the range of the key groups contained in the state.
+     * 返回状态中包含的键组的范围。
+     * */
     KeyGroupRange getKeyGroupRange();
 
     /**
      * Returns a state over a range that is the intersection between this handle's key-group range
      * and the provided key-group range.
+     * 返回一个范围内的状态，该范围是此句柄的key-group范围与提供的key-group范围之间的交集。
      *
      * @param keyGroupRange The key group range to intersect with, will return null if the
      *     intersection of this handle's key-group and the provided key-group is empty.

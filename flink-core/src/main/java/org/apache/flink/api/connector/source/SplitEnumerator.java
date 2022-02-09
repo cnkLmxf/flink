@@ -29,6 +29,7 @@ import java.util.List;
 /**
  * A interface of a split enumerator responsible for the followings: 1. discover the splits for the
  * {@link SourceReader} to read. 2. assign the splits to the source reader.
+ * 拆分枚举器接口负责以下工作： 1. 发现{@link SourceReader} 读取的拆分。 2. 将拆分分配给源阅读器。
  */
 @PublicEvolving
 public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
@@ -44,6 +45,7 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
     /**
      * Handles the request for a split. This method is called when the reader with the given subtask
      * id calls the {@link SourceReaderContext#sendSplitRequest()} method.
+     * 处理拆分请求。 当具有给定子任务 ID 的阅读器调用 {@link SourceReaderContext#sendSplitRequest()} 方法时，将调用此方法。
      *
      * @param subtaskId the subtask id of the source reader who sent the source event.
      * @param requesterHostname Optional, the hostname where the requesting task is running. This
@@ -54,6 +56,7 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
     /**
      * Add a split back to the split enumerator. It will only happen when a {@link SourceReader}
      * fails and there are splits assigned to it after the last successful checkpoint.
+     * 将拆分添加回拆分枚举器。 它只会在 {@link SourceReader} 失败并且在最后一个成功的检查点之后分配给它的拆分时才会发生。
      *
      * @param splits The split to add back to the enumerator for reassignment.
      * @param subtaskId The id of the subtask to which the returned splits belong.
@@ -62,6 +65,7 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
 
     /**
      * Add a new source reader with the given subtask ID.
+     * 添加具有给定子任务 ID 的新源阅读器。
      *
      * @param subtaskId the subtask ID of the new source reader.
      */
@@ -69,12 +73,16 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
 
     /**
      * Creates a snapshot of the state of this split enumerator, to be stored in a checkpoint.
+     * 创建此拆分枚举器状态的快照，以存储在检查点中。
      *
      * <p>The snapshot should contain the latest state of the enumerator: It should assume that all
      * operations that happened before the snapshot have successfully completed. For example all
      * splits assigned to readers via {@link SplitEnumeratorContext#assignSplit(SourceSplit, int)}
      * and {@link SplitEnumeratorContext#assignSplits(SplitsAssignment)}) don't need to be included
      * in the snapshot anymore.
+     * 快照应该包含枚举器的最新状态：它应该假设在快照之前发生的所有操作都已成功完成。
+     * 例如，通过 {@link SplitEnumeratorContext#assignSplit(SourceSplit, int)}
+     * 和 {@link SplitEnumeratorContext#assignSplits(SplitsAssignment)}) 分配给读者的所有拆分不再需要包含在快照中。
      *
      * <p>This method takes the ID of the checkpoint for which the state is snapshotted. Most
      * implementations should be able to ignore this parameter, because for the contents of the
@@ -82,6 +90,9 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
      * interesting for source connectors with external systems where those systems are themselves
      * aware of checkpoints; for example in cases where the enumerator notifies that system about a
      * specific checkpoint being triggered.
+     * 此方法获取状态被快照的检查点的 ID。 大多数实现应该能够忽略此参数，因为对于快照的内容，它创建的检查点无关紧要。
+     * 这个参数对于带有外部系统的源连接器可能很有趣，这些系统本身知道检查点；
+     * 例如，在枚举器通知该系统有关触发特定检查点的情况下。
      *
      * @param checkpointId The ID of the checkpoint for which the snapshot is created.
      * @return an object containing the state of the split enumerator.
@@ -92,6 +103,7 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
     /**
      * Called to close the enumerator, in case it holds on to any resources, like threads or network
      * connections.
+     * 调用以关闭枚举器，以防它占用任何资源，如线程或网络连接。
      */
     @Override
     void close() throws IOException;
@@ -99,6 +111,7 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
     /**
      * We have an empty default implementation here because most source readers do not have to
      * implement the method.
+     * 我们这里有一个空的默认实现，因为大多数源代码阅读器不必实现该方法。
      *
      * @see CheckpointListener#notifyCheckpointComplete(long)
      */
@@ -107,12 +120,15 @@ public interface SplitEnumerator<SplitT extends SourceSplit, CheckpointT>
 
     /**
      * Handles a custom source event from the source reader.
+     * 处理来自源阅读器的自定义源事件。
      *
      * <p>This method has a default implementation that does nothing, because it is only required to
      * be implemented by some sources, which have a custom event protocol between reader and
      * enumerator. The common events for reader registration and split requests are not dispatched
      * to this method, but rather invoke the {@link #addReader(int)} and {@link
      * #handleSplitRequest(int, String)} methods.
+     * 此方法有一个默认实现，它什么都不做，因为它只需要由某些源实现，这些源在读取器和枚举器之间具有自定义事件协议。
+     * 读者注册和拆分请求的常见事件不会分派到此方法，而是调用 {@link #addReader(int)} 和 {@link #handleSplitRequest(int, String)} 方法。
      *
      * @param subtaskId the subtask id of the source reader who sent the source event.
      * @param sourceEvent the source event from the source reader.

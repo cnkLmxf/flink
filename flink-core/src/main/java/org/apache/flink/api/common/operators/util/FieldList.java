@@ -26,7 +26,9 @@ import java.util.List;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Immutable ordered list of fields IDs. */
+/** Immutable ordered list of fields IDs.
+ * 字段 ID 的不可变有序列表。
+ * */
 @Internal
 public class FieldList extends FieldSet {
 

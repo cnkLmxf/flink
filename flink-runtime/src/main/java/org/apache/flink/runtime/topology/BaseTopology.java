@@ -21,6 +21,7 @@ package org.apache.flink.runtime.topology;
 /**
  * Base topology for all logical and execution topologies. A topology consists of {@link Vertex} and
  * {@link Result}.
+ * 所有逻辑和执行拓扑的基本拓扑。 拓扑由 {@link Vertex} 和 {@link Result} 组成。
  */
 public interface BaseTopology<
         VID extends VertexID,

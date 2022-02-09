@@ -22,7 +22,9 @@ import org.apache.flink.util.Preconditions;
 
 import java.io.Serializable;
 
-/** Information about the cluster which is shared with the cluster components. */
+/** Information about the cluster which is shared with the cluster components.
+ * 与集群组件共享的集群信息。
+ * */
 public class ClusterInformation implements Serializable {
 
     private static final long serialVersionUID = 316958921518479205L;

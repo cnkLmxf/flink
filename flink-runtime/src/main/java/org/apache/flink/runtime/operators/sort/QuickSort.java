@@ -27,6 +27,7 @@ public final class QuickSort implements IndexedSorter {
     /**
      * Fix the records into sorted order, swapping when the first record is greater than the second
      * record.
+     * 将记录固定为排序顺序，当第一条记录大于第二条记录时交换。
      *
      * @param s paged sortable
      * @param pN page number of first record

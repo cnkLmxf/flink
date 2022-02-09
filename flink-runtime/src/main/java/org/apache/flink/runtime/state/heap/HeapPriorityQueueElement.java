@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Internal;
 /**
  * Interface for objects that can be managed by a {@link HeapPriorityQueue}. Such an object can only
  * be contained in at most one {@link HeapPriorityQueue} at a time.
+ * 可以由 {@link HeapPriorityQueue} 管理的对象的接口。 这样的对象一次最多只能包含在一个 {@link HeapPriorityQueue} 中。
  */
 @Internal
 public interface HeapPriorityQueueElement {

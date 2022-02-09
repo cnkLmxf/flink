@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 /**
  * {@code FailureHandlingResultSnapshot} creates a snapshot of a {@link FailureHandlingResult}
  * providing the actual {@link Execution Executions}.
+ * {@code FailureHandlingResultSnapshot} 创建 {@link FailureHandlingResult} 的快照，提供实际的 {@link Execution Executions}。
  */
 public class FailureHandlingResultSnapshot {
 

@@ -32,10 +32,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-/** Abstract class for the JobGraphRetriever which supports getting user classpaths. */
+/** Abstract class for the JobGraphRetriever which supports getting user classpaths.
+ * JobGraphRetriever 的抽象类，支持获取用户类路径。
+ * */
 public abstract class AbstractUserClassPathJobGraphRetriever implements JobGraphRetriever {
 
-    /** User classpaths in relative form to the working directory. */
+    /** User classpaths in relative form to the working directory.
+     * 相对于工作目录的用户类路径。
+     * */
     @Nonnull private final Collection<URL> userClassPaths;
 
     protected AbstractUserClassPathJobGraphRetriever(@Nullable File jobDir) throws IOException {

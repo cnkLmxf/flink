@@ -23,10 +23,14 @@ import org.apache.flink.types.Value;
 
 import java.io.Serializable;
 
-/** Used to check for convergence. */
+/** Used to check for convergence.
+ * 用于检查收敛。
+ * */
 @PublicEvolving
 public interface ConvergenceCriterion<T extends Value> extends Serializable {
 
-    /** Decide whether the iterative algorithm has converged */
+    /** Decide whether the iterative algorithm has converged
+     * 判断迭代算法是否收敛
+     * */
     boolean isConverged(int iteration, T value);
 }

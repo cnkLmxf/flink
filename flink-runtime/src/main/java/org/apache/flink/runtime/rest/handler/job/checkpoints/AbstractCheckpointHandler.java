@@ -107,6 +107,7 @@ public abstract class AbstractCheckpointHandler<
 
     /**
      * Called for each request with the corresponding {@link AbstractCheckpointStats} instance.
+     * 使用相应的 {@link AbstractCheckpointStats} 实例为每个请求调用。
      *
      * @param request for further information
      * @param checkpointStats for which the handler is called

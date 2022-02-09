@@ -38,6 +38,8 @@ import static org.apache.flink.types.RowUtils.deepHashCodeRow;
  * field order. Every field can be null regardless of the field's type. The type of row fields
  * cannot be automatically inferred; therefore, it is required to provide type information whenever
  * a row is produced.
+ * 行是一种固定长度、可识别空值的复合类型，用于以确定的字段顺序存储多个值。
+ * 无论字段的类型如何，每个字段都可以为空。 无法自动推断行字段的类型； 因此，无论何时生成一行，都需要提供类型信息。
  *
  * <p>The main purpose of rows is to bridge between Flink's Table and SQL ecosystem and other APIs.
  * Therefore, a row does not only consist of a schema part (containing the fields) but also attaches
@@ -45,18 +47,29 @@ import static org.apache.flink.types.RowUtils.deepHashCodeRow;
  * in a changelog. For example, in regular batch scenarios, a changelog would consist of a bounded
  * stream of {@link RowKind#INSERT} rows. The row kind is kept separate from the fields and can be
  * accessed by using {@link #getKind()} and {@link #setKind(RowKind)}.
+ * rows 的主要目的是在 Flink 的 Table 和 SQL 生态系统以及其他 API 之间架起一座桥梁。
+ * 因此，一行不仅包含架构部分（包含字段），而且还附加了一个 {@link RowKind} 用于对更改日志中的更改进行编码。
+ * 因此，可以将一行视为更改日志中的一个条目。 例如，在常规批处理场景中，更改日志将包含 {@link RowKind#INSERT} 行的有界流。
+ * 行种类与字段分开，可以使用 {@link #getKind()} 和 {@link #setKind(RowKind)} 访问。
  *
  * <p>Fields of a row can be accessed either position-based or name-based. An implementer can decide
  * in which field mode a row should operate during creation. Rows that were produced by the
  * framework support a hybrid of both field modes (i.e. named positions):
+ * 可以基于位置或基于名称访问行的字段。 实施者可以决定在创建期间一行应该在哪种字段模式下运行。
+ * 框架生成的行支持两种字段模式的混合（即命名位置）：
  *
  * <h1>Position-based field mode</h1>
+ * 基于位置的字段模式
  *
  * <p>{@link Row#withPositions(int)} creates a fixed-length row. The fields can be accessed by
  * position (zero-based) using {@link #getField(int)} and {@link #setField(int, Object)}. Every
  * field is initialized with {@code null} by default.
+ * {@link Row#withPositions(int)} 创建一个固定长度的行。
+ * 可以使用 {@link #getField(int)} 和 {@link #setField(int, Object)} 按位置（从零开始）访问字段。
+ * 默认情况下，每个字段都使用 {@code null} 进行初始化。
  *
  * <h1>Name-based field mode</h1>
+ * 基于名称的字段模式
  *
  * <p>{@link Row#withNames()} creates a variable-length row. The fields can be accessed by name
  * using {@link #getField(String)} and {@link #setField(String, Object)}. Every field is initialized
@@ -65,8 +78,14 @@ import static org.apache.flink.types.RowUtils.deepHashCodeRow;
  * information is available during serialization or input conversion. Thus, even name-based rows
  * eventually become fixed-length composite types with a deterministic field order. Name-based rows
  * perform worse than position-based rows but simplify row creation and code readability.
+ * {@link Row#withNames()} 创建一个可变长度行。 可以使用 {@link #getField(String)} 和 {@link #setField(String, Object)} 按名称访问字段。
+ * 在第一次调用给定名称的 {@link #setField(String, Object)} 期间，每个字段都被初始化。
+ * 但是，框架将使用 {@code null} 初始化缺失的字段，并在序列化或输入转换期间有更多类型信息可用时重新排序所有字段。
+ * 因此，即使是基于名称的行最终也会成为具有确定性字段顺序的固定长度复合类型。
+ * 基于名称的行的性能比基于位置的行差，但简化了行的创建和代码的可读性。
  *
  * <h1>Hybrid / named-position field mode</h1>
+ * 混合/命名位置字段模式
  *
  * <p>Rows that were produced by the framework (after deserialization or output conversion) are
  * fixed-length rows with a deterministic field order that can map static field names to field
@@ -75,20 +94,30 @@ import static org.apache.flink.types.RowUtils.deepHashCodeRow;
  * supported for existing fields. However, adding new field names via {@link #setField(String,
  * Object)} is not allowed. A hybrid row's {@link #equals(Object)} supports comparing to all kinds
  * of rows. A hybrid row's {@link #hashCode()} is only valid for position-based rows.
+ * 框架生成的行（在反序列化或输出转换之后）是具有确定性字段顺序的固定长度行，可以将静态字段名称映射到字段位置。
+ * 因此，可以通过 {@link #getField(int)} 和 {@link #getField(String)} 访问字段。
+ * 现有字段支持 {@link #setField(int, Object)} 和 {@link #setField(String, Object)}。
+ * 但是，不允许通过 {@link #setField(String, Object)} 添加新字段名称。
+ * 混合行的 {@link #equals(Object)} 支持比较各种行。 混合行的 {@link #hashCode()} 仅对基于位置的行有效。
  *
  * <p>A row instance is in principle {@link Serializable}. However, it may contain non-serializable
  * fields in which case serialization will fail if the row is not serialized with Flink's
  * serialization stack.
+ * 行实例原则上是 {@link Serializable}。 但是，它可能包含不可序列化的字段，在这种情况下，
+ * 如果该行未使用 Flink 的序列化堆栈进行序列化，则序列化将失败。
  *
  * <p>The {@link #equals(Object)} and {@link #hashCode()} methods of this class support all external
  * conversion classes of the table ecosystem.
+ * 该类的{@link #equals(Object)} 和{@link #hashCode()} 方法支持表生态的所有外部转换类。
  */
 @PublicEvolving
 public final class Row implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
-    /** The kind of change a row describes in a changelog. */
+    /** The kind of change a row describes in a changelog.
+     * 更改日志中描述的行的更改类型。
+     * */
     private RowKind kind;
 
     /** Fields organized by position. Either this or {@link #fieldByName} is set. */

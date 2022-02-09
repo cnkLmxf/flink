@@ -24,15 +24,19 @@ import org.apache.flink.runtime.slots.ResourceRequirement;
 import java.util.Collection;
 import java.util.Map;
 
-/** Strategy for allocating slots and task managers to fulfill the unfulfilled requirements. */
+/** Strategy for allocating slots and task managers to fulfill the unfulfilled requirements.
+ * 分配槽和任务管理器以满足未满足要求的策略。
+ * */
 public interface ResourceAllocationStrategy {
 
     /**
      * Try to make an allocation decision to fulfill the resource requirements. The strategy
      * generates a series of actions to take, based on the current status.
+     * 尝试做出分配决定以满足资源需求。 该策略会根据当前状态生成一系列要采取的行动。
      *
      * <p>Notice: For performance considerations, modifications might be performed directly on the
      * input arguments. If the arguments are reused elsewhere, please make a deep copy in advance.
+     * 注意：出于性能考虑，可以直接对输入参数执行修改。 如果参数在其他地方重复使用，请提前进行深拷贝。
      *
      * @param missingResources resource requirements that are not yet fulfilled, indexed by jobId
      * @param taskManagerResourceInfoProvider provide the registered/pending resources of the

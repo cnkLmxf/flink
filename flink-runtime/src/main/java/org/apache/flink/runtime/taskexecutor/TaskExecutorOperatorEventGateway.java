@@ -30,12 +30,14 @@ import java.util.concurrent.CompletableFuture;
 /**
  * The gateway through which the {@link OperatorCoordinator} can send an event to an Operator on the
  * Task Manager side.
+ * {@link OperatorCoordinator} 可以通过它向任务管理器端的 Operator 发送事件的网关。
  */
 public interface TaskExecutorOperatorEventGateway {
 
     /**
      * Sends an operator event to an operator in a task executed by the Task Manager (Task
      * Executor).
+     * 向任务管理器（Task Executor）执行的任务中的操作员发送操作员事件。
      *
      * <p>The reception is acknowledged (future is completed) when the event has been dispatched to
      * the {@link
@@ -44,6 +46,9 @@ public interface TaskExecutorOperatorEventGateway {
      * within the implementation. These cases are up to the task and event sender to handle (for
      * example with an explicit response message upon success, or by triggering failure/recovery
      * upon exception).
+     * 当事件被分派到 {@link org.apache.flink.runtime.jobgraph.tasks.AbstractInvokable#dispatchOperatorEvent(OperatorID, SerializedValue)}
+     * 方法时，接收被确认（未来完成）。 不能保证在实现中成功处理事件。
+     * 这些情况取决于要处理的任务和事件发送者（例如，成功时使用显式响应消息，或者在异常时触发失败/恢复）。
      */
     CompletableFuture<Acknowledge> sendOperatorEventToTask(
             ExecutionAttemptID task, OperatorID operator, SerializedValue<OperatorEvent> evt);

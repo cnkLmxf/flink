@@ -25,6 +25,9 @@ import org.apache.flink.runtime.concurrent.ScheduledExecutor;
  * Heartbeat monitor which manages the heartbeat state of the associated heartbeat target. The
  * monitor notifies the {@link HeartbeatListener} whenever it has not seen a heartbeat signal in the
  * specified heartbeat timeout interval. Each heartbeat signal resets this timer.
+ * 管理相关心跳目标的心跳状态的心跳监视器。
+ * 只要在指定的心跳超时间隔内没有看到心跳信号，监视器就会通知 {@link HeartbeatListener}。
+ * 每个心跳信号都会重置此计时器。
  *
  * @param <O> Type of the payload being sent to the associated heartbeat target
  */
@@ -44,7 +47,9 @@ public interface HeartbeatMonitor<O> {
      */
     ResourceID getHeartbeatTargetId();
 
-    /** Report heartbeat from the monitored target. */
+    /** Report heartbeat from the monitored target.
+     * 报告来自监控目标的心跳。
+     * */
     void reportHeartbeat();
 
     /** Cancel this monitor. */
@@ -52,6 +57,7 @@ public interface HeartbeatMonitor<O> {
 
     /**
      * Gets the last heartbeat.
+     * 获取最后的心跳。
      *
      * @return the last heartbeat
      */
@@ -59,6 +65,7 @@ public interface HeartbeatMonitor<O> {
 
     /**
      * This factory provides an indirection way to create {@link HeartbeatMonitor}.
+     * 该工厂提供了一种间接方式来创建 {@link HeartbeatMonitor}。
      *
      * @param <O> Type of the outgoing heartbeat payload
      */

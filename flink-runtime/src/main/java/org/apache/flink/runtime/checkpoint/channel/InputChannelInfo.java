@@ -26,6 +26,9 @@ import java.util.Objects;
  * Identifies {@link org.apache.flink.runtime.io.network.partition.consumer.InputChannel} in a given
  * subtask. Note that {@link org.apache.flink.runtime.io.network.partition.consumer.InputChannelID
  * InputChannelID} can not be used because it is generated randomly.
+ * 标识给定子任务中的 {@link org.apache.flink.runtime.io.network.partition.consumer.InputChannel}。
+ * 注意 {@link org.apache.flink.runtime.io.network.partition.consumer.InputChannelID InputChannelID}
+ * 不能使用，因为它是随机生成的。
  */
 @Internal
 public class InputChannelInfo implements Serializable {

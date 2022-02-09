@@ -103,7 +103,9 @@ final class SpanningWrapper {
         this.fileBufferSize = fileBufferSize;
     }
 
-    /** Copies the data and transfers the "ownership" (i.e. clears the passed wrapper). */
+    /** Copies the data and transfers the "ownership" (i.e. clears the passed wrapper).
+     * 复制数据并转移“所有权”（即清除传递的包装器）。
+     * */
     void transferFrom(NonSpanningWrapper partial, int nextRecordLength) throws IOException {
         updateLength(nextRecordLength);
         accumulatedRecordBytes =

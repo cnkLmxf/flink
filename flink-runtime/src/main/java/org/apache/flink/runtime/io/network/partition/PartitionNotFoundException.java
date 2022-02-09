@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.io.network.partition;
 
-/** Exception for failed partition requests due to non-existing partitions. */
+/** Exception for failed partition requests due to non-existing partitions.
+ * 由于分区不存在而导致分区请求失败的例外情况。
+ * */
 public class PartitionNotFoundException extends PartitionException {
 
     private static final long serialVersionUID = 0L;

@@ -45,7 +45,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
-/** REST handler which returns the details for a checkpoint. */
+/** REST handler which returns the details for a checkpoint.
+ * 返回检查点详细信息的 REST 处理程序。
+ * */
 public class CheckpointStatisticDetailsHandler
         extends AbstractCheckpointHandler<CheckpointStatistics, CheckpointMessageParameters>
         implements OnlyExecutionGraphJsonArchivist {

@@ -48,6 +48,7 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * Base operator for the combineGroup transformation. It receives the UDF GroupCombineFunction as an
  * input. This class is later processed by the compiler to generate the plan.
+ * combineGroup 转换的基本运算符。 它接收 UDF GroupCombineFunction 作为输入。 该类稍后由编译器处理以生成计划。
  *
  * @see org.apache.flink.api.common.functions.CombineFunction
  */
@@ -55,7 +56,9 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 public class GroupCombineOperatorBase<IN, OUT, FT extends GroupCombineFunction<IN, OUT>>
         extends SingleInputOperator<IN, OUT, FT> {
 
-    /** The ordering for the order inside a reduce group. */
+    /** The ordering for the order inside a reduce group.
+     * 归约组内订单的排序。
+     * */
     private Ordering groupOrder;
 
     public GroupCombineOperatorBase(
@@ -70,6 +73,7 @@ public class GroupCombineOperatorBase<IN, OUT, FT extends GroupCombineFunction<I
 
     /**
      * Sets the order of the elements within a reduce group.
+     * 设置归约组中元素的顺序。
      *
      * @param order The order for the elements in a reduce group.
      */
@@ -80,6 +84,7 @@ public class GroupCombineOperatorBase<IN, OUT, FT extends GroupCombineFunction<I
     /**
      * Gets the order of elements within a reduce group. If no such order has been set, this method
      * returns null.
+     * 获取归约组中元素的顺序。 如果未设置此类顺序，则此方法返回 null。
      *
      * @return The secondary order.
      */

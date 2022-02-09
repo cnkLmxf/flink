@@ -40,6 +40,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * An implementation of {@link BoundedData} that writes directly into a File Channel. The readers
  * are simple file channel readers using a simple dedicated buffer pool.
+ * 直接写入文件通道的 {@link BoundedData} 的实现。 阅读器是使用简单专用缓冲池的简单文件通道阅读器。
  */
 final class FileChannelBoundedData implements BoundedData {
 

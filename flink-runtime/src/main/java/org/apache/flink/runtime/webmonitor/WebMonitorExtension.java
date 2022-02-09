@@ -32,6 +32,8 @@ import java.util.concurrent.CompletableFuture;
  * Interface for {@link WebMonitorEndpoint} extensions. Extensions can register additional handler
  * and allow to close their resources in order to integrate into the life cycle of the {@link
  * WebMonitorEndpoint}.
+ * {@link WebMonitorEndpoint} 扩展的接口。
+ * 扩展可以注册额外的处理程序并允许关闭它们的资源，以便集成到 {@link WebMonitorEndpoint} 的生命周期中。
  */
 public interface WebMonitorExtension extends AutoCloseableAsync {
 

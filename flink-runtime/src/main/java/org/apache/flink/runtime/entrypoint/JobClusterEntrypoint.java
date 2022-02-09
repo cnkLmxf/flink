@@ -23,7 +23,9 @@ import org.apache.flink.runtime.concurrent.ScheduledExecutor;
 import org.apache.flink.runtime.dispatcher.ExecutionGraphInfoStore;
 import org.apache.flink.runtime.dispatcher.MemoryExecutionGraphInfoStore;
 
-/** Base class for per-job cluster entry points. */
+/** Base class for per-job cluster entry points.
+ * 每个作业集群入口点的基类。
+ * */
 public abstract class JobClusterEntrypoint extends ClusterEntrypoint {
 
     public JobClusterEntrypoint(Configuration configuration) {

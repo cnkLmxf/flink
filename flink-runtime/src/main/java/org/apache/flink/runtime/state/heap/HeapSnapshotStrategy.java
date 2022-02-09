@@ -52,7 +52,9 @@ import static org.apache.flink.runtime.state.CheckpointStreamWithResultProvider.
 import static org.apache.flink.runtime.state.CheckpointStreamWithResultProvider.createSimpleStream;
 import static org.apache.flink.runtime.state.CheckpointStreamWithResultProvider.toKeyedStateHandleSnapshotResult;
 
-/** A strategy how to perform a snapshot of a {@link HeapKeyedStateBackend}. */
+/** A strategy how to perform a snapshot of a {@link HeapKeyedStateBackend}.
+ * 如何执行 {@link HeapKeyedStateBackend} 快照的策略。
+ * */
 class HeapSnapshotStrategy<K>
         implements SnapshotStrategy<KeyedStateHandle, HeapSnapshotResources<K>> {
 

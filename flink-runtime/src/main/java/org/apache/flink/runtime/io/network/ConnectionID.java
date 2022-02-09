@@ -31,9 +31,12 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A {@link ConnectionID} identifies a connection to a remote task manager by the socket address and
  * a connection index. This allows multiple connections to the same task manager to be distinguished
  * by their connection index.
+ * {@link ConnectionID} 通过套接字地址和连接索引标识到远程任务管理器的连接。
+ * 这允许通过它们的连接索引来区分到同一个任务管理器的多个连接。
  *
  * <p>The connection index is assigned by the {@link IntermediateResult} and ensures that it is safe
  * to multiplex multiple data transfers over the same physical TCP connection.
+ * 连接索引由 {@link IntermediateResult} 分配，并确保在同一物理 TCP 连接上多路复用多个数据传输是安全的。
  */
 public class ConnectionID implements Serializable {
 

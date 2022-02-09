@@ -36,7 +36,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-/** Tracks resource for a single job. */
+/** Tracks resource for a single job.
+ * 跟踪单个作业的资源。
+ * */
 class JobScopedResourceTracker {
 
     private static final Logger LOG = LoggerFactory.getLogger(JobScopedResourceTracker.class);

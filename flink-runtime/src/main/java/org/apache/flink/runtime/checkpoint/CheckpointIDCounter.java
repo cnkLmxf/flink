@@ -20,10 +20,14 @@ package org.apache.flink.runtime.checkpoint;
 
 import org.apache.flink.api.common.JobStatus;
 
-/** A checkpoint ID counter. */
+/** A checkpoint ID counter.
+ * 检查点 ID 计数器。
+ * */
 public interface CheckpointIDCounter {
 
-    /** Starts the {@link CheckpointIDCounter} service down. */
+    /** Starts the {@link CheckpointIDCounter} service down.
+     * 启动 {@link CheckpointIDCounter} 服务。
+     * */
     void start() throws Exception;
 
     /**
@@ -31,6 +35,7 @@ public interface CheckpointIDCounter {
      *
      * <p>The job status is forwarded and used to decide whether state should actually be discarded
      * or kept.
+     * 作业状态被转发并用于决定是否应该实际丢弃或保留状态。
      *
      * @param jobStatus Job state on shut down
      */
@@ -38,6 +43,7 @@ public interface CheckpointIDCounter {
 
     /**
      * Atomically increments the current checkpoint ID.
+     * 以原子方式递增当前检查点 ID。
      *
      * @return The previous checkpoint ID
      */
@@ -45,6 +51,7 @@ public interface CheckpointIDCounter {
 
     /**
      * Atomically gets the current checkpoint ID.
+     * 以原子方式获取当前检查点 ID。
      *
      * @return The current checkpoint ID
      */
@@ -52,6 +59,7 @@ public interface CheckpointIDCounter {
 
     /**
      * Sets the current checkpoint ID.
+     * 设置当前检查点 ID。
      *
      * @param newId The new ID
      */

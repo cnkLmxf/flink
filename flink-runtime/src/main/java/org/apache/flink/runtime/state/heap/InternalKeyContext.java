@@ -27,9 +27,11 @@ import javax.annotation.Nonnull;
  * This interface is the current context of a keyed state. It provides information about the
  * currently selected key in the context, the corresponding key-group, and other key and
  * key-grouping related information.
+ * 此接口是键控状态的当前上下文。 它提供有关上下文中当前选择的键、相应的键组以及其他键和键组相关信息的信息。
  *
  * <p>The typical use case for this interface is providing a view on the current-key selection
  * aspects of {@link org.apache.flink.runtime.state.KeyedStateBackend}.
+ * 此接口的典型用例是提供有关 {@link org.apache.flink.runtime.state.KeyedStateBackend} 的当前密钥选择方面的视图。
  */
 @Internal
 public interface InternalKeyContext<K> {

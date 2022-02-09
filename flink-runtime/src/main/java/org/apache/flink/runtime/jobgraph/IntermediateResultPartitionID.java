@@ -32,12 +32,16 @@ public class IntermediateResultPartitionID implements ResultID {
     // ByteBuf.
     // It is the sum of two long types(lowerPart and upperPart of the intermediateDataSetID) and one
     // int type(partitionNum).
+    // 表示将IntermediateResultPartitionID写入ByteBuf时占用的字节数。
+    // 它是两个 long 类型（intermediateDataSetID 的 lowerPart 和 upperPart）和一个 int 类型（partitionNum）之和。
     private static final int BYTEBUF_LEN = 20;
 
     private final IntermediateDataSetID intermediateDataSetID;
     private final int partitionNum;
 
-    /** Creates an new random intermediate result partition ID for testing. */
+    /** Creates an new random intermediate result partition ID for testing.
+     * 为测试创建一个新的随机中间结果分区 ID。
+     * */
     @VisibleForTesting
     public IntermediateResultPartitionID() {
         this.partitionNum = -1;
@@ -47,6 +51,7 @@ public class IntermediateResultPartitionID implements ResultID {
     /**
      * Creates an new intermediate result partition ID with {@link IntermediateDataSetID} and the
      * partitionNum.
+     * 使用 {@link IntermediateDataSetID} 和 partitionNum 创建一个新的中间结果分区 ID。
      */
     public IntermediateResultPartitionID(
             IntermediateDataSetID intermediateDataSetID, int partitionNum) {

@@ -24,8 +24,10 @@ import java.io.Serializable;
 
 /**
  * Memory components which constitute the Total Flink Memory.
+ * 构成 Total Flink Memory 的内存组件。
  *
  * <p>The relationships of Flink JVM and rest memory components are shown below.
+ * Flink JVM 和剩余内存组件的关系如下图所示。
  *
  * <pre>
  *               ┌ ─ ─  Total Flink Memory - ─ ─ ┐
@@ -47,6 +49,8 @@ import java.io.Serializable;
  * depending on the process type. The Flink memory components can be derived from either its total
  * size or a subset of configured required fine-grained components. Check the implementations for
  * details about the concrete components.
+ * JVM 和剩余内存组件可以由更多具体的 Flink 内存组件组成，具体取决于进程类型。
+ * Flink 内存组件可以从其总大小或配置的所需细粒度组件的子集派生。 检查实现以获取有关具体组件的详细信息。
  */
 public interface FlinkMemory extends Serializable {
     MemorySize getJvmHeapMemorySize();

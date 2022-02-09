@@ -23,12 +23,15 @@ import org.apache.flink.annotation.PublicEvolving;
 import java.util.Collection;
 import java.util.Optional;
 
-/** Contains the information of an external resource. */
+/** Contains the information of an external resource.
+ * 包含外部资源的信息。
+ * */
 @PublicEvolving
 public interface ExternalResourceInfo {
 
     /**
      * Get the property indicated by the specified key.
+     * 获取指定key指示的属性。
      *
      * @param key of the required property
      * @return an {@code Optional} containing the value associated to the key, or an empty {@code

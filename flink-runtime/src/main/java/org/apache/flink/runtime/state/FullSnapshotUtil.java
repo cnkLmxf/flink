@@ -21,6 +21,7 @@ package org.apache.flink.runtime.state;
 /**
  * Utility methods and constants around creating and restoring full snapshots using {@link
  * FullSnapshotAsyncWriter}.
+ * 使用 {@link FullSnapshotAsyncWriter} 创建和恢复完整快照的实用方法和常量。
  */
 public class FullSnapshotUtil {
 

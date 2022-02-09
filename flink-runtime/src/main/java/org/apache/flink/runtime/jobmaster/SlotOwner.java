@@ -18,11 +18,14 @@
 
 package org.apache.flink.runtime.jobmaster;
 
-/** Interface for components that hold slots and to which slots get released / recycled. */
+/** Interface for components that hold slots and to which slots get released / recycled.
+ * 包含插槽的组件的接口以及插槽被释放/回收的组件。
+ * */
 public interface SlotOwner {
 
     /**
      * Return the given slot to the slot owner.
+     * 将给定的插槽返回给插槽所有者。
      *
      * @param logicalSlot to return
      */

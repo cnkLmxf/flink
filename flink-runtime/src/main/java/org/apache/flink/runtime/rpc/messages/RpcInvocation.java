@@ -23,6 +23,7 @@ import java.io.IOException;
 /**
  * Interface for rpc invocation messages. The interface allows to request all necessary information
  * to lookup a method and call it with the corresponding arguments.
+ * rpc 调用消息的接口。 该接口允许请求所有必要的信息来查找方法并使用相应的参数调用它。
  */
 public interface RpcInvocation {
 
@@ -50,6 +51,7 @@ public interface RpcInvocation {
 
     /**
      * Returns the arguments of the remote procedure call
+     * 返回远程过程调用的参数
      *
      * @return Arguments of the remote procedure call
      * @throws IOException if the rpc invocation message is a remote message and could not be

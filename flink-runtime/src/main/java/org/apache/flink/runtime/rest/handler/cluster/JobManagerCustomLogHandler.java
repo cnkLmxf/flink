@@ -32,7 +32,9 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.util.Map;
 
-/** Rest handler which serves the custom log file from JobManager. */
+/** Rest handler which serves the custom log file from JobManager.
+ * 为 JobManager 中的自定义日志文件提供服务的休息处理程序。
+ * */
 public class JobManagerCustomLogHandler
         extends AbstractJobManagerFileHandler<FileMessageParameters> {
 

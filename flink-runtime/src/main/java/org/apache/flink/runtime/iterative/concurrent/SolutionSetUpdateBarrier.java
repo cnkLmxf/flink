@@ -26,6 +26,7 @@ import java.util.concurrent.CountDownLatch;
 /**
  * Resettable barrier to synchronize the {@link IterationHeadTask} and the {@link IterationTailTask}
  * in case of iterations that contain a separate solution set tail.
+ * 如果迭代包含单独的解决方案集尾部，则检索单例 instance.aResettable 屏障以同步 {@link IterationHeadTask} 和 {@link IterationTailTask}。
  */
 public class SolutionSetUpdateBarrier {
 

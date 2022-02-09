@@ -135,6 +135,7 @@ public class ReOpenableHashPartition<BT, PT> extends HashPartition<BT, PT> {
     /**
      * This method is called every time a multi-match hash map is opened again for a new probe
      * input.
+     * 每次为新的探测输入再次打开多匹配哈希映射时都会调用此方法。
      *
      * @param ioManager
      * @param availableMemory

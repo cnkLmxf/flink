@@ -63,7 +63,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/** Implementation of {@link SlotManager} supporting fine-grained resource management. */
+/** Implementation of {@link SlotManager} supporting fine-grained resource management.
+ * 实现支持细粒度资源管理的 {@link SlotManager}。
+ * */
 public class FineGrainedSlotManager implements SlotManager {
     private static final Logger LOG = LoggerFactory.getLogger(FineGrainedSlotManager.class);
 
@@ -76,10 +78,14 @@ public class FineGrainedSlotManager implements SlotManager {
     /** Scheduled executor for timeouts. */
     private final ScheduledExecutor scheduledExecutor;
 
-    /** Timeout after which an unused TaskManager is released. */
+    /** Timeout after which an unused TaskManager is released.
+     * 释放未使用的 TaskManager 后的超时。
+     * */
     private final Time taskManagerTimeout;
 
-    /** Delay of the requirement change check in the slot manager. */
+    /** Delay of the requirement change check in the slot manager.
+     * 插槽管理器中的需求更改检查延迟。
+     * */
     private final Time requirementsCheckDelay;
 
     private final SlotManagerMetricGroup slotManagerMetricGroup;
@@ -88,6 +94,7 @@ public class FineGrainedSlotManager implements SlotManager {
 
     /**
      * Release task executor only when each produced result partition is either consumed or failed.
+     * 仅当每个生成的结果分区被消耗或失败时才释放任务执行器。
      */
     private final boolean waitResultConsumedBeforeRelease;
 
@@ -101,7 +108,9 @@ public class FineGrainedSlotManager implements SlotManager {
     /** ResourceManager's id. */
     @Nullable private ResourceManagerId resourceManagerId;
 
-    /** Executor for future callbacks which have to be "synchronized". */
+    /** Executor for future callbacks which have to be "synchronized".
+     * 必须“同步”的未来回调的执行者。
+     * */
     @Nullable private Executor mainThreadExecutor;
 
     /** Callbacks for resource (de-)allocations. */
@@ -172,6 +181,7 @@ public class FineGrainedSlotManager implements SlotManager {
 
     /**
      * Starts the slot manager with the given leader id and resource manager actions.
+     * 使用给定的领导者 ID 和资源管理器操作启动槽管理器。
      *
      * @param newResourceManagerId to use for communication with the task managers
      * @param newMainThreadExecutor to use to run code in the ResourceManager's main thread
@@ -209,7 +219,9 @@ public class FineGrainedSlotManager implements SlotManager {
                 MetricNames.TASK_SLOTS_TOTAL, () -> (long) getNumberRegisteredSlots());
     }
 
-    /** Suspends the component. This clears the internal state of the slot manager. */
+    /** Suspends the component. This clears the internal state of the slot manager.
+     * 挂起组件。 这将清除槽管理器的内部状态。
+     * */
     @Override
     public void suspend() {
         if (!started) {
@@ -289,6 +301,7 @@ public class FineGrainedSlotManager implements SlotManager {
     /**
      * Registers a new task manager at the slot manager. This will make the task managers slots
      * known and, thus, available for allocation.
+     * 在槽管理器中注册一个新的任务管理器。 这将使任务管理器插槽已知，因此可用于分配。
      *
      * @param taskExecutorConnection for the new task manager
      * @param initialSlotReport for the new task manager
@@ -431,6 +444,7 @@ public class FineGrainedSlotManager implements SlotManager {
 
     /**
      * Reports the current slot allocations for a task manager identified by the given instance id.
+     * 报告给定实例 id 标识的任务管理器的当前槽分配。
      *
      * @param instanceId identifying the task manager for which to report the slot status
      * @param slotReport containing the status for all of its slots
@@ -459,6 +473,7 @@ public class FineGrainedSlotManager implements SlotManager {
     /**
      * Free the given slot from the given allocation. If the slot is still allocated by the given
      * allocation id, then the slot will be freed.
+     * 从给定的分配中释放给定的插槽。 如果槽仍然由给定的分配 id 分配，那么槽将被释放。
      *
      * @param slotId identifying the slot to free, will be ignored
      * @param allocationId with which the slot is presumably allocated
@@ -487,6 +502,8 @@ public class FineGrainedSlotManager implements SlotManager {
      * requirements and potentially making a re-allocation can be heavy. In order to cover more
      * changes with each check, thus reduce the frequency of unnecessary re-allocations, the checks
      * are performed with a slight delay.
+     * 根据 {@link ResourceAllocationStrategy} 的实现，检查资源需求并可能进行重新分配可能很繁重。
+     * 为了在每次检查中覆盖更多更改，从而减少不必要的重新分配频率，检查的执行会稍有延迟。
      */
     private void checkResourceRequirementsWithDelay() {
         if (lastResourceRequirementsCheck == null || lastResourceRequirementsCheck.isDone()) {
@@ -500,6 +517,7 @@ public class FineGrainedSlotManager implements SlotManager {
 
     /**
      * DO NOT call this method directly. Use {@link #checkResourceRequirementsWithDelay()} instead.
+     * 不要直接调用此方法。 请改用 {@link #checkResourceRequirementsWithDelay()}。
      */
     private void checkResourceRequirements() {
         Map<JobID, Collection<ResourceRequirement>> missingResources =
@@ -581,6 +599,7 @@ public class FineGrainedSlotManager implements SlotManager {
     /**
      * Allocate pending task managers, returns the ids of pending task managers that can not be
      * allocated.
+     * 分配挂起的任务管理器，返回无法分配的挂起的任务管理器的id。
      */
     private Set<PendingTaskManagerId> allocateTaskManagersAccordingTo(
             List<PendingTaskManager> pendingTaskManagers) {

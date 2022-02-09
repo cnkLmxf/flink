@@ -38,7 +38,9 @@ import org.slf4j.Logger;
 
 import java.util.concurrent.ScheduledExecutorService;
 
-/** Factory for {@link SlotPoolService} and {@link SchedulerNG}. */
+/** Factory for {@link SlotPoolService} and {@link SchedulerNG}.
+ * {@link SlotPoolService} 和 {@link SchedulerNG} 的工厂。
+ * */
 public interface SlotPoolServiceSchedulerFactory {
 
     /**
@@ -51,6 +53,7 @@ public interface SlotPoolServiceSchedulerFactory {
 
     /**
      * Returns the scheduler type this factory is creating.
+     * 返回此工厂正在创建的调度程序类型。
      *
      * @return the scheduler type this factory is creating.
      */

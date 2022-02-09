@@ -20,7 +20,9 @@ package org.apache.flink.runtime.taskexecutor.exceptions;
 
 import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 
-/** Exception indicating a task related problem on the {@link TaskExecutor}. */
+/** Exception indicating a task related problem on the {@link TaskExecutor}.
+ * 表示 {@link TaskExecutor} 上的任务相关问题的异常。
+ * */
 public class TaskException extends TaskManagerException {
 
     private static final long serialVersionUID = 968001398103156856L;

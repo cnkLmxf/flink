@@ -36,9 +36,11 @@ import java.io.IOException;
 
 /**
  * Simple wrapper for the subpartition view used in the new network credit-based mode.
+ * 在新的基于网络信用的模式中使用的子分区视图的简单包装器。
  *
  * <p>It also keeps track of available buffers and notifies the outbound handler about
  * non-emptiness, similar to the {@link LocalInputChannel}.
+ * 它还跟踪可用缓冲区并通知出站处理程序关于非空，类似于 {@link LocalInputChannel}。
  */
 class CreditBasedSequenceNumberingViewReader
         implements BufferAvailabilityListener, NetworkSequenceViewReader {
@@ -54,13 +56,17 @@ class CreditBasedSequenceNumberingViewReader
     /**
      * The status indicating whether this reader is already enqueued in the pipeline for
      * transferring data or not.
+     * 指示此阅读器是否已在传输数据的管道中排队的状态。
      *
      * <p>It is mainly used to avoid repeated registrations but should be accessed by a single
      * thread only since there is no synchronisation.
+     * 它主要用于避免重复注册，但由于没有同步，因此只能由单个线程访问。
      */
     private boolean isRegisteredAsAvailable = false;
 
-    /** The number of available buffers for holding data on the consumer side. */
+    /** The number of available buffers for holding data on the consumer side.
+     * 用于在消费者端保存数据的可用缓冲区数。
+     * */
     private int numCreditsAvailable;
 
     CreditBasedSequenceNumberingViewReader(
@@ -118,6 +124,7 @@ class CreditBasedSequenceNumberingViewReader
     /**
      * Returns true only if the next buffer is an event or the reader has both available credits and
      * buffers.
+     * 仅当下一个缓冲区是事件或读取器具有可用信用和缓冲区时才返回 true。
      *
      * @implSpec BEWARE: this must be in sync with {@link #getNextDataType(BufferAndBacklog)}, such
      *     that {@code getNextDataType(bufferAndBacklog) != NONE <=> isAvailable()}!
@@ -130,9 +137,11 @@ class CreditBasedSequenceNumberingViewReader
     /**
      * Returns the {@link org.apache.flink.runtime.io.network.buffer.Buffer.DataType} of the next
      * buffer in line.
+     * 返回行中下一个缓冲区的 {@link org.apache.flink.runtime.io.network.buffer.Buffer.DataType}。
      *
      * <p>Returns the next data type only if the next buffer is an event or the reader has both
      * available credits and buffers.
+     * 仅当下一个缓冲区是事件或读取器具有可用信用和缓冲区时才返回下一个数据类型。
      *
      * @implSpec BEWARE: this must be in sync with {@link #isAvailable()}, such that {@code
      *     getNextDataType(bufferAndBacklog) != NONE <=> isAvailable()}!

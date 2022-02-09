@@ -129,9 +129,12 @@ public abstract class AbstractMergeIterator<T1, T2, O> implements JoinTaskIterat
      * Calls the <code>JoinFunction#join()</code> method for all two key-value pairs that share the
      * same key and come from different inputs. The output of the <code>join()</code> method is
      * forwarded.
+     * 为共享相同键且来自不同输入的所有两个键值对调用 <code>JoinFunction#join()</code> 方法。
+     * <code>join()</code> 方法的输出被转发。
      *
      * <p>This method first zig-zags between the two sorted inputs in order to find a common key,
      * and then calls the join stub with the cross product of the values.
+     * 此方法首先在两个排序的输入之间进行曲折，以便找到一个公共键，然后使用值的叉积调用连接存根。
      *
      * @throws Exception Forwards all exceptions from the user code and the I/O system.
      * @see
@@ -180,6 +183,7 @@ public abstract class AbstractMergeIterator<T1, T2, O> implements JoinTaskIterat
     /**
      * Crosses a single value from the first input with N values, all sharing a common key.
      * Effectively realizes a <i>1:N</i> join.
+     * 将第一个输入中的单个值与 N 个值交叉，所有值都共享一个公共键。 有效实现了一个<i>1:N</i> join。
      *
      * @param val1 The value form the <i>1</i> side.
      * @param firstValN The first of the values from the <i>N</i> side.
@@ -214,6 +218,7 @@ public abstract class AbstractMergeIterator<T1, T2, O> implements JoinTaskIterat
     /**
      * Crosses a single value from the second side with N values, all sharing a common key.
      * Effectively realizes a <i>N:1</i> join.
+     * 将第二侧的单个值与 N 个值交叉，所有值都共享一个公共键。 有效实现了一个<i>N:1</i> join。
      *
      * @param val1 The value form the <i>1</i> side.
      * @param firstValN The first of the values from the <i>N</i> side.
@@ -394,6 +399,7 @@ public abstract class AbstractMergeIterator<T1, T2, O> implements JoinTaskIterat
     /**
      * Copies an instance of the given type, potentially reusing the object passed as the reuse
      * parameter, which may be null.
+     * 复制给定类型的实例，可能重用作为重用参数传递的对象，该参数可能为空。
      */
     protected abstract <T> T createCopy(TypeSerializer<T> serializer, T value, T reuse);
 }

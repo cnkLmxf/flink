@@ -60,9 +60,12 @@ import static org.apache.flink.util.Preconditions.checkState;
  * A pending checkpoint is a checkpoint that has been started, but has not been acknowledged by all
  * tasks that need to acknowledge it. Once all tasks have acknowledged it, it becomes a {@link
  * CompletedCheckpoint}.
+ * 待处理的检查点是已启动但尚未被所有需要确认它的任务确认的检查点。
+ * 一旦所有任务都确认了它，它就变成了一个 {@link CompletedCheckpoint}。
  *
  * <p>Note that the pending checkpoint, as well as the successful checkpoint keep the state handles
  * always as serialized values, never as actual values.
+ * 请注意，挂起的检查点以及成功的检查点始终将状态句柄保持为序列化值，而不是实际值。
  */
 public class PendingCheckpoint implements Checkpoint {
 
@@ -105,10 +108,14 @@ public class PendingCheckpoint implements Checkpoint {
     /** The checkpoint properties. */
     private final CheckpointProperties props;
 
-    /** Target storage location to persist the checkpoint metadata to. */
+    /** Target storage location to persist the checkpoint metadata to.
+     * 将检查点元数据保存到的目标存储位置。
+     * */
     private final CheckpointStorageLocation targetLocation;
 
-    /** The promise to fulfill once the checkpoint has been completed. */
+    /** The promise to fulfill once the checkpoint has been completed.
+     * 检查点完成后履行的承诺。
+     * */
     private final CompletableFuture<CompletedCheckpoint> onCompletionPromise;
 
     private int numAcknowledgedTasks;
@@ -247,6 +254,7 @@ public class PendingCheckpoint implements Checkpoint {
     /**
      * Checks whether this checkpoint can be subsumed or whether it should always continue,
      * regardless of newer checkpoints in progress.
+     * 检查此检查点是否可以包含或是否应始终继续，而不管正在进行的新检查点。
      *
      * @return True if the checkpoint can be subsumed, false otherwise.
      */
@@ -262,6 +270,7 @@ public class PendingCheckpoint implements Checkpoint {
     /**
      * Sets the handle for the canceller to this pending checkpoint. This method fails with an
      * exception if a handle has already been set.
+     * 将取消程序的句柄设置为此待处理的检查点。 如果已设置句柄，则此方法将失败并出现异常。
      *
      * @return true, if the handle was set, false, if the checkpoint is already disposed;
      */
@@ -290,6 +299,7 @@ public class PendingCheckpoint implements Checkpoint {
 
     /**
      * Returns the completion future.
+     * 返回完成的future。
      *
      * @return A future to the completed checkpoint
      */
@@ -367,6 +377,7 @@ public class PendingCheckpoint implements Checkpoint {
 
     /**
      * Acknowledges the task with the given execution attempt id and the given subtask state.
+     * 使用给定的执行尝试 id 和给定的子任务状态确认任务。
      *
      * @param executionAttemptId of the acknowledged task
      * @param operatorSubtaskStates of the acknowledged task
@@ -501,6 +512,7 @@ public class PendingCheckpoint implements Checkpoint {
     /**
      * Acknowledges a master state (state generated on the checkpoint coordinator) to the pending
      * checkpoint.
+     * 向待处理的检查点确认主状态（在检查点协调器上生成的状态）。
      *
      * @param identifier The identifier of the master state
      * @param state The state to acknowledge
@@ -520,7 +532,9 @@ public class PendingCheckpoint implements Checkpoint {
     //  Cancellation
     // ------------------------------------------------------------------------
 
-    /** Aborts a checkpoint with reason and cause. */
+    /** Aborts a checkpoint with reason and cause.
+     * 有原因地中止检查点。
+     * */
     public void abort(
             CheckpointFailureReason reason,
             @Nullable Throwable cause,
@@ -569,6 +583,7 @@ public class PendingCheckpoint implements Checkpoint {
     /**
      * Discard state. Must be called after {@link #dispose(boolean, CheckpointsCleaner, Runnable,
      * Executor) dispose}.
+     * 丢弃状态。 必须在 {@link #dispose(boolean, CheckpointsCleaner, Runnable, Executor) dispose} 之后调用。
      */
     @Override
     public void discard() {
@@ -611,6 +626,7 @@ public class PendingCheckpoint implements Checkpoint {
 
     /**
      * Reports a failed checkpoint with the given optional cause.
+     * 使用给定的可选原因报告失败的检查点。
      *
      * @param cause The failure cause or <code>null</code>.
      */

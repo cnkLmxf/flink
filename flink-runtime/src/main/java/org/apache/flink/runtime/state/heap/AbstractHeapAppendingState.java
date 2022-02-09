@@ -25,6 +25,7 @@ import org.apache.flink.runtime.state.internal.InternalAppendingState;
 /**
  * Base class for {@link AppendingState} ({@link InternalAppendingState}) that is stored on the
  * heap.
+ * 存储在堆上的 {@link AppendingState} ({@link InternalAppendingState}) 的基类。
  *
  * @param <K> The type of the key.
  * @param <N> The type of the namespace.

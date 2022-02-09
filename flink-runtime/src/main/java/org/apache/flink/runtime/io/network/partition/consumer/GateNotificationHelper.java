@@ -21,8 +21,10 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Abstracts the notification of the availability futures of {@link InputGate}s.
+ * 抽象 {@link InputGate} 的可用性future通知。
  *
  * <p>Should be created and closed outside of the lock.
+ * 应该在锁之外创建和关闭。
  */
 class GateNotificationHelper implements AutoCloseable {
     private final InputGate inputGate;
@@ -46,13 +48,16 @@ class GateNotificationHelper implements AutoCloseable {
         }
     }
 
-    /** Must be called under lock to ensure integrity of priorityAvailabilityHelper. */
+    /** Must be called under lock to ensure integrity of priorityAvailabilityHelper.
+     * 必须在锁定状态下调用以确保priorityAvailabilityHelper 的完整性。
+     * */
     public void notifyPriority() {
         toNotifyPriority = inputGate.priorityAvailabilityHelper.getUnavailableToResetAvailable();
     }
 
     /**
      * Must be called under lock to ensure integrity of availabilityHelper and allow notification.
+     * 必须在 lock 下调用以确保 availabilityHelper 的完整性并允许通知。
      */
     public void notifyDataAvailable() {
         availabilityMonitor.notifyAll();

@@ -22,18 +22,28 @@ import org.apache.flink.runtime.clusterframework.types.ResourceProfile;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 
-/** Interface which provides access to services of the ResourceManager. */
+/** Interface which provides access to services of the ResourceManager.
+ * 提供对 ResourceManager 服务的访问的接口。
+ * */
 public interface ResourceManagerServices {
 
-    /** Gets the current leader id assigned at the ResourceManager. */
+    /** Gets the current leader id assigned at the ResourceManager.
+     * 获取在 ResourceManager 中分配的当前领导者 ID。
+     * */
     UUID getLeaderID();
 
-    /** Allocates a resource according to the resource profile. */
+    /** Allocates a resource according to the resource profile.
+     * 根据资源配置文件分配资源。
+     * */
     void allocateResource(ResourceProfile resourceProfile);
 
-    /** Gets the async executor which executes outside of the main thread of the ResourceManager */
+    /** Gets the async executor which executes outside of the main thread of the ResourceManager
+     * 获取在 ResourceManager 的主线程之外执行的异步执行器
+     * */
     Executor getAsyncExecutor();
 
-    /** Gets the executor which executes in the main thread of the ResourceManager */
+    /** Gets the executor which executes in the main thread of the ResourceManager
+     * 获取在 ResourceManager 的主线程中执行的 executor
+     * */
     Executor getMainThreadExecutor();
 }

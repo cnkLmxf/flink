@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.executiongraph;
 
-/** Base class for exceptions occurring in the {@link ExecutionGraph}. */
+/** Base class for exceptions occurring in the {@link ExecutionGraph}.
+ * {@link ExecutionGraph} 中发生的异常的基类。
+ * */
 public class ExecutionGraphException extends Exception {
 
     private static final long serialVersionUID = -8253451032797220657L;

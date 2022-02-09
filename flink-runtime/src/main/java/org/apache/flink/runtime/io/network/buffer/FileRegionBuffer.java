@@ -37,6 +37,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * This class represents a chunk of data in a file channel. Its purpose is to be passed to the netty
  * code and to be written to the socket via the zero-copy direct transfer capabilities of {@link
  * FileChannel#transferTo(long, long, WritableByteChannel)}.
+ * 此类表示文件通道中的一大块数据。
+ * 其目的是通过 {@link FileChannel#transferTo(long, long, WritableByteChannel)}
+ * 的零拷贝直接传输功能传递给 netty 代码并写入套接字。
  *
  * <p>This class implements {@link Buffer} mainly for compatible with existing usages. It can be
  * thought of as a "lazy buffer" that does not hold the data directly, although the data can be
@@ -44,10 +47,17 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@link #readInto(MemorySegment)} and {@link #getNioBufferReadable()}. Because this buffer is
  * read-only, the modification methods (and methods that give a writable buffer) throw {@link
  * UnsupportedOperationException}.
+ * 此类实现 {@link Buffer} 主要是为了与现有用法兼容。 它可以被认为是一个不直接保存数据的“惰性缓冲区”，
+ * 尽管可以在需要时将数据作为只读 {@code ByteBuffer} 获取，例如在本地输入通道中。
+ * 请参阅 {@link #readInto(MemorySegment)} 和 {@link #getNioBufferReadable()}。
+ * 因为这个缓冲区是只读的，所以修改方法（以及提供可写缓冲区的方法）抛出 {@link UnsupportedOperationException}。
  *
  * <p>This class extends from Netty's {@link DefaultFileRegion}, similar as the {@link
  * NetworkBuffer} extends from Netty's {@link ByteBuf}. That way we can pass both of them to Netty
  * in the same way, and Netty will internally treat them appropriately.
+ * 此类从 Netty 的 {@link DefaultFileRegion} 扩展而来，
+ * 类似于 {@link NetworkBuffer} 从 Netty 的 {@link ByteBuf} 扩展而来。
+ * 这样我们就可以以同样的方式将它们都传递给 Netty，Netty 会在内部适当地处理它们。
  */
 public class FileRegionBuffer extends DefaultFileRegion implements Buffer {
 

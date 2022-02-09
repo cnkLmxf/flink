@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 /**
  * This accumulator stores a collection of objects.
+ * 这个累加器存储一组对象。
  *
  * @param <T> The type of the accumulated objects
  */

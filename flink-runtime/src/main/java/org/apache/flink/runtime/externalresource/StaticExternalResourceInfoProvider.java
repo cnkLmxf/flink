@@ -28,6 +28,7 @@ import java.util.Set;
 /**
  * Static implementation of {@link ExternalResourceInfoProvider} which return fixed collection of
  * {@link ExternalResourceInfo}.
+ * {@link ExternalResourceInfoProvider} 的静态实现，它返回 {@link ExternalResourceInfo} 的固定集合。
  */
 public class StaticExternalResourceInfoProvider implements ExternalResourceInfoProvider {
 

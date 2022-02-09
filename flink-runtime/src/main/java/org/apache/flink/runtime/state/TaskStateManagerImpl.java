@@ -46,9 +46,12 @@ import java.util.List;
  * job manager through {@link CheckpointResponder}) as well as a task-manager-local state store.
  * Like this, client code does not have to deal with the differences between remote or local state
  * on recovery because this class handles both cases transparently.
+ * 此类是 {@link TaskStateManager} 的默认实现，并通过 {@link CheckpointResponder} 以及任务管理器本地状态存储与作业管理器协作。
+ * 像这样，客户端代码不必处理恢复时远程或本地状态之间的差异，因为此类透明地处理这两种情况。
  *
  * <p>Reported state is tagged by clients so that this class can properly forward to the right
  * receiver for the checkpointed state.
+ * 报告的状态由客户端标记，以便此类可以正确转发到检查点状态的正确接收者。
  */
 public class TaskStateManagerImpl implements TaskStateManager {
 

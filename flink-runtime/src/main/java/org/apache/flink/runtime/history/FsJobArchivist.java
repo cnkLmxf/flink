@@ -42,7 +42,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/** Utility class for writing an archive file to a {@link FileSystem} and reading it back. */
+/** Utility class for writing an archive file to a {@link FileSystem} and reading it back.
+ * 用于将存档文件写入 {@link FileSystem} 并将其读回的实用程序类。
+ * */
 public class FsJobArchivist {
 
     private static final Logger LOG = LoggerFactory.getLogger(FsJobArchivist.class);
@@ -58,6 +60,7 @@ public class FsJobArchivist {
     /**
      * Writes the given {@link AccessExecutionGraph} to the {@link FileSystem} pointed to by {@link
      * JobManagerOptions#ARCHIVE_DIR}.
+     * 将给定的 {@link AccessExecutionGraph} 写入 {@link JobManagerOptions#ARCHIVE_DIR} 指向的 {@link FileSystem}。
      *
      * @param rootPath directory to which the archive should be written to
      * @param jobId job id
@@ -98,6 +101,7 @@ public class FsJobArchivist {
     /**
      * Reads the given archive file and returns a {@link Collection} of contained {@link
      * ArchivedJson}.
+     * 读取给定的归档文件并返回包含的 {@link ArchivedJson} 的 {@link Collection}。
      *
      * @param file archive to extract
      * @return collection of archived jsons

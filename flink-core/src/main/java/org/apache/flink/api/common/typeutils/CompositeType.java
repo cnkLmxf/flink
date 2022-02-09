@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Base type information class for Tuple and Pojo types
+ * Tuple 和 Pojo 类型的基本类型信息类
  *
  * <p>The class is taking care of serialization and comparators for Tuples as well.
  */

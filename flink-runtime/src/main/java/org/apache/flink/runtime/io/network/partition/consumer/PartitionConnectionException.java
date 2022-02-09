@@ -21,7 +21,9 @@ package org.apache.flink.runtime.io.network.partition.consumer;
 import org.apache.flink.runtime.io.network.partition.PartitionException;
 import org.apache.flink.runtime.io.network.partition.ResultPartitionID;
 
-/** Exception for failed partition requests due to connection failure with unreachable producer. */
+/** Exception for failed partition requests due to connection failure with unreachable producer.
+ * 由于与无法访问的生产者的连接失败而导致分区请求失败的异常。
+ * */
 public class PartitionConnectionException extends PartitionException {
 
     private static final long serialVersionUID = 0L;

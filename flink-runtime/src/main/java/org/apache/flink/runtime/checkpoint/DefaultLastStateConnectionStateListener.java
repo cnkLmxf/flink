@@ -25,7 +25,9 @@ import javax.annotation.Nullable;
 
 import java.util.Optional;
 
-/** A simple ConnectionState listener that remembers the last state. */
+/** A simple ConnectionState listener that remembers the last state.
+ * 一个简单的 ConnectionState 侦听器，它记住最后一个状态。
+ * */
 public class DefaultLastStateConnectionStateListener implements LastStateConnectionStateListener {
 
     @Nullable private volatile ConnectionState lastState = null;

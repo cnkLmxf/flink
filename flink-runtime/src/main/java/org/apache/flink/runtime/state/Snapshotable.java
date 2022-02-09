@@ -29,6 +29,8 @@ import java.util.concurrent.RunnableFuture;
  * Interface for objects that can snapshot its state (state backends currently). Implementing
  * classes should ideally be stateless or at least threadsafe, i.e. this is a functional interface
  * and is can be called in parallel by multiple checkpoints.
+ * 可以快照其状态（当前状态后端）的对象的接口。 理想情况下，实现类应该是无状态的或至少是线程安全的，
+ * 即这是一个功能接口，可以由多个检查点并行调用。
  *
  * @param <S> type of the returned state object that represents the result of the snapshot
  *     operation.
@@ -44,6 +46,9 @@ public interface Snapshotable<S extends StateObject> {
      * the snapshot. It is up to the implementation if the operation is performed synchronous or
      * asynchronous. In the later case, the returned Runnable must be executed first before
      * obtaining the handle.
+     * 将快照写入由给定的 {@link CheckpointStreamFactory} 提供的流并返回 @{@link RunnableFuture} 的操作，
+     * 它为快照提供状态句柄。 操作是同步执行还是异步执行取决于实现。
+     * 在后一种情况下，必须先执行返回的 Runnable 才能获得句柄。
      *
      * @param checkpointId The ID of the checkpoint.
      * @param timestamp The timestamp of the checkpoint.

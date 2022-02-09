@@ -24,9 +24,12 @@ import java.io.IOException;
 
 /**
  * A special record-oriented runtime result writer only for broadcast mode.
+ * 一种特殊的面向记录的运行时结果编写器，仅适用于广播模式。
  *
  * <p>The BroadcastRecordWriter extends the {@link RecordWriter} and emits records to all channels
  * for regular {@link #emit(IOReadableWritable)}.
+ * BroadcastRecordWriter 扩展了 {@link RecordWriter}
+ * 并将记录发送到常规 {@link #emit(IOReadableWritable)} 的所有通道。
  *
  * @param <T> the type of the record that can be emitted with this record writer
  */

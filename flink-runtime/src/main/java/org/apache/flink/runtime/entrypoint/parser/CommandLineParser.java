@@ -28,7 +28,9 @@ import org.apache.commons.cli.ParseException;
 
 import javax.annotation.Nonnull;
 
-/** Command line parser which produces a result from the given command line arguments. */
+/** Command line parser which produces a result from the given command line arguments.
+ * 命令行解析器，它根据给定的命令行参数生成结果。
+ * */
 public class CommandLineParser<T> {
 
     @Nonnull private final ParserResultFactory<T> parserResultFactory;

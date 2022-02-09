@@ -45,7 +45,9 @@ import java.util.stream.Collectors;
 
 import static org.apache.flink.configuration.ConfigOptions.key;
 
-/** Utility class for external resource framework. */
+/** Utility class for external resource framework.
+ * 外部资源框架的实用程序类。
+ * */
 public class ExternalResourceUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExternalResourceUtils.class);
@@ -67,6 +69,7 @@ public class ExternalResourceUtils {
     /**
      * Get the external resource configuration keys map, indexed by the resource name. The
      * configuration key should be used for deployment specific container request.
+     * 获取由资源名称索引的外部资源配置键映射。 配置密钥应用于部署特定的容器请求。
      *
      * @param config Configurations
      * @param suffix suffix of config option for deployment specific configuration key
@@ -119,6 +122,7 @@ public class ExternalResourceUtils {
 
     /**
      * Instantiate {@link StaticExternalResourceInfoProvider} for all of enabled external resources.
+     * 为所有启用的外部资源实例化 {@link StaticExternalResourceInfoProvider}。
      */
     public static ExternalResourceInfoProvider createStaticExternalResourceInfoProviderFromConfig(
             Configuration configuration, PluginManager pluginManager) {
@@ -132,7 +136,9 @@ public class ExternalResourceUtils {
                 externalResourceDriversFromConfig(configuration, pluginManager));
     }
 
-    /** Get the map of resource name and amount of all of enabled external resources. */
+    /** Get the map of resource name and amount of all of enabled external resources.
+     * 获取所有启用的外部资源的资源名称和数量的映射。
+     * */
     @VisibleForTesting
     static Map<String, Long> getExternalResourceAmountMap(Configuration config) {
         final Set<String> resourceSet = getExternalResourceSet(config);
@@ -165,7 +171,9 @@ public class ExternalResourceUtils {
         return externalResourceAmountMap;
     }
 
-    /** Get the collection of all enabled external resources. */
+    /** Get the collection of all enabled external resources.
+     * 获取所有启用的外部资源的集合。
+     * */
     public static Collection<ExternalResource> getExternalResourcesCollection(
             Configuration config) {
         return getExternalResourceAmountMap(config).entrySet().stream()
@@ -173,7 +181,9 @@ public class ExternalResourceUtils {
                 .collect(Collectors.toList());
     }
 
-    /** Generate the string expression of the given external resources. */
+    /** Generate the string expression of the given external resources.
+     * 生成给定外部资源的字符串表达式。
+     * */
     public static String generateExternalResourcesString(
             Collection<ExternalResource> extendedResources) {
         return extendedResources.stream()
@@ -185,6 +195,8 @@ public class ExternalResourceUtils {
      * Instantiate the {@link ExternalResourceDriver ExternalResourceDrivers} for all of enabled
      * external resources. {@link ExternalResourceDriver ExternalResourceDrivers} are mapped to its
      * resource name.
+     * 为所有启用的外部资源实例化 {@link ExternalResourceDriver ExternalResourceDrivers}。
+     * {@link ExternalResourceDriver ExternalResourceDrivers} 映射到其资源名称。
      */
     @VisibleForTesting
     static Map<String, ExternalResourceDriver> externalResourceDriversFromConfig(
@@ -257,6 +269,7 @@ public class ExternalResourceUtils {
 
     /**
      * Instantiate {@link StaticExternalResourceInfoProvider} for all of enabled external resources.
+     * 为所有启用的外部资源实例化 {@link StaticExternalResourceInfoProvider}。
      */
     @VisibleForTesting
     static ExternalResourceInfoProvider createStaticExternalResourceInfoProvider(

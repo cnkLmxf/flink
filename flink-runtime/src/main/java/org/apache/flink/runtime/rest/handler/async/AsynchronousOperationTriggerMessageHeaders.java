@@ -24,6 +24,7 @@ import org.apache.flink.runtime.rest.messages.RequestBody;
 
 /**
  * Message headers for the triggering of an asynchronous operation.
+ * 用于触发异步操作的消息头。
  *
  * @param <R> type of the request
  * @param <M> type of the message parameters
@@ -45,6 +46,7 @@ public abstract class AsynchronousOperationTriggerMessageHeaders<
 
     /**
      * Returns the description for this async operation header.
+     * 返回此异步操作标头的描述。
      *
      * @return the description for this async operation header.
      */

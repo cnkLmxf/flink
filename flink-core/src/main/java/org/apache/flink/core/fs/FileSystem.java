@@ -70,16 +70,24 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * simple, and the set of available operations quite limited, to support the common denominator of a
  * wide range of file systems. For example, appending to or mutating existing files is not
  * supported.
+ * Flink 使用的所有文件系统的抽象基类。 此类可以扩展以实现分布式文件系统或本地文件系统。
+ * 这个文件系统的抽象非常简单，可用的操作集非常有限，以支持广泛的文件系统的公分母。
+ * 例如，不支持追加或改变现有文件。
  *
  * <p>Flink implements and supports some file system types directly (for example the default
  * machine-local file system). Other file system types are accessed by an implementation that
  * bridges to the suite of file systems supported by Hadoop (such as for example HDFS).
+ * Flink 直接实现并支持一些文件系统类型（例如默认的机器本地文件系统）。
+ * 其他文件系统类型由桥接到 Hadoop 支持的文件系统套件（例如 HDFS）的实现访问。
  *
  * <h2>Scope and Purpose</h2>
+ * 范围和目的
  *
  * <p>The purpose of this abstraction is used to expose a common and well defined interface for
  * access to files. This abstraction is used both by Flink's fault tolerance mechanism (storing
  * state and recovery data) and by reusable built-in connectors (file sources / sinks).
+ * 这种抽象的目的是为了公开一个通用的、定义良好的接口来访问文件。
+ * Flink 的容错机制（存储状态和恢复数据）和可重用的内置连接器（文件源/接收器）都使用了这种抽象。
  *
  * <p>The purpose of this abstraction is <b>not</b> to give user programs an abstraction with
  * extreme flexibility and control across all possible file systems. That mission would be a folly,
@@ -87,16 +95,24 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * large. It is expected that user programs that need specialized functionality of certain file
  * systems in their functions, operations, sources, or sinks instantiate the specialized file system
  * adapters directly.
+ * 这种抽象的目的是<b>不是</b>为用户程序提供一个具有极大灵活性和控制所有可能文件系统的抽象。
+ * 该任务将是愚蠢的，因为即使是最常见的文件系统的特征差异也已经很大。
+ * 期望在其函数、操作、源或接收器中需要某些文件系统的专用功能的用户程序直接实例化专用文件系统适配器。
  *
  * <h2>Data Persistence Contract</h2>
+ * 数据持久化合约
  *
  * <p>The FileSystem's {@link FSDataOutputStream output streams} are used to persistently store
  * data, both for results of streaming applications and for fault tolerance and recovery. It is
  * therefore crucial that the persistence semantics of these streams are well defined.
+ * FileSystem 的 {@link FSDataOutputStream 输出流}用于持久存储数据，用于流式应用程序的结果以及容错和恢复。
+ * 因此，明确定义这些流的持久性语义是至关重要的。
  *
  * <h3>Definition of Persistence Guarantees</h3>
+ * 持久性保证的定义
  *
  * <p>Data written to an output stream is considered persistent, if two requirements are met:
+ * 如果满足两个要求，则写入输出流的数据被认为是持久的：
  *
  * <ol>
  *   <li><b>Visibility Requirement:</b> It must be guaranteed that all other processes, machines,
@@ -104,53 +120,75 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  *       consistently when given the absolute file path. This requirement is similar to the
  *       <i>close-to-open</i> semantics defined by POSIX, but restricted to the file itself (by its
  *       absolute path).
+ *   <li><b>可见性要求：</b> 必须保证所有其他能够访问文件的进程、机器、虚拟机、容器等在给定绝对文件路径时一致地看到数据。
+ *   此要求类似于 POSIX 定义的 <i>close-to-open</i> 语义，但仅限于文件本身（通过其绝对路径）。
  *   <li><b>Durability Requirement:</b> The file system's specific durability/persistence
  *       requirements must be met. These are specific to the particular file system. For example the
  *       {@link LocalFileSystem} does not provide any durability guarantees for crashes of both
  *       hardware and operating system, while replicated distributed file systems (like HDFS)
  *       typically guarantee durability in the presence of at most <i>n</i> concurrent node
  *       failures, where <i>n</i> is the replication factor.
+ *   <li><b>持久性要求：</b> 必须满足文件系统的特定持久性/持久性要求。 这些是特定于特定文件系统的。
+ *   例如，{@link LocalFileSystem} 不为硬件和操作系统的崩溃提供任何持久性保证，
+ *   而复制的分布式文件系统（如 HDFS）通常在最多 <i>n</i> 个并发的情况下保证持久性 节点故障，其中 <i>n</i> 是复制因子。
  * </ol>
  *
  * <p>Updates to the file's parent directory (such that the file shows up when listing the directory
  * contents) are not required to be complete for the data in the file stream to be considered
  * persistent. This relaxation is important for file systems where updates to directory contents are
  * only eventually consistent.
+ * 对文件父目录的更新（例如在列出目录内容时显示文件）不需要完整，文件流中的数据就可以被视为持久的。
+ * 这种放松对于目录内容更新仅最终保持一致的文件系统很重要。
  *
  * <p>The {@link FSDataOutputStream} has to guarantee data persistence for the written bytes once
  * the call to {@link FSDataOutputStream#close()} returns.
+ * 一旦对 {@link FSDataOutputStream#close()} 的调用返回，
+ * {@link FSDataOutputStream} 必须保证写入字节的数据持久性。
  *
  * <h3>Examples</h3>
  *
  * <h4>Fault-tolerant distributed file systems</h4>
+ * 容错分布式文件系统
  *
  * <p>For <b>fault-tolerant distributed file systems</b>, data is considered persistent once it has
  * been received and acknowledged by the file system, typically by having been replicated to a
  * quorum of machines (<i>durability requirement</i>). In addition the absolute file path must be
  * visible to all other machines that will potentially access the file (<i>visibility
  * requirement</i>).
+ * 对于<b>容错分布式文件系统</b>，一旦数据被文件系统接收并确认，数据就被认为是持久的，
+ * 通常是通过复制到法定数量的机器（<i>持久性要求</i >)。
+ * 此外，绝对文件路径必须对可能访问该文件的所有其他机器可见（<i>可见性要求</i>）。
  *
  * <p>Whether data has hit non-volatile storage on the storage nodes depends on the specific
  * guarantees of the particular file system.
+ * 数据是否已命中存储节点上的非易失性存储取决于特定文件系统的具体保证。
  *
  * <p>The metadata updates to the file's parent directory are not required to have reached a
  * consistent state. It is permissible that some machines see the file when listing the parent
  * directory's contents while others do not, as long as access to the file by its absolute path is
  * possible on all nodes.
+ * 对文件父目录的元数据更新不需要达到一致状态。 允许某些机器在列出父目录的内容时看到该文件，
+ * 而其他机器则不会，只要在所有节点上都可以通过其绝对路径访问该文件。
  *
  * <h4>Local file systems</h4>
  *
  * <p>A <b>local file system</b> must support the POSIX <i>close-to-open</i> semantics. Because the
  * local file system does not have any fault tolerance guarantees, no further requirements exist.
+ * <b>本地文件系统</b>必须支持 POSIX <i>close-to-open</i> 语义。
+ * 因为本地文件系统没有任何容错保证，所以不存在进一步的要求。
  *
  * <p>The above implies specifically that data may still be in the OS cache when considered
  * persistent from the local file system's perspective. Crashes that cause the OS cache to loose
  * data are considered fatal to the local machine and are not covered by the local file system's
  * guarantees as defined by Flink.
+ * 以上特别暗示，当从本地文件系统的角度考虑持久性时，数据可能仍在操作系统缓存中。
+ * 导致操作系统缓存丢失数据的崩溃被认为对本地机器是致命的，并且不在 Flink 定义的本地文件系统的保证范围内。
  *
  * <p>That means that computed results, checkpoints, and savepoints that are written only to the
  * local filesystem are not guaranteed to be recoverable from the local machine's failure, making
  * local file systems unsuitable for production setups.
+ * 这意味着仅写入本地文件系统的计算结果、检查点和保存点不能保证可以从本地机器的故障中恢复，
+ * 从而使本地文件系统不适合生产设置。
  *
  * <h2>Updating File Contents</h2>
  *
@@ -158,6 +196,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * not support consistent visibility of the updated contents in that case. For that reason, Flink's
  * FileSystem does not support appending to existing files, or seeking within output streams so that
  * previously written data could be overwritten.
+ * 许多文件系统要么根本不支持覆盖现有文件的内容，要么在这种情况下不支持更新内容的一致可见性。
+ * 出于这个原因，Flink 的 FileSystem 不支持附加到现有文件，或在输出流中查找，以便覆盖以前写入的数据。
  *
  * <h2>Overwriting Files</h2>
  *
@@ -167,20 +207,28 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * href="https://aws.amazon.com/documentation/s3/">Amazon S3</a> guarantees only <i>eventual
  * consistency</i> in the visibility of the file replacement: Some machines may see the old file,
  * some machines may see the new file.
+ * 覆盖文件通常是可能的。 通过删除文件并创建新文件来覆盖文件。
+ * 但是，某些文件系统无法使所有有权访问该文件的各方同步看到该更改。
+ * 例如，<a href="https://aws.amazon.com/documentation/s3/">Amazon S3</a>
+ * 仅保证文件替换可见性的<i>最终一致性</i>：某些机器 可能会看到旧文件，有些机器可能会看到新文件。
  *
  * <p>To avoid these consistency issues, the implementations of failure/recovery mechanisms in Flink
  * strictly avoid writing to the same file path more than once.
+ * 为了避免这些一致性问题，Flink 中故障/恢复机制的实现严格避免多次写入同一文件路径。
  *
  * <h2>Thread Safety</h2>
  *
  * <p>Implementations of {@code FileSystem} must be thread-safe: The same instance of FileSystem is
  * frequently shared across multiple threads in Flink and must be able to concurrently create
  * input/output streams and list file metadata.
+ * {@code FileSystem} 的实现必须是线程安全的：同一个 FileSystem 实例经常在 Flink 中的多个线程之间共享，并且必须能够同时创建输入/输出流和列出文件元数据。
  *
  * <p>The {@link FSDataInputStream} and {@link FSDataOutputStream} implementations are strictly
  * <b>not thread-safe</b>. Instances of the streams should also not be passed between threads in
  * between read or write operations, because there are no guarantees about the visibility of
  * operations across threads (many operations do not create memory fences).
+ * {@link FSDataInputStream} 和 {@link FSDataOutputStream} 实现严格<b>不是线程安全的</b>。
+ * 流的实例也不应该在读取或写入操作之间的线程之间传递，因为不能保证跨线程操作的可见性（许多操作不创建内存栅栏）。
  *
  * <h2>Streams Safety Net</h2>
  *
@@ -188,9 +236,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Path#getFileSystem()}), the FileSystem instantiates a safety net for that FileSystem. The safety
  * net ensures that all streams created from the FileSystem are closed when the application task
  * finishes (or is canceled or failed). That way, the task's threads do not leak connections.
+ * 当应用程序代码获取文件系统（通过 {@link FileSystem#get(URI)} 或通过 {@link Path#getFileSystem()}）时，
+ * 文件系统会为该文件系统实例化一个安全网。 安全网确保在应用程序任务完成（或取消或失败）时关闭从文件系统创建的所有流。
+ * 这样，任务的线程就不会泄漏连接。
  *
  * <p>Internal runtime code can explicitly obtain a FileSystem that does not use the safety net via
  * {@link FileSystem#getUnguardedFileSystem(URI)}.
+ * 内部运行时代码可以通过 {@link FileSystem#getUnguardedFileSystem(URI)} 显式获取不使用安全网的文件系统。
  *
  * @see FSDataInputStream
  * @see FSDataOutputStream
@@ -201,18 +253,21 @@ public abstract class FileSystem {
     /**
      * The possible write modes. The write mode decides what happens if a file should be created,
      * but already exists.
+     * 可能的写入模式。 写模式决定如果文件应该被创建但已经存在会发生什么。
      */
     public enum WriteMode {
 
         /**
          * Creates the target file only if no file exists at that path already. Does not overwrite
          * existing files and directories.
+         * 仅当该路径中不存在文件时才创建目标文件。 不覆盖现有文件和目录。
          */
         NO_OVERWRITE,
 
         /**
          * Creates a new target file regardless of any existing files or directories. Existing files
          * and directories will be deleted (recursively) automatically before creating the new file.
+         * 无论任何现有文件或目录如何，都创建一个新的目标文件。 在创建新文件之前，现有文件和目录将被自动删除（递归）。
          */
         OVERWRITE
     }
@@ -225,25 +280,36 @@ public abstract class FileSystem {
     /**
      * This lock guards the methods {@link #initOutPathLocalFS(Path, WriteMode, boolean)} and {@link
      * #initOutPathDistFS(Path, WriteMode, boolean)} which are otherwise susceptible to races.
+     * 此锁保护方法 {@link #initOutPathLocalFS(Path, WriteMode, boolean)} 和
+     * {@link #initOutPathDistFS(Path, WriteMode, boolean)} 否则容易发生竞争。
      */
     private static final ReentrantLock OUTPUT_DIRECTORY_INIT_LOCK = new ReentrantLock(true);
 
-    /** Object used to protect calls to specific methods. */
+    /** Object used to protect calls to specific methods.
+     * 用于保护对特定方法的调用的对象。
+     * */
     private static final ReentrantLock LOCK = new ReentrantLock(true);
 
-    /** Cache for file systems, by scheme + authority. */
+    /** Cache for file systems, by scheme + authority.
+     * 按schmea+authority缓存文件系统。
+     * */
     private static final HashMap<FSKey, FileSystem> CACHE = new HashMap<>();
 
     /**
      * Mapping of file system schemes to the corresponding factories, populated in {@link
      * FileSystem#initialize(Configuration, PluginManager)}.
+     * 将文件系统方案映射到相应的工厂，填充在 {@link FileSystem#initialize(Configuration, PluginManager)} 中。
      */
     private static final HashMap<String, FileSystemFactory> FS_FACTORIES = new HashMap<>();
 
-    /** The default factory that is used when no scheme matches. */
+    /** The default factory that is used when no scheme matches.
+     * 没有方案匹配时使用的默认工厂。
+     * */
     private static final FileSystemFactory FALLBACK_FACTORY = loadHadoopFsFactory();
 
-    /** All known plugins for a given scheme, do not fallback for those. */
+    /** All known plugins for a given scheme, do not fallback for those.
+     * 给定方案的所有已知插件，不回退那些。
+     * */
     private static final Multimap<String, String> DIRECTLY_SUPPORTED_FILESYSTEM =
             ImmutableMultimap.<String, String>builder()
                     .put("wasb", "flink-fs-azure-hadoop")
@@ -262,6 +328,8 @@ public abstract class FileSystem {
     /**
      * The default filesystem scheme to be used, configured during process-wide initialization. This
      * value defaults to the local file systems scheme {@code 'file:///'} or {@code 'file:/'}.
+     * 要使用的默认文件系统方案，在进程范围初始化期间配置。
+     * 此值默认为本地文件系统方案 {@code 'file:///'} 或 {@code 'file:/'}。
      */
     private static URI defaultScheme;
 
@@ -271,10 +339,13 @@ public abstract class FileSystem {
 
     /**
      * Initializes the shared file system settings.
+     * 初始化共享文件系统设置。
      *
      * <p>The given configuration is passed to each file system factory to initialize the respective
      * file systems. Because the configuration of file systems may be different subsequent to the
      * call of this method, this method clears the file system instance cache.
+     * 给定的配置传递给每个文件系统工厂以初始化相应的文件系统。
+     * 由于调用此方法后文件系统的配置可能会有所不同，因此此方法会清除文件系统实例缓存。
      *
      * <p>This method also reads the default file system URI from the configuration key {@link
      * CoreOptions#DEFAULT_FILESYSTEM_SCHEME}. All calls to {@link FileSystem#get(URI)} where the
@@ -282,6 +353,10 @@ public abstract class FileSystem {
      * default file system URI is set to {@code 'hdfs://localhost:9000/'}. A file path of {@code
      * '/user/USERNAME/in.txt'} is interpreted as {@code
      * 'hdfs://localhost:9000/user/USERNAME/in.txt'}.
+     * 此方法还会从配置键 {@link CoreOptions#DEFAULT_FILESYSTEM_SCHEME} 读取默认文件系统 URI。
+     * 所有对 {@link FileSystem#get(URI)} 的调用（其中 URI 没有方案）都将被解释为相对于该 URI。
+     * 例如，假设默认文件系统 URI 设置为 {@code 'hdfs://localhost:9000/'}。
+     * {@code '/user/USERNAME/in.txt'} 的文件路径被解释为 {@code 'hdfs://localhost:9000/user/USERNAME/in.txt'}。
      *
      * @deprecated use {@link #initialize(Configuration, PluginManager)} instead.
      * @param config the configuration from where to fetch the parameter.
@@ -298,10 +373,13 @@ public abstract class FileSystem {
 
     /**
      * Initializes the shared file system settings.
+     * 初始化共享文件系统设置。
      *
      * <p>The given configuration is passed to each file system factory to initialize the respective
      * file systems. Because the configuration of file systems may be different subsequent to the
      * call of this method, this method clears the file system instance cache.
+     * 给定的配置传递给每个文件系统工厂以初始化相应的文件系统。
+     * 由于调用此方法后文件系统的配置可能会有所不同，因此此方法会清除文件系统实例缓存。
      *
      * <p>This method also reads the default file system URI from the configuration key {@link
      * CoreOptions#DEFAULT_FILESYSTEM_SCHEME}. All calls to {@link FileSystem#get(URI)} where the
@@ -309,6 +387,10 @@ public abstract class FileSystem {
      * default file system URI is set to {@code 'hdfs://localhost:9000/'}. A file path of {@code
      * '/user/USERNAME/in.txt'} is interpreted as {@code
      * 'hdfs://localhost:9000/user/USERNAME/in.txt'}.
+     * 此方法还会从配置键 {@link CoreOptions#DEFAULT_FILESYSTEM_SCHEME} 读取默认文件系统 URI。
+     * 所有对 {@link FileSystem#get(URI)} 的调用（其中 URI 没有方案）都将被解释为相对于该 URI。
+     * 例如，假设默认文件系统 URI 设置为 {@code 'hdfs://localhost:9000/'}。
+     * {@code '/user/USERNAME/in.txt'} 的文件路径被解释为 {@code 'hdfs://localhost:9000/user/USERNAME/in.txt'}。
      *
      * @param config the configuration from where to fetch the parameter.
      * @param pluginManager optional plugin manager that is used to initialized filesystems provided
@@ -386,6 +468,7 @@ public abstract class FileSystem {
 
     /**
      * Returns a reference to the {@link FileSystem} instance for accessing the local file system.
+     * 返回对 {@link FileSystem} 实例的引用，用于访问本地文件系统。
      *
      * @return a reference to the {@link FileSystem} instance for accessing the local file system.
      */
@@ -397,6 +480,7 @@ public abstract class FileSystem {
     /**
      * Returns a reference to the {@link FileSystem} instance for accessing the file system
      * identified by the given {@link URI}.
+     * 返回对 {@link FileSystem} 实例的引用，用于访问由给定 {@link URI} 标识的文件系统。
      *
      * @param uri the {@link URI} identifying the file system
      * @return a reference to the {@link FileSystem} instance for accessing the file system
@@ -545,10 +629,13 @@ public abstract class FileSystem {
     /**
      * Gets the default file system URI that is used for paths and file systems that do not specify
      * and explicit scheme.
+     * 获取用于未指定显式方案的路径和文件系统的默认文件系统 URI。
      *
      * <p>As an example, assume the default file system URI is set to {@code
      * 'hdfs://someserver:9000/'}. A file path of {@code '/user/USERNAME/in.txt'} is interpreted as
      * {@code 'hdfs://someserver:9000/user/USERNAME/in.txt'}.
+     * 例如，假设默认文件系统 URI 设置为 {@code 'hdfs://someserver:9000/'}。
+     * {@code '/user/USERNAME/in.txt'} 的文件路径被解释为 {@code 'hdfs://someserver:9000/user/USERNAME/in.txt'}。
      *
      * @return The default file system URI
      */
@@ -562,6 +649,7 @@ public abstract class FileSystem {
 
     /**
      * Returns the path of the file system's current working directory.
+     * 返回文件系统当前工作目录的路径。
      *
      * @return the path of the file system's current working directory
      */
@@ -569,6 +657,7 @@ public abstract class FileSystem {
 
     /**
      * Returns the path of the user's home directory in this file system.
+     * 返回此文件系统中用户主目录的路径。
      *
      * @return the path of the user's home directory in this file system.
      */
@@ -576,6 +665,7 @@ public abstract class FileSystem {
 
     /**
      * Returns a URI whose scheme and authority identify this file system.
+     * 返回其方案和权限标识此文件系统的 URI。
      *
      * @return a URI whose scheme and authority identify this file system
      */
@@ -583,6 +673,7 @@ public abstract class FileSystem {
 
     /**
      * Return a file status object that represents the path.
+     * 返回表示路径的文件状态对象。
      *
      * @param f The path we want information from
      * @return a FileStatus object
@@ -596,12 +687,15 @@ public abstract class FileSystem {
      * nonexistent file or regions, null will be returned. This call is most helpful with DFS, where
      * it returns hostnames of machines that contain the given file. The FileSystem will simply
      * return an elt containing 'localhost'.
+     * 返回一个包含主机名、偏移量和给定文件部分大小的数组。 对于不存在的文件或区域，将返回 null。
+     * 此调用对 DFS 最有帮助，它返回包含给定文件的机器的主机名。 FileSystem 将简单地返回一个包含“localhost”的 elt。
      */
     public abstract BlockLocation[] getFileBlockLocations(FileStatus file, long start, long len)
             throws IOException;
 
     /**
      * Opens an FSDataInputStream at the indicated Path.
+     * 在指定的路径上打开一个 FSDataInputStream。
      *
      * @param f the file name to open
      * @param bufferSize the size of the buffer to be used.
@@ -610,6 +704,7 @@ public abstract class FileSystem {
 
     /**
      * Opens an FSDataInputStream at the indicated Path.
+     * 在指定的路径上打开一个 FSDataInputStream。
      *
      * @param f the file to open
      */
@@ -619,11 +714,15 @@ public abstract class FileSystem {
      * Creates a new {@link RecoverableWriter}. A recoverable writer creates streams that can
      * persist and recover their intermediate state. Persisting and recovering intermediate state is
      * a core building block for writing to files that span multiple checkpoints.
+     * 创建一个新的 {@link RecoverableWriter}。 可恢复的编写器创建可以持久化和恢复其中间状态的流。
+     * 持久化和恢复中间状态是写入跨越多个检查点的文件的核心构建块。
      *
      * <p>The returned object can act as a shared factory to open and recover multiple streams.
+     * 返回的对象可以作为一个共享工厂来打开和恢复多个流。
      *
      * <p>This method is optional on file systems and various file system implementations may not
      * support this method, throwing an {@code UnsupportedOperationException}.
+     * 此方法在文件系统上是可选的，并且各种文件系统实现可能不支持此方法，从而抛出 {@code UnsupportedOperationException}。
      *
      * @return A RecoverableWriter for this file system.
      * @throws IOException Thrown, if the recoverable writer cannot be instantiated.
@@ -636,6 +735,7 @@ public abstract class FileSystem {
     /**
      * Return the number of bytes that large input files should be optimally be split into to
      * minimize I/O time.
+     * 返回大输入文件应该被最佳分割成的字节数以最小化 I/O 时间。
      *
      * @return the number of bytes that large input files should be optimally be split into to
      *     minimize I/O time
@@ -648,6 +748,7 @@ public abstract class FileSystem {
 
     /**
      * List the statuses of the files/directories in the given path if the path is a directory.
+     * 如果路径是目录，则列出给定路径中文件/目录的状态。
      *
      * @param f given path
      * @return the statuses of the files/directories in the given path
@@ -683,6 +784,7 @@ public abstract class FileSystem {
     /**
      * Make the given file and all non-existent parents into directories. Has the semantics of Unix
      * 'mkdir -p'. Existence of the directory hierarchy is not an error.
+     * 将给定的文件和所有不存在的父文件放入目录中。 具有 Unix 'mkdir -p' 的语义。 目录层次结构的存在不是错误。
      *
      * @param f the directory/directories to be created
      * @return <code>true</code> if at least one new directory has been created, <code>false</code>
@@ -693,11 +795,15 @@ public abstract class FileSystem {
 
     /**
      * Opens an FSDataOutputStream at the indicated Path.
+     * 在指定的路径打开一个 FSDataOutputStream。
      *
      * <p>This method is deprecated, because most of its parameters are ignored by most file
      * systems. To control for example the replication factor and block size in the Hadoop
      * Distributed File system, make sure that the respective Hadoop configuration file is either
      * linked from the Flink configuration, or in the classpath of either Flink or the user code.
+     * 此方法已被弃用，因为大多数文件系统都忽略了它的大部分参数。
+     * 例如，要控制 Hadoop 分布式文件系统中的复制因子和块大小，请确保相应的 Hadoop 配置文件是从 Flink 配置链接的，
+     * 或者在 Flink 或用户代码的类路径中。
      *
      * @param f the file name to open
      * @param overwrite if a file with this name already exists, then if true, the file will be
@@ -720,6 +826,7 @@ public abstract class FileSystem {
 
     /**
      * Opens an FSDataOutputStream at the indicated Path.
+     * 在指定的路径打开一个 FSDataOutputStream。
      *
      * @param f the file name to open
      * @param overwrite if a file with this name already exists, then if true, the file will be
@@ -735,9 +842,11 @@ public abstract class FileSystem {
 
     /**
      * Opens an FSDataOutputStream to a new file at the given path.
+     * 在给定路径打开一个 FSDataOutputStream 到一个新文件。
      *
      * <p>If the file already exists, the behavior depends on the given {@code WriteMode}. If the
      * mode is set to {@link WriteMode#NO_OVERWRITE}, then this method fails with an exception.
+     * 如果文件已存在，则行为取决于给定的 {@code WriteMode}。 如果模式设置为 {@link WriteMode#NO_OVERWRITE}，则此方法失败并出现异常。
      *
      * @param f The file path to write to
      * @param overwriteMode The action to take if a file or directory already exists at the given
@@ -750,6 +859,7 @@ public abstract class FileSystem {
 
     /**
      * Renames the file/directory src to dst.
+     * 将文件/目录 src 重命名为 dst。
      *
      * @param src the file/directory to rename
      * @param dst the new name of the file/directory
@@ -762,6 +872,8 @@ public abstract class FileSystem {
      * Returns true if this is a distributed file system. A distributed file system here means that
      * the file system is shared among all Flink processes that participate in a cluster or job and
      * that all these processes can see the same files.
+     * 如果这是分布式文件系统，则返回 true。
+     * 这里的分布式文件系统意味着文件系统在所有参与集群或作业的 Flink 进程之间共享，并且所有这些进程都可以看到相同的文件。
      *
      * @return True, if this is a distributed file system, false otherwise.
      */
@@ -769,6 +881,7 @@ public abstract class FileSystem {
 
     /**
      * Gets a description of the characteristics of this file system.
+     * 获取此文件系统特征的描述。
      *
      * @deprecated this method is not used anymore.
      */
@@ -781,6 +894,7 @@ public abstract class FileSystem {
 
     /**
      * Initializes output directories on local file systems according to the given write mode.
+     * 根据给定的写入模式初始化本地文件系统上的输出目录。
      *
      * <ul>
      *   <li>WriteMode.NO_OVERWRITE &amp; parallel output:
@@ -806,12 +920,37 @@ public abstract class FileSystem {
      *         <li>An existing file or directory (and all its content) is deleted
      *       </ul>
      * </ul>
+     * <ul>
+     *     <li>WriteMode.NO_OVERWRITE &amp; 并行输出：
+     *         <ul>
+     *           <li>如果输出路径不存在，则会创建一个目录。
+     *           <li>现有目录被重用，目录中包含的文件不会被删除。
+     *           <li>现有文件引发异常。
+     *         </ul>
+     *     <li>WriteMode.NO_OVERWRITE &amp; NONE 并行输出：
+     *         <ul>
+     *           <li>现有文件或目录引发异常。
+     *         </ul>
+     *     <li>WriteMode.OVERWRITE &amp; 并行输出：
+     *         <ul>
+     *           <li>如果输出路径不存在，则会创建一个目录。
+     *           <li>现有目录被重用，目录中包含的文件不会被删除。
+     *           <li>现有文件被删除并替换为新目录。
+     *         </ul>
+     *     <li>WriteMode.OVERWRITE &amp; NONE 并行输出：
+     *         <ul>
+     *           <li>删除现有文件或目录（及其所有内容）
+     *         </ul>
+     *  </ul>
      *
      * <p>Files contained in an existing directory are not deleted, because multiple instances of a
      * DataSinkTask might call this function at the same time and hence might perform concurrent
      * delete operations on the file system (possibly deleting output files of concurrently running
      * tasks). Since concurrent DataSinkTasks are not aware of each other, coordination of delete
      * and create operations would be difficult.
+     * 包含在现有目录中的文件不会被删除，因为 DataSinkTask 的多个实例可能会同时调用此函数，
+     * 因此可能会在文件系统上执行并发删除操作（可能删除并发运行任务的输出文件）。
+     * 由于并发 DataSinkTask 彼此不知道，因此删除和创建操作的协调将很困难。
      *
      * @param outPath Output path that should be prepared.
      * @param writeMode Write mode to consider.
@@ -934,19 +1073,26 @@ public abstract class FileSystem {
 
     /**
      * Initializes output directories on distributed file systems according to the given write mode.
+     * 根据给定的写入模式初始化分布式文件系统上的输出目录。
      *
      * <p>WriteMode.NO_OVERWRITE &amp; parallel output: - A directory is created if the output path
      * does not exist. - An existing file or directory raises an exception.
+     * WriteMode.NO_OVERWRITE &amp; 并行输出： - 如果输出路径不存在，则创建一个目录。 - 现有文件或目录引发异常。
      *
      * <p>WriteMode.NO_OVERWRITE &amp; NONE parallel output: - An existing file or directory raises
      * an exception.
+     * WriteMode.NO_OVERWRITE &amp; NONE 并行输出： - 现有文件或目录引发异常。
      *
      * <p>WriteMode.OVERWRITE &amp; parallel output: - A directory is created if the output path
      * does not exist. - An existing directory and its content is deleted and a new directory is
      * created. - An existing file is deleted and replaced by a new directory.
+     * WriteMode.OVERWRITE &amp; 并行输出： - 如果输出路径不存在，则创建一个目录。
+     * - 删除现有目录及其内容并创建新目录。
+     * - 现有文件被删除并替换为新目录。
      *
      * <p>WriteMode.OVERWRITE &amp; NONE parallel output: - An existing file or directory is deleted
      * and replaced by a new directory.
+     * WriteMode.OVERWRITE &amp; NONE 并行输出： - 现有文件或目录被删除并替换为新目录。
      *
      * @param outPath Output path that should be prepared.
      * @param writeMode Write mode to consider.
@@ -1039,6 +1185,7 @@ public abstract class FileSystem {
     /**
      * Loads the factories for the file systems directly supported by Flink. Aside from the {@link
      * LocalFileSystem}, these file systems are loaded via Java's service framework.
+     * 加载 Flink 直接支持的文件系统的工厂。 除了 {@link LocalFileSystem}，这些文件系统是通过 Java 的服务框架加载的。
      *
      * @return A map from the file system scheme to corresponding file system factory.
      */
@@ -1093,9 +1240,12 @@ public abstract class FileSystem {
      * Utility loader for the Hadoop file system factory. We treat the Hadoop FS factory in a
      * special way, because we use it as a catch all for file systems schemes not supported directly
      * in Flink.
+     * Hadoop 文件系统工厂的实用程序加载程序。
+     * 我们以一种特殊的方式对待 Hadoop FS 工厂，因为我们将其用作 Flink 不直接支持的文件系统方案的全部。
      *
      * <p>This method does a set of eager checks for availability of certain classes, to be able to
      * give better error messages.
+     * 此方法对某些类的可用性进行一组急切检查，以便能够提供更好的错误消息。
      */
     private static FileSystemFactory loadHadoopFsFactory() {
         final ClassLoader cl = FileSystem.class.getClassLoader();
@@ -1141,7 +1291,9 @@ public abstract class FileSystem {
 
     // ------------------------------------------------------------------------
 
-    /** An identifier of a file system, via its scheme and its authority. */
+    /** An identifier of a file system, via its scheme and its authority.
+     * 文件系统的标识符，通过其方案和权限。
+     * */
     private static final class FSKey {
 
         /** The scheme of the file system. */
@@ -1152,6 +1304,7 @@ public abstract class FileSystem {
 
         /**
          * Creates a file system key from a given scheme and an authority.
+         * 根据给定的方案和权限创建文件系统密钥。
          *
          * @param scheme The scheme of the file system
          * @param authority The authority of the file system

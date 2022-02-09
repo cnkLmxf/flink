@@ -54,7 +54,9 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 public class GroupReduceOperatorBase<IN, OUT, FT extends GroupReduceFunction<IN, OUT>>
         extends SingleInputOperator<IN, OUT, FT> {
 
-    /** The ordering for the order inside a reduce group. */
+    /** The ordering for the order inside a reduce group.
+     * 归约组内订单的排序。
+     * */
     private Ordering groupOrder;
 
     private boolean combinable;
@@ -104,6 +106,7 @@ public class GroupReduceOperatorBase<IN, OUT, FT extends GroupReduceFunction<IN,
 
     /**
      * Sets the order of the elements within a reduce group.
+     * 设置归约组中元素的顺序。
      *
      * @param order The order for the elements in a reduce group.
      */
@@ -114,6 +117,7 @@ public class GroupReduceOperatorBase<IN, OUT, FT extends GroupReduceFunction<IN,
     /**
      * Gets the order of elements within a reduce group. If no such order has been set, this method
      * returns null.
+     * 获取归约组中元素的顺序。 如果未设置此类顺序，则此方法返回 null。
      *
      * @return The secondary order.
      */
@@ -125,6 +129,8 @@ public class GroupReduceOperatorBase<IN, OUT, FT extends GroupReduceFunction<IN,
      * Marks the group reduce operation as combinable. Combinable operations may pre-reduce the data
      * before the actual group reduce operations. Combinable user-defined functions must implement
      * the interface {@link GroupCombineFunction}.
+     * 将组归约操作标记为可组合。 可组合操作可以在实际的组归约操作之前预先归约数据。
+     * 可组合的用户定义函数必须实现接口 {@link GroupCombineFunction}。
      *
      * @param combinable Flag to mark the group reduce operation as combinable.
      */
@@ -143,6 +149,7 @@ public class GroupReduceOperatorBase<IN, OUT, FT extends GroupReduceFunction<IN,
 
     /**
      * Checks whether the operation is combinable.
+     * 检查操作是否可组合。
      *
      * @return True, if the UDF is combinable, false if not.
      * @see #setCombinable(boolean)

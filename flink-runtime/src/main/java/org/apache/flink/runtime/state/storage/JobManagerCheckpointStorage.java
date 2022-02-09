@@ -39,6 +39,7 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * The {@link CheckpointStorage} checkpoints state directly to the JobManager's memory (hence the
  * name), but savepoints will be persisted to a file system.
+ * {@link CheckpointStorage} 检查点状态直接到 JobManager 的内存（因此得名），但保存点将持久保存到文件系统。
  *
  * <p>This checkpoint storage is primarily for experimentation, quick local setups, or for streaming
  * applications that have very small state: Because it requires checkpoints to go through the
@@ -47,6 +48,10 @@ import static org.apache.flink.util.Preconditions.checkArgument;
  * should be used. The {@code FileSystemCheckpointStorage} but checkpoints state directly to files
  * rather than to the JobManager's memory, thus supporting larger state sizes and more highly
  * available recovery.
+ * 这种检查点存储主要用于实验、快速本地设置或状态非常小的流式应用程序：因为它需要检查点通过 JobManager 的内存，
+ * 较大的状态将占用 JobManager 主内存的较大部分，降低运行稳定性。 对于任何其他设置，
+ * 应使用 {@link FileSystemCheckpointStorage}。 {@code FileSystemCheckpointStorage}
+ * 但检查点状态直接到文件而不是 JobManager 的内存，因此支持更大的状态大小和更高的可用性恢复。
  *
  * <h1>State Size Considerations</h1>
  *

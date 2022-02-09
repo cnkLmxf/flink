@@ -30,11 +30,15 @@ import java.util.concurrent.Executor;
  * BackgroundTask encapsulates an asynchronous operation which can produce a result. The result can
  * be accessed via {@link BackgroundTask#getResultFuture()}. Additionally, the task allows to track
  * its completion via {@link BackgroundTask#getTerminationFuture()}.
+ * BackgroundTask 封装了一个可以产生结果的异步操作。 结果可以通过 {@link BackgroundTask#getResultFuture()} 访问。
+ * 此外，该任务允许通过 {@link BackgroundTask#getTerminationFuture()} 跟踪其完成情况。
  *
  * <p>In order to ensure the order of background tasks, one can use the {@link
  * BackgroundTask#runAfter} to schedule tasks which are executed after this task has completed.
  * Tasks which are executed sequentially like this won't be affected by the outcome of previous
  * tasks. This means that a failed task won't stop succeeding tasks from being executed.
+ * 为了保证后台任务的顺序，可以使用 {@link BackgroundTask#runAfter} 来安排任务完成后执行的任务。
+ * 像这样顺序执行的任务不会受到先前任务结果的影响。 这意味着失败的任务不会阻止后续任务的执行。
  *
  * @param <T> type of the produced result
  */

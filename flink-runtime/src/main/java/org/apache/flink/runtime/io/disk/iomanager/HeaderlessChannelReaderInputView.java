@@ -32,24 +32,32 @@ import static org.apache.flink.util.Preconditions.checkArgument;
  * {@link ChannelReaderInputView}, but does not expect a header for each block, giving a direct
  * stream abstraction over sequence of written blocks. It therefore requires specification of the
  * number of blocks and the number of bytes in the last block.
+ * 由 {@link BlockChannelReader} 支持的 {@link org.apache.flink.core.memory.DataInputView}，
+ * 使其成为有效的数据输入流。 此视图类似于 {@link ChannelReaderInputView}，但不期望每个块都有一个标题，
+ * 从而对写入的块序列提供直接的流抽象。 因此，它需要指定块数和最后一个块中的字节数。
  */
 public class HeaderlessChannelReaderInputView extends ChannelReaderInputView {
 
     private int numBlocksRemaining; // the number of blocks not yet consumed
 
+    // 最后一个块中的有效字节数
     private final int lastBlockBytes; // the number of valid bytes in the last block
 
+    // 读取第一个块后的偏移量
     private long offset; // offset to seek after reading the first block
 
+    // 如果当前块是第一个块
     private boolean isFirstBlock; // if current block is the first block
 
     /**
      * Creates a new channel reader that reads from the given channel, expecting a specified number
      * of blocks in the channel, and returns only a specified number of bytes from the last block.
+     * 创建一个从给定通道读取的新通道读取器，期望通道中有指定数量的块，并仅返回最后一个块的指定字节数。
      *
      * <p>WARNING: If the number of blocks given here is higher than the number of blocks in the
      * channel, then the last blocks will not be filled by the reader and will contain undefined
      * data.
+     * 警告：如果此处给出的块数高于通道中的块数，则最后一个块将不会被读取器填充，并且将包含未定义的数据。
      *
      * @param reader The reader that reads the data from disk back into memory.
      * @param memory A list of memory segments that the reader uses for reading the data in. If the

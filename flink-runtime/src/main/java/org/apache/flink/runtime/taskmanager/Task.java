@@ -121,17 +121,25 @@ import static org.apache.flink.util.Preconditions.checkState;
  * operator (which may be a user function) and runs it, providing all services necessary for example
  * to consume input data, produce its results (intermediate result partitions) and communicate with
  * the JobManager.
+ * Task 表示在 TaskManager 上执行并行子任务。
+ * Task 包装了一个 Flink 操作符（可能是一个用户函数）并运行它，提供所有必要的服务，
+ * 例如使用输入数据、产生结果（中间结果分区）以及与 JobManager 通信。
  *
  * <p>The Flink operators (implemented as subclasses of {@link AbstractInvokable} have only data
  * readers, writers, and certain event callbacks. The task connects those to the network stack and
  * actor messages, and tracks the state of the execution and handles exceptions.
+ * Flink 操作符（作为 {@link AbstractInvokable} 的子类实现）只有数据读取器、写入器和某些事件回调。
+ * 任务将它们连接到网络堆栈和参与者消息，并跟踪执行状态并处理异常。
  *
  * <p>Tasks have no knowledge about how they relate to other tasks, or whether they are the first
  * attempt to execute the task, or a repeated attempt. All of that is only known to the JobManager.
  * All the task knows are its own runnable code, the task's configuration, and the IDs of the
  * intermediate results to consume and produce (if any).
+ * 任务不知道它们与其他任务的关系，也不知道它们是第一次尝试执行任务，还是重复尝试。
+ * 所有这些只有 JobManager 知道。 任务只知道它自己的可运行代码、任务的配置以及要消费和产生的中间结果的 ID（如果有的话）。
  *
  * <p>Each Task is run by one dedicated thread.
+ * 每个任务由一个专用线程运行。
  */
 public class Task
         implements Runnable,

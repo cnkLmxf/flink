@@ -28,10 +28,14 @@ import org.apache.flink.util.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
-/** A helper for KvState registrations of a single task. */
+/** A helper for KvState registrations of a single task.
+ * 单个任务的 KvState 注册助手。
+ * */
 public class TaskKvStateRegistry {
 
-    /** KvStateRegistry for KvState instance registrations. */
+    /** KvStateRegistry for KvState instance registrations.
+     * KvStateRegistry 用于 KvState 实例注册。
+     * */
     private final KvStateRegistry registry;
 
     /** JobID of the task. */
@@ -40,7 +44,9 @@ public class TaskKvStateRegistry {
     /** JobVertexID of the task. */
     private final JobVertexID jobVertexId;
 
-    /** List of all registered KvState instances of this task. */
+    /** List of all registered KvState instances of this task.
+     * 此任务的所有已注册 KvState 实例的列表。
+     * */
     private final List<KvStateInfo> registeredKvStates = new ArrayList<>();
 
     TaskKvStateRegistry(KvStateRegistry registry, JobID jobId, JobVertexID jobVertexId) {
@@ -51,6 +57,7 @@ public class TaskKvStateRegistry {
 
     /**
      * Registers the KvState instance at the KvStateRegistry.
+     * 在 KvStateRegistry 注册 KvState 实例。
      *
      * @param keyGroupRange Key group range the KvState instance belongs to
      * @param registrationName The registration name (not necessarily the same as the KvState name
@@ -73,7 +80,9 @@ public class TaskKvStateRegistry {
         registeredKvStates.add(new KvStateInfo(keyGroupRange, registrationName, kvStateId));
     }
 
-    /** Unregisters all registered KvState instances from the KvStateRegistry. */
+    /** Unregisters all registered KvState instances from the KvStateRegistry.
+     * 从 KvStateRegistry 中注销所有已注册的 KvState 实例。
+     * */
     public void unregisterAll() {
         for (KvStateInfo kvState : registeredKvStates) {
             registry.unregisterKvState(
@@ -85,7 +94,9 @@ public class TaskKvStateRegistry {
         }
     }
 
-    /** 3-tuple holding registered KvState meta data. */
+    /** 3-tuple holding registered KvState meta data.
+     * 保存已注册 KvState 元数据的 3 元组。
+     * */
     private static class KvStateInfo {
 
         private final KeyGroupRange keyGroupRange;

@@ -53,7 +53,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/** {@link SlotPool} implementation which uses the {@link DeclarativeSlotPool} to allocate slots. */
+/** {@link SlotPool} implementation which uses the {@link DeclarativeSlotPool} to allocate slots.
+ * {@link SlotPool} 实现，它使用 {@link DeclarativeSlotPool} 来分配插槽。
+ * */
 public class DeclarativeSlotPoolBridge extends DeclarativeSlotPoolService implements SlotPool {
 
     private final Map<SlotRequestId, PendingRequest> pendingRequests;

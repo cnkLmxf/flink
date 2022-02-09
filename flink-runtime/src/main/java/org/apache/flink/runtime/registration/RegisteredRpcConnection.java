@@ -35,10 +35,13 @@ import static org.apache.flink.util.Preconditions.checkState;
  * This utility class implements the basis of RPC connecting from one component to another
  * component, for example the RPC connection from TaskExecutor to ResourceManager. This {@code
  * RegisteredRpcConnection} implements registration and get target gateway.
+ * 该实用程序类实现了从一个组件到另一个组件的 RPC 连接的基础，例如从 TaskExecutor 到 ResourceManager 的 RPC 连接。
+ * 这个 {@code RegisteredRpcConnection} 实现注册和获取目标网关。
  *
  * <p>The registration gives access to a future that is completed upon successful registration. The
  * RPC connection can be closed, for example when the target where it tries to register at looses
  * leader status.
+ * 注册可以访问在成功注册后完成的未来。 RPC 连接可以关闭，例如当它尝试注册的目标失去领导者状态时。
  *
  * @param <F> The type of the fencing token
  * @param <G> The type of the gateway to connect to.
@@ -61,25 +64,34 @@ public abstract class RegisteredRpcConnection<
     /** The logger for all log messages of this class. */
     protected final Logger log;
 
-    /** The fencing token fo the remote component. */
+    /** The fencing token fo the remote component.
+     * 远程组件的隔离令牌。
+     * */
     private final F fencingToken;
 
-    /** The target component Address, for example the ResourceManager Address. */
+    /** The target component Address, for example the ResourceManager Address.
+     * 目标组件地址，例如 ResourceManager 地址。
+     * */
     private final String targetAddress;
 
     /**
      * Execution context to be used to execute the on complete action of the
      * ResourceManagerRegistration.
+     * 用于执行 ResourceManagerRegistration 的完成操作的执行上下文。
      */
     private final Executor executor;
 
     /** The Registration of this RPC connection. */
     private volatile RetryingRegistration<F, G, S, R> pendingRegistration;
 
-    /** The gateway to register, it's null until the registration is completed. */
+    /** The gateway to register, it's null until the registration is completed.
+     * 注册网关，注册完成前为空。
+     * */
     private volatile G targetGateway;
 
-    /** Flag indicating that the RPC connection is closed. */
+    /** Flag indicating that the RPC connection is closed.
+     * 指示 RPC 连接已关闭的标志。
+     * */
     private volatile boolean closed;
 
     // ------------------------------------------------------------------------
@@ -115,6 +127,7 @@ public abstract class RegisteredRpcConnection<
     /**
      * Tries to reconnect to the {@link #targetAddress} by cancelling the pending registration and
      * starting a new pending registration.
+     * 尝试通过取消挂起的注册并开始新的挂起注册来重新连接到 {@link #targetAddress}。
      *
      * @return {@code false} if the connection has been closed or a concurrent modification has
      *     happened; otherwise {@code true}
@@ -156,20 +169,26 @@ public abstract class RegisteredRpcConnection<
     /**
      * This method generate a specific Registration, for example TaskExecutor Registration at the
      * ResourceManager.
+     * 该方法生成一个特定的 Registration，例如 ResourceManager 上的 TaskExecutor Registration。
      */
     protected abstract RetryingRegistration<F, G, S, R> generateRegistration();
 
-    /** This method handle the Registration Response. */
+    /** This method handle the Registration Response.
+     * 此方法处理注册响应。
+     * */
     protected abstract void onRegistrationSuccess(S success);
 
     /**
      * This method handles the Registration rejection.
+     * 此方法处理注册拒绝。
      *
      * @param rejection rejection containing additional information about the rejection
      */
     protected abstract void onRegistrationRejection(R rejection);
 
-    /** This method handle the Registration failure. */
+    /** This method handle the Registration failure.
+     * 此方法处理注册失败。
+     * */
     protected abstract void onRegistrationFailure(Throwable failure);
 
     /** Close connection. */

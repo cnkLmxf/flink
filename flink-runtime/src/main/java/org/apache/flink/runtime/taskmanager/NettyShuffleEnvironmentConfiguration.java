@@ -39,7 +39,9 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Objects;
 
-/** Configuration object for the network stack. */
+/** Configuration object for the network stack.
+ * 网络堆栈的配置对象。
+ * */
 public class NettyShuffleEnvironmentConfiguration {
     private static final Logger LOG =
             LoggerFactory.getLogger(NettyShuffleEnvironmentConfiguration.class);

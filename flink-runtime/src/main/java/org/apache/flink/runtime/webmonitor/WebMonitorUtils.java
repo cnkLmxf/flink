@@ -49,6 +49,7 @@ import java.util.concurrent.Executor;
 /**
  * Utilities for the web runtime monitor. This class contains for example methods to build messages
  * with aggregate information about the state of an execution graph, to be send to the web server.
+ * Web 运行时监视器的实用程序。 此类包含例如构建消息的方法，其中包含有关执行图状态的聚合信息，以发送到 Web 服务器。
  */
 public final class WebMonitorUtils {
 

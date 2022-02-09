@@ -121,15 +121,21 @@ import java.util.stream.Collectors;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** MiniCluster to execute Flink jobs locally. */
+/** MiniCluster to execute Flink jobs locally.
+ * MiniCluster 在本地执行 Flink 作业。
+ * */
 public class MiniCluster implements AutoCloseableAsync {
 
     private static final Logger LOG = LoggerFactory.getLogger(MiniCluster.class);
 
-    /** The lock to guard startup / shutdown / manipulation methods. */
+    /** The lock to guard startup / shutdown / manipulation methods.
+     * 保护启动/关闭/操作方法的锁。
+     * */
     private final Object lock = new Object();
 
-    /** The configuration for this mini cluster. */
+    /** The configuration for this mini cluster.
+     * 此迷你集群的配置。
+     * */
     private final MiniClusterConfiguration miniClusterConfiguration;
 
     private final Time rpcTimeout;
@@ -195,13 +201,16 @@ public class MiniCluster implements AutoCloseableAsync {
     @GuardedBy("lock")
     private RpcServiceFactory taskManagerRpcServiceFactory;
 
-    /** Flag marking the mini cluster as started/running. */
+    /** Flag marking the mini cluster as started/running.
+     * 将迷你集群标记为已启动/正在运行的标志。
+     * */
     private volatile boolean running;
 
     // ------------------------------------------------------------------------
 
     /**
      * Creates a new Flink mini cluster based on the given configuration.
+     * 根据给定的配置创建一个新的 Flink 迷你集群。
      *
      * @param miniClusterConfiguration The configuration for the mini cluster
      */
@@ -249,13 +258,16 @@ public class MiniCluster implements AutoCloseableAsync {
     //  life cycle
     // ------------------------------------------------------------------------
 
-    /** Checks if the mini cluster was started and is running. */
+    /** Checks if the mini cluster was started and is running.
+     * 检查迷你集群是否已启动并正在运行。
+     * */
     public boolean isRunning() {
         return running;
     }
 
     /**
      * Starts the mini cluster, based on the configured properties.
+     * 根据配置的属性启动迷你集群。
      *
      * @throws Exception This method passes on any exception that occurs during the startup of the
      *     mini cluster.
@@ -497,12 +509,16 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Returns {@link HaLeadershipControl} if enabled.
+     * 如果启用，则返回 {@link HaLeadershipControl}。
      *
      * <p>{@link HaLeadershipControl} allows granting and revoking leadership of HA components, e.g.
      * JobManager. The method return {@link Optional#empty()} if the control is not enabled in
      * {@link MiniClusterConfiguration}.
+     * {@link HaLeadershipControl} 允许授予和撤销 HA 组件的领导权，例如 作业管理器。
+     * 如果在 {@link MiniClusterConfiguration} 中未启用控件，则该方法返回 {@link Optional#empty()}。
      *
      * <p>Enabling this feature disables {@link HighAvailabilityOptions#HA_MODE} option.
+     * 启用此功能会禁用 {@link HighAvailabilityOptions#HA_MODE} 选项。
      */
     public Optional<HaLeadershipControl> getHaLeadershipControl() {
         synchronized (lock) {
@@ -515,9 +531,11 @@ public class MiniCluster implements AutoCloseableAsync {
     /**
      * Shuts down the mini cluster, failing all currently executing jobs. The mini cluster can be
      * started again by calling the {@link #start()} method again.
+     * 关闭迷你集群，使所有当前正在执行的作业失败。 再次调用 {@link #start()} 方法可以再次启动迷你集群。
      *
      * <p>This method shuts down all started services and components, even if an exception occurs in
      * the process of shutting down some component.
+     * 该方法关闭所有启动的服务和组件，即使在关闭某个组件的过程中发生异常。
      *
      * @return Future which is completed once the MiniCluster has been completely shut down
      */
@@ -610,6 +628,7 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Starts additional TaskManager process.
+     * 启动额外的 TaskManager 进程。
      *
      * <p>When the MiniCluster starts up, it always starts {@link
      * MiniClusterConfiguration#getNumTaskManagers} TaskManagers. All TaskManagers are indexed from
@@ -617,6 +636,11 @@ public class MiniCluster implements AutoCloseableAsync {
      * with the next index which is the number of TaskManagers, started so far. The index always
      * increases with each new started TaskManager. The indices of terminated TaskManagers are not
      * reused after {@link #terminateTaskManager(int)}.
+     * 当 MiniCluster 启动时，它总是启动 {@link MiniClusterConfiguration#getNumTaskManagers} TaskManagers。
+     * 所有 TaskManager 的索引都是从 0 到迄今为止启动的 TaskManager 的数量减一。
+     * 此方法使用下一个索引启动一个 TaskManager，该索引是迄今为止启动的 TaskManager 的数量。
+     * 每个新启动的 TaskManager 都会增加索引。
+     * 在 {@link #terminateTaskManager(int)} 之后，终止的 TaskManager 的索引不会被重用。
      */
     public void startTaskManager() throws Exception {
         synchronized (lock) {
@@ -659,11 +683,16 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Terminates a TaskManager with the given index.
+     * 终止具有给定索引的 TaskManager。
      *
      * <p>See {@link #startTaskManager()} to understand how TaskManagers are indexed. This method
      * terminates a TaskManager with a given index but it does not clear the index. The index stays
      * occupied for the lifetime of the MiniCluster and its TaskManager stays terminated. The index
      * is not reused if more TaskManagers are started with {@link #startTaskManager()}.
+     * 请参阅 {@link #startTaskManager()} 了解如何为 TaskManager 编制索引。
+     * 此方法终止具有给定索引的 TaskManager，但不会清除索引。
+     * 该索引在 MiniCluster 的生命周期内一直被占用，并且它的 TaskManager 保持终止状态。
+     * 如果更多 TaskManager 使用 {@link #startTaskManager()} 启动，则不会重用索引。
      *
      * @param index index of the TaskManager to terminate
      * @return {@link CompletableFuture} of the given TaskManager termination
@@ -759,6 +788,7 @@ public class MiniCluster implements AutoCloseableAsync {
     /**
      * This method executes a job in detached mode. The method returns immediately after the job has
      * been added to the
+     * 此方法以分离模式执行作业。 该方法在作业添加到
      *
      * @param job The Flink job to execute
      * @throws JobExecutionException Thrown if anything went amiss during initial job launch, or if
@@ -780,6 +810,7 @@ public class MiniCluster implements AutoCloseableAsync {
     /**
      * This method runs a job in blocking mode. The method returns only after the job completed
      * successfully, or after it failed terminally.
+     * 此方法以阻塞模式运行作业。 该方法仅在作业成功完成或最终失败后返回。
      *
      * @param job The Flink job to execute
      * @return The result of the job execution
@@ -891,6 +922,7 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Factory method to create the metric registry for the mini cluster.
+     * 为微型集群创建指标注册表的工厂方法。
      *
      * @param config The configuration of the mini cluster
      */
@@ -902,6 +934,7 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Factory method to instantiate the remote RPC service.
+     * 实例化远程 RPC 服务的工厂方法。
      *
      * @param configuration Flink configuration.
      * @param bindAddress The address to bind the RPC service to.
@@ -920,6 +953,7 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Factory method to instantiate the remote RPC service.
+     * 实例化远程 RPC 服务的工厂方法。
      *
      * @param configuration Flink configuration.
      * @param externalAddress The external address to access the RPC service.
@@ -942,6 +976,7 @@ public class MiniCluster implements AutoCloseableAsync {
 
     /**
      * Factory method to instantiate the local RPC service.
+     * 实例化远程 RPC 服务的工厂方法。
      *
      * @param configuration Flink configuration.
      * @return The instantiated RPC service

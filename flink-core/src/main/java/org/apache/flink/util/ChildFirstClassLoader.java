@@ -29,6 +29,7 @@ import java.util.function.Consumer;
 /**
  * A variant of the URLClassLoader that first loads from the URLs and only after that from the
  * parent.
+ * URLClassLoader 的一种变体，它首先从 URL 加载，然后才从父级加载。
  *
  * <p>{@link #getResourceAsStream(String)} uses {@link #getResource(String)} internally so we don't
  * override that.
@@ -39,6 +40,8 @@ public final class ChildFirstClassLoader extends FlinkUserCodeClassLoader {
      * The classes that should always go through the parent ClassLoader. This is relevant for Flink
      * classes, for example, to avoid loading Flink classes that cross the user-code/system-code
      * barrier in the user-code ClassLoader.
+     * 应始终通过父 ClassLoader 的类。 这与 Flink 类相关，
+     * 例如，避免在用户代码 ClassLoader 中加载跨越用户代码/系统代码障碍的 Flink 类。
      */
     private final String[] alwaysParentFirstPatterns;
 

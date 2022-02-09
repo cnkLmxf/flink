@@ -39,6 +39,7 @@ import java.util.Map;
 /**
  * A set of resources required to take a checkpoint or savepoint from a {@link
  * HeapKeyedStateBackend}.
+ * 从 {@link HeapKeyedStateBackend} 获取检查点或保存点所需的一组资源。
  */
 @Internal
 final class HeapSnapshotResources<K> implements FullSnapshotResources<K> {

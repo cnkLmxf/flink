@@ -26,9 +26,11 @@ import java.util.Objects;
 
 /**
  * An event to request splits, sent typically from the Source Reader to the Source Enumerator.
+ * 请求拆分的事件，通常从 Source Reader 发送到 Source Enumerator。
  *
  * <p>This event optionally carries the hostname of the location where the reader runs, to support
  * locality-aware work assignment.
+ * 此事件可选地携带阅读器运行位置的主机名，以支持位置感知工作分配。
  */
 public final class RequestSplitEvent implements OperatorEvent {
 

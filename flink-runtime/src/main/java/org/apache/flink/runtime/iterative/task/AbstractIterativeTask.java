@@ -65,7 +65,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-/** The abstract base class for all tasks able to participate in an iteration. */
+/** The abstract base class for all tasks able to participate in an iteration.
+ * 能够参与迭代的所有任务的抽象基类。
+ * */
 public abstract class AbstractIterativeTask<S extends Function, OT> extends BatchTask<S, OT>
         implements Terminable {
 
@@ -95,6 +97,7 @@ public abstract class AbstractIterativeTask<S extends Function, OT> extends Batc
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */
@@ -330,12 +333,15 @@ public abstract class AbstractIterativeTask<S extends Function, OT> extends Batc
 
     /**
      * Creates a new {@link WorksetUpdateOutputCollector}.
+     * 创建一个新的 {@link WorksetUpdateOutputCollector}。
      *
      * <p>This collector is used by {@link IterationIntermediateTask} or {@link IterationTailTask}
      * to update the workset.
+     * {@link IterationIntermediateTask} 或 {@link IterationTailTask} 使用此收集器来更新工作集。
      *
      * <p>If a non-null delegate is given, the new {@link Collector} will write to the solution set
      * and also call collect(T) of the delegate.
+     * 如果给定一个非空委托，则新的 {@link Collector} 将写入解决方案集并调用委托的 collect(T)。
      *
      * @param delegate null -OR- the delegate on which to call collect() by the newly created
      *     collector
@@ -353,15 +359,20 @@ public abstract class AbstractIterativeTask<S extends Function, OT> extends Batc
 
     /**
      * Creates a new solution set update output collector.
+     * 创建一个新的解决方案集更新输出收集器。
      *
      * <p>This collector is used by {@link IterationIntermediateTask} or {@link IterationTailTask}
      * to update the solution set of workset iterations. Depending on the task configuration, either
      * a fast (non-probing) {@link
      * org.apache.flink.runtime.iterative.io.SolutionSetFastUpdateOutputCollector} or normal
      * (re-probing) {@link SolutionSetUpdateOutputCollector} is created.
+     * {@link IterationIntermediateTask} 或 {@link IterationTailTask} 使用此收集器来更新工作集迭代的解决方案集。
+     * 根据任务配置，创建快速（非探测）{@link org.apache.flink.runtime.iterative.io.SolutionSetFastUpdateOutputCollector}
+     * 或正常（重新探测）{@link SolutionSetUpdateOutputCollector}。
      *
      * <p>If a non-null delegate is given, the new {@link Collector} will write back to the solution
      * set and also call collect(T) of the delegate.
+     * 如果给定了非空委托，则新的 {@link Collector} 将写回解决方案集并调用委托的 collect(T)。
      *
      * @param delegate null -OR- a delegate collector to be called by the newly created collector
      * @return a new {@link

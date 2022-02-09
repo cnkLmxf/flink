@@ -33,6 +33,7 @@ import java.util.Set;
 /**
  * This class implements a {@link SlotSelectionStrategy} that is based on previous allocations and
  * falls back to using location preference hints if there is no previous allocation.
+ * 此类实现基于先前分配的 {@link SlotSelectionStrategy}，如果没有先前分配，则回退到使用位置偏好提示。
  */
 public class PreviousAllocationSlotSelectionStrategy implements SlotSelectionStrategy {
 

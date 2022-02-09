@@ -32,27 +32,32 @@ import java.util.concurrent.LinkedBlockingQueue;
  * BlockChannelReader}, making it effectively a data input stream. The view reads it data in blocks
  * from the underlying channel. The view can only read data that has been written by a {@link
  * ChannelWriterOutputView}, due to block formatting.
+ * 由 {@link BlockChannelReader} 支持的 {@link org.apache.flink.core.memory.DataInputView}，
+ * 使其成为有效的数据输入流。 视图从底层通道以块的形式读取它的数据。
+ * 由于块格式，视图只能读取由 {@link ChannelWriterOutputView} 写入的数据。
  */
 public class ChannelReaderInputView extends AbstractChannelReaderInputView {
 
     protected final BlockChannelReader<MemorySegment>
-            reader; // the block reader that reads memory segments
+            reader; // the block reader that reads memory segments // 读取内存段的块读取器
 
-    protected int numRequestsRemaining; // the number of block requests remaining
+    protected int numRequestsRemaining; // the number of block requests remaining// 剩余的块请求数
 
-    private final int numSegments; // the number of memory segment the view works with
+    private final int numSegments; // the number of memory segment the view works with// 视图使用的内存段数
 
-    private final ArrayList<MemorySegment> freeMem; // memory gathered once the work is done
+    private final ArrayList<MemorySegment> freeMem; // memory gathered once the work is done// 工作完成后收集的内存
 
+    // 指示视图是否已经在最后一个块中的标志
     private boolean inLastBlock; // flag indicating whether the view is already in the last block
 
-    private boolean closed; // flag indicating whether the reader is closed
+    private boolean closed; // flag indicating whether the reader is closed// 指示阅读器是否关闭的标志
 
     // --------------------------------------------------------------------------------------------
 
     /**
      * Creates a new channel reader that reads from the given channel until the last block (as
      * marked by a {@link ChannelWriterOutputView}) is found.
+     * 创建一个从给定通道读取的新通道读取器，直到找到最后一个块（由 {@link ChannelWriterOutputView} 标记）。
      *
      * @param reader The reader that reads the data from disk back into memory.
      * @param memory A list of memory segments that the reader uses for reading the data in. If the
@@ -74,9 +79,11 @@ public class ChannelReaderInputView extends AbstractChannelReaderInputView {
     /**
      * Creates a new channel reader that reads from the given channel, expecting a specified number
      * of blocks in the channel.
+     * 创建一个从给定通道读取的新通道读取器，期望通道中有指定数量的块。
      *
      * <p>WARNING: The reader will lock if the number of blocks given here is actually lower than
      * the actual number of blocks in the channel.
+     * 警告：如果此处给出的块数实际上低于通道中的实际块数，阅读器将锁定。
      *
      * @param reader The reader that reads the data from disk back into memory.
      * @param memory A list of memory segments that the reader uses for reading the data in. If the
@@ -100,9 +107,11 @@ public class ChannelReaderInputView extends AbstractChannelReaderInputView {
 
     /**
      * Non public constructor to allow subclasses to use this input view with different headers.
+     * 非公共构造函数允许子类使用具有不同标题的输入视图。
      *
      * <p>WARNING: The reader will lock if the number of blocks given here is actually lower than
      * the actual number of blocks in the channel.
+     * 警告：如果此处给出的块数实际上低于通道中的实际块数，阅读器将锁定。
      *
      * @param reader The reader that reads the data from disk back into memory.
      * @param memory A list of memory segments that the reader uses for reading the data in. If the
@@ -164,6 +173,7 @@ public class ChannelReaderInputView extends AbstractChannelReaderInputView {
 
     /**
      * Closes this InputView, closing the underlying reader and returning all memory segments.
+     * 关闭此 InputView，关闭底层阅读器并返回所有内存段。
      *
      * @return A list containing all memory segments originally supplied to this view.
      * @throws IOException Thrown, if the underlying reader could not be properly closed.
@@ -215,6 +225,9 @@ public class ChannelReaderInputView extends AbstractChannelReaderInputView {
      * collects all memory segments. Secondly, the method fetches the next non-consumed segment
      * returned by the reader. If no further segments are available, this method thrown an {@link
      * EOFException}.
+     * 从异步块读取器获取下一段。 如果要发出更多请求，该方法首先使用当前内存段发送一个新请求。
+     * 如果没有更多的请求待处理，则该方法将该段添加到读取器返回队列，从而有效地收集所有内存段。
+     * 其次，该方法获取读取器返回的下一个未使用的段。 如果没有更多可用段，则此方法抛出 {@link EOFException}。
      *
      * @param current The memory segment used for the next request.
      * @return The memory segment to read from next.
@@ -264,6 +277,7 @@ public class ChannelReaderInputView extends AbstractChannelReaderInputView {
     /**
      * Sends a new read requests, if further requests remain. Otherwise, this method adds the
      * segment directly to the readers return queue.
+     * 如果还有其他请求，则发送新的读取请求。 否则，此方法直接将段添加到读者返回队列。
      *
      * @param seg The segment to use for the read request.
      * @throws IOException Thrown, if the reader is in error.

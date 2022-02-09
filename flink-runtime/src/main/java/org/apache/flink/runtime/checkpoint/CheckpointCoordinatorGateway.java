@@ -23,7 +23,9 @@ import org.apache.flink.runtime.executiongraph.ExecutionAttemptID;
 import org.apache.flink.runtime.messages.checkpoint.DeclineCheckpoint;
 import org.apache.flink.runtime.rpc.RpcGateway;
 
-/** RPC Gateway interface for messages to the CheckpointCoordinator. */
+/** RPC Gateway interface for messages to the CheckpointCoordinator.
+ * 用于向 CheckpointCoordinator 发送消息的 RPC 网关接口。
+ * */
 public interface CheckpointCoordinatorGateway extends RpcGateway {
 
     void acknowledgeCheckpoint(

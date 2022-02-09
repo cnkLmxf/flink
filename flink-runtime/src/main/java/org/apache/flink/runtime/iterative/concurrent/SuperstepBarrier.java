@@ -26,7 +26,9 @@ import org.apache.flink.types.Value;
 
 import java.util.concurrent.CountDownLatch;
 
-/** A resettable one-shot latch. */
+/** A resettable one-shot latch.
+ * 一个可复位的一次性锁存器。
+ * */
 public class SuperstepBarrier implements EventListener<TaskEvent> {
 
     private final ClassLoader userCodeClassLoader;
@@ -42,7 +44,9 @@ public class SuperstepBarrier implements EventListener<TaskEvent> {
         this.userCodeClassLoader = userCodeClassLoader;
     }
 
-    /** Setup the barrier, has to be called at the beginning of each superstep. */
+    /** Setup the barrier, has to be called at the beginning of each superstep.
+     * 设置障碍，必须在每个超级步骤开始时调用。
+     * */
     public void setup() {
         latch = new CountDownLatch(1);
     }
@@ -60,7 +64,9 @@ public class SuperstepBarrier implements EventListener<TaskEvent> {
         return aggregates;
     }
 
-    /** Barrier will release the waiting thread if an event occurs. */
+    /** Barrier will release the waiting thread if an event occurs.
+     * 如果发生事件，Barrier 将释放等待线程。
+     * */
     @Override
     public void onEvent(TaskEvent event) {
         if (event instanceof TerminationEvent) {

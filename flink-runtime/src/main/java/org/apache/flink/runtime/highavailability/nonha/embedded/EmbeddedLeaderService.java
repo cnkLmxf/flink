@@ -46,10 +46,13 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * A simple leader election service, which selects a leader among contenders and notifies listeners.
+ * 一个简单的领导者选举服务，它在竞争者中选择领导者并通知听众。
  *
  * <p>An election service for contenders can be created via {@link #createLeaderElectionService()},
  * a listener service for leader observers can be created via {@link
  * #createLeaderRetrievalService()}.
+ * 竞争者的选举服务可以通过 {@link #createLeaderElectionService()} 创建，
+ * 领导者观察者的监听服务可以通过 {@link #createLeaderRetrievalService()} 创建。
  */
 public class EmbeddedLeaderService {
 
@@ -63,19 +66,29 @@ public class EmbeddedLeaderService {
 
     private final Set<EmbeddedLeaderRetrievalService> listeners;
 
-    /** proposed leader, which has been notified of leadership grant, but has not confirmed. */
+    /** proposed leader, which has been notified of leadership grant, but has not confirmed.
+     * 提议的领导者，已收到领导权授予的通知，但尚未确认。
+     * */
     private EmbeddedLeaderElectionService currentLeaderProposed;
 
-    /** actual leader that has confirmed leadership and of which listeners have been notified. */
+    /** actual leader that has confirmed leadership and of which listeners have been notified.
+     * 已确认领导并已通知听众的实际领导。
+     * */
     private EmbeddedLeaderElectionService currentLeaderConfirmed;
 
-    /** fencing UID for the current leader (or proposed leader). */
+    /** fencing UID for the current leader (or proposed leader).
+     * 当前领导者（或提议的领导者）的围栏 UID。
+     * */
     private volatile UUID currentLeaderSessionId;
 
-    /** the cached address of the current leader. */
+    /** the cached address of the current leader.
+     * 当前领导者的缓存地址。
+     * */
     private String currentLeaderAddress;
 
-    /** flag marking the service as terminated. */
+    /** flag marking the service as terminated.
+     * 将服务标记为已终止的标志。
+     * */
     private boolean shutdown;
 
     // ------------------------------------------------------------------------
@@ -92,10 +105,12 @@ public class EmbeddedLeaderService {
 
     /**
      * Shuts down this leader election service.
+     * 关闭此领导者选举服务。
      *
      * <p>This method does not perform a clean revocation of the leader status and no notification
      * to any leader listeners. It simply notifies all contenders and listeners that the service is
      * no longer available.
+     * 此方法不会彻底撤销领导者状态，也不会通知任何领导者侦听器。 它只是通知所有竞争者和听众该服务不再可用。
      */
     public void shutdown() {
         synchronized (lock) {
@@ -165,9 +180,12 @@ public class EmbeddedLeaderService {
 
     // ------------------------------------------------------------------------
     //  adding and removing contenders & listeners
+    // 添加和删除竞争者和听众
     // ------------------------------------------------------------------------
 
-    /** Callback from leader contenders when they start their service. */
+    /** Callback from leader contenders when they start their service.
+     * 领导竞争者启动服务时的回调。
+     * */
     private void addContender(EmbeddedLeaderElectionService service, LeaderContender contender) {
         synchronized (lock) {
             checkState(!shutdown, "leader election service is shut down");
@@ -195,7 +213,9 @@ public class EmbeddedLeaderService {
         }
     }
 
-    /** Callback from leader contenders when they stop their service. */
+    /** Callback from leader contenders when they stop their service.
+     * 领导竞争者停止服务时的回调。
+     * */
     private void removeContender(EmbeddedLeaderElectionService service) {
         synchronized (lock) {
             // if the service was not even started, simply do nothing
@@ -238,7 +258,9 @@ public class EmbeddedLeaderService {
         }
     }
 
-    /** Callback from leader contenders when they confirm a leader grant. */
+    /** Callback from leader contenders when they confirm a leader grant.
+     * 领导者竞争者确认领导者授予时的回调。
+     * */
     private void confirmLeader(
             final EmbeddedLeaderElectionService service,
             final UUID leaderSessionId,
@@ -431,6 +453,7 @@ public class EmbeddedLeaderService {
 
     // ------------------------------------------------------------------------
     //  election and retrieval service implementations
+    // 选举和检索服务实现
     // ------------------------------------------------------------------------
 
     private class EmbeddedLeaderElectionService implements LeaderElectionService {

@@ -39,10 +39,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * This utility class implements the basis of registering one component at another component, for
  * example registering the TaskExecutor at the ResourceManager. This {@code RetryingRegistration}
  * implements both the initial address resolution and the retries-with-backoff strategy.
+ * 该实用程序类实现了在另一个组件上注册一个组件的基础，例如在 ResourceManager 上注册 TaskExecutor。
+ * 这个 {@code RetryingRegistration} 实现了初始地址解析和 retries-with-backoff 策略。
  *
  * <p>The registration gives access to a future that is completed upon successful registration. The
  * registration can be canceled, for example when the target where it tries to register at looses
  * leader status.
+ * 注册可以访问在成功注册后完成的未来。 可以取消注册，例如当它尝试注册的目标失去领导者状态时。
  *
  * @param <F> The type of the fencing token
  * @param <G> The type of the gateway to connect to.
@@ -132,6 +135,7 @@ public abstract class RetryingRegistration<
     /**
      * This method resolves the target address to a callable gateway and starts the registration
      * after that.
+     * 此方法将目标地址解析为可调用网关，然后开始注册。
      */
     @SuppressWarnings("unchecked")
     public void startRegistration() {
@@ -204,6 +208,7 @@ public abstract class RetryingRegistration<
     /**
      * This method performs a registration attempt and triggers either a success notification or a
      * retry, depending on the result.
+     * 此方法执行注册尝试并根据结果触发成功通知或重试。
      */
     @SuppressWarnings("unchecked")
     private void register(final G gateway, final int attempt, final long timeoutMillis) {

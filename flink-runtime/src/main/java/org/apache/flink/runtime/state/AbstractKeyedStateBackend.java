@@ -47,6 +47,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Base implementation of KeyedStateBackend. The state can be checkpointed to streams using {@link
  * #snapshot(long, long, CheckpointStreamFactory, CheckpointOptions)}.
+ * KeyedStateBackend 的基本实现。
+ * 可以使用 {@link #snapshot(long, long, CheckpointStreamFactory, CheckpointOptions)} 将状态检查点到流。
  *
  * @param <K> Type of the key by which state is keyed.
  */
@@ -61,27 +63,38 @@ public abstract class AbstractKeyedStateBackend<K>
     /** Listeners to changes of ({@link #keyContext}). */
     private final ArrayList<KeySelectionListener<K>> keySelectionListeners;
 
-    /** So that we can give out state when the user uses the same key. */
+    /** So that we can give out state when the user uses the same key.
+     * 这样我们就可以在用户使用相同的密钥时给出状态。
+     * */
     private final HashMap<String, InternalKvState<K, ?, ?>> keyValueStatesByName;
 
-    /** For caching the last accessed partitioned state. */
+    /** For caching the last accessed partitioned state.
+     * 用于缓存上次访问的分区状态。
+     * */
     private String lastName;
 
     @SuppressWarnings("rawtypes")
     private InternalKvState lastState;
 
-    /** The number of key-groups aka max parallelism. */
+    /** The number of key-groups aka max parallelism.
+     * 密钥组的数量也称为最大并行度。
+     * */
     protected final int numberOfKeyGroups;
 
-    /** Range of key-groups for which this backend is responsible. */
+    /** Range of key-groups for which this backend is responsible.
+     * 此后端负责的密钥组范围。
+     * */
     protected final KeyGroupRange keyGroupRange;
 
-    /** KvStateRegistry helper for this task. */
+    /** KvStateRegistry helper for this task.
+     * 此任务的 KvStateRegistry 助手。
+     * */
     protected final TaskKvStateRegistry kvStateRegistry;
 
     /**
      * Registry for all opened streams, so they can be closed if the task using this backend is
      * closed.
+     * 所有打开的流的注册表，因此如果使用此后端的任务关闭，它们可以关闭。
      */
     protected CloseableRegistry cancelStreamRegistry;
 
@@ -93,7 +106,9 @@ public abstract class AbstractKeyedStateBackend<K>
 
     protected final LatencyTrackingStateConfig latencyTrackingStateConfig;
 
-    /** Decorates the input and output streams to write key-groups compressed. */
+    /** Decorates the input and output streams to write key-groups compressed.
+     * 修饰输入和输出流以写入压缩的密钥组。
+     * */
     protected final StreamCompressionDecorator keyGroupCompressionDecorator;
 
     /** The key context for this backend. */
@@ -166,6 +181,7 @@ public abstract class AbstractKeyedStateBackend<K>
     /**
      * Closes the state backend, releasing all internal resources, but does not delete any
      * persistent checkpoint data.
+     * 关闭状态后端，释放所有内部资源，但不删除任何持久检查点数据。
      */
     @Override
     public void dispose() {
@@ -192,6 +208,7 @@ public abstract class AbstractKeyedStateBackend<K>
 
     private void notifyKeySelected(K newKey) {
         // we prefer a for-loop over other iteration schemes for performance reasons here.
+        // 出于性能原因，我们更喜欢 for 循环而不是其他迭代方案。
         for (int i = 0; i < keySelectionListeners.size(); ++i) {
             keySelectionListeners.get(i).keySelected(newKey);
         }

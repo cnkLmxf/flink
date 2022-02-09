@@ -29,6 +29,8 @@ import java.io.IOException;
 /**
  * Overlays the user library into a container. The following directory and files in the directory
  * are copied to the container if it exists: - {@link ConfigConstants#DEFAULT_FLINK_USR_LIB_DIR}/
+ * 将用户库覆盖到容器中。 如果容器存在，则将以下目录和目录中的文件复制到容器中：
+ * - {@link ConfigConstants#DEFAULT_FLINK_USR_LIB_DIR}/
  */
 public class UserLibOverlay extends AbstractContainerOverlay {
 

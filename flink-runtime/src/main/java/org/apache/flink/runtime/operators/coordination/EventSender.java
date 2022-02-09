@@ -23,13 +23,16 @@ import org.apache.flink.runtime.messages.Acknowledge;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
-/** Simple interface for a component that takes and sends events. */
+/** Simple interface for a component that takes and sends events.
+ * 接收和发送事件的组件的简单接口。
+ * */
 @FunctionalInterface
 interface EventSender {
 
     /**
      * Takes the given Callable and calls it at a certain point to send the event. The result of
      * that Callable are bridged to the given result future.
+     * 获取给定的 Callable 并在某个时间点调用它以发送事件。 该 Callable 的结果将桥接到给定的结果 future。
      */
     void sendEvent(
             Callable<CompletableFuture<Acknowledge>> sendAction,

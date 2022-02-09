@@ -26,8 +26,12 @@ import org.apache.flink.util.Preconditions;
  * by the {@link FencedMainThreadExecutable} to run code in the main thread without a valid fencing
  * token. This is required for operations which are not scoped by the current fencing token (e.g.
  * leadership grants).
+ * 包装类指示不需要匹配防护令牌的消息，
+ * 因为 {@link FencedMainThreadExecutable} 使用它在没有有效防护令牌的情况下在主线程中运行代码。
+ * 这对于不受当前围栏令牌范围的操作（例如领导权授予）是必需的。
  *
  * <p>IMPORTANT: This message is only intended to be send locally.
+ * 重要提示：此消息仅用于在本地发送。
  *
  * @param <P> type of the payload
  */

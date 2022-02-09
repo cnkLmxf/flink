@@ -45,6 +45,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Configuration for the task manager services such as the memory manager, the io manager and the
  * metric registry.
+ * 任务管理器服务的配置，例如内存管理器、io 管理器和度量注册表。
  */
 public class TaskManagerServicesConfiguration {
 

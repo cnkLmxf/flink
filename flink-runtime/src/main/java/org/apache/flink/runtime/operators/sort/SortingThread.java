@@ -28,7 +28,9 @@ import java.io.IOException;
 import static org.apache.flink.runtime.operators.sort.CircularElement.EOF_MARKER;
 import static org.apache.flink.runtime.operators.sort.CircularElement.SPILLING_MARKER;
 
-/** The thread that sorts filled buffers. */
+/** The thread that sorts filled buffers.
+ * 对填充的缓冲区进行排序的线程。
+ * */
 class SortingThread<E> extends ThreadBase<E> {
 
     /** Logging. */

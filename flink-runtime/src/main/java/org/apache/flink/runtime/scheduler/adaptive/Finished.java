@@ -23,7 +23,9 @@ import org.apache.flink.runtime.executiongraph.ArchivedExecutionGraph;
 
 import org.slf4j.Logger;
 
-/** State which describes a finished job execution. */
+/** State which describes a finished job execution.
+ * 描述完成的作业执行的状态。
+ * */
 class Finished implements State {
 
     private final ArchivedExecutionGraph archivedExecutionGraph;

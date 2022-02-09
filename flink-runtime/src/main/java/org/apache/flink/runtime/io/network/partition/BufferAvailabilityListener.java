@@ -21,14 +21,18 @@ package org.apache.flink.runtime.io.network.partition;
 /**
  * Listener interface implemented by consumers of {@link ResultSubpartitionView} that want to be
  * notified of availability of further buffers.
+ * 由 {@link ResultSubpartitionView} 的使用者实现的侦听器接口，他们希望被通知更多缓冲区的可用性。
  */
 public interface BufferAvailabilityListener {
 
-    /** Called whenever there might be new data available. */
+    /** Called whenever there might be new data available.
+     * 每当有新数据可用时调用。
+     * */
     void notifyDataAvailable();
 
     /**
      * Called when the first priority event is added to the head of the buffer queue.
+     * 当第一个优先级事件添加到缓冲区队列的头部时调用。
      *
      * @param prioritySequenceNumber the sequence number that identifies the priority buffer.
      */

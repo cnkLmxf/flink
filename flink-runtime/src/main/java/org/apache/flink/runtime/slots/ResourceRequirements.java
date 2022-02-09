@@ -28,6 +28,7 @@ import java.util.Objects;
 /**
  * Represents the total resource requirements for a job, and the information required to connect to
  * the corresponding job master.
+ * 表示作业的总资源需求，以及连接到相应作业主机所需的信息。
  */
 public class ResourceRequirements implements Serializable {
 

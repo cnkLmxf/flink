@@ -24,12 +24,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-/** Creates a new instance of a certain subclass of {@link java.util.zip.InflaterInputStream}. */
+/** Creates a new instance of a certain subclass of {@link java.util.zip.InflaterInputStream}.
+ * 创建 {@link java.util.zip.InflaterInputStream} 的某个子类的新实例。
+ * */
 @Internal
 public interface InflaterInputStreamFactory<T extends InputStream> {
 
     /**
      * Creates a {@link java.util.zip.InflaterInputStream} that wraps the given input stream.
+     * 创建一个包装给定输入流的 {@link java.util.zip.InflaterInputStream}。
      *
      * @param in is the compressed input stream
      * @return the inflated input stream
@@ -39,6 +42,7 @@ public interface InflaterInputStreamFactory<T extends InputStream> {
     /**
      * Lists a collection of typical file extensions (e.g., "gz", "gzip") that are associated with
      * the compression algorithm in the {@link java.util.zip.InflaterInputStream} {@code T}.
+     * 列出与 {@link java.util.zip.InflaterInputStream} {@code T} 中的压缩算法相关联的典型文件扩展名的集合（例如，“gz”、“gzip”）。
      *
      * @return a (possibly empty) collection of lower-case file extensions, without the period
      */

@@ -42,9 +42,11 @@ import java.util.UUID;
 /**
  * Utilities to determine the network interface and address that should be used to bind the
  * TaskManager communication to.
+ * 用于确定应用于将 TaskManager 通信绑定到的网络接口和地址的实用程序。
  *
  * <p>Implementation note: This class uses {@code System.nanoTime()} to measure elapsed time,
  * because that is not susceptible to clock changes.
+ * 实现说明：此类使用 {@code System.nanoTime()} 来测量经过的时间，因为它不受时钟变化的影响。
  */
 public class ConnectionUtils {
 
@@ -56,17 +58,28 @@ public class ConnectionUtils {
     /**
      * The states of address detection mechanism. There is only a state transition if the current
      * state failed to determine the address.
+     * 地址检测机制的状态。 如果当前状态无法确定地址，则只有状态转换。
      */
     private enum AddressDetectionState {
-        /** Connect from interface returned by InetAddress.getLocalHost(). * */
+        /** Connect from interface returned by InetAddress.getLocalHost().
+         * 从 InetAddress.getLocalHost() 返回的接口连接。
+         * * */
         LOCAL_HOST(200),
-        /** Detect own IP address based on the target IP address. Look for common prefix */
+        /** Detect own IP address based on the target IP address. Look for common prefix
+         * 根据目标IP地址检测自己的IP地址。 寻找共同前缀
+         * */
         ADDRESS(50),
-        /** Try to connect on all Interfaces and all their addresses with a low timeout. */
+        /** Try to connect on all Interfaces and all their addresses with a low timeout.
+         * 尝试以低超时连接所有接口及其所有地址。
+         * */
         FAST_CONNECT(50),
-        /** Try to connect on all Interfaces and all their addresses with a long timeout. */
+        /** Try to connect on all Interfaces and all their addresses with a long timeout.
+         * 尝试连接所有接口及其所有地址，超时时间较长。
+         * */
         SLOW_CONNECT(1000),
-        /** Choose any non-loopback address. */
+        /** Choose any non-loopback address.
+         * 选择任何非环回地址。
+         * */
         HEURISTIC(0);
 
         private final int timeout;
@@ -85,12 +98,17 @@ public class ConnectionUtils {
      * This method tries to establish a proper network connection to the given target, so it only
      * succeeds if the target socket address actually accepts connections. The method tries various
      * strategies multiple times and uses an exponential backoff timer between tries.
+     * 查找本机可以连接到目标地址的本地网络地址。
+     * 此方法尝试建立到给定目标的正确网络连接，因此只有在目标套接字地址实际接受连接时它才会成功。
+     * 该方法多次尝试各种策略，并在尝试之间使用指数退避计时器。
      *
      * <p>If no connection attempt was successful after the given maximum time, the method will
      * choose some address based on heuristics (excluding link-local and loopback addresses.)
+     * 如果在给定的最长时间后没有成功的连接尝试，该方法将根据启发式方法选择一些地址（不包括链接本地地址和环回地址。）
      *
      * <p>This method will initially not log on info level (to not flood the log while the backoff
      * time is still very low). It will start logging after a certain time has passes.
+     * 此方法最初不会登录信息级别（在退避时间仍然非常低时不会淹没日志）。 它将在经过一定时间后开始记录。
      *
      * @param targetAddress The address that the method tries to connect to.
      * @param maxWaitMillis The maximum time that this method tries to connect, before falling back
@@ -179,6 +197,9 @@ public class ConnectionUtils {
      * InetAddress.getLocalHost(). The purpose of the utility is to have a final try connecting to
      * the target address using the LocalHost before using the address returned. We do a second try
      * because the JM might have been unavailable during the first check.
+     * 此实用程序方法尝试使用 InetAddress.getLocalHost() 返回的 InetAddress 连接到 JobManager。
+     * 该实用程序的目的是在使用返回的地址之前最后尝试使用 LocalHost 连接到目标地址。
+     * 我们进行了第二次尝试，因为 JM 在第一次检查期间可能不可用。
      *
      * @param preliminaryResult The address detected by the heuristic
      * @return either the preliminaryResult or the address returned by InetAddress.getLocalHost()
@@ -213,6 +234,7 @@ public class ConnectionUtils {
     /**
      * Try to find a local address which allows as to connect to the targetAddress using the given
      * strategy.
+     * 尝试找到一个允许使用给定策略连接到 targetAddress 的本地地址。
      *
      * @param strategy Depending on the strategy, the method will enumerate all interfaces, trying
      *     to connect to the target address
@@ -317,6 +339,7 @@ public class ConnectionUtils {
     /**
      * Checks if two addresses have a common prefix (first 2 bytes). Example: 192.168.???.??? Works
      * also with ipv6, but accepts probably too many addresses
+     * 检查两个地址是否具有公共前缀（前 2 个字节）。 示例：192.168.???.??? 也适用于 ipv6，但接受的地址可能太多
      */
     private static boolean hasCommonPrefix(byte[] address, byte[] address2) {
         return address[0] == address2[0] && address[1] == address2[1];
@@ -365,6 +388,7 @@ public class ConnectionUtils {
     /**
      * A {@link LeaderRetrievalListener} that allows retrieving an {@link InetAddress} for the
      * current leader.
+     * 一个 {@link LeaderRetrievalListener} 允许检索当前领导者的 {@link InetAddress}。
      */
     public static class LeaderConnectingAddressListener implements LeaderRetrievalListener {
 

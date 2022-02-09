@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
 /**
  * Modified {@link java.util.Iterator} interface that lets the implementation throw an {@link
  * IOException}.
+ * 修改了 {@link java.util.Iterator} 接口，允许实现抛出 {@link IOException}。
  *
  * @param <E> the type of elements returned by this iterator
  * @see java.util.Iterator

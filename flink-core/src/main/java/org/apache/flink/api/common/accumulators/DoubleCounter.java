@@ -20,7 +20,9 @@ package org.apache.flink.api.common.accumulators;
 
 import org.apache.flink.annotation.PublicEvolving;
 
-/** An accumulator that sums up {@code double} values. */
+/** An accumulator that sums up {@code double} values.
+ * 对 {@code double} 值求和的累加器。
+ * */
 @PublicEvolving
 public class DoubleCounter implements SimpleAccumulator<Double> {
 
@@ -38,7 +40,9 @@ public class DoubleCounter implements SimpleAccumulator<Double> {
     //  Accumulator
     // ------------------------------------------------------------------------
 
-    /** Consider using {@link #add(double)} instead for primitive double values */
+    /** Consider using {@link #add(double)} instead for primitive double values
+     * 考虑使用 {@link #add(double)} 代替原始双精度值
+     * */
     @Override
     public void add(Double value) {
         localValue += value;

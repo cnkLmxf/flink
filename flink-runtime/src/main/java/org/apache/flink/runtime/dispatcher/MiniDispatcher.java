@@ -39,12 +39,17 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Mini Dispatcher which is instantiated as the dispatcher component by the {@link
  * JobClusterEntrypoint}.
+ * 由 {@link JobClusterEntrypoint} 实例化为调度程序组件的 Mini Dispatcher。
  *
  * <p>The mini dispatcher is initialized with a single {@link JobGraph} which it runs.
+ * 迷你调度程序使用它运行的单个 {@link JobGraph} 进行初始化。
  *
  * <p>Depending on the {@link ClusterEntrypoint.ExecutionMode}, the mini dispatcher will directly
  * terminate after job completion if its execution mode is {@link
  * ClusterEntrypoint.ExecutionMode#DETACHED}.
+ * 根据 {@link ClusterEntrypoint.ExecutionMode}，
+ * 如果 mini dispatcher 的执行模式为 {@link ClusterEntrypoint.ExecutionMode#DETACHED}，
+ * 则在作业完成后将直接终止。
  */
 public class MiniDispatcher extends Dispatcher {
 

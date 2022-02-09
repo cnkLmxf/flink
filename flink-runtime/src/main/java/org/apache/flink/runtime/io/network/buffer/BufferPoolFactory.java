@@ -26,8 +26,10 @@ public interface BufferPoolFactory {
     /**
      * Tries to create a buffer pool, which is guaranteed to provide at least the number of required
      * buffers.
+     * 尝试创建一个缓冲池，保证至少提供所需的缓冲区数量。
      *
      * <p>The buffer pool is of dynamic size with at least <tt>numRequiredBuffers</tt> buffers.
+     * 缓冲池是动态大小的，至少有 <tt>numRequiredBuffers</tt> 个缓冲区。
      *
      * @param numRequiredBuffers minimum number of network buffers in this pool
      * @param maxUsedBuffers maximum number of network buffers this pool offers
@@ -37,8 +39,10 @@ public interface BufferPoolFactory {
     /**
      * Tries to create a buffer pool with an owner, which is guaranteed to provide at least the
      * number of required buffers.
+     * 尝试创建具有所有者的缓冲池，该所有者保证至少提供所需的缓冲区数量。
      *
      * <p>The buffer pool is of dynamic size with at least <tt>numRequiredBuffers</tt> buffers.
+     * 缓冲池是动态大小的，至少有 <tt>numRequiredBuffers</tt> 个缓冲区。
      *
      * @param numRequiredBuffers minimum number of network buffers in this pool
      * @param maxUsedBuffers maximum number of network buffers this pool offers
@@ -52,6 +56,8 @@ public interface BufferPoolFactory {
             int maxBuffersPerChannel)
             throws IOException;
 
-    /** Destroy callback for updating factory book keeping. */
+    /** Destroy callback for updating factory book keeping.
+     * 销毁更新工厂簿记的回调。
+     * */
     void destroyBufferPool(BufferPool bufferPool) throws IOException;
 }

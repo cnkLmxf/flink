@@ -36,6 +36,9 @@ import java.util.Iterator;
  * this could also be implemented over a single array, using some cuckoo-hashing-style element
  * replacement. This would have worse algorithmic complexity but better space efficiency. We
  * currently prefer the trade-off in favor of better algorithmic complexity.
+ * 包含用于将数据划分为键组的基本算法的类。 该算法目前使用两个数组（输入、输出）以获得最佳算法复杂度。
+ * 请注意，这也可以在单个数组上实现，使用一些 cuckoo-hashing-style 元素替换。
+ * 这将具有更差的算法复杂性但更好的空间效率。 我们目前更喜欢权衡取舍，以支持更好的算法复杂性。
  *
  * @param <T> type of the partitioned elements.
  */

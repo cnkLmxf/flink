@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A serialization and deserialization schema that uses Flink's serialization stack to transform
  * typed from and to byte arrays.
+ * 一种序列化和反序列化模式，它使用 Flink 的序列化堆栈将类型转换为字节数组和字节数组。
  *
  * @param <T> The type to be serialized.
  */
@@ -41,22 +42,31 @@ public class TypeInformationSerializationSchema<T>
 
     private static final long serialVersionUID = -5359448468131559102L;
 
-    /** The type information, to be returned by {@link #getProducedType()}. */
+    /** The type information, to be returned by {@link #getProducedType()}.
+     * 类型信息，由 {@link #getProducedType()} 返回。
+     * */
     private final TypeInformation<T> typeInfo;
 
-    /** The serializer for the actual de-/serialization. */
+    /** The serializer for the actual de-/serialization.
+     * 实际反序列化的序列化器。
+     * */
     private final TypeSerializer<T> serializer;
 
-    /** The reusable output serialization buffer. */
+    /** The reusable output serialization buffer.
+     * 可重用的输出序列化缓冲区。
+     * */
     private transient DataOutputSerializer dos;
 
-    /** The reusable input deserialization buffer. */
+    /** The reusable input deserialization buffer.
+     * 可重用的输入反序列化缓冲区。
+     * */
     private transient DataInputDeserializer dis;
 
     // ------------------------------------------------------------------------
 
     /**
      * Creates a new de-/serialization schema for the given type.
+     * 为给定类型创建一个新的反序列化模式。
      *
      * @param typeInfo The type information for the type de-/serialized by this schema.
      * @param ec The execution config, which is used to parametrize the type serializers.
@@ -68,6 +78,7 @@ public class TypeInformationSerializationSchema<T>
 
     /**
      * Creates a new de-/serialization schema for the given type.
+     * 为给定类型创建一个新的反序列化模式。
      *
      * @param typeInfo The type information for the type de-/serialized by this schema.
      * @param serializer The serializer to use for de-/serialization.
@@ -98,6 +109,7 @@ public class TypeInformationSerializationSchema<T>
     /**
      * This schema never considers an element to signal end-of-stream, so this method returns always
      * false.
+     * 此模式从不考虑指示流结束的元素，因此此方法始终返回 false。
      *
      * @param nextElement The element to test for the end-of-stream signal.
      * @return Returns false.

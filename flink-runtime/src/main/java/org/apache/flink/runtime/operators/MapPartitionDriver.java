@@ -34,9 +34,11 @@ import org.slf4j.LoggerFactory;
 /**
  * MapPartition task which is executed by a Task Manager. The task has a single input and one or
  * multiple outputs. It is provided with a MapFunction implementation.
+ * 由任务管理器执行的 MapPartition 任务。 该任务有一个输入和一个或多个输出。 它提供了 MapFunction 实现。
  *
  * <p>The MapPartitionTask creates an iterator over all key-value pairs of its input and hands that
  * to the <code>map_partition()</code> method of the MapFunction.
+ * MapPartitionTask 在其输入的所有键值对上创建一个迭代器，并将其交给 MapFunction 的 <code>map_partition()</code> 方法。
  *
  * @see MapPartitionFunction
  * @param <IT> The mapper's input data type.

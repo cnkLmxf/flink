@@ -26,13 +26,18 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Gauge which returns the last restarting time.
+ * 返回上次重新启动时间的仪表。
  *
  * <p>Restarting time is the time between {@link JobStatus#RESTARTING} and {@link
  * JobStatus#RUNNING}, or a terminal state if {@link JobStatus#RUNNING} was not reached.
+ * 重新启动时间是 {@link JobStatus#RESTARTING} 和 {@link JobStatus#RUNNING} 之间的时间，
+ * 如果未达到 {@link JobStatus#RUNNING}，则为终端状态。
  *
  * <p>If the job has not yet reached either of these states, then the time is measured since
  * reaching {@link JobStatus#RESTARTING}. If it is still the initial job execution, then the gauge
  * will return 0.
+ * 如果作业尚未达到这些状态中的任何一个，则测量自达到 {@link JobStatus#RESTARTING} 以来的时间。
+ * 如果仍然是初始作业执行，则仪表将返回 0。
  */
 public class RestartTimeGauge implements Gauge<Long> {
 

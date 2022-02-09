@@ -29,6 +29,7 @@ import java.util.Collection;
 
 /**
  * Interface for collection that gives in order access to elements w.r.t their priority.
+ * 集合接口，可以按顺序访问元素，而不是它们的优先级。
  *
  * @param <T> type of elements in the ordered set.
  */
@@ -38,6 +39,7 @@ public interface InternalPriorityQueue<T> {
     /**
      * Retrieves and removes the first element (w.r.t. the order) of this set, or returns {@code
      * null} if this set is empty.
+     * 检索并删除此集合的第一个元素（按顺序），如果此集合为空，则返回 {@code null}。
      *
      * @return the first element of this ordered set, or {@code null} if this set is empty.
      */
@@ -47,6 +49,7 @@ public interface InternalPriorityQueue<T> {
     /**
      * Retrieves, but does not remove, the element (w.r.t. order) of this set, or returns {@code
      * null} if this set is empty.
+     * 检索但不删除此集合的元素（按顺序），如果此集合为空，则返回 {@code null}。
      *
      * @return the first element (w.r.t. order) of this ordered set, or {@code null} if this set is
      *     empty.
@@ -56,6 +59,7 @@ public interface InternalPriorityQueue<T> {
 
     /**
      * Adds the given element to the set, if it is not already contained.
+     * 如果尚未包含给定元素，则将给定元素添加到集合中。
      *
      * @param toAdd the element to add to the set.
      * @return <code>true</code> if the operation changed the head element or if it is unclear if
@@ -66,6 +70,7 @@ public interface InternalPriorityQueue<T> {
 
     /**
      * Removes the given element from the set, if is contained in the set.
+     * 如果给定元素包含在集合中，则从集合中删除给定元素。
      *
      * @param toRemove the element to remove.
      * @return <code>true</code> if the operation changed the head element or if it is unclear if

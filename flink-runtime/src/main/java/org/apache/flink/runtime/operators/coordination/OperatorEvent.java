@@ -23,5 +23,6 @@ import java.io.Serializable;
 /**
  * Root interface for all events sent between {@link OperatorCoordinator} and an {@link
  * OperatorEventHandler}.
+ * {@link OperatorCoordinator} 和 {@link OperatorEventHandler} 之间发送的所有事件的根接口。
  */
 public interface OperatorEvent extends Serializable {}

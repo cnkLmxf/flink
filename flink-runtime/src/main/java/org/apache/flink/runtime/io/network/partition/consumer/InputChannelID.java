@@ -22,12 +22,15 @@ import org.apache.flink.util.AbstractID;
 
 import org.apache.flink.shaded.netty4.io.netty.buffer.ByteBuf;
 
-/** Identifier for input channels. */
+/** Identifier for input channels.
+ * 输入通道的标识符。
+ * */
 public class InputChannelID extends AbstractID {
 
     private static final long serialVersionUID = 1L;
     // Represent the number of bytes occupied when writes InputChannelID to the ByteBuf.
     // It is the sum of two long types(lowerPart and upperPart).
+    // 表示将 InputChannelID 写入 ByteBuf 时占用的字节数。 它是两个长类型（lowerPart 和 upperPart）的总和。
     private static final int BYTEBUF_LEN = 16;
 
     public InputChannelID() {

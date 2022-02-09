@@ -27,7 +27,9 @@ import org.apache.flink.runtime.scheduler.OperatorCoordinatorHandler;
 
 import org.slf4j.Logger;
 
-/** State which describes a job which is currently being canceled. */
+/** State which describes a job which is currently being canceled.
+ * 描述当前正在取消的作业的状态。
+ * */
 class Canceling extends StateWithExecutionGraph {
 
     private final Context context;

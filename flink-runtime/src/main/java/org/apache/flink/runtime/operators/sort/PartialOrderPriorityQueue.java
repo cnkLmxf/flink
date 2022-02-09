@@ -33,12 +33,15 @@ import java.util.Queue;
  * This class implements a priority-queue, which maintains a partial ordering of its elements such
  * that the least element can always be found in constant time. Put()'s and pop()'s require
  * log(size) time.
+ * 此类实现了一个优先级队列，它维护其元素的部分排序，以便始终可以在恒定时间内找到最小的元素。 Put() 和 pop() 需要 log(size) 时间。
  */
 public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Queue<T> {
     /** The heap, organized as an array. */
     private final T[] heap;
 
-    /** The comparator used to establish the order between the streams. */
+    /** The comparator used to establish the order between the streams.
+     * 比较器用于建立流之间的顺序
+     * */
     private final Comparator<T> comparator;
 
     /** The maximum size of the heap. */
@@ -57,6 +60,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
 
     /**
      * Determines the ordering of objects in this priority queue.
+     * 确定此优先级队列中对象的顺序。
      *
      * @param a The first element.
      * @param b The second element.
@@ -68,6 +72,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
 
     /**
      * Returns the remaining capacity of the backing array.
+     * 返回后备数组的剩余容量。
      *
      * @return The remaining capacity of the backing array.
      */
@@ -78,6 +83,8 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
     /**
      * Adds a buffer to a PriorityQueue in log(size) time. If one tries to add more objects than
      * maxSize from initialize a RuntimeException (ArrayIndexOutOfBound) is thrown.
+     * 在 log(size) 时间内将缓冲区添加到 PriorityQueue。
+     * 如果尝试从初始化中添加比 maxSize 更多的对象，则会引发 RuntimeException (ArrayIndexOutOfBound)。
      */
     public final void put(T element) {
         size++;
@@ -88,6 +95,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
     /**
      * Adds element to the PriorityQueue in log(size) time if either the PriorityQueue is not full,
      * or not lessThan(element, top()).
+     * 如果 PriorityQueue 未满或不小于(element, top())，则在 log(size) 时间内将元素添加到 PriorityQueue。
      *
      * @param element The element to insert,
      * @return True, if element is added, false otherwise.
@@ -108,6 +116,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
     /**
      * Returns the least element of the PriorityQueue in constant time, but does not remove it from
      * the priority queue.
+     * 在恒定时间内返回 PriorityQueue 的最小元素，但不会将其从优先级队列中移除。
      *
      * @return The least element.
      */
@@ -121,6 +130,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
 
     /**
      * Removes and returns the least element of the PriorityQueue in log(size) time.
+     * 在 log(size) 时间内删除并返回 PriorityQueue 的最小元素。
      *
      * @return The least element.
      */
@@ -140,6 +150,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
     /**
      * Should be called when the Object at top changes values. Still log(n) worst case, but it's at
      * least twice as fast to
+     * 当顶部的对象更改值时应调用。 仍然是 log(n) 最坏的情况，但它至少快两倍
      *
      * <pre>
      * {
@@ -164,6 +175,7 @@ public class PartialOrderPriorityQueue<T> extends AbstractQueue<T> implements Qu
 
     /**
      * Returns the number of elements currently stored in the PriorityQueue.
+     * 返回当前存储在 PriorityQueue 中的元素数。
      *
      * @return The number of elements in the queue.
      */

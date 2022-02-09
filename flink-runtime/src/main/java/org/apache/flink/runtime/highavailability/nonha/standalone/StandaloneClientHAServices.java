@@ -30,6 +30,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Non-HA implementation for {@link ClientHighAvailabilityServices}. The address to web monitor is
  * pre-configured.
+ * {@link ClientHighAvailabilityServices} 的非 HA 实现。 网络监视器的地址是预先配置的。
  */
 public class StandaloneClientHAServices implements ClientHighAvailabilityServices {
 

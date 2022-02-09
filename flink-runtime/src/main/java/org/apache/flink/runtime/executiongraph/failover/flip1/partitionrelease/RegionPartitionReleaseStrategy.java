@@ -38,6 +38,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Releases blocking intermediate result partitions that are incident to a {@link
  * SchedulingPipelinedRegion}, as soon as the region's execution vertices are finished.
+ * 一旦区域的执行顶点完成，就会释放与 {@link SchedulingPipelinedRegion} 相关的阻塞中间结果分区。
  */
 public class RegionPartitionReleaseStrategy implements PartitionReleaseStrategy {
 

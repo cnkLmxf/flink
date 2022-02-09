@@ -31,7 +31,9 @@ import org.apache.flink.util.FlinkRuntimeException;
 
 import java.util.Collection;
 
-/** Factory for the {@link DefaultDispatcherGatewayService}. */
+/** Factory for the {@link DefaultDispatcherGatewayService}.
+ * {@link DefaultDispatcher Gateway Service} 的工厂。
+ * */
 class DefaultDispatcherGatewayServiceFactory
         implements AbstractDispatcherLeaderProcess.DispatcherGatewayServiceFactory {
 

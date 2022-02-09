@@ -61,6 +61,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Invocation handler to be used with an {@link AkkaRpcActor}. The invocation handler wraps the rpc
  * in a {@link LocalRpcInvocation} message and then sends it to the {@link AkkaRpcActor} where it is
  * executed.
+ * 与 {@link AkkaRpcActor} 一起使用的调用处理程序。
+ * 调用处理程序将 rpc 包装在 {@link LocalRpcInvocation} 消息中，然后将其发送到执行它的 {@link AkkaRpcActor}。
  */
 class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, RpcServer {
     private static final Logger LOG = LoggerFactory.getLogger(AkkaInvocationHandler.class);
@@ -68,15 +70,19 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
     /**
      * The Akka (RPC) address of {@link #rpcEndpoint} including host and port of the ActorSystem in
      * which the actor is running.
+     * {@link #rpcEndpoint} 的 Akka (RPC) 地址，包括运行 Actor 的 ActorSystem 的主机和端口。
      */
     private final String address;
 
-    /** Hostname of the host, {@link #rpcEndpoint} is running on. */
+    /** Hostname of the host, {@link #rpcEndpoint} is running on.
+     * 主机的主机名，{@link #rpcEndpoint} 正在运行。
+     * */
     private final String hostname;
 
     private final ActorRef rpcEndpoint;
 
     // whether the actor ref is local and thus no message serialization is needed
+    // actor ref 是否是本地的，因此不需要消息序列化
     protected final boolean isLocal;
 
     // default timeout for asks
@@ -193,6 +199,7 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
 
     /**
      * Invokes a RPC method by sending the RPC invocation details to the rpc endpoint.
+     * 通过将 RPC 调用详细信息发送到 rpc 端点来调用 RPC 方法。
      *
      * @param method to call
      * @param args of the method call
@@ -258,6 +265,7 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
 
     /**
      * Create the RpcInvocation message for the given RPC.
+     * 为给定的 RPC 创建 RpcInvocation 消息。
      *
      * @param methodName of the RPC
      * @param parameterTypes of the RPC
@@ -304,6 +312,8 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
      * Extracts the {@link RpcTimeout} annotated rpc timeout value from the list of given method
      * arguments. If no {@link RpcTimeout} annotated parameter could be found, then the default
      * timeout is returned.
+     * 从给定的方法参数列表中提取 {@link RpcTimeout} 注释的 rpc 超时值。
+     * 如果找不到 {@link RpcTimeout} 注释参数，则返回默认超时。
      *
      * @param parameterAnnotations Parameter annotations
      * @param args Array of arguments
@@ -337,6 +347,7 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
 
     /**
      * Checks whether any of the annotations is of type {@link RpcTimeout}.
+     * 检查是否有任何注释属于 {@link RpcTimeout} 类型。
      *
      * @param annotations Array of annotations
      * @return True if {@link RpcTimeout} was found; otherwise false
@@ -353,6 +364,7 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
 
     /**
      * Sends the message to the RPC endpoint.
+     * 将消息发送到 RPC 端点。
      *
      * @param message to send to the RPC endpoint.
      */
@@ -362,6 +374,7 @@ class AkkaInvocationHandler implements InvocationHandler, AkkaBasedEndpoint, Rpc
 
     /**
      * Sends the message to the RPC endpoint and returns a future containing its response.
+     * 将消息发送到 RPC 端点并返回包含其响应的未来。
      *
      * @param message to send to the RPC endpoint
      * @param timeout time to wait until the response future is failed with a {@link

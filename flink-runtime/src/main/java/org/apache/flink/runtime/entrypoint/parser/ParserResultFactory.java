@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Parser result factory used by the {@link CommandLineParser}.
+ * {@link CommandLineParser} 使用的解析器结果工厂。
  *
  * @param <T> type of the parsed result
  */
@@ -34,6 +35,7 @@ public interface ParserResultFactory<T> {
 
     /**
      * Returns all relevant {@link Options} for parsing the command line arguments.
+     * 返回所有相关的 {@link Options} 用于解析命令行参数。
      *
      * @return Options to use for the parsing
      */
@@ -41,6 +43,7 @@ public interface ParserResultFactory<T> {
 
     /**
      * Create the result of the command line argument parsing.
+     * 创建命令行参数解析的结果。
      *
      * @param commandLine to extract the options from
      * @return Result of the parsing

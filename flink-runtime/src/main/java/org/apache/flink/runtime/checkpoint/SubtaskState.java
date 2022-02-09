@@ -34,6 +34,7 @@ import java.util.Arrays;
 /**
  * Container for the chained state of one parallel subtask of an operator/task. This is part of the
  * {@link TaskState}.
+ * 操作员/任务的一个并行子任务的链接状态的容器。 这是 {@link TaskState} 的一部分。
  */
 public class SubtaskState implements CompositeStateHandle {
 
@@ -62,6 +63,7 @@ public class SubtaskState implements CompositeStateHandle {
     /**
      * The state size. This is also part of the deserialized state handle. We store it here in order
      * to not deserialize the state handle when gathering stats.
+     * 状态大小。 这也是反序列化状态句柄的一部分。 我们将其存储在这里是为了在收集统计信息时不反序列化状态句柄。
      */
     private final long stateSize;
 

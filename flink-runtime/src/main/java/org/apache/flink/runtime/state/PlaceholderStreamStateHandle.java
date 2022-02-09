@@ -28,6 +28,9 @@ import java.util.Optional;
  * a previous checkpoint. So we don't have to send a state handle twice, e.g. in case of {@link
  * ByteStreamStateHandle}. This class is used in the referenced states of {@link
  * IncrementalRemoteKeyedStateHandle}.
+ * 共享状态的占位符状态句柄，将替换为在先前检查点中创建的原始状态。
+ * 所以我们不必发送两次状态句柄，例如 在 {@link ByteStreamStateHandle} 的情况下。
+ * 此类用于 {@link IncrementalRemoteKeyedStateHandle} 的引用状态。
  */
 public class PlaceholderStreamStateHandle implements StreamStateHandle {
 

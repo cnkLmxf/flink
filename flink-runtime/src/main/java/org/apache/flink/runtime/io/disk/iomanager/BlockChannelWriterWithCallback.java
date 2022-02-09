@@ -25,6 +25,7 @@ public interface BlockChannelWriterWithCallback<T> extends FileIOChannel {
     /**
      * Writes the given block. The request may be executed synchronously, or asynchronously,
      * depending on the implementation.
+     * 写入给定的块。 请求可以同步或异步执行，具体取决于实现。
      *
      * @param block The segment to be written (transferring ownership to this writer).
      * @throws IOException Thrown, when the writer encounters an I/O error.

@@ -313,6 +313,7 @@ public class LargeRecordHandler<T> {
     /**
      * Closes all structures and deletes all temporary files. Even in the presence of failures, this
      * method will try and continue closing files and deleting temporary files.
+     * 关闭所有结构并删除所有临时文件。 即使出现故障，此方法也会尝试并继续关闭文件并删除临时文件。
      *
      * @throws IOException Thrown if an error occurred while closing/deleting the files.
      */

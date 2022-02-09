@@ -27,6 +27,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * This class is responsible for grouping the TaskExecutorGateway and the InstanceID of a registered
  * task executor.
+ * 该类负责对TaskExecutor Gateway 和已注册任务执行器的Instance ID 进行分组。
  */
 public class TaskExecutorConnection {
 

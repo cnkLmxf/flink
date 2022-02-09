@@ -23,7 +23,9 @@ import org.apache.flink.runtime.concurrent.UnsupportedOperationExecutor;
 
 import java.util.concurrent.Executor;
 
-/** Factory interface for {@link HighAvailabilityServices}. */
+/** Factory interface for {@link HighAvailabilityServices}.
+ * {@link HighAvailabilityServices} 的工厂接口。
+ * */
 public interface HighAvailabilityServicesFactory {
 
     /**

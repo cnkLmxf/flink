@@ -29,6 +29,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * This describes the requirement of the slot, mainly used by JobManager requesting slot from
  * ResourceManager.
+ * 这里描述了slot的需求，主要用于JobManager向ResourceManager请求slot。
  */
 public class SlotRequest implements Serializable {
 

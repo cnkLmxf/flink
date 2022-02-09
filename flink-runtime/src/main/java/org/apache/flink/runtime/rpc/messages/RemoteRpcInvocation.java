@@ -29,18 +29,23 @@ import java.io.Serializable;
 /**
  * Remote rpc invocation message which is used when the actor communication is remote and, thus, the
  * message has to be serialized.
+ * 远程 rpc 调用消息，当 Actor 通信是远程的时使用，因此必须对消息进行序列化。
  *
  * <p>In order to fail fast and report an appropriate error message to the user, the method name,
  * the parameter types and the arguments are eagerly serialized. In case the invocation call
  * contains a non-serializable object, then an {@link IOException} is thrown.
+ * 为了快速失败并向用户报告适当的错误消息，方法名称、参数类型和参数都被急切地序列化。
+ * 如果调用调用包含不可序列化的对象，则抛出 {@link IOException}。
  */
 public class RemoteRpcInvocation implements RpcInvocation, Serializable {
     private static final long serialVersionUID = 6179354390913843809L;
 
     // Serialized invocation data
+    // 序列化调用数据
     private SerializedValue<RemoteRpcInvocation.MethodInvocation> serializedMethodInvocation;
 
     // Transient field which is lazily initialized upon first access to the invocation data
+    // 首次访问调用数据时延迟初始化的瞬态字段
     private transient RemoteRpcInvocation.MethodInvocation methodInvocation;
 
     private transient String toString;
@@ -108,6 +113,7 @@ public class RemoteRpcInvocation implements RpcInvocation, Serializable {
 
     /**
      * Size (#bytes of the serialized data) of the rpc invocation message.
+     * rpc 调用消息的大小（序列化数据的#bytes）。
      *
      * @return Size of the remote rpc invocation message
      */

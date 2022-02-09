@@ -47,7 +47,9 @@ import static org.apache.flink.runtime.checkpoint.CheckpointFailureReason.CHECKP
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** An input channel reads recovered state from previous unaligned checkpoint snapshots. */
+/** An input channel reads recovered state from previous unaligned checkpoint snapshots.
+ * 输入通道从先前未对齐的检查点快照中读取恢复状态。
+ * */
 public abstract class RecoveredInputChannel extends InputChannel implements ChannelStateHolder {
 
     private static final Logger LOG = LoggerFactory.getLogger(RecoveredInputChannel.class);
@@ -64,6 +66,7 @@ public abstract class RecoveredInputChannel extends InputChannel implements Chan
     /**
      * The buffer number of recovered buffers. Starts at MIN_VALUE to have no collisions with actual
      * buffer numbers.
+     * 已恢复缓冲区的缓冲区数。 从 MIN_VALUE 开始，与实际缓冲区编号没有冲突。
      */
     private int sequenceNumber = Integer.MIN_VALUE;
 

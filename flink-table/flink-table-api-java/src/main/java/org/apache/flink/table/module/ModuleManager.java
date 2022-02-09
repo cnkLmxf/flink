@@ -58,6 +58,7 @@ public class ModuleManager {
     public ModuleManager() {
         this.loadedModules = new LinkedHashMap<>();
         this.usedModules = new ArrayList<>();
+        //加载核心包
         loadedModules.put(MODULE_TYPE_CORE, CoreModule.INSTANCE);
         usedModules.add(MODULE_TYPE_CORE);
     }

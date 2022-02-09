@@ -27,7 +27,9 @@ import java.util.stream.Collectors;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A failover strategy that proposes to restart all vertices when a vertex fails. */
+/** A failover strategy that proposes to restart all vertices when a vertex fails.
+ * 一种故障转移策略，建议在顶点失败时重新启动所有顶点。
+ * */
 public class RestartAllFailoverStrategy implements FailoverStrategy {
 
     private final SchedulingTopology topology;
@@ -38,6 +40,7 @@ public class RestartAllFailoverStrategy implements FailoverStrategy {
 
     /**
      * Returns all vertices on any task failure.
+     * 返回任何任务失败的所有顶点。
      *
      * @param executionVertexId ID of the failed task
      * @param cause cause of the failure

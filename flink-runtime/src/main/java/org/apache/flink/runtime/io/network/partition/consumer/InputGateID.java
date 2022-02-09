@@ -26,10 +26,13 @@ import java.io.Serializable;
 /**
  * Runtime identifier of a consumed {@link
  * org.apache.flink.runtime.executiongraph.IntermediateResult}.
+ * 消耗的 {@link org.apache.flink.runtime.executiongraph.IntermediateResult} 的运行时标识符。
  *
  * <p>At runtime the {@link org.apache.flink.runtime.jobgraph.IntermediateDataSetID} is not enough
  * to uniquely identify an input gate. It needs to be associated with the consuming task as well to
  * ensure correct tracking of gates in shuffle implementation.
+ * 在运行时，{@link org.apache.flink.runtime.jobgraph.IntermediateDataSetID} 不足以唯一标识输入门。
+ * 它还需要与消费任务相关联，以确保在 shuffle 实现中正确跟踪门。
  */
 public class InputGateID implements Serializable {
 
@@ -39,6 +42,7 @@ public class InputGateID implements Serializable {
      * The ID of the consumed intermediate result. Each input gate consumes partitions of the
      * intermediate result specified by this ID. This ID also identifies the input gate at the
      * consuming task.
+     * 消费的中间结果的 ID。 每个输入门使用此 ID 指定的中间结果的分区。 此 ID 还标识消费任务的输入门。
      */
     private final IntermediateDataSetID consumedResultID;
 

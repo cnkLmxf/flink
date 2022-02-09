@@ -241,11 +241,16 @@ public class DefaultSlotTracker implements SlotTracker {
      * transitions (e.g., from free to allocated). The tracked and reported states are reconciled by
      * simulating state transitions that lead us from our currently tracked state to the actual
      * reported state.
+     * 来自任务执行者的槽报告是关于槽状态的真实来源。 报告的状态可能与当前正在跟踪的状态不匹配，
+     * 如果是，则可能包含非法转换（例如，从空闲到已分配）。
+     * 通过模拟将我们从当前跟踪的状态引导到实际报告的状态的状态转换来协调跟踪和报告的状态。
      *
      * <p>One exception to the reported state being the source of truth are slots reported as being
      * free, but tracked as being pending. This mismatch is assumed to be due to a slot allocation
      * RPC not yet having been process by the task executor. This mismatch is hence ignored; it will
      * be resolved eventually with the allocation either being completed or timing out.
+     * 作为事实来源的报告状态的一个例外是插槽报告为空闲，但被跟踪为待处理。
+     * 假设这种不匹配是由于任务执行器尚未处理槽分配 RPC。 因此，这种不匹配被忽略了； 最终将通过分配完成或超时来解决。
      */
     @VisibleForTesting
     static class SlotStatusStateReconciler {

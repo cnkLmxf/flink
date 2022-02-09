@@ -27,6 +27,7 @@ import java.util.Iterator;
  * This class defines a range of key-group indexes. Key-groups are the granularity into which the
  * keyspace of a job is partitioned for keyed state-handling in state backends. The boundaries of
  * the range are inclusive.
+ * 此类定义了一系列键组索引。 键组是作业的键空间被分区以在状态后端进行键控状态处理的粒度。 范围的边界包括在内。
  */
 public class KeyGroupRange implements KeyGroupsList, Serializable {
 

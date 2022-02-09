@@ -25,7 +25,9 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkArgument;
 
-/** Counts of checkpoints. */
+/** Counts of checkpoints.
+ * 检查点的计数。
+ * */
 public class CheckpointStatsCounts implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(CheckpointStatsCounts.class);
 

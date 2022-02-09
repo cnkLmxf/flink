@@ -33,8 +33,10 @@ import java.util.Map;
 /**
  * (De)serializer for checkpoint metadata format version 2. This format was introduced with Apache
  * Flink 1.3.0.
+ * 检查点元数据格式版本 2 的（反）序列化程序。这种格式是在 Apache Flink 1.3.0 中引入的。
  *
  * <p>See {@link MetadataV2V3SerializerBase} for a description of the format layout.
+ * 有关格式布局的说明，请参阅 {@link MetadataV2V3SerializerBase}。
  */
 @Internal
 public class MetadataV2Serializer extends MetadataV2V3SerializerBase implements MetadataSerializer {

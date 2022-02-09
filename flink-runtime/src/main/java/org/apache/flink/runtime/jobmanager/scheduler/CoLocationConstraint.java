@@ -31,6 +31,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * the actual subtask (i.e. {@link ExecutionVertex}). In co-location groups, the different subtasks
  * of different {@link JobVertex} instances need to be executed on the same slot. This is realized
  * by creating a special shared slot that holds these tasks.
+ * {@code CoLocationConstraint} 存储 {@link CoLocationGroup} 的 ID 和引用实际子任务的 ID（即 {@link ExecutionVertex}）。
+ * 在 co-location 组中，不同 {@link JobVertex} 实例的不同子任务需要在同一个 slot 上执行。
+ * 这是通过创建一个保存这些任务的特殊共享槽来实现的。
  */
 public class CoLocationConstraint {
 

@@ -21,9 +21,11 @@ package org.apache.flink.runtime.operators.coordination;
 /**
  * Interface for handlers of operator events on the operator side. Operator events are sent between
  * an {@link OperatorCoordinator} and a runtime operator (which registers this handler).
+ * 操作员端操作员事件处理程序的接口。 运算符事件在 {@link OperatorCoordinator} 和运行时运算符（注册此处理程序）之间发送。
  *
  * <p>The counterpart to this handler is the {@link OperatorCoordinator#handleEventFromOperator(int,
  * OperatorEvent)} method.
+ * 此处理程序的对应物是 {@link OperatorCoordinator#handleEventFromOperator(int, OperatorEvent)} 方法。
  */
 public interface OperatorEventHandler {
 

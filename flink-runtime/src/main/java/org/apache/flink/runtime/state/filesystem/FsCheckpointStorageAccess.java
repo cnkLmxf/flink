@@ -35,7 +35,9 @@ import java.io.IOException;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** An implementation of durable checkpoint storage to file systems. */
+/** An implementation of durable checkpoint storage to file systems.
+ * 持久检查点存储到文件系统的实现。
+ * */
 public class FsCheckpointStorageAccess extends AbstractFsCheckpointStorageAccess {
 
     private final FileSystem fileSystem;

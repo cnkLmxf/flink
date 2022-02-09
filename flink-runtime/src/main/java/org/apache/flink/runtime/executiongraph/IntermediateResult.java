@@ -41,6 +41,8 @@ public class IntermediateResult {
      * Maps intermediate result partition IDs to a partition index. This is used for ID lookups of
      * intermediate results. I didn't dare to change the partition connect logic in other places
      * that is tightly coupled to the partitions being held as an array.
+     * 将中间结果分区 ID 映射到分区索引。 这用于中间结果的 ID 查找。
+     * 我不敢更改与作为数组保存的分区紧密耦合的其他地方的分区连接逻辑。
      */
     private final HashMap<IntermediateResultPartitionID, Integer> partitionLookupHelper =
             new HashMap<>();
@@ -111,6 +113,7 @@ public class IntermediateResult {
 
     /**
      * Returns the partition with the given ID.
+     * 返回具有给定 ID 的分区。
      *
      * @param resultPartitionId ID of the partition to look up
      * @throws NullPointerException If partition ID <code>null</code>

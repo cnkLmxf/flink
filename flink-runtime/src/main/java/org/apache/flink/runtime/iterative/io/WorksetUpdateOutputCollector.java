@@ -26,8 +26,10 @@ import java.io.IOException;
 
 /**
  * A {@link Collector} to update the iteration workset (partial solution for bulk iterations).
+ * 用于更新迭代工作集的 {@link Collector}（批量迭代的部分解决方案）。
  *
  * <p>The records are written to a {@link DataOutputView} to allow in-memory data exchange.
+ * 记录被写入 {@link DataOutputView} 以允许内存中的数据交换。
  */
 public class WorksetUpdateOutputCollector<T> implements Collector<T> {
 

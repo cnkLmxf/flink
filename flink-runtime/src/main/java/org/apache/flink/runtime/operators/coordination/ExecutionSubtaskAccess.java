@@ -36,6 +36,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * An implementation of the {@link SubtaskAccess} interface that uses the ExecutionGraph's classes,
  * specifically {@link Execution} and {@link ExecutionJobVertex} to access tasks.
+ * {@link SubtaskAccess} 接口的实现，它使用 ExecutionGraph 的类，
+ * 特别是 {@link Execution} 和 {@link ExecutionJobVertex} 来访问任务。
  */
 final class ExecutionSubtaskAccess implements SubtaskAccess {
 

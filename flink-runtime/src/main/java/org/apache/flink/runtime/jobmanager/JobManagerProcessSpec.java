@@ -26,8 +26,10 @@ import org.apache.flink.runtime.util.config.memory.jobmanager.JobManagerFlinkMem
 
 /**
  * Describe the specifics of different resource dimensions of the JobManager process.
+ * 描述 JobManager 进程的不同资源维度的细节。
  *
  * <p>A JobManager's memory consists of the following components:
+ * JobManager 的内存由以下组件组成：
  *
  * <ul>
  *   <li>JVM Heap Memory
@@ -38,8 +40,11 @@ import org.apache.flink.runtime.util.config.memory.jobmanager.JobManagerFlinkMem
  *
  * We use Total Process Memory to refer to all the memory components, while Total Flink Memory
  * refering to all the components except JVM Metaspace and JVM Overhead.
+ * 我们使用 Total Process Memory 来指代所有的内存组件，
+ * 而 Total Flink Memory 则是指除了 JVM Metaspace 和 JVM Overhead 之外的所有组件。
  *
  * <p>The relationships of JobManager memory components are shown below.
+ * JobManager 内存组件的关系如下图所示。
  *
  * <pre>
  *               ┌ ─ ─ Total Process Memory  ─ ─ ┐

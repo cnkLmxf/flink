@@ -27,6 +27,7 @@ import java.io.IOException;
 /**
  * Interface for subpartitions that are checkpointed, meaning they store data as part of unaligned
  * checkpoints.
+ * 带有检查点的子分区的接口，这意味着它们将数据存储为未对齐检查点的一部分。
  */
 public interface CheckpointedResultSubpartition {
 

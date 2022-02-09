@@ -42,27 +42,40 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * #getLeaderNameForDispatcher}, {@link #getLeaderNameForJobManager}, {@link
  * #getLeaderNameForRestServer}. The returned leader name is the ConfigMap name in Kubernetes and
  * child path in Zookeeper.
+ * 基于分布式系统的抽象高可用服务（例如 Zookeeper、Kubernetes）。
+ * 它将有助于创建所有领导者选举/检索服务和清理。
+ * 请在 {@link #getLeaderNameForResourceManager}、{@link #getLeaderNameForDispatcher}、
+ * {@link #getLeaderNameForJobManager}、{@link #getLeaderNameForRestServer} 的实现中返回正确的领导者名称。
+ * 返回的 leader 名称是 Kubernetes 中的 ConfigMap 名称和 Zookeeper 中的子路径。
  *
  * <p>{@link #close()} and {@link #closeAndCleanupAllData()} should be implemented to destroy the
  * resources.
+ * 应该实现 {@link #close()} 和 {@link #closeAndCleanupAllData()} 以销毁资源。
  *
  * <p>The abstract class is also responsible for determining which component service should be
  * reused. For example, {@link #runningJobsRegistry} is created once and could be reused many times.
+ * 抽象类还负责确定应该重用哪个组件服务。 例如，{@link #runningJobsRegistry} 创建一次，可以重复使用多次。
  */
 public abstract class AbstractHaServices implements HighAvailabilityServices {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /** The executor to run external IO operations on. */
+    /** The executor to run external IO operations on.
+     * 在其上运行外部 IO 操作的执行程序。
+     * */
     protected final Executor ioExecutor;
 
     /** The runtime configuration. */
     protected final Configuration configuration;
 
-    /** Store for arbitrary blobs. */
+    /** Store for arbitrary blobs.
+     * 存储任意 blob。
+     * */
     private final BlobStoreService blobStoreService;
 
-    /** The distributed storage based running jobs registry. */
+    /** The distributed storage based running jobs registry.
+     * 基于分布式存储的运行作业注册表。
+     * */
     private RunningJobsRegistry runningJobsRegistry;
 
     public AbstractHaServices(
@@ -214,6 +227,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
 
     /**
      * Create leader election service with specified leaderName.
+     * 创建具有指定leaderName 的leader 选举服务。
      *
      * @param leaderName ConfigMap name in Kubernetes or child node path in Zookeeper.
      * @return Return LeaderElectionService using Zookeeper or Kubernetes.
@@ -222,6 +236,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
 
     /**
      * Create leader retrieval service with specified leaderName.
+     * 创建具有指定leaderName 的leader 检索服务。
      *
      * @param leaderName ConfigMap name in Kubernetes or child node path in Zookeeper.
      * @return Return LeaderRetrievalService using Zookeeper or Kubernetes.
@@ -230,6 +245,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
 
     /**
      * Create the checkpoint recovery factory for the job manager.
+     * 为作业管理器创建检查点恢复工厂。
      *
      * @return Checkpoint recovery factory
      */
@@ -237,6 +253,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
 
     /**
      * Create the submitted job graph store for the job manager.
+     * 为作业管理器创建提交的作业图存储。
      *
      * @return Submitted job graph store
      * @throws Exception if the submitted job graph store could not be created
@@ -245,6 +262,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
 
     /**
      * Create the registry that holds information about whether jobs are currently running.
+     * 创建包含有关作业当前是否正在运行的信息的注册表。
      *
      * @return Running job registry to retrieve running jobs
      */
@@ -253,15 +271,19 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
     /**
      * Closes the components which is used for external operations(e.g. Zookeeper Client, Kubernetes
      * Client).
+     * 关闭用于外部操作的组件（例如 Zookeeper 客户端、Kubernetes 客户端）。
      */
     protected abstract void internalClose();
 
     /**
      * Clean up the meta data in the distributed system(e.g. Zookeeper, Kubernetes ConfigMap).
+     * 清理分布式系统中的元数据（例如 Zookeeper、Kubernetes ConfigMap）。
      *
      * <p>If an exception occurs during internal cleanup, we will continue the cleanup in {@link
      * #closeAndCleanupAllData} and report exceptions only after all cleanup steps have been
      * attempted.
+     * 如果在内部清理过程中发生异常，我们将在 {@link #closeAndCleanupAllData} 中继续清理，
+     * 并且仅在尝试了所有清理步骤后才报告异常。
      *
      * @throws Exception when do the cleanup operation on external storage.
      */
@@ -270,6 +292,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
     /**
      * Clean up the meta data in the distributed system(e.g. Zookeeper, Kubernetes ConfigMap) for
      * the specified Job.
+     * 为指定的 Job 清理分布式系统（例如 Zookeeper、Kubernetes ConfigMap）中的元数据。
      *
      * @param jobID The identifier of the job to cleanup.
      * @throws Exception when do the cleanup operation on external storage.
@@ -281,6 +304,7 @@ public abstract class AbstractHaServices implements HighAvailabilityServices {
      *
      * @return Return the ResourceManager leader name. It is ConfigMap name in Kubernetes or child
      *     node path in Zookeeper.
+     *     返回 ResourceManager 领导者名称。 它是 Kubernetes 中的 ConfigMap 名称或 Zookeeper 中的子节点路径。
      */
     protected abstract String getLeaderNameForResourceManager();
 

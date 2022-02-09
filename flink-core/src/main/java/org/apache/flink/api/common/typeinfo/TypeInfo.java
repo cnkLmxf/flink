@@ -33,6 +33,9 @@ import java.lang.reflect.Type;
  * TypeInformation} for the annotated type. In a hierarchy of types the closest annotation that
  * defines a factory will be chosen while traversing upwards, however, a globally registered factory
  * has highest precedence (see {@link TypeExtractor#registerFactory(Type, Class)}).
+ * 用于指定对应的 {@link TypeInfoFactory} 的注解可以为注解类型生成 {@link TypeInformation}。
+ * 在类型的层次结构中，将在向上遍历时选择定义工厂的最接近的注释，但是，
+ * 全局注册的工厂具有最高优先级（请参阅 {@link TypeExtractor#registerFactory(Type, Class)}）。
  */
 @Documented
 @Target(ElementType.TYPE)

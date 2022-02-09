@@ -24,15 +24,21 @@ import org.apache.flink.api.common.operators.util.FieldSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Container for the semantic properties associated to a single input operator. */
+/** Container for the semantic properties associated to a single input operator.
+ * 与单个输入运算符关联的语义属性的容器。
+ * */
 @Internal
 public class SingleInputSemanticProperties implements SemanticProperties {
     private static final long serialVersionUID = 1L;
 
-    /** Mapping from fields in the source record(s) to fields in the destination record(s). */
+    /** Mapping from fields in the source record(s) to fields in the destination record(s).
+     * 从源记录中的字段映射到目标记录中的字段。
+     * */
     private Map<Integer, FieldSet> fieldMapping;
 
-    /** Set of fields that are read in the source record(s). */
+    /** Set of fields that are read in the source record(s).
+     * 在源记录中读取的一组字段。
+     * */
     private FieldSet readFields;
 
     public SingleInputSemanticProperties() {
@@ -77,6 +83,7 @@ public class SingleInputSemanticProperties implements SemanticProperties {
     /**
      * Adds, to the existing information, a field that is forwarded directly from the source
      * record(s) to the destination record(s).
+     * 将直接从源记录转发到目标记录的字段添加到现有信息。
      *
      * @param sourceField the position in the source record(s)
      * @param targetField the position in the destination record(s)
@@ -106,6 +113,7 @@ public class SingleInputSemanticProperties implements SemanticProperties {
 
     /**
      * Adds, to the existing information, field(s) that are read in the source record(s).
+     * 将在源记录中读取的字段添加到现有信息。
      *
      * @param readFields the position(s) in the source record(s)
      */

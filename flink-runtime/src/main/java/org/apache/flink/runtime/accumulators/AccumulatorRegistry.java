@@ -28,7 +28,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** Main accumulator registry which encapsulates user-defined accumulators. */
+/** Main accumulator registry which encapsulates user-defined accumulators.
+ * 封装用户定义的累加器的主累加器注册表。
+ * */
 public class AccumulatorRegistry {
 
     protected static final Logger LOG = LoggerFactory.getLogger(AccumulatorRegistry.class);
@@ -36,7 +38,9 @@ public class AccumulatorRegistry {
     protected final JobID jobID;
     protected final ExecutionAttemptID taskID;
 
-    /* User-defined Accumulator values stored for the executing task. */
+    /* User-defined Accumulator values stored for the executing task.
+    * 为执行任务存储的用户定义的累加器值。
+    *  */
     private final Map<String, Accumulator<?, ?>> userAccumulators = new ConcurrentHashMap<>(4);
 
     public AccumulatorRegistry(JobID jobID, ExecutionAttemptID taskID) {
@@ -46,6 +50,7 @@ public class AccumulatorRegistry {
 
     /**
      * Creates a snapshot of this accumulator registry.
+     * 创建此累加器注册表的快照。
      *
      * @return a serialized accumulator map
      */
@@ -58,7 +63,9 @@ public class AccumulatorRegistry {
         }
     }
 
-    /** Gets the map for user-defined accumulators. */
+    /** Gets the map for user-defined accumulators.
+     * 获取用户定义的累加器的映射。
+     * */
     public Map<String, Accumulator<?, ?>> getUserMap() {
         return userAccumulators;
     }

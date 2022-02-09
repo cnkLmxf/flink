@@ -20,12 +20,15 @@ package org.apache.flink.runtime.dispatcher;
 
 import org.apache.flink.annotation.Internal;
 
-/** An interface containing the logic of bootstrapping the {@link Dispatcher} of a cluster. */
+/** An interface containing the logic of bootstrapping the {@link Dispatcher} of a cluster.
+ * 包含引导集群 {@link Dispatcher} 逻辑的接口。
+ * */
 @Internal
 public interface DispatcherBootstrap {
 
     /**
      * Stops and frees any resources (e.g. threads) acquired during the execution of the bootstrap.
+     * 停止并释放在引导执行期间获取的任何资源（例如线程）。
      */
     void stop() throws Exception;
 }

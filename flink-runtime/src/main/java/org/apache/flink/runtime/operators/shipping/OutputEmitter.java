@@ -29,25 +29,36 @@ import org.apache.flink.util.MathUtils;
  * The output emitter decides to which of the possibly multiple output channels a record is sent. It
  * implement routing based on hash-partitioning, broadcasting, round-robin, custom partition
  * functions, etc.
+ * 输出发射器决定将记录发送到可能的多个输出通道中的哪一个。 它实现了基于散列分区、广播、循环、自定义分区函数等的路由。
  *
  * @param <T> The type of the element handled by the emitter.
  */
 public class OutputEmitter<T> implements ChannelSelector<SerializationDelegate<T>> {
 
-    /** the shipping strategy used by this output emitter */
+    /** the shipping strategy used by this output emitter
+     * 此输出发射器使用的运输策略
+     * */
     private final ShipStrategyType strategy;
 
-    /** counter to go over channels round robin */
+    /** counter to go over channels round robin
+     * 计数器遍历通道循环
+     * */
     private int nextChannelToSendTo;
 
-    /** the total number of output channels */
+    /** the total number of output channels
+     * 输出通道总数
+     * */
     private int numberOfChannels;
 
-    /** the comparator for hashing / sorting */
+    /** the comparator for hashing / sorting
+     * 散列/排序的比较器
+     * */
     private final TypeComparator<T> comparator;
 
+    // 范围分区的分区边界
     private Object[][] partitionBoundaries; // the partition boundaries for range partitioning
 
+    // 为范围分区创建分区边界的数据分布
     private DataDistribution
             distribution; // the data distribution to create the partition boundaries for range
     // partitioning
@@ -67,6 +78,7 @@ public class OutputEmitter<T> implements ChannelSelector<SerializationDelegate<T
     /**
      * Creates a new channel selector that uses the given strategy (broadcasting, partitioning, ...)
      * and uses the supplied task index perform a round robin distribution.
+     * 创建一个使用给定策略（广播、分区等）的新通道选择器，并使用提供的任务索引执行循环分发。
      *
      * @param strategy The distribution strategy to be used.
      */
@@ -78,6 +90,7 @@ public class OutputEmitter<T> implements ChannelSelector<SerializationDelegate<T
      * Creates a new channel selector that uses the given strategy (broadcasting, partitioning, ...)
      * and uses the supplied comparator to hash / compare records for partitioning them
      * deterministically.
+     * 创建一个使用给定策略（广播、分区等）的新通道选择器，并使用提供的比较器对记录进行散列/比较，以便确定地对它们进行分区。
      *
      * @param strategy The distribution strategy to be used.
      * @param comparator The comparator used to hash / compare the records.

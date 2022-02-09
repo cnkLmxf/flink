@@ -40,27 +40,39 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * Wrapper for pooled {@link MemorySegment} instances.
+ * 池化 {@link MemorySegment} 实例的包装器。
  *
  * <p><strong>NOTE:</strong> before using this buffer in the netty stack, a buffer allocator must be
  * set via {@link #setAllocator(ByteBufAllocator)}!
+ * <strong>注意：</strong> 在 netty 堆栈中使用此缓冲区之前，
+ * 必须通过 {@link #setAllocator(ByteBufAllocator)} 设置缓冲区分配器！
  */
 public class NetworkBuffer extends AbstractReferenceCountedByteBuf implements Buffer {
 
-    /** The backing {@link MemorySegment} instance. */
+    /** The backing {@link MemorySegment} instance.
+     * 支持 {@link MemorySegment} 实例。
+     * */
     private final MemorySegment memorySegment;
 
-    /** The recycler for the backing {@link MemorySegment}. */
+    /** The recycler for the backing {@link MemorySegment}.
+     * 支持 {@link MemorySegment} 的回收器。
+     * */
     private final BufferRecycler recycler;
 
-    /** The {@link DataType} this buffer represents. */
+    /** The {@link DataType} this buffer represents.
+     * 此缓冲区表示的 {@link DataType}。
+     * */
     private DataType dataType;
 
-    /** Allocator for further byte buffers (needed by netty). */
+    /** Allocator for further byte buffers (needed by netty).
+     * 用于更多字节缓冲区的分配器（netty 需要）。
+     * */
     private ByteBufAllocator allocator;
 
     /**
      * The current size of the buffer in the range from 0 (inclusive) to the size of the backing
      * {@link MemorySegment} (inclusive).
+     * 缓冲区的当前大小，范围从 0（含）到支持 {@link MemorySegment}（含）的大小。
      */
     private int currentSize;
 
@@ -70,6 +82,8 @@ public class NetworkBuffer extends AbstractReferenceCountedByteBuf implements Bu
     /**
      * Creates a new buffer instance backed by the given <tt>memorySegment</tt> with <tt>0</tt> for
      * the <tt>readerIndex</tt> and <tt>writerIndex</tt>.
+     * 创建一个由给定 <tt>memorySegment</tt> 支持的新缓冲区实例，
+     * 其中 <tt>readerIndex</tt> 和 <tt>writerIndex</tt> 为 <tt>0</tt>。
      *
      * @param memorySegment backing memory segment (defines {@link #maxCapacity})
      * @param recycler will be called to recycle this buffer once the reference count is <tt>0</tt>
@@ -81,6 +95,7 @@ public class NetworkBuffer extends AbstractReferenceCountedByteBuf implements Bu
     /**
      * Creates a new buffer instance backed by the given <tt>memorySegment</tt> with <tt>0</tt> for
      * the <tt>readerIndex</tt> and <tt>writerIndex</tt>.
+     * 创建一个由给定 <tt>memorySegment</tt> 支持的新缓冲区实例，其中 <tt>readerIndex</tt> 和 <tt>writerIndex</tt> 为 <tt>0</tt>。
      *
      * @param memorySegment backing memory segment (defines {@link #maxCapacity})
      * @param recycler will be called to recycle this buffer once the reference count is <tt>0</tt>
@@ -93,6 +108,8 @@ public class NetworkBuffer extends AbstractReferenceCountedByteBuf implements Bu
     /**
      * Creates a new buffer instance backed by the given <tt>memorySegment</tt> with <tt>0</tt> for
      * the <tt>readerIndex</tt> and <tt>size</tt> as <tt>writerIndex</tt>.
+     * 创建一个由给定 <tt>memorySegment</tt> 支持的新缓冲区实例，
+     * 其中 <tt>0</tt> 为 <tt>readerIndex</tt> 和 <tt>size</tt> 作为 <tt>writerI
      *
      * @param memorySegment backing memory segment (defines {@link #maxCapacity})
      * @param recycler will be called to recycle this buffer once the reference count is <tt>0</tt>
@@ -107,6 +124,8 @@ public class NetworkBuffer extends AbstractReferenceCountedByteBuf implements Bu
     /**
      * Creates a new buffer instance backed by the given <tt>memorySegment</tt> with <tt>0</tt> for
      * the <tt>readerIndex</tt> and <tt>size</tt> as <tt>writerIndex</tt>.
+     * 创建一个由给定 <tt>memorySegment</tt> 支持的新缓冲区实例，
+     * 其中 <tt>0</tt> 为 <tt>readerIndex</tt>，<tt>size</tt> 为 <tt>writerIndex </tt>。
      *
      * @param memorySegment backing memory segment (defines {@link #maxCapacity})
      * @param recycler will be called to recycle this buffer once the reference count is <tt>0</tt>

@@ -22,11 +22,14 @@ import org.apache.flink.runtime.rpc.RpcGateway;
 
 import akka.actor.ActorRef;
 
-/** Interface for Akka based rpc gateways. */
+/** Interface for Akka based rpc gateways.
+ * 基于 Akka 的 rpc 网关的接口。
+ * */
 interface AkkaBasedEndpoint extends RpcGateway {
 
     /**
      * Returns the {@link ActorRef} of the underlying RPC actor.
+     * 返回底层 RPC Actor 的 {@link ActorRef}。
      *
      * @return the {@link ActorRef} of the underlying RPC actor
      */

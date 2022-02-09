@@ -30,7 +30,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Collection;
 
-/** Abstract base class for state backends that use managed memory. */
+/** Abstract base class for state backends that use managed memory.
+ * 使用托管内存的状态后端的抽象基类。
+ * */
 public abstract class AbstractManagedMemoryStateBackend extends AbstractStateBackend {
 
     private static final long serialVersionUID = 1L;

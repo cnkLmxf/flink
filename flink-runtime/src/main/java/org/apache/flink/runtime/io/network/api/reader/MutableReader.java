@@ -22,7 +22,9 @@ import org.apache.flink.core.io.IOReadableWritable;
 
 import java.io.IOException;
 
-/** A record-oriented reader for mutable record types. */
+/** A record-oriented reader for mutable record types.
+ * 用于可变记录类型的面向记录的阅读器。
+ * */
 public interface MutableReader<T extends IOReadableWritable> extends ReaderBase {
 
     boolean next(T target) throws IOException, InterruptedException;

@@ -58,6 +58,9 @@ import static org.apache.flink.util.Preconditions.checkState;
  * consuming the corresponding {@link SortMergeResultPartition}. It always tries to read shuffle
  * data in order of file offset, which maximums the sequential read so can improve the blocking
  * shuffle performance.
+ * {@link SortMergeResultPartition} 的数据读取器，它可以读取所有下游任务的数据，
+ * 这些任务使用相应的 {@link SortMergeResultPartition}。
+ * 它总是尝试按照文件偏移的顺序读取 shuffle 数据，这样可以最大限度地提高顺序读取，从而提高阻塞 shuffle 性能。
  */
 class SortMergeResultPartitionReadScheduler implements Runnable, BufferRecycler {
 
@@ -67,55 +70,78 @@ class SortMergeResultPartitionReadScheduler implements Runnable, BufferRecycler 
     /**
      * Maximum time (5min) to wait when requesting read buffers from the buffer pool before throwing
      * an exception.
+     * 在抛出异常之前从缓冲池请求读取缓冲区时等待的最长时间（5 分钟）。
      */
     private static final Duration BUFFER_REQUEST_TIMEOUT = Duration.ofMinutes(5);
 
-    /** Lock used to synchronize multi-thread access to thread-unsafe fields. */
+    /** Lock used to synchronize multi-thread access to thread-unsafe fields.
+     * 锁用于同步多线程访问线程不安全的字段。
+     * */
     private final Object lock;
 
     /**
      * A {@link CompletableFuture} to be completed when this read scheduler including all resources
      * is released.
+     * 释放包含所有资源的读取调度程序时要完成的 {@link CompletableFuture}。
      */
     private final CompletableFuture<?> releaseFuture = new CompletableFuture<>();
 
-    /** Buffer pool from which to allocate buffers for shuffle data reading. */
+    /** Buffer pool from which to allocate buffers for shuffle data reading.
+     * 缓冲池，从中分配缓冲区以进行随机数据读取。
+     * */
     private final BatchShuffleReadBufferPool bufferPool;
 
-    /** Executor to run the shuffle data reading task. */
+    /** Executor to run the shuffle data reading task.
+     * Executor 运行 shuffle 数据读取任务。
+     * */
     private final Executor ioExecutor;
 
-    /** Maximum number of buffers can be allocated by this partition reader. */
+    /** Maximum number of buffers can be allocated by this partition reader.
+     * 此分区读取器可以分配的最大缓冲区数。
+     * */
     private final int maxRequestedBuffers;
 
-    /** All failed subpartition readers to be released. */
+    /** All failed subpartition readers to be released.
+     * 将释放所有失败的子分区读取器。
+     * */
     @GuardedBy("lock")
     private final Set<SortMergeSubpartitionReader> failedReaders = new HashSet<>();
 
-    /** All readers waiting to read data of different subpartitions. */
+    /** All readers waiting to read data of different subpartitions.
+     * 所有等待读取不同子分区数据的读取器。
+     * */
     @GuardedBy("lock")
     private final Set<SortMergeSubpartitionReader> allReaders = new HashSet<>();
 
-    /** File channel shared by all subpartitions to read data from. */
+    /** File channel shared by all subpartitions to read data from.
+     * 所有子分区共享的文件通道以从中读取数据。
+     * */
     @GuardedBy("lock")
     private FileChannel dataFileChannel;
 
-    /** File channel shared by all subpartitions to read index from. */
+    /** File channel shared by all subpartitions to read index from.
+     * 由所有子分区共享的文件通道以从中读取索引。
+     * */
     @GuardedBy("lock")
     private FileChannel indexFileChannel;
 
     /**
      * Whether the data reading task is currently running or not. This flag is used when trying to
      * submit the data reading task.
+     * 数据读取任务当前是否正在运行。 尝试提交数据读取任务时使用此标志。
      */
     @GuardedBy("lock")
     private boolean isRunning;
 
-    /** Number of buffers already allocated and still not recycled by this partition reader. */
+    /** Number of buffers already allocated and still not recycled by this partition reader.
+     * 此分区读取器已分配但仍未回收的缓冲区数。
+     * */
     @GuardedBy("lock")
     private volatile int numRequestedBuffers;
 
-    /** Whether this reader has been released or not. */
+    /** Whether this reader has been released or not.
+     * 此阅读器是否已发布。
+     * */
     @GuardedBy("lock")
     private volatile boolean isReleased;
 
@@ -357,6 +383,7 @@ class SortMergeResultPartitionReadScheduler implements Runnable, BufferRecycler 
     /**
      * Releases this read scheduler and returns a {@link CompletableFuture} which will be completed
      * when all resources are released.
+     * 释放此读取调度程序并返回一个 {@link CompletableFuture}，它将在所有资源被释放时完成。
      */
     CompletableFuture<?> release() {
         List<SortMergeSubpartitionReader> pendingReaders;

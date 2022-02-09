@@ -29,6 +29,8 @@ import org.apache.flink.runtime.jobmaster.JobMasterId;
  * leadership for a registered job and the service could establish a connection to it. Furthermore,
  * the listener is notified when a job manager loses leadership for a job. In case of an error, the
  * {@link #handleError(Throwable)}} is called.
+ * {@link JobLeaderService} 的侦听器。 每当作业经理获得已注册作业的领导权并且服务可以建立与它的连接时，都会通知侦听器。
+ * 此外，当工作经理失去对工作的领导权时，会通知侦听器。 如果发生错误，将调用 {@link #handleError(Throwable)}}。
  */
 public interface JobLeaderListener {
 

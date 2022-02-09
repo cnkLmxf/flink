@@ -29,11 +29,14 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.Collection;
 
-/** Interface for a {@link ExecutionGraphInfo} store. */
+/** Interface for a {@link ExecutionGraphInfo} store.
+ * {@link ExecutionGraphInfo} 存储的接口。
+ * */
 public interface ExecutionGraphInfoStore extends Closeable {
 
     /**
      * Returns the current number of stored {@link ExecutionGraphInfo} instances.
+     * 返回当前存储的 {@link ExecutionGraphInfo} 实例数。
      *
      * @return Current number of stored {@link ExecutionGraphInfo} instances
      */
@@ -41,6 +44,7 @@ public interface ExecutionGraphInfoStore extends Closeable {
 
     /**
      * Get the {@link ExecutionGraphInfo} for the given job id. Null if it isn't stored.
+     * 获取给定作业 ID 的 {@link ExecutionGraphInfo}。 如果未存储，则为空。
      *
      * @param jobId identifying the serializable execution graph to retrieve
      * @return The stored serializable execution graph or null
@@ -50,6 +54,7 @@ public interface ExecutionGraphInfoStore extends Closeable {
 
     /**
      * Store the given {@link ExecutionGraphInfo} in the store.
+     * 将给定的 {@link ExecutionGraphInfo} 存储在存储中。
      *
      * @param executionGraphInfo to store
      * @throws IOException if the serializable execution graph could not be stored in the store
@@ -65,6 +70,7 @@ public interface ExecutionGraphInfoStore extends Closeable {
 
     /**
      * Return the collection of {@link JobDetails} of all currently stored jobs.
+     * 返回所有当前存储的作业的 {@link JobDetails} 集合。
      *
      * @return Collection of job details of all currently stored jobs
      */
@@ -72,6 +78,7 @@ public interface ExecutionGraphInfoStore extends Closeable {
 
     /**
      * Return the {@link JobDetails}} for the given job.
+     * 返回给定作业的 {@link JobDetails}}。
      *
      * @param jobId identifying the job for which to retrieve the {@link JobDetails}
      * @return {@link JobDetails} of the requested job or null if the job is not available

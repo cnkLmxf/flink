@@ -40,6 +40,8 @@ import java.util.concurrent.Future;
 /**
  * A standalone implementation of the {@link RuntimeContext}, created by runtime UDF operators. Used
  * mostly in CollectionExecutor and can be removed along with the DataSet API.
+ * {@link RuntimeContext} 的独立实现，由运行时 UDF 操作符创建。
+ * 主要在 CollectionExecutor 中使用，可以与 DataSet API 一起删除。
  */
 @Internal
 public class RuntimeUDFContext extends AbstractRuntimeUDFContext {

@@ -51,6 +51,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Provides facilities to download a set of libraries (typically JAR files) for a job from a {@link
  * PermanentBlobService} and create a class loader with references to them.
+ * 提供从 {@link PermanentBlobService} 为作业下载一组库（通常是 JAR 文件）并创建引用它们的类加载器的工具。
  */
 @ThreadSafe
 public class BlobLibraryCacheManager implements LibraryCacheManager {
@@ -91,6 +92,7 @@ public class BlobLibraryCacheManager implements LibraryCacheManager {
 
     /**
      * Gets the number of tasks holding {@link ClassLoader} references for the given job.
+     * 获取为给定作业持有 {@link ClassLoader} 引用的任务数。
      *
      * @param jobId ID of a job
      * @return number of reference holders
@@ -104,6 +106,7 @@ public class BlobLibraryCacheManager implements LibraryCacheManager {
 
     /**
      * Returns the number of registered jobs that this library cache manager handles.
+     * 返回此库缓存管理器处理的已注册作业的数量。
      *
      * @return number of jobs (irrespective of the actual number of tasks per job)
      */
@@ -133,12 +136,15 @@ public class BlobLibraryCacheManager implements LibraryCacheManager {
 
     private static final class DefaultClassLoaderFactory implements ClassLoaderFactory {
 
-        /** The resolve order to use when creating a {@link ClassLoader}. */
+        /** The resolve order to use when creating a {@link ClassLoader}.
+         * 创建 {@link ClassLoader} 时使用的解析顺序。
+         * */
         private final FlinkUserCodeClassLoaders.ResolveOrder classLoaderResolveOrder;
 
         /**
          * List of patterns for classes that should always be resolved from the parent ClassLoader,
          * if possible.
+         * 如果可能，应始终从父 ClassLoader 解析的类的模式列表。
          */
         private final String[] alwaysParentFirstPatterns;
 
@@ -358,17 +364,21 @@ public class BlobLibraryCacheManager implements LibraryCacheManager {
 
         /**
          * Set of BLOB keys used for a previous job/task registration.
+         * 用于先前作业/任务注册的 BLOB 键集。
          *
          * <p>The purpose of this is to make sure, future registrations do not differ in content as
          * this is a contract of the {@link BlobLibraryCacheManager}.
+         * 这样做的目的是确保未来的注册内容不会有所不同，因为这是 {@link BlobLibraryCacheManager} 的合同。
          */
         private final Set<PermanentBlobKey> libraries;
 
         /**
          * Set of class path URLs used for a previous job/task registration.
+         * 用于先前作业/任务注册的类路径 URL 集。
          *
          * <p>The purpose of this is to make sure, future registrations do not differ in content as
          * this is a contract of the {@link BlobLibraryCacheManager}.
+         * 这样做的目的是确保未来的注册内容不会有所不同，因为这是 {@link BlobLibraryCacheManager} 的合同。
          */
         private final Set<String> classPaths;
 
@@ -440,6 +450,7 @@ public class BlobLibraryCacheManager implements LibraryCacheManager {
         /**
          * Release the class loader to ensure any file descriptors are closed and the cached
          * libraries are deleted immediately.
+         * 释放类加载器以确保关闭所有文件描述符并立即删除缓存的库。
          */
         private void releaseClassLoader() {
             runReleaseHooks();

@@ -32,7 +32,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/** A simple iterator over the input read though an I/O channel. */
+/** A simple iterator over the input read though an I/O channel.
+ * 通过 I/O 通道读取的输入上的简单迭代器。
+ * */
 public class ChannelReaderInputViewIterator<E> implements MutableObjectIterator<E> {
     private final AbstractChannelReaderInputView inView;
 

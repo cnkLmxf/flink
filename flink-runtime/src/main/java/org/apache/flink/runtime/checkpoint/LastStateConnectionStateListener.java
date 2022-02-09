@@ -23,11 +23,14 @@ import org.apache.flink.shaded.curator4.org.apache.curator.framework.state.Conne
 
 import java.util.Optional;
 
-/** {@link ConnectionStateListener} which records the last state it was notified about. */
+/** {@link ConnectionStateListener} which records the last state it was notified about.
+ * {@link ConnectionStateListener} 记录它被通知的最后一个状态。
+ * */
 public interface LastStateConnectionStateListener extends ConnectionStateListener {
 
     /**
      * Return the last state the listener was notified about.
+     * 返回通知侦听器的最后一个状态。
      *
      * @return the last state or none if the listener has not received an update
      */

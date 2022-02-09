@@ -28,16 +28,21 @@ import java.nio.file.Files;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-/** An abstract container overlay. */
+/** An abstract container overlay.
+ * 一个抽象的容器覆盖。
+ * */
 abstract class AbstractContainerOverlay implements ContainerOverlay {
 
     /**
      * Add a path recursively to the container specification.
+     * 以递归方式将路径添加到容器规范。
      *
      * <p>If the path is a directory, the directory itself (not just its contents) is added to the
      * target path.
+     * 如果路径是目录，则将目录本身（不仅仅是其内容）添加到目标路径。
      *
      * <p>The execute bit is preserved; permissions aren't.
+     * 保留执行位； 权限不是。
      *
      * @param sourcePath the path to add.
      * @param targetPath the target path.

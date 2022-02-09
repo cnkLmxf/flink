@@ -41,12 +41,22 @@ import static org.apache.flink.core.memory.MemoryUtils.getByteBufferAddress;
 
 /**
  * This class represents a piece of memory managed by Flink.
+ * 这个类代表 Flink 管理的一块内存。
  *
  * <p>The memory can be on-heap, off-heap direct or off-heap unsafe. This is transparently handled
  * by this class.
+ * 内存可以是堆上、堆外直接或堆外不安全的。 这是由这个类透明地处理的。
  *
  * <p>This class fulfills conceptually a similar purpose as Java's {@link java.nio.ByteBuffer}. We
  * add this specialized class for various reasons:
+ * 此类在概念上实现了与 Java 的 {@link java.nio.ByteBuffer} 类似的目的。 我们添加这个专门的类有多种原因：
+ *<ul>
+ *     <li>它提供了额外的二进制比较、交换和复制方法。
+ *     <li>它使用折叠检查进行范围检查和内存段处理。
+ *     <li>它为批量 put/get 方法提供绝对定位方法，以保证线程安全使用。
+ *     <li>它提供显式的大端/小端访问方法，而不是在内部跟踪字节顺序。
+ *     <li>它在堆上和堆外变体之间透明且高效地移动数据。
+ * </ul>
  *
  * <ul>
  *   <li>It offers additional binary compare, swap, and copy methods.
@@ -61,32 +71,42 @@ import static org.apache.flink.core.memory.MemoryUtils.getByteBufferAddress;
  * <p><i>Comments on the implementation</i>: We make heavy use of operations that are supported by
  * native instructions, to achieve a high efficiency. Multi byte types (int, long, float, double,
  * ...) are read and written with "unsafe" native commands.
+ * <i>对实现的评论</i>：我们大量使用本地指令支持的操作，以实现高效率。
+ * 多字节类型（int、long、float、double、...）使用“不安全”的本机命令进行读写。
  *
  * <p><i>Note on efficiency</i>: For best efficiency, we do not separate implementations of
  * different memory types with inheritance, to avoid the overhead from looking for concrete
  * implementations on invocations of abstract methods.
+ * <i>效率说明</i>：为了获得最佳效率，我们不会将不同内存类型的实现与继承分开，以避免在调用抽象方法时寻找具体实现的开销。
  */
 @Internal
 public final class MemorySegment {
 
-    /** System property for activating multiple free segment check, for testing purpose. */
+    /** System property for activating multiple free segment check, for testing purpose.
+     * 用于激活多个空闲段检查的系统属性，用于测试目的。
+     * */
     public static final String CHECK_MULTIPLE_FREE_PROPERTY =
             "flink.tests.check-segment-multiple-free";
 
     private static final boolean checkMultipleFree =
             System.getProperties().containsKey(CHECK_MULTIPLE_FREE_PROPERTY);
 
-    /** The unsafe handle for transparent memory copied (heap / off-heap). */
+    /** The unsafe handle for transparent memory copied (heap / off-heap).
+     * 复制透明内存的不安全句柄（堆/堆外）。
+     * */
     @SuppressWarnings("restriction")
     private static final sun.misc.Unsafe UNSAFE = MemoryUtils.UNSAFE;
 
-    /** The beginning of the byte array contents, relative to the byte array object. */
+    /** The beginning of the byte array contents, relative to the byte array object.
+     * 字节数组内容的开始，相对于字节数组对象。
+     * */
     @SuppressWarnings("restriction")
     private static final long BYTE_ARRAY_BASE_OFFSET = UNSAFE.arrayBaseOffset(byte[].class);
 
     /**
      * Constant that flags the byte order. Because this is a boolean constant, the JIT compiler can
      * use this well to aggressively eliminate the non-applicable code paths.
+     * 标志字节顺序的常量。 因为这是一个布尔常量，JIT 编译器可以很好地利用它来积极地消除不适用的代码路径。
      */
     private static final boolean LITTLE_ENDIAN =
             (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN);
@@ -95,29 +115,35 @@ public final class MemorySegment {
 
     /**
      * The heap byte array object relative to which we access the memory.
+     * 相对于我们访问内存的堆字节数组对象。
      *
      * <p>Is non-<tt>null</tt> if the memory is on the heap, and is <tt>null</tt>, if the memory is
      * off the heap. If we have this buffer, we must never void this reference, or the memory
      * segment will point to undefined addresses outside the heap and may in out-of-order execution
      * cases cause segmentation faults.
+     * 如果内存在堆上，则为非<tt>null</tt>，如果内存不在堆上，则为<tt>null</tt>。
+     * 如果我们有这个缓冲区，我们绝不能取消这个引用，否则内存段将指向堆外未定义的地址，并且可能在乱序执行的情况下导致分段错误。
      */
     @Nullable private final byte[] heapMemory;
 
     /**
      * The direct byte buffer that wraps the off-heap memory. This memory segment holds a reference
      * to that buffer, so as long as this memory segment lives, the memory will not be released.
+     * 包装堆外内存的直接字节缓冲区。 该内存段持有对该缓冲区的引用，因此只要该内存段存在，内存就不会被释放。
      */
     @Nullable private ByteBuffer offHeapBuffer;
 
     /**
      * The address to the data, relative to the heap memory byte array. If the heap memory byte
      * array is <tt>null</tt>, this becomes an absolute memory address outside the heap.
+     * 数据的地址，相对于堆内存字节数组。 如果堆内存字节数组为<tt>null</tt>，则这成为堆外的绝对内存地址。
      */
     private long address;
 
     /**
      * The address one byte after the last addressable byte, i.e. <tt>address + size</tt> while the
      * segment is not disposed.
+     * 最后一个可寻址字节后一个字节的地址，即<tt>地址+大小</tt>，而该段没有被处理。
      */
     private final long addressLimit;
 
@@ -133,6 +159,8 @@ public final class MemorySegment {
      * Wrapping is not allowed when the underlying memory is unsafe. Unsafe memory can be actively
      * released, without reference counting. Therefore, access from wrapped buffers, which may not
      * be aware of the releasing of memory, could be risky.
+     * 当底层内存不安全时，不允许包装。 不安全的内存可以主动释放，无需引用计数。
+     * 因此，从可能不知道内存释放的包装缓冲区访问可能是有风险的。
      */
     private final boolean allowWrap;
 
@@ -140,11 +168,14 @@ public final class MemorySegment {
 
     /**
      * Creates a new memory segment that represents the memory of the byte array.
+     * 创建一个表示字节数组内存的新内存段。
      *
      * <p>Since the byte array is backed by on-heap memory, this memory segment holds its data on
      * heap. The buffer must be at least of size 8 bytes.
+     * 由于字节数组由堆上内存支持，因此该内存段将其数据保存在堆上。 缓冲区的大小必须至少为 8 个字节。
      *
      * <p>The memory segment references the given owner.
+     * 内存段引用给定的所有者。
      *
      * @param buffer The byte array whose memory is represented by this memory segment.
      * @param owner The owner references by this memory segment.
@@ -166,8 +197,12 @@ public final class MemorySegment {
      * Note that the given ByteBuffer must be direct {@link
      * java.nio.ByteBuffer#allocateDirect(int)}, otherwise this method with throw an
      * IllegalArgumentException.
+     * 创建一个新的内存段，表示支持给定直接字节缓冲区的内存。
+     * 请注意，给定的 ByteBuffer 必须是直接的 {@link java.nio.ByteBuffer#allocateDirect(int)}，
+     * 否则此方法会抛出 IllegalArgumentException。
      *
      * <p>The memory segment references the given owner.
+     * 内存段引用给定的所有者。
      *
      * @param buffer The byte buffer whose memory is represented by this memory segment.
      * @param owner The owner references by this memory segment.
@@ -182,6 +217,9 @@ public final class MemorySegment {
      * Note that the given ByteBuffer must be direct {@link
      * java.nio.ByteBuffer#allocateDirect(int)}, otherwise this method with throw an
      * IllegalArgumentException.
+     * 创建一个新的内存段，表示支持给定直接字节缓冲区的内存。
+     * 请注意，给定的 ByteBuffer 必须是直接的 {@link java.nio.ByteBuffer#allocateDirect(int)}，
+     * 否则此方法会抛出 IllegalArgumentException。
      *
      * <p>The memory segment references the given owner.
      *
@@ -222,6 +260,7 @@ public final class MemorySegment {
 
     /**
      * Checks whether the memory segment was freed.
+     * 检查内存段是否被释放。
      *
      * @return <tt>true</tt>, if the memory segment has been freed, <tt>false</tt> otherwise.
      */
@@ -232,10 +271,13 @@ public final class MemorySegment {
 
     /**
      * Frees this memory segment.
+     * 释放此内存段。
      *
      * <p>After this operation has been called, no further operations are possible on the memory
      * segment and will fail. The actual memory (heap or off-heap) will only be released after this
      * memory segment object has become garbage collected.
+     * 调用此操作后，无法对内存段进行进一步的操作，并且将失败。
+     * 实际内存（堆或堆外）只有在此内存段对象已被垃圾回收后才会被释放。
      */
     public void free() {
         if (isFreedAtomic.getAndSet(true)) {
@@ -257,6 +299,7 @@ public final class MemorySegment {
 
     /**
      * Checks whether this memory segment is backed by off-heap memory.
+     * 检查此内存段是否由堆外内存支持。
      *
      * @return <tt>true</tt>, if the memory segment is backed by off-heap memory, <tt>false</tt> if
      *     it is backed by heap memory.
@@ -267,6 +310,7 @@ public final class MemorySegment {
 
     /**
      * Returns the byte array of on-heap memory segments.
+     * 返回堆上内存段的字节数组。
      *
      * @return underlying byte array
      * @throws IllegalStateException if the memory segment does not represent on-heap memory
@@ -281,6 +325,7 @@ public final class MemorySegment {
 
     /**
      * Returns the memory address of off-heap memory segments.
+     * 返回堆外内存段的内存地址。
      *
      * @return absolute memory address outside the heap
      * @throws IllegalStateException if the memory segment does not represent off-heap memory
@@ -297,6 +342,8 @@ public final class MemorySegment {
      * Wraps the chunk of the underlying memory located between <tt>offset</tt> and <tt>offset +
      * length</tt> in a NIO ByteBuffer. The ByteBuffer has the full segment as capacity and the
      * offset and length parameters set the buffers position and limit.
+     * 将位于 <tt>offset</tt> 和 <tt>offset + length</tt> 之间的底层内存块包装在 NIO ByteBuffer 中。
+     * ByteBuffer 将整个段作为容量，偏移量和长度参数设置缓冲区的位置和限制。
      *
      * @param offset The offset in the memory segment.
      * @param length The number of bytes to be wrapped as a buffer.
@@ -333,6 +380,7 @@ public final class MemorySegment {
 
     /**
      * Gets the owner of this memory segment. Returns null, if the owner was not set.
+     * 获取此内存段的所有者。 如果未设置所有者，则返回 null。
      *
      * @return The owner of the memory segment, or null, if it does not have an owner.
      */
@@ -358,6 +406,7 @@ public final class MemorySegment {
 
     /**
      * Reads the byte at the given position.
+     * 读取给定位置的字节。
      *
      * @param index The position from which the byte will be read
      * @return The byte at the given position.
@@ -378,6 +427,7 @@ public final class MemorySegment {
 
     /**
      * Writes the given byte into this buffer at the given position.
+     * 将给定字节写入此缓冲区的给定位置。
      *
      * @param index The index at which the byte will be written.
      * @param b The byte value to be written.
@@ -399,6 +449,7 @@ public final class MemorySegment {
     /**
      * Bulk get method. Copies dst.length memory from the specified position to the destination
      * memory.
+     * 批量获取方法。 将 dst.length 内存从指定位置复制到目标内存。
      *
      * @param index The position at which the first byte will be read.
      * @param dst The memory into which the memory will be copied.
@@ -413,6 +464,7 @@ public final class MemorySegment {
     /**
      * Bulk put method. Copies src.length memory from the source memory into the memory segment
      * beginning at the specified position.
+     * 批量put方法。 将源内存中的 src.length 内存复制到从指定位置开始的内存段中。
      *
      * @param index The index in the memory segment array, where the data is put.
      * @param src The source array to copy the data from.
@@ -427,6 +479,7 @@ public final class MemorySegment {
     /**
      * Bulk get method. Copies length memory from the specified position to the destination memory,
      * beginning at the given offset.
+     * 批量获取方法。 将长度内存从指定位置复制到目标内存，从给定的偏移量开始。
      *
      * @param index The position at which the first byte will be read.
      * @param dst The memory into which the memory will be copied.
@@ -459,6 +512,7 @@ public final class MemorySegment {
     /**
      * Bulk put method. Copies length memory starting at position offset from the source memory into
      * the memory segment starting at the specified index.
+     * 批量放置方法。 将从源内存偏移位置开始的长度内存复制到从指定索引开始的内存段中。
      *
      * @param index The position in the memory segment array, where the data is put.
      * @param src The source array to copy the data from.
@@ -489,6 +543,7 @@ public final class MemorySegment {
 
     /**
      * Reads one byte at the given position and returns its boolean representation.
+     * 在给定位置读取一个字节并返回其布尔表示。
      *
      * @param index The position from which the memory will be read.
      * @return The boolean value at the given position.
@@ -501,6 +556,7 @@ public final class MemorySegment {
 
     /**
      * Writes one byte containing the byte value into this buffer at the given position.
+     * 将包含字节值的一个字节写入此缓冲区的给定位置。
      *
      * @param index The position at which the memory will be written.
      * @param value The char value to be written.

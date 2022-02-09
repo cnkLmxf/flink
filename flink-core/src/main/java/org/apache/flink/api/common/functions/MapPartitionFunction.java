@@ -27,10 +27,14 @@ import java.io.Serializable;
  * Interface for "mapPartition" functions. A "mapPartition" function is called a single time per
  * data partition receives an Iterable with data elements of that partition. It may return an
  * arbitrary number of data elements.
+ * “mapPartition”函数的接口。 “mapPartition”函数被称为单个时间，每个数据分区接收具有该分区的数据元素的 Iterable。
+ * 它可以返回任意数量的数据元素。
  *
  * <p>This function is intended to provide enhanced flexibility in the processing of elements in a
  * partition. For most of the simple use cases, consider using the {@link MapFunction} or {@link
  * FlatMapFunction}.
+ * 此功能旨在为处理分区中的元素提供增强的灵活性。
+ * 对于大多数简单用例，请考虑使用 {@link MapFunction} 或 {@link FlatMapFunction}。
  *
  * <p>The basic syntax for a MapPartitionFunction is as follows:
  *
@@ -49,6 +53,7 @@ public interface MapPartitionFunction<T, O> extends Function, Serializable {
 
     /**
      * A user-implemented function that modifies or transforms an incoming object.
+     * 修改或转换传入对象的 用户实现的函数。
      *
      * @param values All records for the mapper
      * @param out The collector to hand results to.

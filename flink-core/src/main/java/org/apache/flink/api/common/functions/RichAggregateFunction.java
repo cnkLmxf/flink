@@ -25,6 +25,10 @@ import org.apache.flink.annotation.PublicEvolving;
  * {@link RuntimeContext} and provides setup and teardown methods: {@link
  * RichFunction#open(org.apache.flink.configuration.Configuration)} and {@link
  * RichFunction#close()}.
+ * {@link AggregateFunction} 的丰富变体。
+ * 作为一个 {@link RichFunction}，它可以访问 {@link RuntimeContext} 并提供设置和拆卸方法：
+ * {@link RichFunction#open(org.apache.flink.configuration.Configuration)} 和
+ * {@link RichFunction#close ()}。
  *
  * @see AggregateFunction
  * @param <IN> The type of the values that are aggregated (input values)

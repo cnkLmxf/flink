@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.io.network.partition;
 
-/** View over a pipelined in-memory only subpartition allowing reconnecting. */
+/** View over a pipelined in-memory only subpartition allowing reconnecting.
+ * 查看仅允许重新连接的流水线内存子分区。
+ * */
 public class PipelinedApproximateSubpartitionView extends PipelinedSubpartitionView {
 
     PipelinedApproximateSubpartitionView(
@@ -32,6 +34,9 @@ public class PipelinedApproximateSubpartitionView extends PipelinedSubpartitionV
      * the JobMaster's Partition Tracker and relies on the tracker to release partitions after the
      * job is finished. Hence in the approximate pipelined case, no resource related to view is
      * needed to be released.
+     * Pipelined ResultPartition 依赖于其子分区视图的释放来决定分区是否准备好释放。
+     * 相比之下，Approximate Pipelined ResultPartition 被放入 JobMaster 的 Partition Tracker 中，
+     * 并在作业完成后依靠 Tracker 释放分区。 因此，在近似流水线的情况下，不需要释放与视图相关的资源。
      */
     @Override
     public void releaseAllResources() {

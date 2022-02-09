@@ -95,6 +95,8 @@ public abstract class ResourceManagerFactory<T extends ResourceIDRetrievable> {
      * Configuration changes in this method will be visible to both {@link ResourceManager} and
      * {@link ResourceManagerRuntimeServices}. This can be overwritten by {@link
      * #getEffectiveConfigurationForResourceManager}.
+     * {@link ResourceManager} 和 {@link ResourceManagerRuntimeServices} 都可以看到此方法中的配置更改。
+     * 这可以被 {@link #getEffectiveConfigurationForResourceManager} 覆盖。
      */
     protected Configuration getEffectiveConfigurationForResourceManagerAndRuntimeServices(
             final Configuration configuration) {
@@ -104,6 +106,8 @@ public abstract class ResourceManagerFactory<T extends ResourceIDRetrievable> {
     /**
      * Configuration changes in this method will be visible to only {@link ResourceManager}. This
      * can overwrite {@link #getEffectiveConfigurationForResourceManagerAndRuntimeServices}.
+     * 此方法中的配置更改将仅对 {@link ResourceManager} 可见。
+     * 这可以覆盖 {@link #getEffectiveConfigurationForResourceManagerAndRuntimeServices}。
      */
     protected Configuration getEffectiveConfigurationForResourceManager(
             final Configuration configuration) {

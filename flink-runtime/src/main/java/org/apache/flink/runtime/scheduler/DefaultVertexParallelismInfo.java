@@ -26,7 +26,9 @@ import org.apache.flink.util.Preconditions;
 import java.util.Optional;
 import java.util.function.Function;
 
-/** A {@link VertexParallelismInformation} implementation that provides common validation. */
+/** A {@link VertexParallelismInformation} implementation that provides common validation.
+ * 提供通用验证的 {@link VertexParallelismInformation} 实现。
+ * */
 public class DefaultVertexParallelismInfo implements VertexParallelismInformation {
     private final int parallelism;
     private int maxParallelism;

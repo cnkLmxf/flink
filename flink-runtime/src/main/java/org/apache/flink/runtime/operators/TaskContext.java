@@ -33,6 +33,8 @@ import org.apache.flink.util.MutableObjectIterator;
 /**
  * The task context gives a driver (e.g., {@link MapDriver}, or {@link JoinDriver}) access to the
  * runtime components and configuration that they can use to fulfil their task.
+ * 任务上下文为驱动程序（例如，{@link MapDriver} 或 {@link JoinDriver}）提供了对运行时组件和配置的访问权限，
+ * 他们可以使用这些组件来完成他们的任务。
  *
  * @param <S> The UDF type.
  * @param <OT> The produced data type.

@@ -31,8 +31,11 @@ import java.io.UTFDataFormatException;
  * contains all encoding methods to write data to a page and detect page boundary crossing. The
  * concrete sub classes must implement the methods to collect the current page and provide the next
  * memory page once the boundary is crossed.
+ * 由多个内存页面支持的所有输出视图的基类。 该基类包含将数据写入页面和检测页面边界交叉的所有编码方法。
+ * 具体的子类必须实现收集当前页面并在跨越边界时提供下一个内存页面的方法。
  *
  * <p>The paging assumes that all memory segments are of the same size.
+ * 分页假定所有内存段的大小相同。
  */
 public abstract class AbstractPagedOutputView implements DataOutputView, MemorySegmentWritable {
 
@@ -40,11 +43,13 @@ public abstract class AbstractPagedOutputView implements DataOutputView, MemoryS
 
     protected final int segmentSize; // the size of the memory segments
 
+    // 在每个段的开头要跳过的字节数
     protected final int
             headerLength; // the number of bytes to skip at the beginning of each segment
 
     private int positionInSegment; // the offset in the current segment
 
+    // UTF 编码的可重用数组
     private byte[] utfBuffer; // the reusable array for UTF encodings
 
     // --------------------------------------------------------------------------------------------
@@ -55,6 +60,8 @@ public abstract class AbstractPagedOutputView implements DataOutputView, MemoryS
      * Creates a new output view that writes initially to the given initial segment. All segments in
      * the view have to be of the given {@code segmentSize}. A header of length {@code headerLength}
      * is left at the beginning of each segment.
+     * 创建一个新的输出视图，该视图最初写入给定的初始段。
+     * 视图中的所有段都必须是给定的 {@code segmentSize}。 长度为 {@code headerLength} 的标头留在每个段的开头。
      *
      * @param initialSegment The segment that the view starts writing to.
      * @param segmentSize The size of the memory segments.
@@ -89,6 +96,7 @@ public abstract class AbstractPagedOutputView implements DataOutputView, MemoryS
     /**
      * This method must return a segment. If no more segments are available, it must throw an {@link
      * java.io.EOFException}.
+     * 此方法必须返回一个段。 如果没有更多可用段，则必须抛出 {@link java.io.EOFException}。
      *
      * @param current The current memory segment
      * @param positionInCurrent The position in the segment, one after the last valid byte.
@@ -131,6 +139,9 @@ public abstract class AbstractPagedOutputView implements DataOutputView, MemoryS
      * #nextSegment(MemorySegment, int)} method to give the current memory segment to the concrete
      * subclass' implementation and obtain the next segment to write to. Writing will continue
      * inside the new segment after the header.
+     * 将输出视图移动到下一页。
+     * 此方法在内部调用 {@link #nextSegment(MemorySegment, int)}
+     * 方法以将当前内存段提供给具体子类的实现并获取要写入的下一个段。 写入将在标头之后的新段内继续。
      *
      * @throws IOException Thrown, if the current segment could not be processed or a new segment
      *     could not be obtained.
@@ -148,6 +159,7 @@ public abstract class AbstractPagedOutputView implements DataOutputView, MemoryS
     /**
      * Sets the internal state to the given memory segment and the given position within the
      * segment.
+     * 将内部状态设置为给定的内存段和段内的给定位置。
      *
      * @param seg The memory segment to write the next bytes to.
      * @param position The position to start writing the next bytes to.
@@ -160,6 +172,8 @@ public abstract class AbstractPagedOutputView implements DataOutputView, MemoryS
     /**
      * Clears the internal state. Any successive write calls will fail until either {@link
      * #advance()} or {@link #seekOutput(MemorySegment, int)} is called.
+     * 清除内部状态。 在调用 {@link #advance()} 或 {@link #seekOutput(MemorySegment, int)} 之前，
+     * 任何连续的写入调用都会失败。
      *
      * @see #advance()
      * @see #seekOutput(MemorySegment, int)

@@ -26,6 +26,7 @@ import java.io.IOException;
 
 /**
  * A simple collector that collects Key and Value and writes them into a given <code>Writer</code>.
+ * 一个简单的收集器，它收集 Key 和 Value 并将它们写入给定的 <code>Writer</code>。
  */
 final class WriterCollector<E> implements Collector<E> {
     private final ChannelWriterOutputView output; // the writer to write to
@@ -33,6 +34,7 @@ final class WriterCollector<E> implements Collector<E> {
 
     /**
      * Creates a new writer collector that writes to the given writer.
+     * 创建一个写入给定 writer 的新 writer 收集器。
      *
      * @param output The writer output view to write to.
      */

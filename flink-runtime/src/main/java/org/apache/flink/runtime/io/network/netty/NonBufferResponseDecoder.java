@@ -26,13 +26,19 @@ import java.net.ProtocolException;
 import static org.apache.flink.runtime.io.network.netty.NettyMessage.BufferResponse;
 import static org.apache.flink.runtime.io.network.netty.NettyMessage.ErrorResponse;
 
-/** The decoder for messages other than {@link BufferResponse}. */
+/** The decoder for messages other than {@link BufferResponse}.
+ * {@link BufferResponse} 以外的消息的解码器。
+ * */
 class NonBufferResponseDecoder extends NettyMessageDecoder {
 
-    /** The initial size of the message header accumulation buffer. */
+    /** The initial size of the message header accumulation buffer.
+     * 消息头累积缓冲区的初始大小。
+     * */
     private static final int INITIAL_MESSAGE_HEADER_BUFFER_LENGTH = 128;
 
-    /** The accumulation buffer of the message. */
+    /** The accumulation buffer of the message.
+     * 消息的累积缓冲区。
+     * */
     private ByteBuf messageBuffer;
 
     @Override

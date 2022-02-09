@@ -21,18 +21,23 @@ package org.apache.flink.runtime.leaderretrieval;
 /**
  * This interface has to be implemented by a service which retrieves the current leader and notifies
  * a listener about it.
+ * 该接口必须由检索当前领导并通知侦听器的服务来实现。
  *
  * <p>Prior to using this service it has to be started by calling the start method. The start method
  * also takes the {@link LeaderRetrievalListener} as an argument. The service can only be started
  * once.
+ * 在使用此服务之前，必须通过调用 start 方法来启动它。
+ * start 方法还将 {@link LeaderRetrievalListener} 作为参数。 该服务只能启动一次。
  *
  * <p>The service should be stopped by calling the stop method.
+ * 应该通过调用 stop 方法来停止服务。
  */
 public interface LeaderRetrievalService {
 
     /**
      * Starts the leader retrieval service with the given listener to listen for new leaders. This
      * method can only be called once.
+     * 使用给定的侦听器启动领导者检索服务以侦听新的领导者。 此方法只能调用一次。
      *
      * @param listener The leader retrieval listener which will be notified about new leaders.
      * @throws Exception
@@ -41,6 +46,7 @@ public interface LeaderRetrievalService {
 
     /**
      * Stops the leader retrieval service.
+     * 停止领导者检索服务。
      *
      * @throws Exception
      */

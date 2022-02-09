@@ -24,8 +24,10 @@ import java.util.Objects;
 
 /**
  * Common memory components of Flink processes (e.g. JM or TM).
+ * Flink 进程的常用内存组件（例如 JM 或 TM）。
  *
  * <p>The process memory consists of the following components.
+ * 进程存储器由以下组件组成。
  *
  * <ul>
  *   <li>Total Flink Memory
@@ -37,8 +39,12 @@ import java.util.Objects;
  * while the Total Flink Memory refers to all the internal components except JVM Metaspace and JVM
  * Overhead. The internal components of Total Flink Memory, represented by {@link FlinkMemory}, are
  * specific to concrete Flink process (e.g. JM or TM).
+ * 在所有组件中，我们用 Total Process Memory 指代所有的内存组件，
+ * 而 Total Flink Memory 指的是除 JVM Metaspace 和 JVM Overhead 之外的所有内部组件。
+ * Total Flink Memory 的内部组件，由 {@link FlinkMemory} 表示，特定于具体的 Flink 进程（例如 JM 或 TM）。
  *
  * <p>The relationships of process memory components are shown below.
+ * 进程内存组件的关系如下所示。
  *
  * <pre>
  *               ┌ ─ ─ Total Process Memory  ─ ─ ┐

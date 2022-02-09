@@ -25,6 +25,7 @@ import java.util.Arrays;
 /**
  * A locatable input split is an input split referring to input data which is located on one or more
  * hosts.
+ * 可定位输入拆分是指输入数据位于一个或多个主机上的输入拆分。
  */
 @Public
 public class LocatableInputSplit implements InputSplit, java.io.Serializable {

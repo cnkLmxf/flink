@@ -23,7 +23,9 @@ import org.apache.flink.util.InstantiationUtil;
 
 import java.lang.annotation.Annotation;
 
-/** This holds a class containing user defined code. */
+/** This holds a class containing user defined code.
+ * 它包含一个包含用户定义代码的类。
+ * */
 @Internal
 public class UserCodeClassWrapper<T> implements UserCodeWrapper<T> {
     private static final long serialVersionUID = 1L;

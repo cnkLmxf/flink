@@ -27,6 +27,7 @@ import java.util.ArrayList;
 /**
  * This class represents an ordering on a set of fields. It specifies the fields and order direction
  * (ascending, descending).
+ * 此类表示对一组字段的排序。 它指定字段和顺序方向（升序、降序）。
  */
 @Internal
 public class Ordering implements Cloneable {
@@ -55,6 +56,7 @@ public class Ordering implements Cloneable {
     /**
      * Extends this ordering by appending an additional order requirement. If the index has been
      * previously appended then the unmodified Ordering is returned.
+     * 通过附加额外的订购要求来扩展此订购。 如果先前已附加索引，则返回未修改的排序。
      *
      * @param index Field index of the appended order requirement.
      * @param type Type of the appended order requirement.
@@ -188,6 +190,8 @@ public class Ordering implements Cloneable {
      * Creates a new ordering the represents an ordering on a prefix of the fields. If the exclusive
      * index up to which to create the ordering is <code>0</code>, then there is no resulting
      * ordering and this method return <code>null</code>.
+     * 创建一个新的排序，表示对字段前缀的排序。 如果要创建排序的唯一索引是 <code>0</code>，
+     * 则没有结果排序，并且此方法返回 <code>null</code>。
      *
      * @param exclusiveIndex The index (exclusive) up to which to create the ordering.
      * @return The new ordering on the prefix of the fields, or <code>null</code>, if the prefix is

@@ -45,7 +45,9 @@ import java.nio.ByteOrder;
 
 import static org.apache.flink.runtime.io.network.buffer.Buffer.DataType.getDataType;
 
-/** Utility class to serialize and deserialize task events. */
+/** Utility class to serialize and deserialize task events.
+ * 用于序列化和反序列化任务事件的实用程序类。
+ * */
 public class EventSerializer {
 
     // ------------------------------------------------------------------------

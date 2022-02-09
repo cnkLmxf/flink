@@ -35,10 +35,13 @@ import org.apache.flink.runtime.resourcemanager.slotmanager.SlotManagerImpl;
 import org.apache.flink.runtime.resourcemanager.slotmanager.SlotManagerUtils;
 import org.apache.flink.util.Preconditions;
 
-/** Container class for the {@link ResourceManager} services. */
+/** Container class for the {@link ResourceManager} services.
+ * {@link ResourceManager} 服务的容器类。
+ * */
 public class ResourceManagerRuntimeServices {
     // We currently make the delay of requirements check a constant time. This delay might be
     // configurable by user in the future.
+    // 我们目前使需求检查的延迟时间为常数。 将来用户可能会配置此延迟。
     private static final long REQUIREMENTS_CHECK_DELAY_MS = 50L;
 
     private final SlotManager slotManager;

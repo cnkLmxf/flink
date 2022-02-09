@@ -27,6 +27,7 @@ import java.io.IOException;
 /**
  * Reads elements by deserializing them with their regular serialization/deserialization
  * functionality.
+ * 通过使用常规序列化/反序列化功能反序列化元素来读取元素。
  *
  * @see SerializedOutputFormat
  */

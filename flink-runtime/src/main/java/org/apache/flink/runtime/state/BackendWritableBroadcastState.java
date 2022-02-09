@@ -26,6 +26,8 @@ import java.io.IOException;
 /**
  * An interface with methods related to the interplay between the {@link BroadcastState Broadcast
  * State} and the {@link OperatorStateBackend}.
+ * 一个接口，其中包含与 {@link BroadcastState Broadcast State} 和
+ * {@link OperatorStateBackend} 之间的相互作用相关的方法。
  *
  * @param <K> The key type of the elements in the {@link BroadcastState Broadcast State}.
  * @param <V> The value type of the elements in the {@link BroadcastState Broadcast State}.

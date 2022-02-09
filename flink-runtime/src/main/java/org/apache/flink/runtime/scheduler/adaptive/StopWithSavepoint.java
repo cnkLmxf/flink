@@ -43,11 +43,14 @@ import java.util.concurrent.ScheduledFuture;
  * Tracks a "stop with savepoint" operation. The incoming "savepointFuture" is coming from the
  * {@link CheckpointCoordinator}, which takes care of triggering a savepoint, and then shutting down
  * the job (on success).
+ * 跟踪“使用保存点停止”操作。 传入的“savepointFuture”来自 {@link CheckpointCoordinator}，它负责触发保存点，然后关闭作业（成功时）。
  *
  * <p>This state is tracking the future to act accordingly on it. The savepoint path (= the result
  * of the operation) is made available via the "operationFuture" to the user. This operation is only
  * considered successfully if the "savepointFuture" completed successfully, and the job reached the
  * terminal state FINISHED.
+ * 该状态正在跟踪未来以对其采取相应的行动。 保存点路径（= 操作的结果）通过“operationFuture”提供给用户。
+ * 仅当“savepointFuture”成功完成并且作业达到终端状态 FINISHED 时，才认为此操作成功。
  */
 class StopWithSavepoint extends StateWithExecutionGraph {
 

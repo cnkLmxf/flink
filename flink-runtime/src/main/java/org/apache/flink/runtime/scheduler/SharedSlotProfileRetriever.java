@@ -24,7 +24,9 @@ import org.apache.flink.runtime.scheduler.strategy.ExecutionVertexID;
 
 import java.util.Set;
 
-/** Computes a {@link SlotProfile} to allocate a slot for executions, sharing the slot. */
+/** Computes a {@link SlotProfile} to allocate a slot for executions, sharing the slot.
+ * 计算一个 {@link SlotProfile} 为执行分配一个槽，共享槽。
+ * */
 @FunctionalInterface
 interface SharedSlotProfileRetriever {
     /**

@@ -31,6 +31,7 @@ import static org.apache.flink.util.Preconditions.checkState;
  * A builder for {@link CheckpointMetrics}.
  *
  * <p>This class is not thread safe, but parts of it can actually be used from different threads.
+ * 这个类不是线程安全的，但它的一部分实际上可以从不同的线程中使用。
  */
 @NotThreadSafe
 public class CheckpointMetricsBuilder {

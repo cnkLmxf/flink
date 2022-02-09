@@ -31,6 +31,7 @@ import java.util.concurrent.Executor;
 /**
  * Syncer for slot status. Take the responsibility of allocating/freeing slot and reconciling the
  * slot status with task managers.
+ * 插槽状态的同步器。 负责分配/释放槽并与任务管理器协调槽状态。
  */
 public interface SlotStatusSyncer {
 
@@ -76,6 +77,7 @@ public interface SlotStatusSyncer {
 
     /**
      * Reconcile the slot status with the slot report.
+     * 将槽状态与槽报告核对。
      *
      * @param instanceId of the task manager
      * @param slotReport reported

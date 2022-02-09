@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * Abstract superclass for for all operators that have one input like "map" or "reduce".
+ * 具有一个输入（如“map”或“reduce”）的所有运算符的抽象超类。
  *
  * @param <IN> Input type of the user function
  * @param <OUT> Output type of the user function
@@ -38,13 +39,19 @@ import java.util.List;
 public abstract class SingleInputOperator<IN, OUT, FT extends Function>
         extends AbstractUdfOperator<OUT, FT> {
 
-    /** The input which produces the data consumed by this operator. */
+    /** The input which produces the data consumed by this operator.
+     * 生成此运算符使用的数据的输入。
+     * */
     protected Operator<IN> input;
 
-    /** The positions of the keys in the tuple. */
+    /** The positions of the keys in the tuple.
+     * 元组中键的位置。
+     * */
     private final int[] keyFields;
 
-    /** Semantic properties of the associated function. */
+    /** Semantic properties of the associated function.
+     * 相关函数的语义属性。
+     * */
     private SingleInputSemanticProperties semanticProperties = new SingleInputSemanticProperties();
 
     // --------------------------------------------------------------------------------------------
@@ -52,6 +59,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
     /**
      * Creates a new abstract single-input operator with the given name wrapping the given user
      * function.
+     * 使用给定名称包装给定用户函数创建一个新的抽象单输入运算符。
      *
      * @param stub The object containing the user function.
      * @param keyPositions The field positions of the input records that act as keys.
@@ -70,6 +78,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
      * Creates a new abstract single-input operator with the given name wrapping the given user
      * function. This constructor is specialized only for operators that require no keys for their
      * processing.
+     * 使用给定名称包装给定用户函数创建一个新的抽象单输入运算符。 此构造函数仅适用于不需要键进行处理的运算符。
      *
      * @param stub The object containing the user function.
      * @param name The given name for the operator, used in plans, logs and progress messages.
@@ -82,7 +91,9 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     // --------------------------------------------------------------------------------------------
 
-    /** Gets the information about the operators input/output types. */
+    /** Gets the information about the operators input/output types.
+     * 获取有关运算符输入/输出类型的信息。
+     * */
     @Override
     @SuppressWarnings("unchecked")
     public UnaryOperatorInformation<IN, OUT> getOperatorInfo() {
@@ -91,6 +102,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     /**
      * Returns the input operator or data source, or null, if none is set.
+     * 返回输入运算符或数据源，如果未设置，则返回 null。
      *
      * @return This operator's input.
      */
@@ -105,6 +117,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     /**
      * Sets the given operator as the input to this operator.
+     * 将给定的运算符设置为此运算符的输入。
      *
      * @param input The operator to use as the input.
      */
@@ -114,6 +127,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     /**
      * Sets the input to the union of the given operators.
+     * 将输入设置为给定运算符的并集。
      *
      * @param input The operator(s) that form the input.
      * @deprecated This method will be removed in future versions. Use the {@link Union} operator
@@ -126,6 +140,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     /**
      * Sets the input to the union of the given operators.
+     *将输入设置为给定运算符的并集。
      *
      * @param inputs The operator(s) that form the input.
      * @deprecated This method will be removed in future versions. Use the {@link Union} operator
@@ -139,6 +154,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     /**
      * Adds to the input the union of the given operators.
+     * 将给定运算符的并集添加到输入。
      *
      * @param input The operator(s) that form the input.
      * @deprecated This method will be removed in future versions. Use the {@link Union} operator
@@ -151,6 +167,7 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
 
     /**
      * Adds to the input the union of the given operators.
+     * 将给定运算符的并集添加到输入。
      *
      * @param inputs The operator(s) that form the input.
      * @deprecated This method will be removed in future versions. Use the {@link Union} operator
@@ -196,6 +213,8 @@ public abstract class SingleInputOperator<IN, OUT, FT extends Function>
      * Accepts the visitor and applies it this instance. The visitors pre-visit method is called
      * and, if returning <tt>true</tt>, the visitor is recursively applied on the single input.
      * After the recursion returned, the post-visit method is called.
+     * 接受访问者并将其应用于此实例。 调用访问者预访问方法，如果返回 <tt>true</tt>，则访问者将递归地应用于单个输入。
+     * 递归返回后，调用post-visit方法。
      *
      * @param visitor The visitor.
      * @see org.apache.flink.util.Visitable#accept(org.apache.flink.util.Visitor)

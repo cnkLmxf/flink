@@ -34,6 +34,7 @@ import java.util.StringJoiner;
 /**
  * {@code ExceptionHistoryEntry} collects information about a single failure that triggered the
  * scheduler's failure handling.
+ * {@code ExceptionHistoryEntry} 收集有关触发调度程序故障处理的单个故障的信息。
  */
 public class ExceptionHistoryEntry extends ErrorInfo {
 

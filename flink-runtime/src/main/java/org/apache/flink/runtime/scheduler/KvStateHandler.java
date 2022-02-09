@@ -33,7 +33,9 @@ import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 
-/** Handler for common queryable state logic. */
+/** Handler for common queryable state logic.
+ * 通用可查询状态逻辑的处理程序。
+ * */
 public class KvStateHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(KvStateHandler.class);

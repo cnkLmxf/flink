@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.taskmanager;
 
-/** A dummy implementation of the {@link TaskActions} which is mainly used for tests. */
+/** A dummy implementation of the {@link TaskActions} which is mainly used for tests.
+ * {@link TaskActions} 的虚拟实现，主要用于测试。
+ * */
 public class NoOpTaskActions implements TaskActions {
 
     @Override

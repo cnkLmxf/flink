@@ -24,10 +24,14 @@ import org.apache.flink.util.CloseableIterator;
 
 import java.io.IOException;
 
-/** Interface for turning sequences of memory segments into records. */
+/** Interface for turning sequences of memory segments into records.
+ * 用于将内存段序列转换为记录的接口。
+ * */
 public interface RecordDeserializer<T extends IOReadableWritable> {
 
-    /** Status of the deserialization result. */
+    /** Status of the deserialization result.
+     * 反序列化结果的状态。
+     * */
     enum DeserializationResult {
         PARTIAL_RECORD(false, true),
         INTERMEDIATE_RECORD_FROM_BUFFER(true, false),
@@ -59,9 +63,11 @@ public interface RecordDeserializer<T extends IOReadableWritable> {
 
     /**
      * Gets the unconsumed buffer which needs to be persisted in unaligned checkpoint scenario.
+     * 获取在未对齐的检查点场景中需要持久化的未使用缓冲区。
      *
      * <p>Note that the unconsumed buffer might be null if the whole buffer was already consumed
      * before and there are no partial length or data remained in the end of buffer.
+     * 请注意，如果整个缓冲区之前已经被使用并且没有部分长度或数据保留在缓冲区的末尾，则未使用的缓冲区可能为空。
      */
     CloseableIterator<Buffer> getUnconsumedBuffer() throws IOException;
 }

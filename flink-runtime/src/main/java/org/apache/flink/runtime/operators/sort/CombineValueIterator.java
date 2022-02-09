@@ -32,6 +32,7 @@ import java.util.NoSuchElementException;
 /**
  * This class implements an iterator over values from a sort buffer. The iterator returns the values
  * of a given interval.
+ * 此类实现了对来自排序缓冲区的值的迭代器。 迭代器返回给定区间的值。
  */
 final class CombineValueIterator<E> implements Iterator<E>, Iterable<E> {
 
@@ -51,6 +52,7 @@ final class CombineValueIterator<E> implements Iterator<E>, Iterable<E> {
 
     /**
      * Creates an iterator over the values in a <tt>BufferSortable</tt>.
+     * 在 <tt>BufferSortable</tt> 中的值上创建迭代器。
      *
      * @param buffer The buffer to get the values from.
      */
@@ -62,6 +64,7 @@ final class CombineValueIterator<E> implements Iterator<E>, Iterable<E> {
 
     /**
      * Sets the interval for the values that are to be returned by this iterator.
+     * 设置此迭代器要返回的值的间隔。
      *
      * @param first The position of the first value to be returned.
      * @param last The position of the last value to be returned.

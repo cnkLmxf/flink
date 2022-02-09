@@ -39,7 +39,9 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.function.BiFunction;
 
-/** Factory for {@link ResultPartition} to use in {@link NettyShuffleEnvironment}. */
+/** Factory for {@link ResultPartition} to use in {@link NettyShuffleEnvironment}.
+ * {@link ResultPartition} 在 {@link NettyShuffleEnvironment} 中使用的工厂。
+ * */
 public class ResultPartitionFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResultPartitionFactory.class);
@@ -253,13 +255,17 @@ public class ResultPartitionFactory {
     /**
      * The minimum pool size should be <code>numberOfSubpartitions + 1</code> for two
      * considerations:
+     * 出于两个考虑，最小池大小应为 <code>numberOfSubpartitions + 1</code>：
      *
      * <p>1. StreamTask can only process input if there is at-least one available buffer on output
      * side, so it might cause stuck problem if the minimum pool size is exactly equal to the number
      * of subpartitions, because every subpartition might maintain a partial unfilled buffer.
+     * 1. StreamTask 只能在输出端至少有一个可用缓冲区的情况下处理输入，
+     * 因此如果最小池大小恰好等于子分区的数量，则可能会导致卡住问题，因为每个子分区可能会保留部分未填充的缓冲区。
      *
      * <p>2. Increases one more buffer for every output LocalBufferPool to avoid performance
      * regression if processing input is based on at-least one buffer available on output side.
+     * 2. 如果处理输入基于输出端至少一个可用的缓冲区，则为每个输出 LocalBufferPool 增加一个缓冲区以避免性能回归。
      */
     @VisibleForTesting
     SupplierWithException<BufferPool, IOException> createBufferPoolFactory(

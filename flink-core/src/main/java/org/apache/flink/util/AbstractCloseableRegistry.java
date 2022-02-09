@@ -33,9 +33,11 @@ import java.util.Map;
 /**
  * This is the abstract base class for registries that allow to register instances of {@link
  * Closeable}, which are all closed if this registry is closed.
+ * 这是注册表的抽象基类，允许注册 {@link Closeable} 的实例，如果此注册表关闭，这些实例都将关闭。
  *
  * <p>Registering to an already closed registry will throw an exception and close the provided
  * {@link Closeable}
+ * 注册到已经关闭的注册表会抛出异常并关闭提供的 {@link Closeable}
  *
  * <p>All methods in this class are thread-safe.
  *

@@ -32,6 +32,7 @@ import java.util.concurrent.RunnableFuture;
 /**
  * A class to execute a {@link SnapshotStrategy}. It can execute a strategy either synchronously or
  * asynchronously. It takes care of common logging and resource cleaning.
+ * 执行 {@link SnapshotStrategy} 的类。 它可以同步或异步执行策略。 它负责常见的日志记录和资源清理。
  *
  * @param <T> type of the snapshot result.
  */

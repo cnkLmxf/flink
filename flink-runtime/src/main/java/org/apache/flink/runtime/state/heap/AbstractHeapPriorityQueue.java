@@ -35,6 +35,7 @@ import static org.apache.flink.util.CollectionUtil.MAX_ARRAY_SIZE;
 /**
  * Abstract base class for heap (object array) based implementations of priority queues, with
  * support for fast deletes via {@link HeapPriorityQueueElement}.
+ * 基于堆（对象数组）的优先级队列实现的抽象基类，支持通过 {@link HeapPriorityQueueElement} 进行快速删除。
  *
  * @param <T> type of the elements contained in the priority queue.
  */

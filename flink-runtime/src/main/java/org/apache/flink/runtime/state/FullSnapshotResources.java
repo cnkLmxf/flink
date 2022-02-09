@@ -28,6 +28,7 @@ import java.util.List;
 /**
  * A {@link SnapshotResources} to be used with the backend-independent {@link
  * FullSnapshotAsyncWriter}.
+ * 与后端无关的 {@link FullSnapshotAsyncWriter} 一起使用的 {@link SnapshotResources}。
  *
  * @param <K> type of the backend keys.
  */
@@ -37,12 +38,14 @@ public interface FullSnapshotResources<K> extends SnapshotResources {
     /**
      * Returns the list of {@link StateMetaInfoSnapshot meta info snapshots} for this state
      * snapshot.
+     * 返回此状态快照的 {@link StateMetaInfoSnapshot 元信息快照} 列表。
      */
     List<StateMetaInfoSnapshot> getMetaInfoSnapshots();
 
     /**
      * Returns a {@link KeyValueStateIterator} for iterating over all key-value states for this
      * snapshot resources.
+     * 返回一个 {@link KeyValueStateIterator} 用于迭代此快照资源的所有键值状态。
      */
     KeyValueStateIterator createKVStateIterator() throws IOException;
 

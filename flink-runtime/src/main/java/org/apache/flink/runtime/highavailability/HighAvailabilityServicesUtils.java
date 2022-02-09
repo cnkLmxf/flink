@@ -51,7 +51,9 @@ import java.util.concurrent.Executor;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.StringUtils.isNullOrWhitespaceOnly;
 
-/** Utils class to instantiate {@link HighAvailabilityServices} implementations. */
+/** Utils class to instantiate {@link HighAvailabilityServices} implementations.
+ * Utils 类实例化 {@link HighAvailabilityServices} 实现。
+ * */
 public class HighAvailabilityServicesUtils {
 
     public static HighAvailabilityServices createAvailableOrEmbeddedServices(
@@ -150,6 +152,7 @@ public class HighAvailabilityServicesUtils {
 
     /**
      * Returns the JobManager's hostname and port extracted from the given {@link Configuration}.
+     * 返回从给定的 {@link Configuration} 中提取的 JobManager 的主机名和端口。
      *
      * @param configuration Configuration to extract the JobManager's address from
      * @return The JobManager's hostname and port
@@ -183,6 +186,7 @@ public class HighAvailabilityServicesUtils {
 
     /**
      * Get address of web monitor from configuration.
+     * 从配置中获取网络监视器的地址。
      *
      * @param configuration Configuration contains those for WebMonitor.
      * @param resolution Whether to try address resolution of the given hostname or not. This allows
@@ -213,6 +217,7 @@ public class HighAvailabilityServicesUtils {
 
     /**
      * Gets the cluster high available storage path from the provided configuration.
+     * 从提供的配置中获取集群高可用存储路径。
      *
      * <p>The format is {@code HA_STORAGE_PATH/HA_CLUSTER_ID}.
      *
@@ -302,6 +307,7 @@ public class HighAvailabilityServicesUtils {
     /**
      * Enum specifying whether address resolution should be tried or not when creating the {@link
      * HighAvailabilityServices}.
+     * 枚举指定在创建 {@link HighAvailabilityServices} 时是否应尝试地址解析。
      */
     public enum AddressResolution {
         TRY_ADDRESS_RESOLUTION,

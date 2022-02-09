@@ -72,10 +72,19 @@ import java.util.List;
  * also finished their iteration. Starting with the second iteration, the input for the head is the
  * output of the tail, transmitted through the backchannel. Once the iteration is done, the head
  * will send a {@link TerminationEvent} to all it's connected tasks, signaling them to shutdown.
+ * 负责人负责协调迭代并可以在内部运行 {@link Driver}。 它将读取初始输入并建立一个 {@link BlockingBackChannel} 到迭代的尾部。
+ * 成功处理输入后，它将 EndOfSuperstep 事件发送到其输出。
+ * 它还必须连接到一个同步任务，并且在每个超级步之后，它会一直等待，直到它从同步接收到一个 {@link AllWorkersDoneEvent}，
+ * 这表明所有其他头也完成了它们的迭代。 从第二次迭代开始，头部的输入是尾部的输出，通过反向通道传输。
+ * 迭代完成后，head 将向所有连接的任务发送 {@link TerminationEvent}，向它们发出关闭信号。
  *
  * <p>Assumption on the ordering of the outputs: - The first n output gates write to channels that
  * go to the tasks of the step function. - The next m output gates to to the tasks that consume the
  * final solution. - The last output gate connects to the synchronization task.
+ * 关于输出顺序的假设：
+ * - 前 n 个输出门写入通道，这些通道将执行阶跃函数的任务。
+ * - 接下来的 m 个输出门通向消耗最终解决方案的任务。
+ * - 最后一个输出门连接到同步任务。
  *
  * @param <X> The type of the bulk partial solution / solution set and the final output.
  * @param <Y> The type of the feed-back data set (bulk partial solution / workset). For bulk
@@ -101,6 +110,7 @@ public class IterationHeadTask<X, Y, S extends Function, OT> extends AbstractIte
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */
@@ -153,6 +163,7 @@ public class IterationHeadTask<X, Y, S extends Function, OT> extends AbstractIte
     /**
      * The iteration head prepares the backchannel: it allocates memory, instantiates a {@link
      * BlockingBackChannel} and hands it to the iteration tail via a {@link Broker} singleton.
+     * 迭代头准备反向通道：它分配内存，实例化 {@link BlockingBackChannel} 并通过 {@link Broker} 单例将其交给迭代尾。
      */
     private BlockingBackChannel initBackChannel() throws Exception {
 

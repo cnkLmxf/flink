@@ -39,6 +39,8 @@ import static org.apache.flink.util.IOUtils.closeAll;
 /**
  * Executes {@link ChannelStateWriteRequest}s in a separate thread. Any exception occurred during
  * execution causes this thread to stop and the exception to be re-thrown on any subsequent call.
+ * 在单独的线程中执行 {@link ChannelStateWriteRequest}。
+ * 执行期间发生的任何异常都会导致该线程停止，并且在任何后续调用中都会重新引发异常。
  */
 @ThreadSafe
 class ChannelStateWriteRequestExecutorImpl implements ChannelStateWriteRequestExecutor {

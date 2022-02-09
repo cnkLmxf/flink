@@ -27,6 +27,7 @@ import java.io.Serializable;
 /**
  * {@link FencedRpcEndpoint} which is fenced with a fencing token which is bound to the lifetime of
  * the rpc endpoint.
+ * {@link FencedRpcEndpoint} 用一个绑定到 rpc 端点生命周期的隔离令牌来隔离。
  *
  * @param <F> type of the fencing token.
  */

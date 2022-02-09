@@ -68,9 +68,11 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * An input gate consumes one or more partitions of a single produced intermediate result.
+ * 输入门消耗单个生成的中间结果的一个或多个分区。
  *
  * <p>Each intermediate result is partitioned over its producing parallel subtasks; each of these
  * partitions is furthermore partitioned into one or more subpartitions.
+ * 每个中间结果在其产生的并行子任务上进行分区； 此外，这些分区中的每一个都被划分为一个或多个子分区。
  *
  * <p>As an example, consider a map-reduce program, where the map operator produces data and the
  * reduce operator consumes the produced data.
@@ -110,10 +112,14 @@ public class SingleInputGate extends IndexedInputGate {
 
     private static final Logger LOG = LoggerFactory.getLogger(SingleInputGate.class);
 
-    /** Lock object to guard partition requests and runtime channel updates. */
+    /** Lock object to guard partition requests and runtime channel updates.
+     * 锁定对象以保护分区请求和运行时通道更新。
+     * */
     private final Object requestLock = new Object();
 
-    /** The name of the owning task, for logging purposes. */
+    /** The name of the owning task, for logging purposes.
+     * 拥有任务的名称，用于记录目的。
+     * */
     private final String owningTaskName;
 
     private final int gateIndex;
@@ -122,36 +128,46 @@ public class SingleInputGate extends IndexedInputGate {
      * The ID of the consumed intermediate result. Each input gate consumes partitions of the
      * intermediate result specified by this ID. This ID also identifies the input gate at the
      * consuming task.
+     * 消费的中间结果的 ID。 每个输入门使用此 ID 指定的中间结果的分区。 此 ID 还标识消费任务的输入门。
      */
     private final IntermediateDataSetID consumedResultId;
 
-    /** The type of the partition the input gate is consuming. */
+    /** The type of the partition the input gate is consuming.
+     * 输入门正在使用的分区类型。
+     * */
     private final ResultPartitionType consumedPartitionType;
 
     /**
      * The index of the consumed subpartition of each consumed partition. This index depends on the
      * {@link DistributionPattern} and the subtask indices of the producing and consuming task.
+     * 每个消费分区的消费子分区的索引。 该索引取决于 {@link DistributionPattern} 以及生产和消费任务的子任务索引。
      */
     private final int consumedSubpartitionIndex;
 
-    /** The number of input channels (equivalent to the number of consumed partitions). */
+    /** The number of input channels (equivalent to the number of consumed partitions).
+     * 输入通道数（相当于消耗的分区数）。
+     * */
     private final int numberOfInputChannels;
 
     /**
      * Input channels. There is a one input channel for each consumed intermediate result partition.
      * We store this in a map for runtime updates of single channels.
+     * 输入通道。 每个消耗的中间结果分区都有一个输入通道。 我们将其存储在地图中，用于单个通道的运行时更新。
      */
     private final Map<IntermediateResultPartitionID, InputChannel> inputChannels;
 
     @GuardedBy("requestLock")
     private final InputChannel[] channels;
 
-    /** Channels, which notified this input gate about available data. */
+    /** Channels, which notified this input gate about available data.
+     * 通道，它通知这个输入门可用数据。
+     * */
     private final PrioritizedDeque<InputChannel> inputChannelsWithData = new PrioritizedDeque<>();
 
     /**
      * Field guaranteeing uniqueness for inputChannelsWithData queue. Both of those fields should be
      * unified onto one.
+     * 保证 inputChannelsWithData 队列唯一性的字段。 这两个领域应该统一为一个。
      */
     @GuardedBy("inputChannelsWithData")
     private final BitSet enqueuedInputChannelsWithData;
@@ -162,25 +178,32 @@ public class SingleInputGate extends IndexedInputGate {
     @GuardedBy("inputChannelsWithData")
     private int[] lastPrioritySequenceNumber;
 
-    /** The partition producer state listener. */
+    /** The partition producer state listener.
+     * 分区生产者状态监听器。
+     * */
     private final PartitionProducerStateProvider partitionProducerStateProvider;
 
     /**
      * Buffer pool for incoming buffers. Incoming data from remote channels is copied to buffers
      * from this pool.
+     * 传入缓冲区的缓冲池。 来自远程通道的传入数据被复制到此池中的缓冲区。
      */
     private BufferPool bufferPool;
 
     private boolean hasReceivedAllEndOfPartitionEvents;
 
-    /** Flag indicating whether partitions have been requested. */
+    /** Flag indicating whether partitions have been requested.
+     * 指示是否已请求分区的标志。
+     * */
     private boolean requestedPartitionsFlag;
 
     private final List<TaskEvent> pendingEvents = new ArrayList<>();
 
     private int numberOfUninitializedChannels;
 
-    /** A timer to retrigger local partition requests. Only initialized if actually needed. */
+    /** A timer to retrigger local partition requests. Only initialized if actually needed.
+     * 重新触发本地分区请求的计时器。 仅在实际需要时才初始化。
+     * */
     private Timer retriggerLocalRequestTimer;
 
     private final SupplierWithException<BufferPool, IOException> bufferPoolFactory;
@@ -194,6 +217,7 @@ public class SingleInputGate extends IndexedInputGate {
     /**
      * The segment to read data from file region of bounded blocking partition by local input
      * channel.
+     * 通过本地输入通道从有界阻塞分区的文件区域读取数据的段。
      */
     private final MemorySegment unpooledSegment;
 
@@ -352,6 +376,7 @@ public class SingleInputGate extends IndexedInputGate {
 
     /**
      * Returns the type of this input channel's consumed result partition.
+     * 返回此输入通道的消费结果分区的类型。
      *
      * @return consumed result partition type
      */
@@ -415,7 +440,9 @@ public class SingleInputGate extends IndexedInputGate {
         this.bufferPool = checkNotNull(bufferPool);
     }
 
-    /** Assign the exclusive buffers to all remote input channels directly for credit-based mode. */
+    /** Assign the exclusive buffers to all remote input channels directly for credit-based mode.
+     * 为基于信用的模式直接分配独占缓冲区给所有远程输入通道。
+     * */
     @VisibleForTesting
     public void setupChannels() throws IOException {
         synchronized (requestLock) {
@@ -495,7 +522,9 @@ public class SingleInputGate extends IndexedInputGate {
         }
     }
 
-    /** Retriggers a partition request. */
+    /** Retriggers a partition request.
+     * 重新触发分区请求。
+     * */
     public void retriggerPartitionRequest(IntermediateResultPartitionID partitionId)
             throws IOException {
         synchronized (requestLock) {
@@ -565,6 +594,7 @@ public class SingleInputGate extends IndexedInputGate {
 
                     // The buffer pool can actually be destroyed immediately after the
                     // reader received all of the data from the input channels.
+                    // 缓冲池实际上可以在阅读器从输入通道接收到所有数据后立即销毁。
                     if (bufferPool != null) {
                         bufferPool.lazyDestroy();
                     }
@@ -817,12 +847,16 @@ public class SingleInputGate extends IndexedInputGate {
     /**
      * Notifies that the respective channel has a priority event at the head for the given buffer
      * number.
+     * 通知相应通道在给定缓冲区编号的头部具有优先级事件。
      *
      * <p>The buffer number limits the notification to the respective buffer and voids the whole
      * notification in case that the buffer has been polled in the meantime. That is, if task thread
      * polls the enqueued priority buffer before this notification occurs (notification is not
      * performed under lock), this buffer number allows {@link #queueChannel(InputChannel, Integer,
      * boolean)} to avoid spurious priority wake-ups.
+     * 缓冲区编号将通知限制为相应缓冲区，并且在缓冲区已被轮询的情况下使整个通知无效。
+     * 也就是说，如果任务线程在此通知发生之前轮询入队的优先级缓冲区（通知未在锁定下执行），
+     * 则此缓冲区号允许 {@link #queueChannel(InputChannel, Integer, boolean)} 避免虚假的优先级唤醒。
      */
     void notifyPriorityEvent(InputChannel inputChannel, int prioritySequenceNumber) {
         queueChannel(checkNotNull(inputChannel), prioritySequenceNumber, false);
@@ -894,6 +928,7 @@ public class SingleInputGate extends IndexedInputGate {
     /**
      * Queues the channel if not already enqueued and not received EndOfPartition, potentially
      * raising the priority.
+     * 如果尚未入队且未收到 EndOfPartition，则将通道排队，可能会提高优先级。
      *
      * @return true iff it has been enqueued/prioritized = some change to {@link
      *     #inputChannelsWithData} happened

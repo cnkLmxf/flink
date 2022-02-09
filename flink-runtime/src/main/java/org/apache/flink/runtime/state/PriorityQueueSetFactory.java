@@ -29,9 +29,10 @@ public interface PriorityQueueSetFactory {
     /**
      * Creates a {@link KeyGroupedInternalPriorityQueue}.
      *
-     * @param stateName unique name for associated with this queue.
+     * @param stateName unique name for associated with this queue.与此队列关联的唯一名称。
      * @param byteOrderedElementSerializer a serializer that with a format that is lexicographically
      *     ordered in alignment with elementPriorityComparator.
+     *     一个序列化程序，其格式按字典顺序与 elementPriorityComparator 对齐。
      * @param <T> type of the stored elements.
      * @return the queue with the specified unique name.
      */

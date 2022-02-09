@@ -28,6 +28,7 @@ import java.util.Set;
 /**
  * This view maintains the finished progress of consumer {@link SchedulingPipelinedRegion}s for each
  * {@link ConsumedPartitionGroup}.
+ * 此视图维护每个 {@link ConsumedPartitionGroup} 的消费者 {@link SchedulingPipelinedRegion} 的完成进度。
  */
 public class ConsumerRegionGroupExecutionView implements Iterable<SchedulingPipelinedRegion> {
 

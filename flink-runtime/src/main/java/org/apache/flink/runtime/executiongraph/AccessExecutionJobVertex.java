@@ -25,6 +25,7 @@ import org.apache.flink.runtime.jobgraph.JobVertexID;
 /**
  * Common interface for the runtime {@link ExecutionJobVertex} and {@link
  * ArchivedExecutionJobVertex}.
+ * 运行时 {@link ExecutionJobVertex} 和 {@link ArchivedExecutionJobVertex} 的通用接口。
  */
 public interface AccessExecutionJobVertex {
     /**
@@ -50,6 +51,7 @@ public interface AccessExecutionJobVertex {
 
     /**
      * Returns the resource profile for this job vertex.
+     * 返回此作业顶点的资源配置文件。
      *
      * @return resource profile for this job vertex.
      */
@@ -64,6 +66,7 @@ public interface AccessExecutionJobVertex {
 
     /**
      * Returns all execution vertices for this job vertex.
+     * 返回此作业顶点的所有执行顶点。
      *
      * @return all execution vertices for this job vertex
      */
@@ -71,6 +74,7 @@ public interface AccessExecutionJobVertex {
 
     /**
      * Returns the aggregated {@link ExecutionState} for this job vertex.
+     * 返回此作业顶点的聚合 {@link ExecutionState}。
      *
      * @return aggregated state for this job vertex
      */
@@ -78,6 +82,7 @@ public interface AccessExecutionJobVertex {
 
     /**
      * Returns the aggregated user-defined accumulators as strings.
+     * 将聚合的用户定义累加器作为字符串返回。
      *
      * @return aggregated user-defined accumulators as strings.
      */

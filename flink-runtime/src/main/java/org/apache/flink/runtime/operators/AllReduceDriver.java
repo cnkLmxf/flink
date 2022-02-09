@@ -34,9 +34,12 @@ import org.slf4j.LoggerFactory;
 /**
  * Reduce task which is executed by a Task Manager. The task has a single input and one or multiple
  * outputs. It is provided with a ReduceFunction implementation.
+ * 减少由任务管理器执行的任务。 该任务有一个输入和一个或多个输出。 它提供了一个 ReduceFunction 实现。
  *
  * <p>The AllReduceDriver creates an iterator over all records from its input. The elements are
  * handed pairwise to the <code>reduce()</code> method of the ReduceFunction.
+ * AllReduceDriver 在其输入的所有记录上创建一个迭代器。
+ * 元素成对地传递给 ReduceFunction 的 <code>reduce()</code> 方法。
  *
  * @see org.apache.flink.api.common.functions.ReduceFunction
  */

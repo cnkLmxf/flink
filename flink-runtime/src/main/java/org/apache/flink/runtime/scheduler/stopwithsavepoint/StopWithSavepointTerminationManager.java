@@ -37,6 +37,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * {@code StopWithSavepointTerminationManager} fulfills the contract given by {@link
  * StopWithSavepointTerminationHandler} to run the stop-with-savepoint steps in a specific order.
+ * {@code StopWithSavepointTerminationManager} 履行 {@lin StopWithSavepointTerminationHandler} 给出的合同，
+ * 以特定顺序运行 stop-with-savepoint 步骤。
  */
 public class StopWithSavepointTerminationManager {
 

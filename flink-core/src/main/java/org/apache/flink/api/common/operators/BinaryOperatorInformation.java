@@ -24,6 +24,7 @@ import org.apache.flink.api.common.typeinfo.TypeInformation;
 /**
  * A class for holding information about a single input operator, such as input/output
  * TypeInformation.
+ * 用于保存有关单个输入运算符的信息的类，例如输入/输出 TypeInformation。
  *
  * @param <IN1> Output type of first input operator
  * @param <IN2> Output type of second input operator

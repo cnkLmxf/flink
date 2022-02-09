@@ -30,6 +30,7 @@ import java.io.IOException;
 /**
  * Simple wrapper for the partition readerQueue iterator, which increments a sequence number for
  * each returned buffer and remembers the receiver ID.
+ * 分区 readerQueue 迭代器的简单包装器，它为每个返回的缓冲区增加一个序列号并记住接收者 ID。
  */
 public interface NetworkSequenceViewReader {
 
@@ -44,16 +45,20 @@ public interface NetworkSequenceViewReader {
 
     /**
      * The credits from consumer are added in incremental way.
+     * 来自消费者的信用以增量方式添加。
      *
      * @param creditDeltas The credit deltas
      */
     void addCredit(int creditDeltas);
 
-    /** Resumes data consumption after an exactly once checkpoint. */
+    /** Resumes data consumption after an exactly once checkpoint.
+     * 在恰好一次检查点后恢复数据消耗。
+     * */
     void resumeConsumption();
 
     /**
      * Checks whether this reader is available or not.
+     * 检查此阅读器是否可用。
      *
      * @return True if the reader is available.
      */
@@ -63,6 +68,7 @@ public interface NetworkSequenceViewReader {
 
     /**
      * Updates the value to indicate whether the reader is enqueued in the pipeline or not.
+     * 更新值以指示读取器是否在管道中排队。
      *
      * @param isRegisteredAvailable True if this reader is already enqueued in the pipeline.
      */

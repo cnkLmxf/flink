@@ -46,6 +46,7 @@ import java.util.Map;
 /**
  * Base data flow operator for Reduce user-defined functions. Accepts reduce functions and key
  * positions. The key positions are expected in the flattened common data model.
+ * Reduce 用户定义函数的基本数据流运算符。 接受减少功能和关键位置。 关键位置预计在展平的公共数据模型中。
  *
  * @see org.apache.flink.api.common.functions.ReduceFunction
  * @param <T> The type (parameters and return type) of the reduce function.
@@ -59,25 +60,33 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
      * An enumeration of hints, optionally usable to tell the system exactly how to execute the
      * combiner phase of a reduce. (Note: The final reduce phase (after combining) is currently
      * always executed by a sort-based strategy.)
+     * 提示的枚举，可选择用于告诉系统如何准确执行 reduce 的组合器阶段。
+     * （注意：最终的 reduce 阶段（合并后）目前总是由基于排序的策略执行。）
      */
     public enum CombineHint {
 
         /**
          * Leave the choice how to do the combine to the optimizer. (This currently defaults to
          * SORT.)
+         * 将如何进行组合的选择留给优化器。 （目前默认为 SORT。）
          */
         OPTIMIZER_CHOOSES,
 
-        /** Use a sort-based strategy. */
+        /** Use a sort-based strategy.
+         * 使用基于排序的策略。
+         * */
         SORT,
 
         /**
          * Use a hash-based strategy. This should be faster in most cases, especially if the number
          * of different keys is small compared to the number of input elements (eg. 1/10).
+         * 使用基于哈希的策略。 在大多数情况下，这应该更快，尤其是当不同键的数量与输入元素的数量相比（例如 1/10）时。
          */
         HASH,
 
-        /** Disable the use of a combiner. */
+        /** Disable the use of a combiner.
+         * 禁用组合器。
+         * */
         NONE
     }
 
@@ -87,6 +96,7 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
 
     /**
      * Creates a grouped reduce data flow operator.
+     * 创建分组归约数据流运算符。
      *
      * @param udf The user-defined function, contained in the UserCodeWrapper.
      * @param operatorInfo The type information, describing input and output types of the reduce
@@ -104,6 +114,7 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
 
     /**
      * Creates a grouped reduce data flow operator.
+     * 创建分组归约数据流运算符。
      *
      * @param udf The user-defined function, as a function object.
      * @param operatorInfo The type information, describing input and output types of the reduce
@@ -118,6 +129,7 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
 
     /**
      * Creates a grouped reduce data flow operator.
+     * 创建分组归约数据流运算符。
      *
      * @param udf The class representing the parameterless user-defined function.
      * @param operatorInfo The type information, describing input and output types of the reduce
@@ -139,6 +151,7 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
 
     /**
      * Creates a non-grouped reduce data flow operator (all-reduce).
+     * 创建一个非分组的 reduce 数据流操作符 (all-reduce)。
      *
      * @param udf The user-defined function, contained in the UserCodeWrapper.
      * @param operatorInfo The type information, describing input and output types of the reduce
@@ -152,6 +165,7 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
 
     /**
      * Creates a non-grouped reduce data flow operator (all-reduce).
+     * 创建一个非分组的 reduce 数据流操作符 (all-reduce)。
      *
      * @param udf The user-defined function, as a function object.
      * @param operatorInfo The type information, describing input and output types of the reduce
@@ -164,6 +178,7 @@ public class ReduceOperatorBase<T, FT extends ReduceFunction<T>>
 
     /**
      * Creates a non-grouped reduce data flow operator (all-reduce).
+     * 创建一个非分组的 reduce 数据流操作符 (all-reduce)。
      *
      * @param udf The class representing the parameterless user-defined function.
      * @param operatorInfo The type information, describing input and output types of the reduce

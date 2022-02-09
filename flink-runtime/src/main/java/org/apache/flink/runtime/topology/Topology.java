@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.topology;
 
-/** Extends the {@link BaseTopology} by pipelined regions. */
+/** Extends the {@link BaseTopology} by pipelined regions.
+ * 通过流水线区域扩展 {@link BaseTopology}。
+ * */
 public interface Topology<
                 VID extends VertexID,
                 RID extends ResultID,

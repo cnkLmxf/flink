@@ -22,6 +22,7 @@ import java.util.UUID;
 
 /**
  * Listener for timeout events by the {@link TimerService}.
+ * {@link TimerService} 的超时事件监听器。
  *
  * @param <K> Type of the timeout key
  */

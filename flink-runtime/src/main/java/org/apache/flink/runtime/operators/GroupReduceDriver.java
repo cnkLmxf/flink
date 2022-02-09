@@ -37,10 +37,13 @@ import org.slf4j.LoggerFactory;
 /**
  * GroupReduce task which is executed by a Task Manager. The task has a single input and one or
  * multiple outputs. It is provided with a GroupReduceFunction implementation.
+ * GroupReduce 任务，由任务管理器执行。 该任务有一个输入和一个或多个输出。 它提供了一个 GroupReduceFunction 实现。
  *
  * <p>The GroupReduceDriver creates a iterator over all records from its input. The iterator returns
  * all records grouped by their key. The iterator is handed to the <code>reduce()</code> method of
  * the GroupReduceFunction.
+ * GroupReduceDriver 在其输入的所有记录上创建一个迭代器。
+ * 迭代器返回按其键分组的所有记录。 迭代器被交给 GroupReduceFunction 的 <code>reduce()</code> 方法。
  *
  * @see org.apache.flink.api.common.functions.GroupReduceFunction
  */

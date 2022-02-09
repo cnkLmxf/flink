@@ -31,24 +31,25 @@ import java.util.List;
 /**
  * Abstract base class for all operators. An operator is a source, sink, or it applies an operation
  * to one or more inputs, producing a result.
+ * 所有运算符的抽象基类。 运算符是source、sink，或者它将操作应用于一个或多个输入，产生结果。
  *
  * @param <OUT> Output type of the records output by this operator
  */
 @Internal
 public abstract class Operator<OUT> implements Visitable<Operator<?>> {
-
+    //参数化UDF的参数
     protected final Configuration parameters; // the parameters to parameterize the UDF
 
     protected CompilerHints compilerHints; // hints to the compiler
-
+    // 合约实例的名称。 选修的。
     protected String name; // the name of the contract instance. optional.
-
+    // 要使用的并行实例数
     private int parallelism =
             ExecutionConfig.PARALLELISM_DEFAULT; // the number of parallel instances to use
-
+    // 合约实例的最小资源。
     private ResourceSpec minResources =
             ResourceSpec.DEFAULT; // the minimum resource of the contract instance.
-
+    // 合约实例的首选资源。
     private ResourceSpec preferredResources =
             ResourceSpec.DEFAULT; // the preferred resource of the contract instance.
 
@@ -60,6 +61,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Creates a new contract with the given name. The parameters are empty by default and the
      * compiler hints are not set.
+     * 创建具有给定名称的新合同。 默认情况下参数为空，并且未设置编译器提示。
      *
      * @param name The name that is used to describe the contract.
      */
@@ -70,7 +72,9 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
         this.operatorInfo = operatorInfo;
     }
 
-    /** Gets the information about the operators input/output types. */
+    /** Gets the information about the operators input/output types.
+     * 获取有关运算符输入/输出类型的信息。
+     * */
     public OperatorInformation<OUT> getOperatorInfo() {
         return operatorInfo;
     }
@@ -78,6 +82,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Gets the name of the contract instance. The name is only used to describe the contract
      * instance in logging output and graphical representations.
+     * 获取合约实例的名称。 该名称仅用于在日志输出和图形表示中描述合约实例。
      *
      * @return The contract instance's name.
      */
@@ -88,6 +93,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Sets the name of the contract instance. The name is only used to describe the contract
      * instance in logging output and graphical representations.
+     * 设置合约实例的名称。 该名称仅用于在日志输出和图形表示中描述合约实例。
      *
      * @param name The operator's name.
      */
@@ -99,6 +105,8 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * Gets the compiler hints for this contract instance. In the compiler hints, different fields
      * may be set (for example the selectivity) that will be evaluated by the pact compiler when
      * generating plan alternatives.
+     * 获取此合约实例的编译器提示。 在编译器提示中，可以设置不同的字段（例如选择性），
+     * 这些字段将由协议编译器在生成计划备选方案时进行评估。
      *
      * @return The compiler hints object.
      */
@@ -111,6 +119,8 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * keys to string or integer values. The map is accessible by the user code at runtime.
      * Parameters that the user code needs to access at runtime to configure its behavior are
      * typically stored in that configuration object.
+     * 获取此合约的存根参数。 存根参数是将字符串键映射到字符串或整数值的映射。 该地图可由用户代码在运行时访问。
+     * 用户代码需要在运行时访问以配置其行为的参数通常存储在该配置对象中。
      *
      * @return The configuration containing the stub parameters.
      */
@@ -122,6 +132,8 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * Sets a stub parameters in the configuration of this contract. The stub parameters are
      * accessible by the user code at runtime. Parameters that the user code needs to access at
      * runtime to configure its behavior are typically stored as stub parameters.
+     * 在此合约的配置中设置存根参数。 存根参数可由用户代码在运行时访问。
+     * 用户代码需要在运行时访问以配置其行为的参数通常存储为存根参数。
      *
      * @see #getParameters()
      * @param key The parameter key.
@@ -135,6 +147,8 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * Sets a stub parameters in the configuration of this contract. The stub parameters are
      * accessible by the user code at runtime. Parameters that the user code needs to access at
      * runtime to configure its behavior are typically stored as stub parameters.
+     * 在此合约的配置中设置存根参数。 存根参数可由用户代码在运行时访问。
+     * 用户代码需要在运行时访问以配置其行为的参数通常存储为存根参数。
      *
      * @see #getParameters()
      * @param key The parameter key.
@@ -148,6 +162,8 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * Sets a stub parameters in the configuration of this contract. The stub parameters are
      * accessible by the user code at runtime. Parameters that the user code needs to access at
      * runtime to configure its behavior are typically stored as stub parameters.
+     * 在此合约的配置中设置存根参数。 存根参数可由用户代码在运行时访问。
+     * 用户代码需要在运行时访问以配置其行为的参数通常存储为存根参数。
      *
      * @see #getParameters()
      * @param key The parameter key.
@@ -162,6 +178,8 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * instances of the user function will be spawned during the execution. If this value is {@link
      * ExecutionConfig#PARALLELISM_DEFAULT}, then the system will decide the number of parallel
      * instances by itself.
+     * 获取此合约实例的并行度。 并行度表示在执行期间将产生多少个用户函数的并行实例。
+     * 如果此值为 {@link ExecutionConfig#PARALLELISM_DEFAULT}，则系统将自行决定并行实例的数量。
      *
      * @return The parallelism.
      */
@@ -172,6 +190,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Sets the parallelism for this contract instance. The parallelism denotes how many parallel
      * instances of the user function will be spawned during the execution.
+     * 设置此合约实例的并行度。 并行度表示在执行期间将产生多少个用户函数的并行实例。
      *
      * @param parallelism The number of parallel instances to spawn. Set this value to {@link
      *     ExecutionConfig#PARALLELISM_DEFAULT} to let the system decide on its own.
@@ -184,6 +203,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * Gets the minimum resources for this operator. The minimum resources denotes how many
      * resources will be needed at least minimum for the operator or user function during the
      * execution.
+     * 获取此运算符的最少资源。 最小资源表示在执行期间操作员或用户功能至少需要多少资源。
      *
      * @return The minimum resources of this operator.
      */
@@ -195,6 +215,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Gets the preferred resources for this contract instance. The preferred resources denote how
      * many resources will be needed in the maximum for the user function during the execution.
+     * 获取此合约实例的首选资源。 优选资源表示在执行期间用户功能最多需要多少资源。
      *
      * @return The preferred resource of this operator.
      */
@@ -206,6 +227,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Sets the minimum and preferred resources for this contract instance. The resource denotes how
      * many memories and cpu cores of the user function will be consumed during the execution.
+     * 设置此合约实例的最小资源和首选资源。 资源表示在执行期间将消耗用户函数的内存和 cpu 核心数。
      *
      * @param minResources The minimum resource of this operator.
      * @param preferredResources The preferred resource of this operator.
@@ -219,6 +241,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Gets the user code wrapper. In the case of a pact, that object will be the stub with the user
      * function, in the case of an input or output format, it will be the format object.
+     * 获取用户代码包装器。 在协议的情况下，该对象将是具有用户功能的存根，在输入或输出格式的情况下，它将是格式对象。
      *
      * @return The class with the user code.
      */
@@ -231,6 +254,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Takes a list of operators and creates a cascade of unions of this inputs, if needed. If not
      * needed (there was only one operator in the list), then that operator is returned.
+     * 如果需要，获取运算符列表并创建此输入的级联联合。 如果不需要（列表中只有一个运算符），则返回该运算符。
      *
      * @param operators The operators.
      * @return The single operator or a cascade of unions of the operators.
@@ -244,6 +268,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
     /**
      * Takes a list of operators and creates a cascade of unions of this inputs, if needed. If not
      * needed (there was only one operator in the list), then that operator is returned.
+     * 如果需要，获取运算符列表并创建此输入的级联联合。 如果不需要（列表中只有一个运算符），则返回该运算符。
      *
      * @param operators The operators.
      * @return The single operator or a cascade of unions of the operators.
@@ -256,6 +281,7 @@ public abstract class Operator<OUT> implements Visitable<Operator<?>> {
      * Takes a single Operator and a list of operators and creates a cascade of unions of this
      * inputs, if needed. If not needed there was only one operator as input, then this operator is
      * returned.
+     * 采用单个运算符和运算符列表，并在需要时创建此输入的级联联合。 如果不需要只有一个运算符作为输入，则返回此运算符。
      *
      * @param input1 The first input operator.
      * @param input2 The other input operators.

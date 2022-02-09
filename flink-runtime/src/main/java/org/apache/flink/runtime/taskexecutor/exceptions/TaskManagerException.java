@@ -20,7 +20,9 @@ package org.apache.flink.runtime.taskexecutor.exceptions;
 
 import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 
-/** Base exception thrown by the {@link TaskExecutor}. */
+/** Base exception thrown by the {@link TaskExecutor}.
+ * {@link TaskExecutor} 引发的基本异常。
+ * */
 public class TaskManagerException extends Exception {
 
     private static final long serialVersionUID = -2997745772227694731L;

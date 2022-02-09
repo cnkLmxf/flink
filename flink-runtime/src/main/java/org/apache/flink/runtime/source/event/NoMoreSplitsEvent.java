@@ -24,6 +24,8 @@ import org.apache.flink.runtime.operators.coordination.OperatorEvent;
  * A source event sent from the SplitEnumerator to the SourceReader to indicate that no more splits
  * will be assigned to the source reader anymore. So once the SplitReader finishes reading the
  * currently assigned splits, they can exit.
+ * 从 SplitEnumerator 发送到 SourceReader 的源事件，指示不再将拆分分配给源读取器。
+ * 因此，一旦 SplitReader 完成读取当前分配的拆分，它们就可以退出。
  */
 public class NoMoreSplitsEvent implements OperatorEvent {
 

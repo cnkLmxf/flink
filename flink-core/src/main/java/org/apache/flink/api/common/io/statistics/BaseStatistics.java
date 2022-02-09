@@ -21,23 +21,32 @@ package org.apache.flink.api.common.io.statistics;
 import org.apache.flink.annotation.Public;
 import org.apache.flink.annotation.PublicEvolving;
 
-/** Interface describing the basic statistics that can be obtained from the input. */
+/** Interface describing the basic statistics that can be obtained from the input.
+ * 描述可以从输入中获得的基本统计信息的接口。
+ * */
 @Public
 public interface BaseStatistics {
 
-    /** Constant indicating that the input size is unknown. */
+    /** Constant indicating that the input size is unknown.
+     * 表示输入大小未知的常量。
+     * */
     @PublicEvolving public static final long SIZE_UNKNOWN = -1;
 
-    /** Constant indicating that the number of records is unknown; */
+    /** Constant indicating that the number of records is unknown;
+     * 表示记录数未知的常量；
+     * */
     @PublicEvolving public static final long NUM_RECORDS_UNKNOWN = -1;
 
-    /** Constant indicating that average record width is unknown. */
+    /** Constant indicating that average record width is unknown.
+     * 表示平均记录宽度未知的常数。
+     * */
     @PublicEvolving public static final float AVG_RECORD_BYTES_UNKNOWN = -1.0f;
 
     // --------------------------------------------------------------------------------------------
 
     /**
      * Gets the total size of the input.
+     * 获取输入的总大小。
      *
      * @return The total size of the input, in bytes.
      */
@@ -46,6 +55,7 @@ public interface BaseStatistics {
 
     /**
      * Gets the number of records in the input (= base cardinality).
+     * 获取输入中的记录数（= 基数）。
      *
      * @return The number of records in the input.
      */
@@ -54,6 +64,7 @@ public interface BaseStatistics {
 
     /**
      * Gets the average width of a record, in bytes.
+     * 获取记录的平均宽度，以字节为单位。
      *
      * @return The average width of a record in bytes.
      */

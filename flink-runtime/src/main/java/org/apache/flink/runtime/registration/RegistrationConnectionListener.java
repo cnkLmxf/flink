@@ -21,6 +21,7 @@ package org.apache.flink.runtime.registration;
 /**
  * Classes which want to be notified about the registration result by the {@link
  * RegisteredRpcConnection} have to implement this interface.
+ * 想要通过 {@link RegisteredRpcConnection} 通知注册结果的类必须实现这个接口。
  */
 public interface RegistrationConnectionListener<
         T extends RegisteredRpcConnection<?, ?, S, ?>,
@@ -30,6 +31,7 @@ public interface RegistrationConnectionListener<
     /**
      * This method is called by the {@link RegisteredRpcConnection} when the registration is
      * success.
+     * 该方法在注册成功时由{@link RegisteredRpcConnection}调用。
      *
      * @param success The concrete response information for successful registration.
      * @param connection The instance which established the connection
@@ -38,6 +40,7 @@ public interface RegistrationConnectionListener<
 
     /**
      * This method is called by the {@link RegisteredRpcConnection} when the registration fails.
+     * 该方法在注册失败时由 {@link RegisteredRpcConnection} 调用。
      *
      * @param failure The exception which causes the registration failure.
      */
@@ -46,6 +49,7 @@ public interface RegistrationConnectionListener<
     /**
      * This method is called by the {@link RegisteredRpcConnection} when the registration is
      * rejected.
+     * 当注册被拒绝时，此方法由 {@link RegisteredRpcConnection} 调用。
      *
      * @param targetAddress targetAddress from which the registration was rejected.
      * @param rejection rejection containing more information.

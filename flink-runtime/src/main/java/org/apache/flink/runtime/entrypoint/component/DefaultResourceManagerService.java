@@ -26,6 +26,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Default {@link DispatcherResourceManagerComponent.ResourceManagerService} implementation which
  * uses a {@link ResourceManager} instance.
+ * 默认 {@link DispatcherResourceManagerComponent.ResourceManagerService} 实现使用 {@link ResourceManager} 实例。
  */
 public class DefaultResourceManagerService
         implements DispatcherResourceManagerComponent.ResourceManagerService {

@@ -76,6 +76,7 @@ import java.util.concurrent.ScheduledExecutorService;
 /**
  * Abstract class which implements the creation of the {@link DispatcherResourceManagerComponent}
  * components.
+ * 实现 {@link DispatcherResourceManagerComponent} 组件创建的抽象类。
  */
 public class DefaultDispatcherResourceManagerComponentFactory
         implements DispatcherResourceManagerComponentFactory {

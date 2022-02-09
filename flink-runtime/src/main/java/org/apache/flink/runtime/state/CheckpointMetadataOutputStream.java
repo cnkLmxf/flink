@@ -24,11 +24,14 @@ import java.io.IOException;
 
 /**
  * An output stream for checkpoint metadata.
+ * 检查点元数据的输出流。
  *
  * <p>This stream is similar to the {@link CheckpointStreamFactory.CheckpointStateOutputStream}, but
  * for metadata files rather thancdata files.
+ * 此流类似于 {@link CheckpointStreamFactory.CheckpointStateOutputStream}，但用于元数据文件而不是 cdata 文件。
  *
  * <p>This stream always creates a file, regardless of the amount of data written.
+ * 无论写入的数据量如何，此流始终会创建一个文件。
  */
 public abstract class CheckpointMetadataOutputStream extends FSDataOutputStream {
 

@@ -56,9 +56,13 @@ public class BufferDecompressor {
      * will be stored in the intermediate buffer of this {@link BufferDecompressor} and returned to
      * the caller. The caller must guarantee that the returned {@link Buffer} has been freed when
      * calling the method next time.
+     * 使用 {@link BlockDecompressor} 解压缩给定的 {@link Buffer}。
+     * 解压后的数据会存放在这个 {@link BufferDecompressor} 的中间缓冲区中，并返回给调用者。
+     * 调用者必须保证下次调用该方法时返回的 {@link Buffer} 已被释放。
      *
      * <p>Notes that the decompression will always start from offset 0 to the size of the input
      * {@link Buffer}.
+     * 注意解压总是从偏移量 0 开始到输入 {@link Buffer} 的大小。
      */
     public Buffer decompressToIntermediateBuffer(Buffer buffer) {
         int decompressedLen = decompress(buffer);
@@ -71,9 +75,12 @@ public class BufferDecompressor {
      * The difference between this method and {@link #decompressToIntermediateBuffer(Buffer)} is
      * that this method copies the decompressed data to the input {@link Buffer} starting from
      * offset 0.
+     * 该方法与 {@link #decompressToIntermediateBuffer(Buffer)} 的区别在于，
+     * 该方法将解压后的数据从偏移量 0 开始复制到输入 {@link Buffer}。
      *
      * <p>The caller must guarantee that the input {@link Buffer} is writable and there's enough
      * space left.
+     * 调用者必须保证输入 {@link Buffer} 是可写的并且有足够的空间。
      */
     @VisibleForTesting
     public Buffer decompressToOriginalBuffer(Buffer buffer) {
@@ -91,6 +98,7 @@ public class BufferDecompressor {
     /**
      * Decompresses the input {@link Buffer} into the intermediate buffer and returns the
      * decompressed data size.
+     * 将输入 {@link Buffer} 解压到中间缓冲区并返回解压后的数据大小。
      */
     private int decompress(Buffer buffer) {
         checkArgument(buffer != null, "The input buffer must not be null.");

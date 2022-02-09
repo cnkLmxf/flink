@@ -29,6 +29,11 @@ import java.util.Objects;
  * can not be used because it: a) identifies the whole {@link
  * org.apache.flink.runtime.io.network.partition.ResultPartition ResultPartition} b) is generated
  * randomly.
+ * 标识给定子任务中的 {@link org.apache.flink.runtime.io.network.partition.ResultSubpartition ResultSubpartition}。
+ * 请注意，不能使用 {@link org.apache.flink.runtime.jobgraph.IntermediateResultPartitionID IntermediateResultPartitionID}，
+ * 因为它：
+ * a) 标识整个 {@link org.apache.flink.runtime.io.network.partition.ResultPartition ResultPartition}
+ * b) 随机生成。
  */
 @Internal
 public class ResultSubpartitionInfo implements Serializable {

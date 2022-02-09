@@ -39,7 +39,9 @@ public class TaskManagerRegistration {
 
     private int numberFreeSlots;
 
-    /** Timestamp when the last time becoming idle. Otherwise Long.MAX_VALUE. */
+    /** Timestamp when the last time becoming idle. Otherwise Long.MAX_VALUE.
+     * 上次空闲时的时间戳。 否则 Long.MAX_VALUE。
+     * */
     private long idleSince;
 
     public TaskManagerRegistration(

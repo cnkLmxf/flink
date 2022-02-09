@@ -27,10 +27,13 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-/** Provide the information of TaskManager's resource and slot status. */
+/** Provide the information of TaskManager's resource and slot status.
+ * 提供TaskManager的资源和槽状态信息。
+ * */
 interface TaskManagerResourceInfoProvider {
     /**
      * Get the pending allocations of the given pending task manager.
+     * 获取给定待处理任务管理器的待处理分配。
      *
      * @param pendingTaskManagerId of the pending task manager
      * @return pending allocations, mapped by jobId
@@ -40,6 +43,7 @@ interface TaskManagerResourceInfoProvider {
 
     /**
      * Get the {@link TaskManagerInfo}s of all registered task managers.
+     * 获取所有已注册任务管理器的{@link TaskManagerInfo}。
      *
      * @return a collection of {@link TaskManagerInfo}s of all registered task managers.
      */
@@ -47,6 +51,7 @@ interface TaskManagerResourceInfoProvider {
 
     /**
      * Get the {@link TaskManagerInfo} of a registered task manager with the given instanceId
+     * 获取具有给定 instanceId 的已注册任务管理器的 {@link TaskManagerInfo}
      *
      * @param instanceId of the task manager
      * @return An Optional of {@link TaskManagerInfo}, if find, of the task manager
@@ -55,6 +60,7 @@ interface TaskManagerResourceInfoProvider {
 
     /**
      * Get all pending task managers.
+     * 获取所有待处理的任务管理器。
      *
      * @return a collection of {@link PendingTaskManager}s.
      */
@@ -62,6 +68,7 @@ interface TaskManagerResourceInfoProvider {
 
     /**
      * Get the {@link TaskManagerSlotInformation} of the allocated slot with the given allocationId.
+     * 使用给定的 allocationId 获取已分配槽的 {@link TaskManagerSlotInformation}。
      *
      * @param allocationId of the slot
      * @return An Optional of {@link TaskManagerSlotInformation}, if find, of the slot
@@ -70,6 +77,7 @@ interface TaskManagerResourceInfoProvider {
 
     /**
      * Get all pending task managers with given total and default slot profile.
+     * 获取具有给定总和默认插槽配置文件的所有待处理任务管理器。
      *
      * @param totalResourceProfile of the pending task manager
      * @param defaultSlotResourceProfile of the pending task manager

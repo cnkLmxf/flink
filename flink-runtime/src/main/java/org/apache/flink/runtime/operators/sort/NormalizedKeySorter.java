@@ -207,6 +207,7 @@ public final class NormalizedKeySorter<T> implements InMemorySorter<T> {
 
     /**
      * Resets the sort buffer back to the state where it is empty. All contained data is discarded.
+     * 将排序缓冲区重置为空状态。 所有包含的数据都将被丢弃。
      */
     @Override
     public void reset() {
@@ -230,6 +231,7 @@ public final class NormalizedKeySorter<T> implements InMemorySorter<T> {
 
     /**
      * Checks whether the buffer is empty.
+     * 检查缓冲区是否为空。
      *
      * @return True, if no record is contained, false otherwise.
      */
@@ -272,6 +274,7 @@ public final class NormalizedKeySorter<T> implements InMemorySorter<T> {
     /**
      * Writes a given record to this sort buffer. The written record will be appended and take the
      * last logical position.
+     * 将给定记录写入此排序缓冲区。 写入的记录将被附加并占据最后一个逻辑位置。
      *
      * @param record The record to be written.
      * @return True, if the record was successfully written, false, if the sort buffer was full.
@@ -441,6 +444,7 @@ public final class NormalizedKeySorter<T> implements InMemorySorter<T> {
 
     /**
      * Gets an iterator over all records in this buffer in their logical order.
+     * 按逻辑顺序获取此缓冲区中所有记录的迭代器。
      *
      * @return An iterator returning the records in their logical order.
      */
@@ -508,6 +512,7 @@ public final class NormalizedKeySorter<T> implements InMemorySorter<T> {
 
     /**
      * Writes the records in this buffer in their logical order to the given output.
+     * 将此缓冲区中的记录按其逻辑顺序写入给定输出。
      *
      * @param output The output view to write the records to.
      * @throws IOException Thrown, if an I/O exception occurred writing to the output view.
@@ -563,6 +568,7 @@ public final class NormalizedKeySorter<T> implements InMemorySorter<T> {
 
     /**
      * Writes a subset of the records in this buffer in their logical order to the given output.
+     * 将此缓冲区中的记录子集按逻辑顺序写入给定输出。
      *
      * @param output The output view to write the records to.
      * @param start The logical start position of the subset.

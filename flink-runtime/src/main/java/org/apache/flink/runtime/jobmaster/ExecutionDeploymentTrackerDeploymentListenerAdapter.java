@@ -24,6 +24,7 @@ import org.apache.flink.runtime.executiongraph.ExecutionDeploymentListener;
 /**
  * An adapter for using an {@link ExecutionDeploymentTracker} as an {@link
  * ExecutionDeploymentListener}.
+ * 使用 {@link ExecutionDeploymentTracker} 作为 {@link ExecutionDeploymentListener} 的适配器。
  */
 public class ExecutionDeploymentTrackerDeploymentListenerAdapter
         implements ExecutionDeploymentListener {

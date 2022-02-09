@@ -25,6 +25,7 @@ import java.time.Duration;
 /**
  * An implementation of {@link RetryStrategy} that retries that has an exponential backoff with a
  * cap.
+ * {@link RetryStrategy} 的实现，它重试具有带上限的指数回退。
  */
 public class ExponentialBackoffRetryStrategy implements RetryStrategy {
     private final int remainingRetries;

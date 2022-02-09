@@ -21,7 +21,9 @@ package org.apache.flink.runtime.taskexecutor;
 
 import org.apache.flink.runtime.executiongraph.ExecutionAttemptID;
 
-/** Task interface used by {@link ThreadInfoSampleService} for thread info tracking. */
+/** Task interface used by {@link ThreadInfoSampleService} for thread info tracking.
+ * {@link ThreadInfoSampleService} 用于线程信息跟踪的任务接口。
+ * */
 interface SampleableTask {
 
     Thread getExecutingThread();

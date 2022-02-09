@@ -36,6 +36,7 @@ import java.util.List;
 
 /**
  * Abstract superclass for data sources in a Pact plan.
+ * Pact 计划中数据源的抽象超类。
  *
  * @param <OUT> The output type of the data source
  * @param <T> The type of input format invoked by instances of this data source.
@@ -53,6 +54,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
 
     /**
      * Creates a new instance for the given file using the given input format.
+     * 使用给定的输入格式为给定文件创建一个新实例。
      *
      * @param format The {@link org.apache.flink.api.common.io.InputFormat} implementation used to
      *     read the data.
@@ -72,6 +74,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
     /**
      * Creates a new instance for the given file using the given input format, using the default
      * name.
+     * 使用给定的输入格式，使用默认名称为给定文件创建一个新实例。
      *
      * @param format The {@link org.apache.flink.api.common.io.InputFormat} implementation used to
      *     read the data.
@@ -89,6 +92,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
 
     /**
      * Creates a new instance for the given file using the given input format.
+     * 使用给定的输入格式为给定文件创建一个新实例。
      *
      * @param format The {@link org.apache.flink.api.common.io.InputFormat} implementation used to
      *     read the data.
@@ -109,6 +113,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
     /**
      * Creates a new instance for the given file using the given input format, using the default
      * name.
+     * 使用给定的输入格式，使用默认名称为给定文件创建一个新实例。
      *
      * @param format The {@link org.apache.flink.api.common.io.InputFormat} implementation used to
      *     read the data.
@@ -128,6 +133,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
 
     /**
      * Gets the class describing the input format.
+     * 获取描述输入格式的类。
      *
      * @return The class describing the input format.
      */
@@ -137,8 +143,10 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
 
     /**
      * Gets the class describing the input format.
+     * 获取描述输入格式的类。
      *
      * <p>This method is basically identical to {@link #getFormatWrapper()}.
+     * 此方法与 {@link #getFormatWrapper()} 基本相同。
      *
      * @return The class describing the input format.
      * @see org.apache.flink.api.common.operators.Operator#getUserCodeWrapper()
@@ -153,6 +161,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
     /**
      * Gets the key under which statistics about this data source may be obtained from the
      * statistics cache.
+     * 获取可以从统计缓存中获取有关此数据源的统计信息的键。
      *
      * @return The statistics cache key.
      */
@@ -163,6 +172,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
     /**
      * Sets the key under which statistics about this data source may be obtained from the
      * statistics cache. Useful for testing purposes, when providing mock statistics.
+     * 设置可以从统计缓存中获取有关此数据源的统计信息的键。 在提供模拟统计信息时，可用于测试目的。
      *
      * @param statisticsKey The key for the statistics object.
      */
@@ -173,7 +183,9 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
     /**
      * Sets properties of input splits for this data source. Split properties can help to generate
      * more efficient execution plans. <br>
+     * 为此数据源设置输入拆分的属性。 拆分属性可以帮助生成更有效的执行计划。 <br>
      * <b> IMPORTANT: Providing wrong split data properties can cause wrong results! </b>
+     * <b> 重要提示：提供错误的拆分数据属性可能会导致错误的结果！ </b>
      *
      * @param splitDataProperties The data properties of this data source's splits.
      */
@@ -183,6 +195,7 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
 
     /**
      * Returns the data properties of this data source's splits.
+     * 返回此数据源拆分的数据属性。
      *
      * @return The data properties of this data source's splits or null if no properties have been
      *     set.
@@ -197,6 +210,8 @@ public class GenericDataSourceBase<OUT, T extends InputFormat<OUT, ?>> extends O
      * Accepts the visitor and applies it this instance. Since the data sources have no inputs, no
      * recursive descend happens. The visitors pre-visit method is called and, if returning
      * <tt>true</tt>, the post-visit method is called.
+     * 接受访问者并将其应用于此实例。 由于数据源没有输入，因此不会发生递归下降。
+     * 调用访问者的 pre-visit 方法，如果返回 <tt>true</tt>，则调用 post-visit 方法。
      *
      * @param visitor The visitor.
      * @see org.apache.flink.util.Visitable#accept(org.apache.flink.util.Visitor)

@@ -40,6 +40,8 @@ import java.util.List;
  * A hash table that uses Flink's managed memory and supports replacement of records or updates to
  * records. For an overview of the general data structure of the hash table, please refer to the
  * description of the {@link org.apache.flink.runtime.operators.hash.MutableHashTable}.
+ * 使用 Flink 托管内存并支持记录替换或更新记录的哈希表。
+ * 哈希表的一般数据结构概览请参考{@link org.apache.flink.runtime.operators.hash.MutableHashTable}的描述。
  *
  * <p>The hash table is internally divided into two parts: The hash index, and the partition buffers
  * that store the actual records. When records are inserted or updated, the hash table appends the
@@ -47,6 +49,10 @@ import java.util.List;
  * the case that the hash table runs out of memory, it compacts a partition by walking through the
  * hash index and copying all reachable elements into a fresh partition. After that, it releases the
  * memory of the partition to compact.
+ * 哈希表在内部分为两部分：哈希索引和存储实际记录的分区缓冲区。
+ * 当插入或更新记录时，哈希表将记录附加到其相应的分区，并插入或更新哈希索引中的条目。
+ * 在哈希表内存不足的情况下，它通过遍历哈希索引并将所有可到达的元素复制到新分区中来压缩分区。
+ * 之后，它会释放分区的内存以进行压缩。
  *
  * @param <T> Record type stored in hash table
  */
@@ -60,6 +66,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     /**
      * The minimum number of memory segments that the compacting hash table needs to work properly
+     * 压缩哈希表正常工作所需的最小内存段数
      */
     private static final int MIN_NUM_MEMORY_SEGMENTS = 33;
 
@@ -70,18 +77,24 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
      * The default record width that is used when no width is given. The record width is used to
      * determine the ratio of the number of memory segments intended for partition buffers and the
      * number of memory segments in the hash-table structure.
+     * 未指定宽度时使用的默认记录宽度。 记录宽度用于确定用于分区缓冲区的内存段数与哈希表结构中的内存段数之比。
      */
     private static final int DEFAULT_RECORD_LEN = 24;
 
-    /** The length of the hash code stored in the bucket. */
+    /** The length of the hash code stored in the bucket.
+     * 存储在桶中的哈希码的长度。
+     * */
     private static final int HASH_CODE_LEN = 4;
 
-    /** The length of a pointer from a hash bucket to the record in the buffers. */
+    /** The length of a pointer from a hash bucket to the record in the buffers.
+     * 从哈希桶到缓冲区中记录的指针的长度。
+     * */
     private static final int POINTER_LEN = 8;
 
     /**
      * The number of bytes that the entry in the hash structure occupies, in bytes. It corresponds
      * to a 4 byte hash value and an 8 byte pointer.
+     * 哈希结构中的条目占用的字节数，以字节为单位。 它对应于一个 4 字节的哈希值和一个 8 字节的指针。
      */
     private static final int RECORD_TABLE_BYTES = HASH_CODE_LEN + POINTER_LEN;
 
@@ -89,6 +102,8 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
      * The total storage overhead per record, in bytes. This corresponds to the space in the actual
      * hash table buckets, consisting of a 4 byte hash value and an 8 byte pointer, plus the
      * overhead for the stored length field.
+     * 每条记录的总存储开销，以字节为单位。 这对应于实际哈希表桶中的空间，
+     * 由一个 4 字节哈希值和一个 8 字节指针组成，加上存储长度字段的开销。
      */
     private static final int RECORD_OVERHEAD_BYTES = RECORD_TABLE_BYTES + 2;
 
@@ -108,34 +123,43 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     // ------------------------------ Bucket Header Fields ------------------------------
 
-    /** Offset of the field in the bucket header indicating the bucket's partition. */
+    /** Offset of the field in the bucket header indicating the bucket's partition.
+     * 桶头中字段的偏移量，表示桶的分区。
+     * */
     private static final int HEADER_PARTITION_OFFSET = 0;
 
     /**
      * Offset of the field in the bucket header indicating the bucket's status (spilled or
      * in-memory).
+     * 桶头中字段的偏移量，指示桶的状态（溢出或内存中）。
      */
     private static final int HEADER_COUNT_OFFSET = 4;
 
     /**
      * Offset of the field in the bucket header that holds the forward pointer to its first overflow
      * bucket.
+     * 桶头中字段的偏移量，该字段持有指向其第一个溢出桶的前向指针。
      */
     private static final int HEADER_FORWARD_OFFSET = 8;
 
-    /** Constant for the forward pointer, indicating that the pointer is not set. */
+    /** Constant for the forward pointer, indicating that the pointer is not set.
+     * 前向指针的常量，表示指针未设置。
+     * */
     private static final long BUCKET_FORWARD_POINTER_NOT_SET = ~0x0L;
 
     // ------------------------------------------------------------------------
     //                              Members
     // ------------------------------------------------------------------------
 
-    /** The free memory segments currently available to the hash join. */
+    /** The free memory segments currently available to the hash join.
+     * 当前可用于散列连接的空闲内存段。
+     * */
     private final ArrayList<MemorySegment> availableMemory;
 
     /**
      * The size of the segments used by the hash join buckets. All segments must be of equal size to
      * ease offset computations.
+     * 散列连接桶使用的段的大小。 所有段必须具有相同的大小以简化偏移计算。
      */
     private final int segmentSize;
 
@@ -143,49 +167,62 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
      * The number of hash table buckets in a single memory segment - 1. Because memory segments can
      * be comparatively large, we fit multiple buckets into one memory segment. This variable is a
      * mask that is 1 in the lower bits that define the number of a bucket in a segment.
+     * 单个内存段中的哈希表桶数 - 1。由于内存段可能比较大，我们将多个桶装进一个内存段。
+     * 该变量是一个掩码，低位为 1，用于定义段中存储桶的编号。
      */
     private final int bucketsPerSegmentMask;
 
     /**
      * The number of bits that describe the position of a bucket in a memory segment. Computed as
      * log2(bucketsPerSegment).
+     * 描述存储段中存储桶位置的位数。 计算为 log2(bucketsPerSegment)。
      */
     private final int bucketsPerSegmentBits;
 
-    /** An estimate for the average record length. */
+    /** An estimate for the average record length.
+     * 平均记录长度的估计值。
+     * */
     private final int avgRecordLen;
 
     private final int pageSizeInBits;
 
     // ------------------------------------------------------------------------
 
-    /** The partitions of the hash table. */
+    /** The partitions of the hash table.
+     * 哈希表的分区。
+     * */
     private final ArrayList<InMemoryPartition<T>> partitions;
 
     /**
      * The array of memory segments that contain the buckets which form the actual hash-table of
      * hash-codes and pointers to the elements.
+     * 包含存储桶的内存段数组，这些存储桶形成哈希码的实际哈希表和指向元素的指针。
      */
     private MemorySegment[] buckets;
 
     /**
      * Temporary storage for partition compaction (always attempts to allocate as many segments as
      * the largest partition)
+     * 用于分区压缩的临时存储（总是尝试分配与最大分区一样多的段）
      */
     private InMemoryPartition<T> compactionMemory;
 
     /**
      * The number of buckets in the current table. The bucket array is not necessarily fully used,
      * when not all buckets that would fit into the last segment are actually used.
+     * 当前表中的桶数。 当并非所有适合最后一段的存储桶都实际使用时，存储桶数组不一定会被完全使用。
      */
     private int numBuckets;
 
-    /** Flag to interrupt closed loops */
+    /** Flag to interrupt closed loops
+     * 中断闭环的标志
+     * */
     private boolean running = true;
 
     /**
      * Flag necessary so a resize is never triggered during a resize since the code paths are
      * interleaved
+     * 必要的标志，因此在调整大小期间永远不会触发调整大小，因为代码路径是交错的
      */
     private boolean isResizing;
 
@@ -231,6 +268,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
         // check the size of the first buffer and record it. all further buffers must have the same
         // size.
+        // 检查第一个缓冲区的大小并记录它。 所有其他缓冲区必须具有相同的大小。
         // the size must also be a power of 2
         this.segmentSize = memorySegments.get(0).size();
         if ((this.segmentSize & this.segmentSize - 1) != 0) {
@@ -289,6 +327,9 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
      * inputs were properly processed, and as an cancellation call, which cleans up all resources
      * that are currently held by the hash join. If another process still access the hash table
      * after close has been called no operations will be performed.
+     * 关闭哈希表。 这有效地释放了所有内部结构并关闭所有打开的文件并删除它们。
+     * 对该方法的调用既可以作为正确处理完整输入后的清理，也可以作为取消调用，用于清理当前由散列连接持有的所有资源。
+     * 如果调用关闭后另一个进程仍然访问哈希表，则不会执行任何操作。
      */
     @Override
     public void close() {
@@ -363,6 +404,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
     /**
      * Replaces record in hash table if record already present or append record if not. May trigger
      * expensive compaction.
+     * 如果记录已经存在，则替换哈希表中的记录，如果不存在则追加记录。 可能会触发昂贵的压实。
      *
      * @param record record to insert or replace
      * @throws IOException
@@ -518,6 +560,8 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
      * IMPORTANT!!! We pass only the partition number, because we must make sure we get a fresh
      * partition reference. The partition reference used during search for the key may have become
      * invalid during the compaction.
+     * 重要的！！！ 我们只传递分区号，因为我们必须确保我们得到一个新的分区引用。
+     * 搜索密钥期间使用的分区引用可能在压缩期间变得无效。
      */
     private void insertBucketEntryFromStart(
             MemorySegment bucket,
@@ -643,6 +687,8 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
      * IMPORTANT!!! We pass only the partition number, because we must make sure we get a fresh
      * partition reference. The partition reference used during search for the key may have become
      * invalid during the compaction.
+     * 重要的！！！ 我们只传递分区号，因为我们必须确保我们得到一个新的分区引用。
+     * 搜索密钥期间使用的分区引用可能在压缩期间变得无效。
      */
     private void insertBucketEntryFromSearch(
             MemorySegment originalBucket,
@@ -850,9 +896,11 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
     /**
      * Gets the number of partitions to be used for an initial hash-table, when no estimates are
      * available.
+     * 当没有可用估计值时，获取用于初始哈希表的分区数。
      *
      * <p>The current logic makes sure that there are always between 10 and 32 partitions, and close
      * to 0.1 of the number of buffers.
+     * 当前逻辑确保始终存在 10 到 32 个分区，并且接近 0.1 个缓冲区。
      *
      * @param numBuffers The number of buffers available.
      * @return The number of partitions to use.
@@ -881,6 +929,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     /**
      * Size of all memory segments owned by this hash table
+     * 此哈希表拥有的所有内存段的大小
      *
      * @return size in bytes
      */
@@ -899,6 +948,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
     /**
      * Size of all memory segments owned by the partitions of this hash table excluding the
      * compaction partition
+     * 此哈希表的分区拥有的所有内存段的大小，不包括压缩分区
      *
      * @return size in bytes
      */
@@ -944,6 +994,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
     /**
      * tries to find a good value for the number of buckets will ensure that the number of buckets
      * is a multiple of numPartitions
+     * 尝试为桶数找到一个好的值将确保桶数是 numPartitions 的倍数
      *
      * @return number of buckets
      */
@@ -959,6 +1010,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     /**
      * Assigns a partition to a bucket.
+     * 将分区分配给存储桶。
      *
      * @param bucket bucket index
      * @param numPartitions number of partitions
@@ -970,6 +1022,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     /**
      * Attempts to double the number of buckets
+     * 尝试将存储桶数量加倍
      *
      * @return true on success
      * @throws IOException
@@ -1212,6 +1265,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     /**
      * Compacts (garbage collects) partition with copy-compact strategy using compaction partition
+     * 使用压缩分区使用复制压缩策略压缩（垃圾收集）分区
      *
      * @param partitionNumber partition to compact
      * @throws IOException
@@ -1305,8 +1359,10 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
 
     /**
      * Iterator that traverses the whole hash table once
+     * 遍历整个哈希表一次的迭代器
      *
      * <p>If entries are inserted during iteration they may be overlooked by the iterator
+     * 如果在迭代期间插入条目，它们可能会被迭代器忽略
      */
     public class EntryIterator implements MutableObjectIterator<T> {
 
@@ -1354,6 +1410,7 @@ public class CompactingHashTable<T> extends AbstractMutableHashTable<T> {
         /**
          * utility function that inserts all entries from a bucket and its overflow buckets into the
          * cache
+         * 将存储桶及其溢出存储桶中的所有条目插入缓存的实用函数
          *
          * @return true if last bucket was not reached yet
          * @throws IOException

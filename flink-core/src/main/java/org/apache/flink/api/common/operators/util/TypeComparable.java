@@ -20,7 +20,9 @@ package org.apache.flink.api.common.operators.util;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.api.common.typeutils.TypeComparator;
 
-/** Wrapper that is used to store elements for which we have a TypeComparator in a Hash Map. */
+/** Wrapper that is used to store elements for which we have a TypeComparator in a Hash Map.
+ * 包装器，用于存储我们在 Hash Map 中具有 TypeComparator 的元素。
+ * */
 @Internal
 public class TypeComparable<T> {
     private final T elem;

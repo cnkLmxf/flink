@@ -47,11 +47,14 @@ import static org.apache.flink.util.Preconditions.checkState;
  * The {@code OperatorCoordinatorHolder} holds the {@link OperatorCoordinator} and manages all its
  * interactions with the remaining components. It provides the context and is responsible for
  * checkpointing and exactly once semantics.
+ * {@code OperatorCoordinatorHolder} 持有 {@link OperatorCoordinator} 并管理其与其余组件的所有交互。
+ * 它提供上下文并负责检查点和恰好一次语义。
  *
  * <h3>Exactly-one Semantics</h3>
  *
  * <p>The semantics are described under {@link OperatorCoordinator#checkpointCoordinator(long,
  * CompletableFuture)}.
+ * 语义在 {@link OperatorCoordinator#checkpointCoordinator(long, CompletableFuture)} 下进行了描述。
  *
  * <h3>Exactly-one Mechanism</h3>
  *
@@ -60,9 +63,19 @@ import static org.apache.flink.util.Preconditions.checkState;
  * throw an exception. That is in line with the capabilities of the Checkpoint Coordinator, which
  * can handle multiple concurrent checkpoints on the TaskManagers, but only one concurrent
  * triggering phase.
+ * 此实现可以处理一次触发一个检查点。 如果在第一个检查点的触发未完成或中止时触发了另一个检查点，则此类将引发异常。
+ * 这符合 Checkpoint Coordinator 的能力，它可以处理 TaskManager 上的多个并发检查点，但只能处理一个并发触发阶段。
  *
  * <p>The mechanism for exactly once semantics is as follows:
- *
+ * 恰好一次语义的机制如下：
+ *<ul>
+ *     <li>事件通过一个特殊的渠道，{@link OperatorEventValve}。 如果我们当前没有触发检查点，那么事件只会通过。
+ *     <li>随着协调器未来检查点的完成，此操作员事件阀门将关闭。 之后发生的事件被阻止（缓冲），因为它们属于检查点之后的纪元。
+ *     <li>一旦作业中的所有协调员都完成了检查点，就会注入源障碍。
+ *              之后（参见 {@link #afterSourceBarrierInjection(long)}）阀门再次打开并发送事件。
+ *     <li>如果在此期间任务失败，事件将从阀门中删除。
+ *              从协调者的角度来看，这些事件丢失了，因为它们在最近的完整检查点之后被发送到失败的子任务。
+ * </ul>
  * <ul>
  *   <li>Events pass through a special channel, the {@link OperatorEventValve}. If we are not
  *       currently triggering a checkpoint, then events simply pass through.
@@ -81,6 +94,8 @@ import static org.apache.flink.util.Preconditions.checkState;
  * transported strictly in order. Events being sent from the coordinator after the checkpoint
  * barrier was injected must not overtake the checkpoint barrier. This is currently guaranteed by
  * Flink's RPC mechanism.
+ * <b>重要提示：</b> 一个关键假设是从调度程序到任务的所有事件都严格按顺序传输。
+ * 在注入检查点屏障后从协调器发送的事件不得超过检查点屏障。 目前这是由 Flink 的 RPC 机制来保证的。
  *
  * <p>Consider this example:
  *
@@ -91,15 +106,20 @@ import static org.apache.flink.util.Preconditions.checkState;
  *
  * <p>Two coordinators trigger checkpoints at the same time. 'Coordinator Two' takes longer to
  * complete, and in the meantime 'Coordinator One' sends more events.
+ * <p>两个协调器同时触发检查点。 “协调员二”需要更长的时间才能完成，同时“协调员一”会发送更多事件。
  *
  * <p>'Coordinator One' emits events 'c' and 'd' after it finished its checkpoint, meaning the
  * events must take place after the checkpoint. But they are before the barrier injection, meaning
  * the runtime task would see them before the checkpoint, if they were immediately transported.
+ * “Coordinator One”在完成其检查点后发出事件“c”和“d”，这意味着事件必须在检查点之后发生。
+ * 但它们在屏障注入之前，这意味着如果它们被立即传输，运行时任务将在检查点之前看到它们。
  *
  * <p>'Coordinator One' closes its valve as soon as the checkpoint future completes. Events 'c' and
  * 'd' get held back in the valve. Once 'Coordinator Two' completes its checkpoint, the barriers are
  * sent to the sources. Then the valves are opened, and events 'c' and 'd' can flow to the tasks
  * where they are received after the barrier.
+ * 一旦检查点未来完成，“协调员一号”就会关闭其阀门。 事件“c”和“d”被阻止在阀门中。
+ * 一旦“协调员二”完成其检查点，障碍就会被发送到源头。 然后阀门打开，事件“c”和“d”可以流向在屏障之后接收它们的任务。
  *
  * <h3>Concurrency and Threading Model</h3>
  *
@@ -107,9 +127,13 @@ import static org.apache.flink.util.Preconditions.checkState;
  * outside" are either already in the main-thread-executor (when coming from Scheduler) or put into
  * the main-thread-executor (when coming from the CheckpointCoordinator). We rely on the executor to
  * preserve strict order of the calls.
+ * 该组件严格运行在调度器的主线程执行器中。
+ * 所有“来自外部”的调用要么已经在主线程执行器中（当来自调度程序时），要么放入主线程执行器中（当来自 CheckpointCoordinator 时）。
+ * 我们依靠执行者来保持调用的严格顺序。
  *
  * <p>Actions from the coordinator to the "outside world" (like completing a checkpoint and sending
  * an event) are also enqueued back into the scheduler main-thread executor, strictly in order.
+ * 从协调器到“外部世界”的操作（如完成检查点和发送事件）也严格按顺序排入调度程序主线程执行器。
  */
 public class OperatorCoordinatorHolder
         implements OperatorCoordinatorCheckpointContext, AutoCloseable {

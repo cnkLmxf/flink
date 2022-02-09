@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * Simple wrapper map state that exposes empty state properly as an empty map.
+ * 将空状态正确公开为空映射的简单包装映射状态。
  *
  * @param <K> The type of keys in the map state.
  * @param <V> The type of values in the map state.

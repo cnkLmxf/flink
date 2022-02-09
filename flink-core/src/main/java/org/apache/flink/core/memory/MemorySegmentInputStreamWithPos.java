@@ -24,7 +24,9 @@ import javax.annotation.Nonnull;
 
 import java.io.InputStream;
 
-/** Un-synchronized input stream using the given memory segment. */
+/** Un-synchronized input stream using the given memory segment.
+ * 使用给定内存段的非同步输入流。
+ * */
 public class MemorySegmentInputStreamWithPos extends InputStream {
 
     private MemorySegment segment;

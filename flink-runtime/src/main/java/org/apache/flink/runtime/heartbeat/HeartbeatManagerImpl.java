@@ -35,6 +35,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * been received. If the monitor detects that a heartbeat has timed out, it will notify the {@link
  * HeartbeatListener} about it. A heartbeat times out iff no heartbeat signal has been received
  * within a given timeout interval.
+ * 心跳管理器实现。 心跳管理器维护心跳监视器和资源 ID 的映射。
+ * 当收到相关机器的新心跳时，将更新每个监视器。 如果监视器检测到心跳超时，
+ * 它将通知 {@link HeartbeatListener}。 如果在给定的超时间隔内没有收到心跳信号，则心跳超时。
  *
  * @param <I> Type of the incoming heartbeat payload
  * @param <O> Type of the outgoing heartbeat payload
@@ -42,26 +45,38 @@ import java.util.concurrent.ConcurrentHashMap;
 @ThreadSafe
 public class HeartbeatManagerImpl<I, O> implements HeartbeatManager<I, O> {
 
-    /** Heartbeat timeout interval in milli seconds. */
+    /** Heartbeat timeout interval in milli seconds.
+     * 心跳超时间隔，以毫秒为单位。
+     * */
     private final long heartbeatTimeoutIntervalMs;
 
-    /** Resource ID which is used to mark one own's heartbeat signals. */
+    /** Resource ID which is used to mark one own's heartbeat signals.
+     * 用于标记自己的心跳信号的资源ID。
+     * */
     private final ResourceID ownResourceID;
 
-    /** Heartbeat listener with which the heartbeat manager has been associated. */
+    /** Heartbeat listener with which the heartbeat manager has been associated.
+     * 与心跳管理器关联的心跳侦听器。
+     * */
     private final HeartbeatListener<I, O> heartbeatListener;
 
-    /** Executor service used to run heartbeat timeout notifications. */
+    /** Executor service used to run heartbeat timeout notifications.
+     * 执行器服务用于运行心跳超时通知。
+     * */
     private final ScheduledExecutor mainThreadExecutor;
 
     protected final Logger log;
 
-    /** Map containing the heartbeat monitors associated with the respective resource ID. */
+    /** Map containing the heartbeat monitors associated with the respective resource ID.
+     * 包含与相应资源 ID 关联的心跳监视器的映射。
+     * */
     private final ConcurrentHashMap<ResourceID, HeartbeatMonitor<O>> heartbeatTargets;
 
     private final HeartbeatMonitor.Factory<O> heartbeatMonitorFactory;
 
-    /** Running state of the heartbeat manager. */
+    /** Running state of the heartbeat manager.
+     * 心跳管理器的运行状态。
+     * */
     protected volatile boolean stopped;
 
     public HeartbeatManagerImpl(

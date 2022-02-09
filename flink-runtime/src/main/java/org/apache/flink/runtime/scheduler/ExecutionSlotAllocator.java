@@ -23,7 +23,9 @@ import org.apache.flink.runtime.scheduler.strategy.ExecutionVertexID;
 
 import java.util.List;
 
-/** Component responsible for assigning slots to a collection of {@link Execution}. */
+/** Component responsible for assigning slots to a collection of {@link Execution}.
+ * 负责将槽分配给 {@link Execution} 集合的组件。
+ * */
 public interface ExecutionSlotAllocator {
 
     /**

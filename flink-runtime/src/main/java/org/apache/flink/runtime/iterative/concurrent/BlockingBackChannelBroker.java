@@ -21,6 +21,7 @@ package org.apache.flink.runtime.iterative.concurrent;
 /**
  * Singleton class for the threadsafe handover of {@link BlockingBackChannel}s from iteration heads
  * to iteration tails.
+ * 用于 {@link BlockingBackChannel} 从迭代头到迭代尾的线程安全切换的单例类。
  */
 public class BlockingBackChannelBroker extends Broker<BlockingBackChannel> {
 

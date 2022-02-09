@@ -28,10 +28,13 @@ import java.util.stream.Collectors;
 /**
  * A repartitioner that assigns the same channel state to multiple subtasks according to some
  * mapping.
+ * 根据一些映射将相同的通道状态分配给多个子任务的重新分区器。
  *
  * <p>The replicated data will then be filtered before processing the record.
+ * 然后在处理记录之前过滤复制的数据。
  *
  * <p>Note that channel mappings are cached for the same parallelism changes.
+ * 请注意，通道映射会针对相同的并行度更改进行缓存。
  */
 @NotThreadSafe
 public class MappingBasedRepartitioner<T> implements OperatorStateRepartitioner<T> {

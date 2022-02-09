@@ -50,6 +50,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A failover strategy that proposes to restart involved regions when a vertex fails. A region is
  * defined by this strategy as tasks that communicate via pipelined data exchange.
+ * 一种故障转移策略，建议在顶点失败时重新启动相关区域。 该策略将区域定义为通过流水线数据交换进行通信的任务。
  */
 public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy {
 
@@ -57,10 +58,14 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
     private static final Logger LOG =
             LoggerFactory.getLogger(RestartPipelinedRegionFailoverStrategy.class);
 
-    /** The topology containing info about all the vertices and result partitions. */
+    /** The topology containing info about all the vertices and result partitions.
+     * 包含有关所有顶点和结果分区的信息的拓扑。
+     * */
     private final SchedulingTopology topology;
 
-    /** The checker helps to query result partition availability. */
+    /** The checker helps to query result partition availability.
+     * 检查器有助于查询结果分区可用性。
+     * */
     private final RegionFailoverResultPartitionAvailabilityChecker
             resultPartitionAvailabilityChecker;
 
@@ -68,6 +73,8 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
      * Creates a new failover strategy to restart pipelined regions that works on the given
      * topology. The result partitions are always considered to be available if no data consumption
      * error happens.
+     * 创建一个新的故障转移策略来重新启动在给定拓扑上工作的管道区域。
+     * 如果没有发生数据消耗错误，则始终认为结果分区可用。
      *
      * @param topology containing info about all the vertices and result partitions
      */
@@ -79,6 +86,7 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
     /**
      * Creates a new failover strategy to restart pipelined regions that works on the given
      * topology.
+     * 创建一个新的故障转移策略来重新启动在给定拓扑上工作的管道区域。
      *
      * @param topology containing info about all the vertices and result partitions
      * @param resultPartitionAvailabilityChecker helps to query result partition availability
@@ -104,6 +112,11 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
      * is always involved 2. If an input result partition of an involved region is not available,
      * i.e. Missing or Corrupted, the region containing the partition producer task is involved 3.
      * If a region is involved, all of its consumer regions are involved
+     * 返回与应该重新启动的顶点集相对应的一组 ID。 在该策略中，建议重新启动“涉及”区域中的所有任务顶点。
+     * “涉及”区域的计算规则如下：
+     * 1. 始终涉及包含失败任务的区域
+     * 2. 如果涉及区域的输入结果分区不可用，即 Missing 或 Corrupted，则包含分区生产者任务的区域为
+     * 3.如果涉及一个区域，则涉及其所有的消费者区域
      *
      * @param executionVertexId ID of the failed task
      * @param cause cause of the failure
@@ -162,6 +175,10 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
      * result partition of an involved region is not available, i.e. Missing or Corrupted, the
      * region containing the partition producer task is involved 3. If a region is involved, all of
      * its consumer regions are involved
+     * 建议重新启动所有“相关”区域。 “涉及”区域的计算规则如下：
+     * 1. 始终涉及包含失败任务的区域
+     * 2. 如果涉及区域的输入结果分区不可用，即 Missing 或 Corrupted，则包含分区生产者任务的区域为
+     * 3.如果涉及一个区域，则涉及其所有的消费者区域
      */
     private Set<SchedulingPipelinedRegion> getRegionsToRestart(
             SchedulingPipelinedRegion failedRegion) {
@@ -261,6 +278,7 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
 
     /**
      * Returns the failover region that contains the given execution vertex.
+     * 返回包含给定执行顶点的故障转移区域。
      *
      * @return the failover region that contains the given execution vertex
      */
@@ -272,6 +290,7 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
     /**
      * A stateful {@link ResultPartitionAvailabilityChecker} which maintains the failed partitions
      * which are not available.
+     * 有状态的 {@link ResultPartitionAvailabilityChecker} 维护不可用的失败分区。
      */
     private static class RegionFailoverResultPartitionAvailabilityChecker
             implements ResultPartitionAvailabilityChecker {
@@ -304,7 +323,9 @@ public class RestartPipelinedRegionFailoverStrategy implements FailoverStrategy 
         }
     }
 
-    /** The factory to instantiate {@link RestartPipelinedRegionFailoverStrategy}. */
+    /** The factory to instantiate {@link RestartPipelinedRegionFailoverStrategy}.
+     * 实例化 {@link RestartPipelinedRegionFailoverStrategy} 的工厂。
+     * */
     public static class Factory implements FailoverStrategy.Factory {
 
         @Override

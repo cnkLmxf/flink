@@ -58,12 +58,15 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Interface for scheduling Flink jobs.
+ * 用于调度 Flink 作业的接口。
  *
  * <p>Instances are created via {@link SchedulerNGFactory}, and receive a {@link JobGraph} when
  * instantiated.
+ * 实例通过 {@link SchedulerNGFactory} 创建，并在实例化时收到 {@link JobGraph}。
  *
  * <p>Implementations can expect that methods will not be invoked concurrently. In fact, all
  * invocations will originate from a thread in the {@link ComponentMainThreadExecutor}.
+ * 实现可以期望方法不会被同时调用。 事实上，所有的调用都源自 {@link ComponentMainThreadExecutor} 中的一个线程。
  */
 public interface SchedulerNG extends AutoCloseableAsync {
 

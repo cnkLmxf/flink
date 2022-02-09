@@ -48,6 +48,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * task will never see any data. In each superstep, it simply waits until it has received a {@link
  * WorkerDoneEvent} from each head and will send back an {@link AllWorkersDoneEvent} to signal that
  * the next superstep can begin.
+ * 负责同步所有迭代头的任务，实现为输出任务。 此任务永远不会看到任何数据。
+ * 在每个 superstep 中，它只是等待，直到它从每个 head 接收到一个 {@link WorkerDoneEvent}
+ * 并将发送回一个 {@link AllWorkersDoneEvent} 以表示下一个 superstep 可以开始。
  */
 public class IterationSynchronizationSinkTask extends AbstractInvokable implements Terminable {
 
@@ -80,6 +83,7 @@ public class IterationSynchronizationSinkTask extends AbstractInvokable implemen
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */

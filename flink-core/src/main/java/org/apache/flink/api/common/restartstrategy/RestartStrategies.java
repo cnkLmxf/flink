@@ -32,15 +32,18 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class defines methods to generate RestartStrategyConfigurations. These configurations are
  * used to create RestartStrategies at runtime.
+ * 此类定义了生成 RestartStrategyConfigurations 的方法。 这些配置用于在运行时创建 RestartStrategies。
  *
  * <p>The RestartStrategyConfigurations are used to decouple the core module from the runtime
  * module.
+ * RestartStrategyConfigurations 用于将核心模块与运行时模块解耦。
  */
 @PublicEvolving
 public class RestartStrategies {
 
     /**
      * Generates NoRestartStrategyConfiguration.
+     * 生成 NoRestartStrategyConfiguration。
      *
      * @return NoRestartStrategyConfiguration
      */
@@ -54,6 +57,7 @@ public class RestartStrategies {
 
     /**
      * Generates a FixedDelayRestartStrategyConfiguration.
+     * 生成 FixedDelayRestartStrategyConfiguration。
      *
      * @param restartAttempts Number of restart attempts for the FixedDelayRestartStrategy
      * @param delayBetweenAttempts Delay in-between restart attempts for the
@@ -68,6 +72,7 @@ public class RestartStrategies {
 
     /**
      * Generates a FixedDelayRestartStrategyConfiguration.
+     * 生成 FixedDelayRestartStrategyConfiguration。
      *
      * @param restartAttempts Number of restart attempts for the FixedDelayRestartStrategy
      * @param delayInterval Delay in-between restart attempts for the FixedDelayRestartStrategy
@@ -80,6 +85,7 @@ public class RestartStrategies {
 
     /**
      * Generates a FailureRateRestartStrategyConfiguration.
+     * 生成 FailureRateRestartStrategyConfiguration。
      *
      * @param failureRate Maximum number of restarts in given interval {@code failureInterval}
      *     before failing a job
@@ -94,6 +100,7 @@ public class RestartStrategies {
 
     /**
      * Generates a ExponentialDelayRestartStrategyConfiguration.
+     * 生成 ExponentialDelayRestartStrategyConfiguration。
      *
      * @param initialBackoff Starting duration between restarts
      * @param maxBackoff The highest possible duration between restarts
@@ -111,7 +118,9 @@ public class RestartStrategies {
                 initialBackoff, maxBackoff, backoffMultiplier, resetBackoffThreshold, jitterFactor);
     }
 
-    /** Abstract configuration for restart strategies. */
+    /** Abstract configuration for restart strategies.
+     * 重启策略的抽象配置。
+     * */
     public abstract static class RestartStrategyConfiguration implements Serializable {
         private static final long serialVersionUID = 6285853591578313960L;
 
@@ -119,6 +128,7 @@ public class RestartStrategies {
 
         /**
          * Returns a description which is shown in the web interface.
+         * 返回显示在 Web 界面中的描述。
          *
          * @return Description of the restart strategy
          */
@@ -130,7 +140,9 @@ public class RestartStrategies {
         }
     }
 
-    /** Configuration representing no restart strategy. */
+    /** Configuration representing no restart strategy.
+     * 表示无重启策略的配置。
+     * */
     public static final class NoRestartStrategyConfiguration extends RestartStrategyConfiguration {
         private static final long serialVersionUID = -5894362702943349962L;
 
@@ -153,7 +165,9 @@ public class RestartStrategies {
         }
     }
 
-    /** Configuration representing a fixed delay restart strategy. */
+    /** Configuration representing a fixed delay restart strategy.
+     * 表示固定延迟重启策略的配置。
+     * */
     public static final class FixedDelayRestartStrategyConfiguration
             extends RestartStrategyConfiguration {
         private static final long serialVersionUID = 4149870149673363190L;
@@ -207,7 +221,9 @@ public class RestartStrategies {
         }
     }
 
-    /** Configuration representing an exponential delay restart strategy. */
+    /** Configuration representing an exponential delay restart strategy.
+     * 表示指数延迟重启策略的配置。
+     * */
     public static final class ExponentialDelayRestartStrategyConfiguration
             extends RestartStrategyConfiguration {
         private static final long serialVersionUID = 1467941615941965194L;
@@ -291,7 +307,9 @@ public class RestartStrategies {
         }
     }
 
-    /** Configuration representing a failure rate restart strategy. */
+    /** Configuration representing a failure rate restart strategy.
+     * 表示故障率重启策略的配置。
+     * */
     public static final class FailureRateRestartStrategyConfiguration
             extends RestartStrategyConfiguration {
         private static final long serialVersionUID = 1195028697539661739L;
@@ -380,6 +398,7 @@ public class RestartStrategies {
 
     /**
      * Reads a {@link RestartStrategyConfiguration} from a given {@link ReadableConfig}.
+     * 从给定的 {@link ReadableConfig} 读取 {@link RestartStrategyConfiguration}。
      *
      * @param configuration configuration object to retrieve parameters from
      * @return {@link Optional#empty()} when no restart strategy parameters provided

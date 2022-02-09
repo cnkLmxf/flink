@@ -35,7 +35,9 @@ import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
-/** Implementation of the {@link LogicalSlot} which is used by the {@link SlotPoolImpl}. */
+/** Implementation of the {@link LogicalSlot} which is used by the {@link SlotPoolImpl}.
+ * {@link SlotPoolImpl} 使用的 {@link LogicalSlot} 的实现。
+ * */
 public class SingleLogicalSlot implements LogicalSlot, PhysicalSlot.Payload {
 
     private static final AtomicReferenceFieldUpdater<SingleLogicalSlot, Payload> PAYLOAD_UPDATER =
@@ -50,9 +52,11 @@ public class SingleLogicalSlot implements LogicalSlot, PhysicalSlot.Payload {
     private final SlotContext slotContext;
 
     // locality of this slot wrt the requested preferred locations
+    // 此插槽的位置 wrt 请求的首选位置
     private final Locality locality;
 
     // owner of this slot to which it is returned upon release
+    // 释放时返回的此插槽的所有者
     private final SlotOwner slotOwner;
 
     private final CompletableFuture<Void> releaseFuture;
@@ -60,9 +64,12 @@ public class SingleLogicalSlot implements LogicalSlot, PhysicalSlot.Payload {
     private volatile State state;
 
     // LogicalSlot.Payload of this slot
+    // 这个槽的LogicalSlot.Payload
     private volatile Payload payload;
 
-    /** Whether this logical slot will be occupied indefinitely. */
+    /** Whether this logical slot will be occupied indefinitely.
+     * 此逻辑槽是否将被无限期占用。
+     * */
     private boolean willBeOccupiedIndefinitely;
 
     @VisibleForTesting
@@ -173,6 +180,7 @@ public class SingleLogicalSlot implements LogicalSlot, PhysicalSlot.Payload {
     /**
      * A release of the payload by the {@link AllocatedSlot} triggers a release of the payload of
      * the logical slot.
+     * {@link AllocatedSlot} 释放有效负载会触发逻辑槽的有效负载释放。
      *
      * @param cause of the payload release
      */

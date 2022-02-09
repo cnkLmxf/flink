@@ -70,6 +70,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Utility class to encapsulate the logic of building an {@link DefaultExecutionGraph} from a {@link
  * JobGraph}.
+ * 用于封装从 {@link JobGraph} 构建 {@link DefaultExecutionGraph} 的逻辑的实用程序类。
  */
 public class DefaultExecutionGraphBuilder {
 

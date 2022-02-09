@@ -33,15 +33,20 @@ public abstract class AbstractFileIOChannel implements FileIOChannel {
     /** Logger object for channel and its subclasses */
     protected static final Logger LOG = LoggerFactory.getLogger(FileIOChannel.class);
 
-    /** The ID of the underlying channel. */
+    /** The ID of the underlying channel.
+     * 底层通道的 ID。
+     * */
     protected final FileIOChannel.ID id;
 
-    /** A file channel for NIO access to the file. */
+    /** A file channel for NIO access to the file.
+     * NIO 访问文件的文件通道。
+     * */
     protected final FileChannel fileChannel;
 
     /**
      * Creates a new channel to the path indicated by the given ID. The channel hands IO requests to
      * the given request queue to be processed.
+     * 为给定 ID 指示的路径创建一个新通道。 通道将 IO 请求交给给定的请求队列进行处理。
      *
      * @param channelID The id describing the path of the file that the channel accessed.
      * @param writeEnabled Flag describing whether the channel should be opened in read/write mode,

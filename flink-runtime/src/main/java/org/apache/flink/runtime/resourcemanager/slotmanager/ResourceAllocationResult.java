@@ -31,7 +31,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** Contains the results of the {@link ResourceAllocationStrategy}. */
+/** Contains the results of the {@link ResourceAllocationStrategy}.
+ * 包含 {@link ResourceAllocationStrategy} 的结果。
+ * */
 public class ResourceAllocationResult {
     private final Set<JobID> unfulfillableJobs;
     private final Map<JobID, Map<InstanceID, ResourceCounter>> allocationsOnRegisteredResources;

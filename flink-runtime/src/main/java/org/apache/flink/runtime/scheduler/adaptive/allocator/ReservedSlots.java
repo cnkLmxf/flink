@@ -24,7 +24,9 @@ import org.apache.flink.util.Preconditions;
 
 import java.util.Map;
 
-/** Container for the set of reserved slots for {@link ExecutionVertexID}. */
+/** Container for the set of reserved slots for {@link ExecutionVertexID}.
+ * {@link ExecutionVertexID} 的保留槽集的容器。
+ * */
 public final class ReservedSlots {
     private final Map<ExecutionVertexID, LogicalSlot> slotPerExecutionVertex;
 

@@ -51,7 +51,9 @@ import java.util.concurrent.Future;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A standalone implementation of the {@link RuntimeContext}, created by runtime UDF operators. */
+/** A standalone implementation of the {@link RuntimeContext}, created by runtime UDF operators.
+ * {@link RuntimeContext} 的独立实现，由运行时 UDF 操作符创建。
+ * */
 @Internal
 public abstract class AbstractRuntimeUDFContext implements RuntimeContext {
 

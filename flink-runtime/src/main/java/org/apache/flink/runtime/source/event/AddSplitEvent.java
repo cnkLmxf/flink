@@ -27,6 +27,7 @@ import java.util.List;
 
 /**
  * A source event that adds splits to a source reader.
+ * 将拆分添加到源读取器的源事件。
  *
  * @param <SplitT> the type of splits.
  */

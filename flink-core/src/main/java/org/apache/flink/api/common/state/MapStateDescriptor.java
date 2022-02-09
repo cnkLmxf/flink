@@ -29,19 +29,27 @@ import java.util.Map;
 /**
  * A {@link StateDescriptor} for {@link MapState}. This can be used to create state where the type
  * is a map that can be updated and iterated over.
+ * {@link MapState} 的 {@link StateDescriptor}。 这可用于创建类型是可以更新和迭代的映射的状态。
  *
  * <p>Using {@code MapState} is typically more efficient than manually maintaining a map in a {@link
  * ValueState}, because the backing implementation can support efficient updates, rather then
  * replacing the full map on write.
+ * 使用 {@code MapState} 通常比在 {@link ValueState} 中手动维护映射更有效，
+ * 因为支持实现可以支持有效的更新，而不是在写入时替换完整的映射。
  *
  * <p>To create keyed map state (on a KeyedStream), use {@link
  * org.apache.flink.api.common.functions.RuntimeContext#getMapState(MapStateDescriptor)}.
+ * 要创建键控映射状态（在 KeyedStream 上），
+ * 请使用 {@link org.apache.flink.api.common.functions.RuntimeContext#getMapState(MapStateDescriptor)}。
  *
  * <p>Note: The map state with TTL currently supports {@code null} user values only if the user
  * value serializer can handle {@code null} values. If the serializer does not support {@code null}
  * values, it can be wrapped with {@link
  * org.apache.flink.api.java.typeutils.runtime.NullableSerializer} at the cost of an extra byte in
  * the serialized form.
+ * 注意：只有当用户值序列化程序可以处理 {@code null} 值时，具有 TTL 的映射状态当前才支持 {@code null} 用户值。
+ * 如果序列化程序不支持 {@code null} 值，则可以用 {@link org.apache.flink.api.java.typeutils.runtime.NullableSerializer} 包装它，
+ * 但需要在序列化形式中增加一个字节。
  *
  * @param <UK> The type of the keys that can be added to the map state.
  */
@@ -52,6 +60,7 @@ public class MapStateDescriptor<UK, UV> extends StateDescriptor<MapState<UK, UV>
 
     /**
      * Create a new {@code MapStateDescriptor} with the given name and the given type serializers.
+     * 使用给定的名称和给定的类型序列化程序创建一个新的 {@code MapStateDescriptor}。
      *
      * @param name The name of the {@code MapStateDescriptor}.
      * @param keySerializer The type serializer for the keys in the state.
@@ -64,6 +73,7 @@ public class MapStateDescriptor<UK, UV> extends StateDescriptor<MapState<UK, UV>
 
     /**
      * Create a new {@code MapStateDescriptor} with the given name and the given type information.
+     * 使用给定的名称和给定的类型信息创建一个新的 {@code MapStateDescriptor}。
      *
      * @param name The name of the {@code MapStateDescriptor}.
      * @param keyTypeInfo The type information for the keys in the state.
@@ -76,10 +86,13 @@ public class MapStateDescriptor<UK, UV> extends StateDescriptor<MapState<UK, UV>
 
     /**
      * Create a new {@code MapStateDescriptor} with the given name and the given type information.
+     * 使用给定的名称和给定的类型信息创建一个新的 {@code MapStateDescriptor}。
      *
      * <p>If this constructor fails (because it is not possible to describe the type via a class),
      * consider using the {@link #MapStateDescriptor(String, TypeInformation, TypeInformation)}
      * constructor.
+     * 如果此构造函数失败（因为无法通过类描述类型），
+     * 请考虑使用 {@link #MapStateDescriptor(String, TypeInformation, TypeInformation)} 构造函数。
      *
      * @param name The name of the {@code MapStateDescriptor}.
      * @param keyClass The class of the type of keys in the state.
@@ -96,6 +109,7 @@ public class MapStateDescriptor<UK, UV> extends StateDescriptor<MapState<UK, UV>
 
     /**
      * Gets the serializer for the keys in the state.
+     * 获取状态中键的序列化程序。
      *
      * @return The serializer for the keys in the state.
      */
@@ -110,6 +124,7 @@ public class MapStateDescriptor<UK, UV> extends StateDescriptor<MapState<UK, UV>
 
     /**
      * Gets the serializer for the values in the state.
+     * 获取状态中值的序列化程序。
      *
      * @return The serializer for the values in the state.
      */

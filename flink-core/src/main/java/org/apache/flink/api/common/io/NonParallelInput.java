@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Public;
 /**
  * This interface acts as a marker for input formats for inputs which cannot be split. Data sources
  * with a non-parallel input formats are always executed with a parallelism of one.
+ * 此接口充当无法拆分的输入的输入格式的标记。 具有非并行输入格式的数据源始终以 1 的并行度执行。
  *
  * @see InputFormat
  */

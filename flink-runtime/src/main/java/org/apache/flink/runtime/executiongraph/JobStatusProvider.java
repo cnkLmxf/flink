@@ -20,11 +20,14 @@ package org.apache.flink.runtime.executiongraph;
 
 import org.apache.flink.api.common.JobStatus;
 
-/** Interface for querying the state of a job and the timestamps of state transitions. */
+/** Interface for querying the state of a job and the timestamps of state transitions.
+ * 用于查询作业状态和状态转换时间戳的接口。
+ * */
 public interface JobStatusProvider {
 
     /**
      * Returns the current {@link JobStatus} for this execution graph.
+     * 返回此执行图的当前 {@link JobStatus}。
      *
      * @return job status for this execution graph
      */
@@ -32,6 +35,7 @@ public interface JobStatusProvider {
 
     /**
      * Returns the timestamp for the given {@link JobStatus}.
+     * 返回给定 {@link JobStatus} 的时间戳。
      *
      * @param status status for which the timestamp should be returned
      * @return timestamp for the given job status

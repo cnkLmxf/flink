@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 /**
  * This is adopted and simplified code from tv.cntt:netty-router library. For more information check
  * {@link Router}.
+ * 这是 tv.cntt:netty-router 库中采用和简化的代码。 有关更多信息，请查看 {@link Router}。
  *
  * <p>Router that doesn't contain information about HTTP request methods and route matching orders.
  *
@@ -54,6 +55,7 @@ final class MethodlessRouter<T> {
     /**
      * This method does nothing if the path pattern has already been added. A path pattern can only
      * point to one target.
+     * 如果已经添加了路径模式，则此方法不执行任何操作。 路径模式只能指向一个目标。
      */
     public MethodlessRouter<T> addRoute(String pathPattern, T target) {
         PathPattern p = new PathPattern(pathPattern);

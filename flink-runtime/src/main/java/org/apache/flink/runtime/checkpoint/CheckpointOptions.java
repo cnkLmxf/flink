@@ -32,10 +32,14 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Options for performing the checkpoint. Note that different {@link
  * org.apache.flink.runtime.io.network.api.CheckpointBarrier barriers} may have different options.
+ * 执行检查点的选项。
+ * 请注意，不同的 {@link org.apache.flink.runtime.io.network.api.CheckpointBarrier barrier} 可能有不同的选项。
  *
  * <p>The {@link CheckpointProperties} are related and cover properties that are only relevant at
  * the {@link CheckpointCoordinator}. These options are relevant at the {@link AbstractInvokable}
  * instances running on task managers.
+ * {@link CheckpointProperties} 是相关的，涵盖仅在 {@link CheckpointCoordinator} 相关的属性。
+ * 这些选项与任务管理器上运行的 {@link AbstractInvokable} 实例相关。
  */
 public class CheckpointOptions implements Serializable {
 

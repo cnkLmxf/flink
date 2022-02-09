@@ -25,6 +25,7 @@ import org.apache.flink.util.FlinkException;
 /**
  * Exception that indicates that there is no ongoing or completed savepoint for a given {@link
  * JobID} and {@link TriggerId} pair.
+ * 表示给定 {@link JobID} 和 {@link TriggerId} 对没有正在进行或已完成的保存点的异常。
  */
 class UnknownOperationKeyException extends FlinkException {
     private static final long serialVersionUID = 1L;

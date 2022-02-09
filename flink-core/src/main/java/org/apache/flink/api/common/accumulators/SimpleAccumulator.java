@@ -22,6 +22,8 @@ import org.apache.flink.annotation.Public;
 
 import java.io.Serializable;
 
-/** Similar to Accumulator, but the type of items to add and the result value must be the same. */
+/** Similar to Accumulator, but the type of items to add and the result value must be the same.
+ * 与累加器类似，但要添加的项目类型和结果值必须相同。
+ * */
 @Public
 public interface SimpleAccumulator<T extends Serializable> extends Accumulator<T, T> {}

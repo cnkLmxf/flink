@@ -60,6 +60,9 @@ import static org.apache.flink.util.Preconditions.checkState;
  * {@link PartitionedFile} in subpartition index order sequentially. Large records that can not be
  * appended to an empty {@link SortBuffer} will be spilled to the result {@link PartitionedFile}
  * separately.
+ * {@link SortMergeResultPartition} 将记录和事件附加到 {@link SortBuffer} 并且在 {@link SortBuffer} 已满后，
+ * {@link SortBuffer} 中的所有数据将被复制并溢出到子分区索引中的 {@link PartitionedFile} 按顺序排列。
+ * 无法附加到空 {@link SortBuffer} 的大记录将分别溢出到结果 {@link PartitionedFile}。
  */
 @NotThreadSafe
 public class SortMergeResultPartition extends ResultPartition {
@@ -67,6 +70,7 @@ public class SortMergeResultPartition extends ResultPartition {
     /**
      * Number of expected buffer size to allocate for data writing. Currently, it is an empirical
      * value (16M) which can not be configured.
+     * 为数据写入分配的预期缓冲区大小数。 目前为经验值（16M），无法配置。
      */
     private static final int NUM_WRITE_BUFFER_BYTES = 16 * 1024 * 1024;
 
@@ -86,17 +90,21 @@ public class SortMergeResultPartition extends ResultPartition {
     /** File writer for this result partition. */
     private final PartitionedFileWriter fileWriter;
 
-    /** Subpartition orders of coping data from {@link SortBuffer} and writing to file. */
+    /** Subpartition orders of coping data from {@link SortBuffer} and writing to file.
+     * 从 {@link SortBuffer} 复制数据并写入文件的子分区顺序。
+     * */
     private final int[] subpartitionOrder;
 
     /**
      * Data read scheduler for this result partition which schedules data read of all subpartitions.
+     * 此结果分区的数据读取调度程序，它调度所有子分区的数据读取。
      */
     private final SortMergeResultPartitionReadScheduler readScheduler;
 
     /**
      * Number of guaranteed network buffers can be used by {@link #unicastSortBuffer} and {@link
      * #broadcastSortBuffer}.
+     * @link #unicastSortBuffer} 和 {@link #broadcastSortBuffer} 可以使用保证的网络缓冲区数量。
      */
     private int numBuffersForSort;
 
@@ -363,6 +371,7 @@ public class SortMergeResultPartition extends ResultPartition {
 
     /**
      * Spills the large record into the target {@link PartitionedFile} as a separate data region.
+     * 将大记录作为单独的数据区域溢出到目标 {@link PartitionedFile} 中。
      */
     private void writeLargeRecord(
             ByteBuffer record, int targetSubpartition, DataType dataType, boolean isBroadcast)

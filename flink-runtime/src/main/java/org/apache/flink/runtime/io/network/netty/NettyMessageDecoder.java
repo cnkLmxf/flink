@@ -23,7 +23,9 @@ import org.apache.flink.shaded.netty4.io.netty.channel.ChannelHandlerContext;
 
 import javax.annotation.Nullable;
 
-/** Base class of decoders for specified netty messages. */
+/** Base class of decoders for specified netty messages.
+ * 指定网络消息的解码器基类。
+ * */
 abstract class NettyMessageDecoder implements AutoCloseable {
 
     /** ID of the message under decoding. */
@@ -61,6 +63,7 @@ abstract class NettyMessageDecoder implements AutoCloseable {
 
     /**
      * Notifies that the underlying channel becomes active.
+     * 通知基础通道变为活动状态。
      *
      * @param ctx The context for the callback.
      */
@@ -68,6 +71,7 @@ abstract class NettyMessageDecoder implements AutoCloseable {
 
     /**
      * Notifies that a new message is to be decoded.
+     * 通知要解码新消息。
      *
      * @param msgId The type of the message to be decoded.
      * @param messageLength The length of the message to be decoded.
@@ -79,6 +83,7 @@ abstract class NettyMessageDecoder implements AutoCloseable {
 
     /**
      * Notifies that more data is received to continue decoding.
+     * 通知接收到更多数据以继续解码。
      *
      * @param data The data received.
      * @return The result of decoding received data.

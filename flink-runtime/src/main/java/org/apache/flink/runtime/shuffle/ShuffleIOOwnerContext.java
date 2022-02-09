@@ -25,6 +25,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Context of shuffle input/output owner used to create partitions or gates belonging to the owner.
+ * 混洗输入/输出所有者的上下文，用于创建属于所有者的分区或门。
  */
 public class ShuffleIOOwnerContext {
     private final String ownerName;

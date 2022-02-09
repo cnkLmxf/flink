@@ -50,7 +50,9 @@ import java.util.TimerTask;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** An input channel, which requests a local subpartition. */
+/** An input channel, which requests a local subpartition.
+ * 一个输入通道，它请求一个本地子分区。
+ * */
 public class LocalInputChannel extends InputChannel implements BufferAvailabilityListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalInputChannel.class);
@@ -186,12 +188,15 @@ public class LocalInputChannel extends InputChannel implements BufferAvailabilit
         // Do this outside of the lock scope as this might lead to a
         // deadlock with a concurrent release of the channel via the
         // input gate.
+        // 在锁定范围之外执行此操作，因为这可能会导致死锁，同时通过输入门释放通道。
         if (retriggerRequest) {
             inputGate.retriggerPartitionRequest(partitionId.getPartitionId());
         }
     }
 
-    /** Retriggers a subpartition request. */
+    /** Retriggers a subpartition request.
+     * 重新触发子分区请求。
+     * */
     void retriggerSubpartitionRequest(Timer timer, final int subpartitionIndex) {
         synchronized (requestLock) {
             checkState(subpartitionView == null, "already requested partition");
@@ -330,7 +335,9 @@ public class LocalInputChannel extends InputChannel implements BufferAvailabilit
         return isReleased;
     }
 
-    /** Releases the partition reader. */
+    /** Releases the partition reader.
+     * 释放分区读取器。
+     * */
     @Override
     void releaseAllResources() throws IOException {
         if (!isReleased) {

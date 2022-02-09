@@ -27,7 +27,9 @@ import org.apache.flink.runtime.rest.messages.TriggerIdPathParameter;
 
 import org.apache.flink.shaded.netty4.io.netty.handler.codec.http.HttpResponseStatus;
 
-/** Message headers for polling the status of an ongoing rescaling operation. */
+/** Message headers for polling the status of an ongoing rescaling operation.
+ * 用于轮询正在进行的重新缩放操作状态的消息头。
+ * */
 public class RescalingStatusHeaders
         extends AsynchronousOperationStatusMessageHeaders<
                 AsynchronousOperationInfo, RescalingStatusMessageParameters> {

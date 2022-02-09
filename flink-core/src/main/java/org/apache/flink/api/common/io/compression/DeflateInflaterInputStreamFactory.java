@@ -26,7 +26,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.zip.InflaterInputStream;
 
-/** Factory for input streams that decompress the "deflate" compression format. */
+/** Factory for input streams that decompress the "deflate" compression format.
+ * 用于解压缩“deflate”压缩格式的输入流的工厂。
+ * */
 @Internal
 public class DeflateInflaterInputStreamFactory
         implements InflaterInputStreamFactory<InflaterInputStream> {

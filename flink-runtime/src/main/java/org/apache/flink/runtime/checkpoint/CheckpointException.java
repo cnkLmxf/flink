@@ -20,7 +20,9 @@ package org.apache.flink.runtime.checkpoint;
 
 import org.apache.flink.util.Preconditions;
 
-/** Base class for checkpoint related exceptions. */
+/** Base class for checkpoint related exceptions.
+ * 检查点相关异常的基类。
+ * */
 public class CheckpointException extends Exception {
 
     private static final long serialVersionUID = 3257526119022486948L;

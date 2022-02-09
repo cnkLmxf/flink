@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * {@link CheckpointIDCounter} instances for JobManagers running in {@link
  * HighAvailabilityMode#NONE}.
+ * 在 {@link HighAvailabilityMode#NONE} 中运行的 JobManager 的 {@link CheckpointIDCounter} 实例。
  *
  * <p>Simple wrapper around an {@link AtomicLong}.
  */

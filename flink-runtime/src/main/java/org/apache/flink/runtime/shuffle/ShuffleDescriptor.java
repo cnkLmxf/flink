@@ -27,9 +27,11 @@ import java.util.Optional;
 
 /**
  * Interface for shuffle deployment descriptor of result partition resource.
+ * 结果分区资源的shuffle部署描述符接口。
  *
  * <p>The descriptor is used for the deployment of the partition producer/consumer and their data
  * exchange
+ * 描述符用于分区生产者/消费者的部署及其数据交换
  */
 public interface ShuffleDescriptor extends Serializable {
 

@@ -39,29 +39,42 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** The manager used for creating/deleting file channels based on config temp dirs. */
+/** The manager used for creating/deleting file channels based on config temp dirs.
+ * 用于根据配置临时目录创建/删除文件通道的管理器。
+ * */
 public class FileChannelManagerImpl implements FileChannelManager {
     private static final Logger LOG = LoggerFactory.getLogger(FileChannelManagerImpl.class);
 
-    /** The temporary directories for files. */
+    /** The temporary directories for files.
+     * 文件的临时目录。
+     * */
     private final File[] paths;
 
-    /** A random number generator for the anonymous Channel IDs. */
+    /** A random number generator for the anonymous Channel IDs.
+     * 匿名频道 ID 的随机数生成器。
+     * */
     private final Random random;
 
-    /** The number of the next path to use. */
+    /** The number of the next path to use.
+     * 下一个要使用的路径的编号。
+     * */
     private volatile int nextPath;
 
-    /** Prefix of the temporary directories to create. */
+    /** Prefix of the temporary directories to create.
+     * 要创建的临时目录的前缀。
+     * */
     private final String prefix;
 
     /**
      * Flag to signal that the file channel manager has been shutdown already. The flag should
      * support concurrent access for cases like multiple shutdown hooks.
+     * 标志文件通道管理器已经关闭。 该标志应支持多个关闭挂钩等情况的并发访问。
      */
     private final AtomicBoolean isShutdown = new AtomicBoolean();
 
-    /** Shutdown hook to make sure that the directories are removed on exit. */
+    /** Shutdown hook to make sure that the directories are removed on exit.
+     * 关闭挂钩以确保在退出时删除目录。
+     * */
     private final Thread shutdownHook;
 
     public FileChannelManagerImpl(String[] tempDirs, String prefix) {
@@ -124,7 +137,9 @@ public class FileChannelManagerImpl implements FileChannelManager {
         return Arrays.copyOf(paths, paths.length);
     }
 
-    /** Remove all the temp directories. */
+    /** Remove all the temp directories.
+     * 删除所有临时目录。
+     * */
     @Override
     public void close() throws Exception {
         // Marks shutdown and exits if it has already shutdown.

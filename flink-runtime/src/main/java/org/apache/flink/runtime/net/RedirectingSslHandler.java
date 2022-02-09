@@ -43,7 +43,9 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-/** SSL handler which automatically redirects Non-SSL requests to SSL address. */
+/** SSL handler which automatically redirects Non-SSL requests to SSL address.
+ * SSL 处理程序，它自动将非 SSL 请求重定向到 SSL 地址。
+ * */
 public class RedirectingSslHandler extends ByteToMessageDecoder {
     private static final Logger log = LoggerFactory.getLogger(RedirectingSslHandler.class);
 

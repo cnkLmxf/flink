@@ -28,6 +28,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * An entry holding the {@link InternalKvState} along with its {@link KvStateInfo}.
+ * 包含 {@link InternalKvState} 及其 {@link KvStateInfo} 的条目。
  *
  * @param <K> The type of key the state is associated to
  * @param <N> The type of the namespace the state is associated to

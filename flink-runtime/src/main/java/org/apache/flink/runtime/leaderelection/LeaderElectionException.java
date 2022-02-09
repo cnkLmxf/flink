@@ -24,6 +24,8 @@ import org.apache.flink.util.FlinkException;
  * This exception is thrown by the {@link LeaderElectionDriver} when {@link
  * LeaderElectionDriver#writeLeaderInformation} failed or some unexpected changes to the leader
  * storage.
+ * 当 {@link LeaderElectionDriver#writeLeaderInformation} 失败或对领导者存储进行一些意外更改时，
+ * {@link LeaderElectionDriver} 会引发此异常。
  */
 public class LeaderElectionException extends FlinkException {
 

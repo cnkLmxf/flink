@@ -24,6 +24,9 @@ import org.apache.flink.api.common.functions.RuntimeContext;
  * Indicates that a broadcast variable was initialized with a {@link
  * DefaultBroadcastVariableInitializer} as a non-{@link java.util.List} type, and later accessed
  * using {@link RuntimeContext#getBroadcastVariable(String)} which may only return lists.
+ * 表示广播变量已使用 {@link DefaultBroadcastVariableInitializer}
+ * 初始化为非 {@link java.util.List} 类型，稍后使用可能仅返回列表的
+ * {@link RuntimeContext#getBroadcastVariable(String)} 进行访问。
  */
 public class InitializationTypeConflictException extends Exception {
 

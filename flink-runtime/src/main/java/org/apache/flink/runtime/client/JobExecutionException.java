@@ -24,6 +24,7 @@ import org.apache.flink.util.FlinkException;
 /**
  * This exception is the base exception for all exceptions that denote any failure during the
  * execution of a job.
+ * 此异常是表示作业执行期间出现任何故障的所有异常的基本异常。
  */
 public class JobExecutionException extends FlinkException {
 

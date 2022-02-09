@@ -23,6 +23,7 @@ import org.apache.flink.api.common.functions.Function;
 /**
  * This interface marks a {@code Driver} as resettable, meaning that will reset part of their
  * internal state but otherwise reuse existing data structures.
+ * 此接口将 {@code Driver} 标记为可重置，这意味着它将重置其部分内部状态，但会重用现有数据结构。
  *
  * @see Driver
  * @see TaskContext

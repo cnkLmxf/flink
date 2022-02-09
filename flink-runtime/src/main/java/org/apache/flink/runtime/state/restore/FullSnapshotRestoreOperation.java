@@ -59,8 +59,10 @@ import static org.apache.flink.runtime.state.StateUtil.unexpectedStateHandleExce
 /**
  * The procedure of restoring state from a savepoint written with the unified binary format. All
  * state backends should support restoring from that format.
+ * 从使用统一二进制格式编写的保存点恢复状态的过程。 所有状态后端都应支持从该格式恢复。
  *
  * <p>The format was adopted from the RocksDB state backend. It is as follows:
+ * 该格式是从 RocksDB 状态后端采用的。 如下：
  *
  * <pre>
  *                    +-------------------------------------------------------------+
@@ -86,6 +88,7 @@ import static org.apache.flink.runtime.state.StateUtil.unexpectedStateHandleExce
  *
  * <p>Additionally the format of the (K,V) pairs differs slightly depending on the type of the state
  * object:
+ * 此外，(K,V) 对的格式根据状态对象的类型略有不同：
  *
  * <pre>
  * +------------------+-------------------------------------+
@@ -106,6 +109,7 @@ import static org.apache.flink.runtime.state.StateUtil.unexpectedStateHandleExce
  * </pre>
  *
  * <p>For detailed information see FLIP-41: https://cwiki.apache.org/confluence/x/VJDiBg
+ * 有关详细信息，请参阅 FLIP-41：https://cwiki.apache.org/confluence/x/VJDiBg
  *
  * @param <K> The data type of the key.
  */

@@ -20,7 +20,9 @@ package org.apache.flink.runtime.taskexecutor;
 import java.io.Serializable;
 import java.util.Collections;
 
-/** Payload for heartbeats sent from the TaskExecutor to the JobManager. */
+/** Payload for heartbeats sent from the TaskExecutor to the JobManager.
+ * 从 TaskExecutor 发送到 JobManager 的心跳的有效负载。
+ * */
 public class TaskExecutorToJobManagerHeartbeatPayload implements Serializable {
 
     private static final long serialVersionUID = 525146950563585444L;

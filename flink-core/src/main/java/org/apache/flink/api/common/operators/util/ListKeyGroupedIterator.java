@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
 
 /**
  * The KeyValueIterator returns a key and all values that belong to the key (share the same key).
+ * KeyValueIterator 返回一个键和属于该键的所有值（共享同一个键）。
  */
 @Internal
 public final class ListKeyGroupedIterator<E> {
@@ -50,6 +51,7 @@ public final class ListKeyGroupedIterator<E> {
 
     /**
      * Initializes the ListKeyGroupedIterator..
+     * 初始化 ListKeyGroupedIterator..
      *
      * @param input The list with the input elements.
      * @param comparator The comparator for the data type iterated over.
@@ -71,6 +73,8 @@ public final class ListKeyGroupedIterator<E> {
      * Moves the iterator to the next key. This method may skip any values that have not yet been
      * returned by the iterator created by the {@link #getValues()} method. Hence, if called
      * multiple times it "removes" key groups.
+     * 将迭代器移动到下一个键。 此方法可能会跳过 {@link #getValues()} 方法创建的迭代器尚未返回的任何值。
+     * 因此，如果多次调用它会“删除”密钥组。
      *
      * @return true, if the input iterator has an other group of records with the same key.
      */
@@ -151,6 +155,9 @@ public final class ListKeyGroupedIterator<E> {
      * <code>null</code> (before the first call to {@link #nextKey()} and after all keys are
      * consumed. In general, this method returns always a non-null value, if a previous call to
      * {@link #nextKey()} return <code>true</code>.
+     * 返回属于当前键的所有值的迭代器。
+     * 迭代器最初是 <code>null</code> （在第一次调用 {@link #nextKey()} 之前和所有键被消耗之后。
+     * 一般来说，如果之前的调用，此方法总是返回一个非空值 到 {@link #nextKey()} 返回 <code>true</code>。
      *
      * @return Iterator over all values that belong to the current key.
      */

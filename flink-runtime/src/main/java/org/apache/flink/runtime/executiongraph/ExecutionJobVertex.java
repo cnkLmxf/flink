@@ -73,9 +73,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * An {@code ExecutionJobVertex} is part of the {@link ExecutionGraph}, and the peer to the {@link
  * JobVertex}.
+ * {@code ExecutionJobVertex} 是 {@link ExecutionGraph} 的一部分，也是 {@link JobVertex} 的对等点。
  *
  * <p>The {@code ExecutionJobVertex} corresponds to a parallelized operation. It contains an {@link
  * ExecutionVertex} for each parallel instance of that operation.
+ * {@code ExecutionJobVertex} 对应于并行化操作。 它包含该操作的每个并行实例的 {@link ExecutionVertex}。
  */
 public class ExecutionJobVertex
         implements AccessExecutionJobVertex, Archiveable<ArchivedExecutionJobVertex> {
@@ -109,6 +111,8 @@ public class ExecutionJobVertex
      * Either store a serialized task information, which is for all sub tasks the same, or the
      * permanent blob key of the offloaded task information BLOB containing the serialized task
      * information.
+     * 要么存储一个序列化的任务信息，它对于所有子任务都相同，
+     * 要么存储包含序列化任务信息的卸载任务信息 BLOB 的永久 blob 键。
      */
     private Either<SerializedValue<TaskInformation>, PermanentBlobKey> taskInformationOrBlobKey =
             null;
@@ -251,6 +255,7 @@ public class ExecutionJobVertex
     /**
      * Returns a list containing the ID pairs of all operators contained in this execution job
      * vertex.
+     * 返回一个列表，其中包含此执行作业顶点中包含的所有运算符的 ID 对。
      *
      * @return list containing the ID pairs of all contained operators
      */
@@ -427,7 +432,9 @@ public class ExecutionJobVertex
     //  Actions
     // ---------------------------------------------------------------------------------------------
 
-    /** Cancels all currently running vertex executions. */
+    /** Cancels all currently running vertex executions.
+     * 取消所有当前正在运行的顶点执行。
+     * */
     public void cancel() {
         for (ExecutionVertex ev : getTaskVertices()) {
             ev.cancel();
@@ -436,6 +443,7 @@ public class ExecutionJobVertex
 
     /**
      * Cancels all currently running vertex executions.
+     * 取消所有当前正在运行的顶点执行。
      *
      * @return A future that is complete once all tasks have canceled.
      */
@@ -492,15 +500,20 @@ public class ExecutionJobVertex
 
     /**
      * A utility function that computes an "aggregated" state for the vertex.
+     * 计算顶点的“聚合”状态的实用函数。
      *
      * <p>This state is not used anywhere in the coordination, but can be used for display in
      * dashboards to as a summary for how the particular parallel operation represented by this
      * ExecutionJobVertex is currently behaving.
+     * 此状态不在协调中的任何地方使用，但可用于在仪表板中显示，
+     * 以作为此 ExecutionJobVertex 表示的特定并行操作当前行为方式的摘要。
      *
      * <p>For example, if at least one parallel task is failed, the aggregate state is failed. If
      * not, and at least one parallel task is cancelling (or cancelled), the aggregate state is
      * cancelling (or cancelled). If all tasks are finished, the aggregate state is finished, and so
      * on.
+     * 例如，如果至少一个并行任务失败，则聚合状态失败。 如果不是，并且至少一个并行任务正在取消（或取消），
+     * 则聚合状态正在取消（或取消）。 如果所有任务都已完成，则聚合状态已完成，依此类推。
      *
      * @param verticesPerState The number of vertices in each state (indexed by the ordinal of the
      *     ExecutionState values).

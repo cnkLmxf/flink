@@ -24,6 +24,7 @@ import java.io.InputStream;
 
 /**
  * Wrapper around a FSDataInputStream to limit the maximum read offset.
+ * 包装 FSDataInputStream 以限制最大读取偏移量。
  *
  * <p>Based on the implementation from org.apache.commons.io.input.BoundedInputStream
  */

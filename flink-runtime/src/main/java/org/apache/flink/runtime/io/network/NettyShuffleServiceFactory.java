@@ -48,7 +48,9 @@ import java.util.concurrent.Executors;
 import static org.apache.flink.runtime.io.network.metrics.NettyShuffleMetricFactory.registerShuffleMetrics;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Netty based shuffle service implementation. */
+/** Netty based shuffle service implementation.
+ * 基于 Netty 的 shuffle 服务实现。
+ * */
 public class NettyShuffleServiceFactory
         implements ShuffleServiceFactory<NettyShuffleDescriptor, ResultPartition, SingleInputGate> {
 

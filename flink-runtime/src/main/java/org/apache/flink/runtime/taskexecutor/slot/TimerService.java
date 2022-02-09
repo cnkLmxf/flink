@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Service to register timeouts for a given key. The timeouts are identified by a ticket so that
  * newly registered timeouts for the same key can be distinguished from older timeouts.
+ * 为给定键注册超时的服务。 超时由票证标识，以便可以将同一键的新注册超时与旧超时区分开来。
  *
  * @param <K> Type of the key
  */

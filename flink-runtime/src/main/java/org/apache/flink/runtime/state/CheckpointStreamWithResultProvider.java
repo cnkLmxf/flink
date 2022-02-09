@@ -37,16 +37,22 @@ import java.util.UUID;
  * Interface that provides access to a CheckpointStateOutputStream and a method to provide the
  * {@link SnapshotResult}. This abstracts from different ways that a result is obtained from
  * checkpoint output streams.
+ * 提供对 CheckpointStateOutputStream 的访问的接口和提供 {@link SnapshotResult} 的方法。
+ * 这从从检查点输出流中获得结果的不同方式中抽象出来。
  */
 public interface CheckpointStreamWithResultProvider extends Closeable {
 
     Logger LOG = LoggerFactory.getLogger(CheckpointStreamWithResultProvider.class);
 
-    /** Closes the stream ans returns a snapshot result with the stream handle(s). */
+    /** Closes the stream ans returns a snapshot result with the stream handle(s).
+     * 关闭流并返回带有流句柄的快照结果。
+     * */
     @Nonnull
     SnapshotResult<StreamStateHandle> closeAndFinalizeCheckpointStreamResult() throws IOException;
 
-    /** Returns the encapsulated output stream. */
+    /** Returns the encapsulated output stream.
+     * 返回封装的输出流。
+     * */
     @Nonnull
     CheckpointStreamFactory.CheckpointStateOutputStream getCheckpointOutputStream();
 
@@ -58,6 +64,7 @@ public interface CheckpointStreamWithResultProvider extends Closeable {
     /**
      * Implementation of {@link CheckpointStreamWithResultProvider} that only creates the
      * primary/remote/jm-owned state.
+     * {@link CheckpointStreamWithResultProvider} 的实现，它只创建primary/remote/jm-owned的状态。
      */
     class PrimaryStreamOnly implements CheckpointStreamWithResultProvider {
 
@@ -85,6 +92,7 @@ public interface CheckpointStreamWithResultProvider extends Closeable {
     /**
      * Implementation of {@link CheckpointStreamWithResultProvider} that creates both, the
      * primary/remote/jm-owned state and the secondary/local/tm-owned state.
+     * {@link CheckpointStreamWithResultProvider} 的实现，它创建了主要/远程/jm 拥有的状态和次要/本地/tm 拥有的状态。
      */
     class PrimaryAndSecondaryStream implements CheckpointStreamWithResultProvider {
 
@@ -198,6 +206,8 @@ public interface CheckpointStreamWithResultProvider extends Closeable {
      * Factory method for a {@link KeyedStateHandle} to be used in {@link
      * #toKeyedStateHandleSnapshotResult(SnapshotResult, KeyGroupRangeOffsets,
      * KeyedStateHandleFactory)}.
+     * {@link #toKeyedStateHandleSnapshotResult(SnapshotResult, KeyGroupRangeOffsets, KeyedStateHandleFactory)}
+     * 中使用的 {@link KeyedStateHandle} 的工厂方法。
      */
     @FunctionalInterface
     interface KeyedStateHandleFactory {
@@ -209,6 +219,8 @@ public interface CheckpointStreamWithResultProvider extends Closeable {
      * Helper method that takes a {@link SnapshotResult<StreamStateHandle>} and a {@link
      * KeyGroupRangeOffsets} and creates a {@link SnapshotResult<KeyedStateHandle>} by combining the
      * key groups offsets with all the present stream state handles.
+     * 辅助方法采用 {@link SnapshotResult<StreamStateHandle>} 和 {@link KeyGroupRangeOffsets}，
+     * 并通过将键组偏移量与所有当前流状态句柄相结合来创建 {@link SnapshotResult<KeyedStateHandle>}。
      */
     @Nonnull
     static SnapshotResult<KeyedStateHandle> toKeyedStateHandleSnapshotResult(

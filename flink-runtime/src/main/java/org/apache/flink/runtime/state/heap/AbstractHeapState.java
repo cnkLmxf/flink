@@ -29,6 +29,7 @@ import org.apache.flink.util.Preconditions;
 /**
  * Base class for partitioned {@link State} implementations that are backed by a regular heap hash
  * map. The concrete implementations define how the state is checkpointed.
+ * 由常规堆哈希映射支持的分区 {@link State} 实现的基类。 具体的实现定义了状态是如何设置检查点的。
  *
  * @param <K> The type of the key.
  * @param <N> The type of the namespace.

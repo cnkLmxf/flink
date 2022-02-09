@@ -25,9 +25,11 @@ import org.apache.flink.configuration.ReadableConfig;
 /**
  * A factory to create a specific {@link CheckpointStorage}. The storage creation gets a
  * configuration object that can be used to read further config values.
+ * 创建特定 {@link CheckpointStorage} 的工厂。 存储创建获得一个配置对象，可用于读取进一步的配置值。
  *
  * <p>The checkpoint storage factory is typically specified in the configuration to produce a
  * configured storage backend.
+ * 检查点存储工厂通常在配置中指定以生成配置的存储后端。
  *
  * @param <T> The type of the checkpoint storage created.
  */
@@ -36,6 +38,7 @@ public interface CheckpointStorageFactory<T extends CheckpointStorage> {
 
     /**
      * Creates the checkpoint storage, optionally using the given configuration.
+     * 创建检查点存储，可选择使用给定的配置。
      *
      * @param config The Flink configuration (loaded by the TaskManager).
      * @param classLoader The clsas loader that should be used to load the checkpoint storage.

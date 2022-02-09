@@ -28,6 +28,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Either type for {@link Buffer} or {@link AbstractEvent} instances tagged with the channel index,
  * from which they were received.
+ * 类型为 {@link Buffer} 或 {@link AbstractEvent} 实例标记有通道索引，它们是从中接收的。
  */
 public class BufferOrEvent {
 
@@ -40,6 +41,7 @@ public class BufferOrEvent {
     /**
      * Indicate availability of further instances for the union input gate. This is not needed
      * outside of the input gate unioning logic and cannot be set outside of the consumer package.
+     * 指示联合输入门的更多实例的可用性。 这在输入门联合逻辑之外不需要，并且不能在消费者包之外设置。
      */
     private boolean moreAvailable;
 

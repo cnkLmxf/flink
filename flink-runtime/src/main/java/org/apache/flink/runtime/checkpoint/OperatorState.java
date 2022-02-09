@@ -38,6 +38,7 @@ import static org.apache.flink.util.Preconditions.checkState;
  * Simple container class which contains the raw/managed operator state and key-group state handles
  * from all sub tasks of an operator and therefore represents the complete state of a logical
  * operator.
+ * 简单的容器类，它包含来自操作员所有子任务的原始/托管操作员状态和键组状态句柄，因此表示逻辑操作员的完整状态。
  */
 public class OperatorState implements CompositeStateHandle {
 

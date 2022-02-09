@@ -37,8 +37,10 @@ import java.util.stream.Collectors;
 
 /**
  * Describe the specifics of different resource dimensions of the TaskExecutor process.
+ * 描述TaskExecutor流程的不同资源维度的细节。
  *
  * <p>A TaskExecutor's memory consists of the following components.
+ * TaskExecutor 的内存由以下组件组成。
  *
  * <ul>
  *   <li>Framework Heap Memory
@@ -54,8 +56,12 @@ import java.util.stream.Collectors;
  * Among all the components, Framework Heap Memory and Task Heap Memory use on heap memory, while
  * the rest use off heap memory. We use Total Process Memory to refer to all the memory components,
  * while Total Flink Memory refering to all the components except JVM Metaspace and JVM Overhead.
+ * 在所有组件中，Framework Heap Memory 和 Task Heap Memory 使用堆内存，其余使用堆外内存。
+ * 我们使用 Total Process Memory 来指代所有的内存组件，
+ * 而 Total Flink Memory 则是指除了 JVM Metaspace 和 JVM Overhead 之外的所有组件。
  *
  * <p>The relationships of TaskExecutor memory components are shown below.
+ * TaskExecutor 内存组件的关系如下图所示。
  *
  * <pre>
  *               ┌ ─ ─ Total Process Memory  ─ ─ ┐

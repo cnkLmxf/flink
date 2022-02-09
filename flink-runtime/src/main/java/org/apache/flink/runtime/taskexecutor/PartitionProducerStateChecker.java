@@ -28,10 +28,12 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Intermediate partition state checker to query the JobManager about the state of the producer of a
  * result partition.
+ * 中间分区状态检查器，用于向 JobManager 查询结果分区生产者的状态。
  *
  * <p>These checks are triggered when a partition request is answered with a PartitionNotFound
  * event. This usually happens when the producer of that partition has not registered itself with
  * the network stack or terminated.
+ * 当使用 PartitionNotFound 事件响应分区请求时会触发这些检查。 这通常发生在该分区的生产者尚未向网络堆栈注册或终止时。
  */
 public interface PartitionProducerStateChecker {
 

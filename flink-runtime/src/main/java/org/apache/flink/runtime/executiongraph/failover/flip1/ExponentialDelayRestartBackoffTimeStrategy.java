@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Restart strategy which tries to restart indefinitely number of times with an exponential backoff
  * time in between. The delay starts at initial value and keeps increasing (multiplying by backoff
  * multiplier) until maximum delay is reached.
+ * 尝试无限次重启的重启策略，其间有一个指数退避时间。 延迟从初始值开始并不断增加（乘以退避乘数），直到达到最大延迟。
  *
  * <p>If the tasks are running smoothly for some time, backoff is reset to its initial value.
  */

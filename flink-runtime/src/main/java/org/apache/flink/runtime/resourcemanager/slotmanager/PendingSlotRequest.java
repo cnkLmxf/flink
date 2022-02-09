@@ -30,7 +30,9 @@ import javax.annotation.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-/** Class representing a pending slot request in the {@link SlotManager}. */
+/** Class representing a pending slot request in the {@link SlotManager}.
+ * 表示 {@link SlotManager} 中的待处理槽请求的类。
+ * */
 public class PendingSlotRequest {
 
     private final SlotRequest slotRequest;
@@ -39,7 +41,9 @@ public class PendingSlotRequest {
 
     @Nullable private PendingTaskManagerSlot pendingTaskManagerSlot;
 
-    /** Timestamp when this pending slot request has been created. */
+    /** Timestamp when this pending slot request has been created.
+     * 创建此待处理槽请求时的时间戳。
+     * */
     private final long creationTimestamp;
 
     public PendingSlotRequest(SlotRequest slotRequest) {

@@ -73,6 +73,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * The implementation of {@link ShuffleEnvironment} based on netty network communication, local
  * memory and disk files. The network environment contains the data structures that keep track of
  * all intermediate results and shuffle data exchanges.
+ * 基于netty网络通信、本地内存和磁盘文件的{@link ShuffleEnvironment}的实现。
+ * 网络环境包含跟踪所有中间结果和随机数据交换的数据结构。
  */
 public class NettyShuffleEnvironment
         implements ShuffleEnvironment<ResultPartition, SingleInputGate> {
@@ -185,6 +187,7 @@ public class NettyShuffleEnvironment
 
     /**
      * Report unreleased partitions.
+     * 报告未发布的分区。
      *
      * @return collection of partitions which still occupy some resources locally on this task
      *     executor and have been not released yet.
@@ -279,8 +282,10 @@ public class NettyShuffleEnvironment
 
     /**
      * Registers legacy network metric groups before shuffle service refactoring.
+     * 在 shuffle 服务重构之前注册旧的网络指标组。
      *
      * <p>Registers legacy metric groups if shuffle service implementation is original default one.
+     * 如果 shuffle 服务实现是原始默认值，则注册旧指标组。
      *
      * @deprecated should be removed in future
      */
@@ -316,8 +321,10 @@ public class NettyShuffleEnvironment
 
     /*
      * Starts the internal related components for network connection and communication.
+     * 启动内部相关组件进行网络连接和通信。
      *
-     * @return a port to connect to the task executor for shuffle data exchange, -1 if only local connection is possible.
+     *   return a port to connect to the task executor for shuffle data exchange, -1 if only local connection is possible.
+     * 返回一个端口以连接到任务执行器以进行随机数据交换，如果只有本地连接是可能的，则返回-1。
      */
     @Override
     public int start() throws IOException {

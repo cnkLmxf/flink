@@ -20,7 +20,9 @@ package org.apache.flink.runtime.concurrent;
 
 import java.time.Duration;
 
-/** Interface that encapsulates retry logic. An instances should be immutable. */
+/** Interface that encapsulates retry logic. An instances should be immutable.
+ * 封装重试逻辑的接口。 实例应该是不可变的。
+ * */
 public interface RetryStrategy {
     /** @return the number of remaining retries */
     int getNumRemainingRetries();

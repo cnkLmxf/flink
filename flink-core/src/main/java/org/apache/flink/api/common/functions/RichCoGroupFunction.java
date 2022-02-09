@@ -26,6 +26,10 @@ import org.apache.flink.util.Collector;
  * {@link org.apache.flink.api.common.functions.RuntimeContext} and provides setup and teardown
  * methods: {@link RichFunction#open(org.apache.flink.configuration.Configuration)} and {@link
  * RichFunction#close()}.
+ * {@link CoGroupFunction} 的丰富变体。 作为 {@link RichFunction}，
+ * 它可以访问 {@link org.apache.flink.api.common.functions.RuntimeContext}
+ * 并提供设置和拆卸方法：{@link RichFunction#open(org.apache.flink.configuration.Configuration)}
+ * 和 {@link RichFunction#close()}。
  *
  * @param <IN1> The type of the elements in the first input.
  * @param <IN2> The type of the elements in the second input.

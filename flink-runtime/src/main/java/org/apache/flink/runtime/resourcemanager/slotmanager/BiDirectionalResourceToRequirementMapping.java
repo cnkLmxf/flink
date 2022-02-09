@@ -26,7 +26,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/** A bi-directional mapping between required and acquired resources. */
+/** A bi-directional mapping between required and acquired resources.
+ * 所需资源和已获取资源之间的双向映射。
+ * */
 class BiDirectionalResourceToRequirementMapping {
     private final Map<ResourceProfile, ResourceCounter> requirementToFulfillingResources =
             new HashMap<>();

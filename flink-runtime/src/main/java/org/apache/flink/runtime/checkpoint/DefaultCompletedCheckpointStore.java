@@ -45,15 +45,23 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Default implementation of {@link CompletedCheckpointStore}. Combined with different {@link
  * org.apache.flink.runtime.persistence.StateHandleStore}, we could persist the completed
  * checkpoints to various storage.
+ * {@link CompletedCheckpointStore} 的默认实现。
+ * 结合不同的 {@link org.apache.flink.runtime.persistence.StateHandleStore}，
+ * 我们可以将完成的检查点持久化到各种存储中。
  *
  * <p>During recovery, the latest checkpoint is read from {@link StateHandleStore}. If there is more
  * than one, only the latest one is used and older ones are discarded (even if the maximum number of
  * retained checkpoints is greater than one).
+ * 在恢复期间，从 {@link StateHandleStore} 读取最新的检查点。
+ * 如果有多个，则只使用最新的，丢弃旧的（即使保留的检查点的最大数量大于一个）。
  *
  * <p>If there is a network partition and multiple JobManagers run concurrent checkpoints for the
  * same program, it is OK to take any valid successful checkpoint as long as the "history" of
  * checkpoints is consistent. Currently, after recovery we start out with only a single checkpoint
  * to circumvent those situations.
+ * 如果存在网络分区并且多个 JobManager 为同一个程序运行并发检查点，
+ * 只要检查点的“历史”一致，就可以取任何有效的成功检查点。
+ * 目前，在恢复后，我们一开始只使用一个检查点来规避这些情况。
  */
 public class DefaultCompletedCheckpointStore<R extends ResourceVersion<R>>
         implements CompletedCheckpointStore {
@@ -74,6 +82,8 @@ public class DefaultCompletedCheckpointStore<R extends ResourceVersion<R>>
      * Local copy of the completed checkpoints in state handle store. This is restored from state
      * handle store when recovering and is maintained in parallel to the state in state handle store
      * during normal operations.
+     * 状态句柄存储中已完成检查点的本地副本。
+     * 这在恢复时从状态句柄存储中恢复，并在正常操作期间与状态句柄存储中的状态并行维护。
      */
     private final ArrayDeque<CompletedCheckpoint> completedCheckpoints;
 
@@ -118,6 +128,8 @@ public class DefaultCompletedCheckpointStore<R extends ResourceVersion<R>>
     /**
      * Recover all the valid checkpoints from state handle store. All the successfully recovered
      * checkpoints will be added to {@link #completedCheckpoints} sorted by checkpoint id.
+     * 从状态句柄存储中恢复所有有效的检查点。
+     * 所有成功恢复的检查点都将添加到按检查点 ID 排序的 {@link #completedCheckpoints} 中。
      */
     @Override
     public void recover() throws Exception {
@@ -160,6 +172,7 @@ public class DefaultCompletedCheckpointStore<R extends ResourceVersion<R>>
     /**
      * Synchronously writes the new checkpoints to state handle store and asynchronously removes
      * older ones.
+     * 将新的检查点同步写入状态句柄存储并异步删除旧的检查点。
      *
      * @param checkpoint Completed checkpoint to add.
      * @throws PossibleInconsistentStateException if adding the checkpoint failed and leaving the
@@ -278,6 +291,7 @@ public class DefaultCompletedCheckpointStore<R extends ResourceVersion<R>>
 
     /**
      * Tries to remove the checkpoint identified by the given checkpoint id.
+     * 尝试删除由给定检查点 ID 标识的检查点。
      *
      * @param checkpointId identifying the checkpoint to remove
      * @return true if the checkpoint could be removed

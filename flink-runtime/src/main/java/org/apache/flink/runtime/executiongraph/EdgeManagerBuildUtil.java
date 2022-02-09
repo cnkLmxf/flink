@@ -29,12 +29,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** Utilities for building {@link EdgeManager}. */
+/** Utilities for building {@link EdgeManager}.
+ * 用于构建 {@link EdgeManager} 的实用程序。
+ * */
 public class EdgeManagerBuildUtil {
 
     /**
      * Calculate the connections between {@link ExecutionJobVertex} and {@link IntermediateResult} *
      * based on the {@link DistributionPattern}.
+     * 根据 {@link DistributionPattern} 计算 {@link ExecutionJobVertex} 和 {@link IntermediateResult}  之间的连接。
      *
      * @param vertex the downstream consumer {@link ExecutionJobVertex}
      * @param intermediateResult the upstream consumed {@link IntermediateResult}

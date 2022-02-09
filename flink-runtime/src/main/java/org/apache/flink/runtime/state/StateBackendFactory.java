@@ -27,9 +27,11 @@ import java.io.IOException;
 /**
  * A factory to create a specific state backend. The state backend creation gets a Configuration
  * object that can be used to read further config values.
+ * 用于创建特定状态后端的工厂。 状态后端创建获得一个 Configuration 对象，可用于读取进一步的配置值。
  *
  * <p>The state backend factory is typically specified in the configuration to produce a configured
  * state backend.
+ * 状态后端工厂通常在配置中指定以生成配置的状态后端。
  *
  * @param <T> The type of the state backend created.
  */
@@ -38,6 +40,7 @@ public interface StateBackendFactory<T extends StateBackend> {
 
     /**
      * Creates the state backend, optionally using the given configuration.
+     * 创建状态后端，可选择使用给定的配置。
      *
      * @param config The Flink configuration (loaded by the TaskManager).
      * @param classLoader The class loader that should be used to load the state backend.

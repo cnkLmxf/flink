@@ -30,8 +30,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Very simple serialization schema for strings.
+ * 非常简单的字符串序列化模式。
  *
  * <p>By default, the serializer uses "UTF-8" for string/byte conversion.
+ * 默认情况下，序列化程序使用“UTF-8”进行字符串/字节转换。
  */
 @PublicEvolving
 public class SimpleStringSchema
@@ -42,10 +44,13 @@ public class SimpleStringSchema
     /**
      * The charset to use to convert between strings and bytes. The field is transient because we
      * serialize a different delegate object instead
+     * 用于在字符串和字节之间进行转换的字符集。 该字段是瞬态的，因为我们改为序列化不同的委托对象
      */
     private transient Charset charset;
 
-    /** Creates a new SimpleStringSchema that uses "UTF-8" as the encoding. */
+    /** Creates a new SimpleStringSchema that uses "UTF-8" as the encoding.
+     * 创建一个使用“UTF-8”作为编码的新 SimpleStringSchema。
+     * */
     public SimpleStringSchema() {
         this(StandardCharsets.UTF_8);
     }
@@ -53,6 +58,7 @@ public class SimpleStringSchema
     /**
      * Creates a new SimpleStringSchema that uses the given charset to convert between strings and
      * bytes.
+     * 创建一个新的 SimpleStringSchema，它使用给定的字符集在字符串和字节之间进行转换。
      *
      * @param charset The charset to use to convert between strings and bytes.
      */
@@ -62,6 +68,7 @@ public class SimpleStringSchema
 
     /**
      * Gets the charset used by this schema for serialization.
+     * 获取此架构用于序列化的字符集。
      *
      * @return The charset used by this schema for serialization.
      */

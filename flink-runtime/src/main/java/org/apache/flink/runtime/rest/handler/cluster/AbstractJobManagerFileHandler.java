@@ -42,7 +42,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-/** Base class for serving files from the JobManager. */
+/** Base class for serving files from the JobManager.
+ * 从 JobManager 提供文件的基类。
+ * */
 public abstract class AbstractJobManagerFileHandler<M extends MessageParameters>
         extends AbstractHandler<RestfulGateway, EmptyRequestBody, M> {
 

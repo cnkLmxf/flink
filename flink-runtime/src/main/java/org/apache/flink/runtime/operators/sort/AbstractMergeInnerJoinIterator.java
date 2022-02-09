@@ -34,6 +34,7 @@ import java.util.Iterator;
 /**
  * An implementation of the {@link org.apache.flink.runtime.operators.util.JoinTaskIterator} that
  * realizes the joining through a sort-merge join strategy.
+ * {@link org.apache.flink.runtime.operators.util.JoinTaskIterator} 的实现，通过排序合并连接策略实现连接。
  */
 public abstract class AbstractMergeInnerJoinIterator<T1, T2, O>
         extends AbstractMergeIterator<T1, T2, O> {
@@ -69,9 +70,12 @@ public abstract class AbstractMergeInnerJoinIterator<T1, T2, O>
      * Calls the <code>JoinFunction#join()</code> method for all two key-value pairs that share the
      * same key and come from different inputs. The output of the <code>join()</code> method is
      * forwarded.
+     * 为共享相同键且来自不同输入的所有两个键值对调用 <code>JoinFunction#join()</code> 方法。
+     * <code>join()</code> 方法的输出被转发。
      *
      * <p>This method first zig-zags between the two sorted inputs in order to find a common key,
      * and then calls the join stub with the cross product of the values.
+     * 此方法首先在两个排序的输入之间进行曲折，以便找到一个公共键，然后使用值的叉积调用连接存根。
      *
      * @throws Exception Forwards all exceptions from the user code and the I/O system.
      * @see

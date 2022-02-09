@@ -96,6 +96,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Base class for the Dispatcher component. The Dispatcher component is responsible for receiving
  * job submissions, persisting them, spawning JobManagers to execute the jobs and to recover them in
  * case of a master failure. Furthermore, it knows about the state of the Flink session cluster.
+ * Dispatcher 组件的基类。 Dispatcher 组件负责接收作业提交，将它们持久化，
+ * 生成 JobManager 来执行作业并在 master 故障时恢复它们。
+ * 此外，它还知道 Flink 会话集群的状态。
  */
 public abstract class Dispatcher extends PermanentlyFencedRpcEndpoint<DispatcherId>
         implements DispatcherGateway {

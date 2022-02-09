@@ -23,6 +23,8 @@ import java.util.concurrent.Executor;
 /**
  * {@link Executor} implementation which fails when {@link #execute(Runnable)} is called. This can
  * be helpful if one wants to make sure that an executor is never been used.
+ * {@link Executor} 实现在调用 {@link #execute(Runnable)} 时失败。
+ * 如果您想确保从未使用过执行程序，这将很有帮助。
  */
 public enum UnsupportedOperationExecutor implements Executor {
     INSTANCE;

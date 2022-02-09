@@ -51,24 +51,34 @@ import java.util.Collection;
 /**
  * This state backend holds the working state in the memory (JVM heap) of the TaskManagers and
  * checkpoints based on the configured {@link org.apache.flink.runtime.state.CheckpointStorage}.
+ * 此状态后端根据配置的 {@link org.apache.flink.runtime.state.CheckpointStorage}
+ * 将工作状态保存在 TaskManager 和检查点的内存（JVM 堆）中。
  *
  * <h1>State Size Considerations</h1>
+ * 状态大小注意事项
  *
  * <p>Working state is kept on the TaskManager heap. If a TaskManager executes multiple tasks
  * concurrently (if the TaskManager has multiple slots, or if slot-sharing is used) then the
  * aggregate state of all tasks needs to fit into that TaskManager's memory.
+ * 工作状态保存在 TaskManager 堆上。 如果一个 TaskManager 并发执行多个任务
+ * （如果 TaskManager 有多个 slot，或者如果使用 slot-sharing），那么所有任务的聚合状态需要适合该 TaskManager 的内存。
  *
  * <h1>Configuration</h1>
  *
  * <p>As for all state backends, this backend can either be configured within the application (by
  * creating the backend with the respective constructor parameters and setting it on the execution
  * environment) or by specifying it in the Flink configuration.
+ * 对于所有的状态后端，这个后端既可以在应用程序中配置（通过使用相应的构造函数参数创建后端并在执行环境中设置），
+ * 也可以在 Flink 配置中指定。
  *
  * <p>If the state backend was specified in the application, it may pick up additional configuration
  * parameters from the Flink configuration. For example, if the backend if configured in the
  * application without a default savepoint directory, it will pick up a default savepoint directory
  * specified in the Flink configuration of the running job/cluster. That behavior is implemented via
  * the {@link #configure(ReadableConfig, ClassLoader)} method.
+ * 如果在应用程序中指定了状态后端，它可能会从 Flink 配置中获取额外的配置参数。
+ * 例如，如果后端在应用程序中配置时没有默认保存点目录，它将选择正在运行的作业/集群的 Flink 配置中指定的默认保存点目录。
+ * 该行为是通过 {@link #configure(ReadableConfig, ClassLoader)} 方法实现的。
  */
 @PublicEvolving
 public class HashMapStateBackend extends AbstractStateBackend implements ConfigurableStateBackend {

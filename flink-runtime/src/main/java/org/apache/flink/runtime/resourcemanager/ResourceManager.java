@@ -98,9 +98,15 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * ResourceManager implementation. The resource manager is responsible for resource de-/allocation
  * and bookkeeping.
+ * 资源管理器实现。 资源经理负责资源取消/分配和簿记。
  *
  * <p>It offers the following methods as part of its rpc interface to interact with him remotely:
- *
+ * 它提供以下方法作为其 rpc 接口的一部分来与他进行远程交互：
+ *<ul>
+ *    <li>{@link #registerJobManager(JobMasterId, ResourceID, String, JobID, Time)}
+ *    在资源管理器注册一个{@link JobMaster}
+ *    <li>{@link #requestSlot(JobMasterId, SlotRequest, Time)} 向资源管理器请求一个槽
+ *   </ul>
  * <ul>
  *   <li>{@link #registerJobManager(JobMasterId, ResourceID, String, JobID, Time)} registers a
  *       {@link JobMaster} at the resource manager
@@ -114,26 +120,40 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     public static final String RESOURCE_MANAGER_NAME = "resourcemanager";
 
-    /** Unique id of the resource manager. */
+    /** Unique id of the resource manager.
+     * 资源管理器的唯一 ID。
+     * */
     private final ResourceID resourceId;
 
-    /** All currently registered JobMasterGateways scoped by JobID. */
+    /** All currently registered JobMasterGateways scoped by JobID.
+     * 所有当前注册的 JobMasterGateways 由 JobID 限定。
+     * */
     private final Map<JobID, JobManagerRegistration> jobManagerRegistrations;
 
-    /** All currently registered JobMasterGateways scoped by ResourceID. */
+    /** All currently registered JobMasterGateways scoped by ResourceID.
+     * 所有当前注册的 JobMasterGateways 都由 ResourceID 限定。
+     * */
     private final Map<ResourceID, JobManagerRegistration> jmResourceIdRegistrations;
 
-    /** Service to retrieve the job leader ids. */
+    /** Service to retrieve the job leader ids.
+     * 用于检索作业领导者 ID 的服务。
+     * */
     private final JobLeaderIdService jobLeaderIdService;
 
-    /** All currently registered TaskExecutors with there framework specific worker information. */
+    /** All currently registered TaskExecutors with there framework specific worker information.
+     * 所有当前注册的具有特定于框架的工作人员信息的 TaskExecutors。
+     * */
     private final Map<ResourceID, WorkerRegistration<WorkerType>> taskExecutors;
 
-    /** Ongoing registration of TaskExecutors per resource ID. */
+    /** Ongoing registration of TaskExecutors per resource ID.
+     * 每个资源 ID 的 TaskExecutors 的持续注册。
+     * */
     private final Map<ResourceID, CompletableFuture<TaskExecutorGateway>>
             taskExecutorGatewayFutures;
 
-    /** High availability services for leader retrieval and election. */
+    /** High availability services for leader retrieval and election.
+     * 用于领导者检索和选举的高可用性服务。
+     * */
     private final HighAvailabilityServices highAvailabilityServices;
 
     private final HeartbeatServices heartbeatServices;
@@ -141,7 +161,9 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
     /** Fatal error handler. */
     private final FatalErrorHandler fatalErrorHandler;
 
-    /** The slot manager maintains the available slots. */
+    /** The slot manager maintains the available slots.
+     * 插槽管理器维护可用的插槽。
+     * */
     private final SlotManager slotManager;
 
     private final ResourceManagerPartitionTracker clusterPartitionTracker;
@@ -152,19 +174,26 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     protected final Executor ioExecutor;
 
-    /** The service to elect a ResourceManager leader. */
+    /** The service to elect a ResourceManager leader.
+     * 用于选举 ResourceManager 领导者的服务。
+     * */
     private LeaderElectionService leaderElectionService;
 
-    /** The heartbeat manager with task managers. */
+    /** The heartbeat manager with task managers.
+     * 带有任务管理器的心跳管理器。
+     * */
     private HeartbeatManager<TaskExecutorHeartbeatPayload, Void> taskManagerHeartbeatManager;
 
-    /** The heartbeat manager with job managers. */
+    /** The heartbeat manager with job managers.
+     * 带有作业管理器的心跳管理器。
+     * */
     private HeartbeatManager<Void, Void> jobManagerHeartbeatManager;
 
     private boolean hasLeadership = false;
 
     /**
      * Represents asynchronous state clearing work.
+     * 表示异步状态清除工作。
      *
      * @see #clearStateAsync()
      * @see #clearStateInternal()
@@ -619,6 +648,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Cleanup application and shut down cluster.
+     * 清理应用程序并关闭集群。
      *
      * @param finalStatus of the Flink application
      * @param diagnostics diagnostics message for the Flink application or {@code null}
@@ -1028,6 +1058,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
     /**
      * This method should be called by the framework once it detects that a currently registered job
      * manager has failed.
+     * 一旦框架检测到当前注册的作业管理器失败，就应该调用此方法。
      *
      * @param jobId identifying the job whose leader shall be disconnected.
      * @param resourceRequirementHandling indicating how existing resource requirements for the
@@ -1068,6 +1099,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
     /**
      * This method should be called by the framework once it detects that a currently registered
      * task executor has failed.
+     * 一旦框架检测到当前注册的任务执行器失败，就应该调用这个方法。
      *
      * @param resourceID Id of the TaskManager that has failed.
      * @param cause The exception which cause the TaskManager failed.
@@ -1170,6 +1202,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Notifies the ResourceManager that a fatal error has occurred and it cannot proceed.
+     * 通知 ResourceManager 发生了致命错误并且无法继续。
      *
      * @param t The exception describing the fatal error
      */
@@ -1180,6 +1213,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
         }
 
         // The fatal error handler implementation should make sure that this call is non-blocking
+        // 致命错误处理程序实现应确保此调用是非阻塞的
         fatalErrorHandler.onFatalError(t);
     }
 
@@ -1189,6 +1223,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Callback method when current resourceManager is granted leadership.
+     * 当前 resourceManager 被授予领导权时的回调方法。
      *
      * @param newLeaderSessionID unique leadershipID
      */
@@ -1255,7 +1290,9 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
         // noop by default
     }
 
-    /** Callback method when current resourceManager loses leadership. */
+    /** Callback method when current resourceManager loses leadership.
+     * 当前 resourceManager 失去领导权时的回调方法。
+     * */
     @Override
     public void revokeLeadership() {
         runAsyncWithoutFencing(
@@ -1299,6 +1336,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Handles error occurring in the leader election service.
+     * 处理领导选举服务中发生的错误。
      *
      * @param exception Exception being thrown in the leader election service
      */
@@ -1319,6 +1357,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Initializes the framework specific components.
+     * 初始化框架特定的组件。
      *
      * @throws ResourceManagerException which occurs during initialization and causes the resource
      *     manager to fail.
@@ -1327,6 +1366,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Terminates the framework specific components.
+     * 终止框架特定的组件。
      *
      * @throws Exception which occurs during termination.
      */
@@ -1336,6 +1376,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
      * This method can be overridden to add a (non-blocking) initialization routine to the
      * ResourceManager that will be called when leadership is granted but before leadership is
      * confirmed.
+     * 可以重写此方法以向 ResourceManager 添加（非阻塞）初始化例程，该例程将在授予领导权但在确认领导权之前调用。
      *
      * @return Returns a {@code CompletableFuture} that completes when the computation is finished.
      */
@@ -1346,6 +1387,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
     /**
      * This method can be overridden to add a (non-blocking) state clearing routine to the
      * ResourceManager that will be called when leadership is revoked.
+     * 可以重写此方法以向 ResourceManager 添加（非阻塞）状态清除例程，该例程将在撤销领导权时调用。
      *
      * @return Returns a {@code CompletableFuture} that completes when the state clearing routine is
      *     finished.
@@ -1357,9 +1399,11 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
     /**
      * The framework specific code to deregister the application. This should report the
      * application's final status and shut down the resource manager cleanly.
+     * 取消注册应用程序的特定于框架的代码。 这应该报告应用程序的最终状态并干净地关闭资源管理器。
      *
      * <p>This method also needs to make sure all pending containers that are not registered yet are
      * returned.
+     * 此方法还需要确保返回所有尚未注册的待处理容器。
      *
      * @param finalStatus The application status to report.
      * @param optionalDiagnostics A diagnostics message or {@code null}.
@@ -1371,6 +1415,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Allocates a resource using the worker resource specification.
+     * 使用工作人员资源规范分配资源。
      *
      * @param workerResourceSpec workerResourceSpec specifies the size of the to be allocated
      *     resource
@@ -1381,6 +1426,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Callback when a worker was started.
+     * 工人启动时的回调。
      *
      * @param resourceID The worker resource id
      */
@@ -1396,6 +1442,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Set {@link SlotManager} whether to fail unfulfillable slot requests.
+     * 设置 {@link SlotManager} 是否使无法完成的插槽请求失败。
      *
      * @param failUnfulfillableRequest whether to fail unfulfillable requests
      */

@@ -262,7 +262,9 @@ public abstract class AbstractDispatcherLeaderProcess implements DispatcherLeade
                 JobGraphWriter jobGraphWriter);
     }
 
-    /** An accessor of the {@link DispatcherGateway}. */
+    /** An accessor of the {@link DispatcherGateway}.
+     * {@link DispatcherGateway} 的访问者。
+     * */
     public interface DispatcherGatewayService extends AutoCloseableAsync {
         DispatcherGateway getGateway();
 

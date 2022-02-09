@@ -25,6 +25,7 @@ import java.util.Properties;
 /**
  * Configuration class which contains the parsed command line arguments for the {@link
  * ClusterEntrypoint}.
+ * 包含 {@link ClusterEntrypoint} 的已解析命令行参数的配置类。
  */
 public class ClusterConfiguration {
 

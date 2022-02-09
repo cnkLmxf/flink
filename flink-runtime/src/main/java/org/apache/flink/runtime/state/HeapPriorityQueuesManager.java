@@ -32,7 +32,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-/** Manages creating heap priority queues along with their counterpart meta info. */
+/** Manages creating heap priority queues along with their counterpart meta info.
+ * 管理创建堆优先级队列及其对应的元信息。
+ * */
 @Internal
 public class HeapPriorityQueuesManager {
 

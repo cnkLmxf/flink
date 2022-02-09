@@ -22,7 +22,9 @@ import org.apache.flink.api.common.ExecutionConfig;
 import org.apache.flink.api.common.operators.ResourceSpec;
 import org.apache.flink.util.Preconditions;
 
-/** Utils for checking operators' resource and parallelism settings. */
+/** Utils for checking operators' resource and parallelism settings.
+ * 用于检查操作员的资源和并行设置的实用程序。
+ * */
 public class OperatorValidationUtils {
 
     private OperatorValidationUtils() {}

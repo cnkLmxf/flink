@@ -29,6 +29,9 @@ import org.apache.flink.runtime.taskmanager.TaskExecutionState;
  * from within the {@link ExecutionGraph}). In contrast, there are also failures that are detected
  * by the TaskManager, which are communicated via {@link
  * JobMasterGateway#updateTaskExecutionState(TaskExecutionState)}.
+ * 该接口允许订阅从 JobMaster 端检测到的故障（例如，从 {@link ExecutionGraph} 内）。
+ * 相比之下，TaskManager 也会检测到故障，
+ * 这些故障通过 {@link JobMasterGateway#updateTaskExecutionState(TaskExecutionState)} 进行通信。
  */
 public interface InternalFailuresListener {
 

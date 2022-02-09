@@ -22,9 +22,11 @@ import java.io.IOException;
 
 /**
  * Callback to be executed on completion of an asynchronous I/O request.
+ * 在异步 I/O 请求完成时执行的回调。
  *
  * <p>Depending on success or failure, either {@link #requestSuccessful(Object)} or {@link
  * #requestSuccessful(Object)} is called.
+ * 根据成功或失败，调用 {@link #requestSuccessful(Object)} 或 {@link #requestSuccessful(Object)}。
  */
 public interface RequestDoneCallback<T> {
 

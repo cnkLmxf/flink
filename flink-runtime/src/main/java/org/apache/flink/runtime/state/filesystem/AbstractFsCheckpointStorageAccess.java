@@ -40,6 +40,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * An implementation of durable checkpoint storage to file systems.
+ * 持久检查点存储到文件系统的实现。
  *
  * <h1>Checkpoint Layout</h1>
  *
@@ -48,21 +49,30 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@code hdfs://namenode:port/flink-checkpoints/}, the state backend will create a subdirectory
  * with the job's ID that will contain the actual checkpoints: ({@code
  * hdfs://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b})
+ * 检查点存储配置了一个基目录，并将特定检查点的检查点数据持久化在特定的子目录中。
+ * 例如，如果基本目录设置为 {@code hdfs://namenode:port/flink-checkpoints/}，
+ * 状态后端将使用作业 ID 创建一个包含实际检查点的子目录：
+ * ({@code hdfs ://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b}）
  *
  * <p>Each checkpoint individually will store all its files in a subdirectory that includes the
  * checkpoint number, such as {@code
  * hdfs://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b/chk-17/}.
+ * 每个检查点将单独将其所有文件存储在包含检查点编号的子目录中，
+ * 例如 {@code hdfs://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b/chk-17/}。
  *
  * <h1>Savepoint Layout</h1>
  *
  * <p>A savepoint that is set to be stored in path {@code hdfs://namenode:port/flink-savepoints/},
  * will create a subdirectory {@code savepoint-jobId(0, 6)-randomDigits} in which it stores all
  * savepoint data. The random digits are added as "entropy" to avoid directory collisions.
+ * 设置为存储在路径 {@code hdfs://namenode:port/flink-savepoints/} 中的保存点将创建一个子目录
+ * {@code savepoint-jobId(0, 6)-randomDigits}，其中存储所有 保存点数据。 随机数字被添加为“熵”以避免目录冲突。
  *
  * <h1>Metadata File</h1>
  *
  * <p>A completed checkpoint writes its metadata into a file '{@value
  * AbstractFsCheckpointStorageAccess#METADATA_FILE_NAME}'.
+ * 完成的检查点将其元数据写入文件“{@value AbstractFsCheckpointStorageAccess#METADATA_FILE_NAME}”。
  */
 public abstract class AbstractFsCheckpointStorageAccess implements CheckpointStorageAccess {
 

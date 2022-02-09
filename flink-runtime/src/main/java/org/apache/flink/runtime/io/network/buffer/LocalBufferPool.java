@@ -39,20 +39,30 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * A buffer pool used to manage a number of {@link Buffer} instances from the {@link
  * NetworkBufferPool}.
+ * 一个缓冲池，用于管理来自 {@link NetworkBufferPool} 的多个 {@link Buffer} 实例。
  *
  * <p>Buffer requests are mediated to the network buffer pool to ensure dead-lock free operation of
  * the network stack by limiting the number of buffers per local buffer pool. It also implements the
  * default mechanism for buffer recycling, which ensures that every buffer is ultimately returned to
  * the network buffer pool.
+ * 缓冲区请求被调解到网络缓冲池，以通过限制每个本地缓冲池的缓冲区数量来确保网络堆栈的无死锁操作。
+ * 它还实现了缓冲区回收的默认机制，确保每个缓冲区最终都返回到网络缓冲池。
  *
  * <p>The size of this pool can be dynamically changed at runtime ({@link #setNumBuffers(int)}. It
  * will then lazily return the required number of buffers to the {@link NetworkBufferPool} to match
  * its new size.
+ * 此池的大小可以在运行时动态更改（{@link #setNumBuffers(int)}。
+ * 然后它会延迟将所需数量的缓冲区返回给 {@link NetworkBufferPool} 以匹配其新大小。
  *
  * <p>Availability is defined as returning a segment on a subsequent {@link #requestBuffer()}/
  * {@link #requestBufferBuilder()} and heaving a non-blocking {@link
  * #requestBufferBuilderBlocking(int)}. In particular,
- *
+ * 可用性被定义为在随后的 {@link #requestBuffer()}/{@link #requestBufferBuilder()}
+ * 上返回一个段并提升一个非阻塞 {@link #requestBufferBuilderBlocking(int)}。 特别是，
+ *<ul>
+ *     <li>至少有一个 {@link #availableMemorySegments}。
+ *     <li>没有子分区到达 {@link #maxBuffersPerChannel}。
+ * </ul>
  * <ul>
  *   <li>There is at least one {@link #availableMemorySegments}.
  *   <li>No subpartitions has reached {@link #maxBuffersPerChannel}.
@@ -61,27 +71,36 @@ import static org.apache.flink.util.Preconditions.checkState;
  * <p>To ensure this contract, the implementation eagerly fetches additional memory segments from
  * {@link NetworkBufferPool} as long as it hasn't reached {@link #maxNumberOfMemorySegments} or one
  * subpartition reached the quota.
+ * 为了确保这个契约，只要它没有达到 {@link #maxNumberOfMemorySegments} 或一个子分区达到配额，
+ * 实现就会急切地从 {@link NetworkBufferPool} 获取额外的内存段。
  */
 class LocalBufferPool implements BufferPool {
     private static final Logger LOG = LoggerFactory.getLogger(LocalBufferPool.class);
 
     private static final int UNKNOWN_CHANNEL = -1;
 
-    /** Global network buffer pool to get buffers from. */
+    /** Global network buffer pool to get buffers from.
+     * 从中获取缓冲区的全局网络缓冲池。
+     * */
     private final NetworkBufferPool networkBufferPool;
 
-    /** The minimum number of required segments for this pool. */
+    /** The minimum number of required segments for this pool.
+     * 此池所需的最小段数。
+     * */
     private final int numberOfRequiredMemorySegments;
 
     /**
      * The currently available memory segments. These are segments, which have been requested from
      * the network buffer pool and are currently not handed out as Buffer instances.
+     * 当前可用的内存段。 这些是从网络缓冲池中请求的段，当前没有作为 Buffer 实例分发。
      *
      * <p><strong>BEWARE:</strong> Take special care with the interactions between this lock and
      * locks acquired before entering this class vs. locks being acquired during calls to external
      * code inside this class, e.g. with {@link
      * org.apache.flink.runtime.io.network.partition.consumer.BufferManager#bufferQueue} via the
      * {@link #registeredListeners} callback.
+     * <strong>注意：</strong>特别注意此锁与进入此类之前获取的锁与调用此类内部外部代码期间获取的锁之间的交互，
+     * 例如 通过 {@link #registeredListeners} 回调使用 {@link org.apache.flink.runtime.io.network.partition.consumer.BufferManager#bufferQueue}。
      */
     private final ArrayDeque<MemorySegment> availableMemorySegments =
             new ArrayDeque<MemorySegment>();
@@ -89,13 +108,19 @@ class LocalBufferPool implements BufferPool {
     /**
      * Buffer availability listeners, which need to be notified when a Buffer becomes available.
      * Listeners can only be registered at a time/state where no Buffer instance was available.
+     *
+     * 缓冲区可用性侦听器，当缓冲区可用时需要通知。 监听器只能在没有 Buffer 实例可用的时间/状态下注册。
      */
     private final ArrayDeque<BufferListener> registeredListeners = new ArrayDeque<>();
 
-    /** Maximum number of network buffers to allocate. */
+    /** Maximum number of network buffers to allocate.
+     * 要分配的最大网络缓冲区数。
+     * */
     private final int maxNumberOfMemorySegments;
 
-    /** The current size of this pool. */
+    /** The current size of this pool.
+     * 此池的当前大小。
+     * */
     @GuardedBy("availableMemorySegments")
     private int currentPoolSize;
 
@@ -103,6 +128,7 @@ class LocalBufferPool implements BufferPool {
      * Number of all memory segments, which have been requested from the network buffer pool and are
      * somehow referenced through this pool (e.g. wrapped in Buffer instances or as available
      * segments).
+     * 所有内存段的数量，已从网络缓冲池请求并通过此池以某种方式引用（例如，包装在 Buffer 实例中或作为可用段）。
      */
     @GuardedBy("availableMemorySegments")
     private int numberOfRequestedMemorySegments;
@@ -129,6 +155,7 @@ class LocalBufferPool implements BufferPool {
     /**
      * Local buffer pool based on the given <tt>networkBufferPool</tt> with a minimal number of
      * network buffers being available.
+     * 基于给定 <tt>networkBufferPool</tt> 的本地缓冲池，可用的网络缓冲区数量最少。
      *
      * @param networkBufferPool global network buffer pool to get buffers from
      * @param numberOfRequiredMemorySegments minimum number of network buffers
@@ -145,6 +172,7 @@ class LocalBufferPool implements BufferPool {
     /**
      * Local buffer pool based on the given <tt>networkBufferPool</tt> with a minimal and maximal
      * number of network buffers being available.
+     * 基于给定 <tt>networkBufferPool</tt> 的本地缓冲池，可用的网络缓冲区数量最少和最多。
      *
      * @param networkBufferPool global network buffer pool to get buffers from
      * @param numberOfRequiredMemorySegments minimum number of network buffers
@@ -165,6 +193,7 @@ class LocalBufferPool implements BufferPool {
     /**
      * Local buffer pool based on the given <tt>networkBufferPool</tt> and <tt>bufferPoolOwner</tt>
      * with a minimal and maximal number of network buffers being available.
+     * 基于给定的 <tt>networkBufferPool</tt> 和 <tt>bufferPoolOwner</tt> 的本地缓冲池，具有最小和最大数量的网络缓冲区可用。
      *
      * @param networkBufferPool global network buffer pool to get buffers from
      * @param numberOfRequiredMemorySegments minimum number of network buffers
@@ -393,6 +422,9 @@ class LocalBufferPool implements BufferPool {
      * Tries to obtain a buffer from global pool as soon as one pool is available. Note that
      * multiple {@link LocalBufferPool}s might wait on the future of the global pool, hence this
      * method double-check if a new buffer is really needed at the time it becomes available.
+     * 一旦有一个池可用，就会尝试从全局池中获取缓冲区。
+     * 请注意，多个 {@link LocalBufferPool} 可能会等待全局池的未来，
+     * 因此此方法会在新缓冲区可用时仔细检查是否真的需要新缓冲区。
      */
     private void requestMemorySegmentFromGlobalWhenAvailable() {
         assert Thread.holdsLock(availableMemorySegments);
@@ -524,7 +556,9 @@ class LocalBufferPool implements BufferPool {
         return notificationResult;
     }
 
-    /** Destroy is called after the produce or consume phase of a task finishes. */
+    /** Destroy is called after the produce or consume phase of a task finishes.
+     * 在任务的生产或消费阶段完成后调用 Destroy。
+     * */
     @Override
     public void lazyDestroy() {
         // NOTE: if you change this logic, be sure to update recycle() as well!
@@ -628,6 +662,7 @@ class LocalBufferPool implements BufferPool {
     /**
      * Notifies the potential segment consumer of the new available segments by completing the
      * previous uncompleted future.
+     * 通过完成先前未完成的未来，通知潜在的细分消费者新的可用细分。
      */
     private void mayNotifyAvailable(@Nullable CompletableFuture<?> toNotify) {
         if (toNotify != null) {

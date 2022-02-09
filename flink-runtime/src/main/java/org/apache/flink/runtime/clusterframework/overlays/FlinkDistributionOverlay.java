@@ -37,12 +37,16 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * Overlays Flink into a container, based on supplied bin/conf/lib directories.
+ * 根据提供的 bin/conf/lib 目录将 Flink 覆盖到容器中。
  *
  * <p>The overlayed Flink is indistinguishable from (and interchangeable with) a normal installation
  * of Flink. For a docker image-based container, it should be possible to bypass this overlay and
  * rely on the normal installation method.
+ * 覆盖的 Flink 与正常安装的 Flink 没有区别（并且可以互换）。
+ * 对于基于 docker 镜像的容器，应该可以绕过这个覆盖，依赖正常的安装方式。
  *
  * <p>The following files are copied to the container: - bin/ - conf/ - lib/ - plugins/
+ * 以下文件被复制到容器中： - bin/ - conf/ - lib/ - plugins/
  */
 public class FlinkDistributionOverlay extends AbstractContainerOverlay {
 
@@ -93,9 +97,11 @@ public class FlinkDistributionOverlay extends AbstractContainerOverlay {
 
         /**
          * Configures the overlay using the current environment.
+         * 使用当前环境配置覆盖。
          *
          * <p>Locates Flink using FLINK_???_DIR environment variables as provided to all Flink
          * processes by config.sh.
+         * 使用 config.sh 提供给所有 Flink 进程的 FLINK_???_DIR 环境变量定位 Flink。
          *
          * @param globalConfiguration the current configuration.
          */

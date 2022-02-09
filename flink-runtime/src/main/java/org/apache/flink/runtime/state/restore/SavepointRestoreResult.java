@@ -22,7 +22,9 @@ import org.apache.flink.runtime.state.metainfo.StateMetaInfoSnapshot;
 
 import java.util.List;
 
-/** A result from restoring a single {@link org.apache.flink.runtime.state.KeyedStateHandle}. */
+/** A result from restoring a single {@link org.apache.flink.runtime.state.KeyedStateHandle}.
+ * 恢复单个 {@link org.apache.flink.runtime.state.KeyedStateHandle} 的结果。
+ * */
 public class SavepointRestoreResult {
     private final List<StateMetaInfoSnapshot> stateMetaInfoSnapshots;
     private final ThrowingIterator<KeyGroup> restoredKeyGroups;

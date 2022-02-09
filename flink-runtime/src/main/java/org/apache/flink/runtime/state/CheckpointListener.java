@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Public;
 /**
  * This interface must be implemented by functions/operations that want to receive a commit
  * notification once a checkpoint has been completely acknowledged by all participants.
+ * 该接口必须由希望在所有参与者完全确认检查点后接收提交通知的功能/操作来实现。
  *
  * @deprecated This interface has been moved to {@link
  *     org.apache.flink.api.common.state.CheckpointListener}. This class is kept to maintain

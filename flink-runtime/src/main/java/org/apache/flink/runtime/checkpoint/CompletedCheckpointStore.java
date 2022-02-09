@@ -27,24 +27,30 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.ListIterator;
 
-/** A bounded LIFO-queue of {@link CompletedCheckpoint} instances. */
+/** A bounded LIFO-queue of {@link CompletedCheckpoint} instances.
+ * {@link CompletedCheckpoint} 实例的有界 LIFO 队列。
+ * */
 public interface CompletedCheckpointStore {
 
     Logger LOG = LoggerFactory.getLogger(CompletedCheckpointStore.class);
 
     /**
      * Recover available {@link CompletedCheckpoint} instances.
+     * 恢复可用的 {@link CompletedCheckpoint} 实例。
      *
      * <p>After a call to this method, {@link #getLatestCheckpoint(boolean)} returns the latest
      * available checkpoint.
+     * 调用此方法后，{@link #getLatestCheckpoint(boolean)} 返回最新的可用检查点。
      */
     void recover() throws Exception;
 
     /**
      * Adds a {@link CompletedCheckpoint} instance to the list of completed checkpoints.
+     * 将 {@link CompletedCheckpoint} 实例添加到已完成的检查点列表中。
      *
      * <p>Only a bounded number of checkpoints is kept. When exceeding the maximum number of
      * retained checkpoints, the oldest one will be discarded.
+     * 只保留有限数量的检查点。 当超过保留检查点的最大数量时，最旧的将被丢弃。
      */
     void addCheckpoint(
             CompletedCheckpoint checkpoint,
@@ -55,6 +61,7 @@ public interface CompletedCheckpointStore {
     /**
      * Returns the latest {@link CompletedCheckpoint} instance or <code>null</code> if none was
      * added.
+     * 如果没有添加，则返回最新的 {@link CompletedCheckpoint} 实例或 <code>null</code>。
      */
     default CompletedCheckpoint getLatestCheckpoint(boolean isPreferCheckpointForRecovery)
             throws Exception {
@@ -90,6 +97,7 @@ public interface CompletedCheckpointStore {
      *
      * <p>The job status is forwarded and used to decide whether state should actually be discarded
      * or kept.
+     * 作业状态被转发并用于决定是否应该实际丢弃或保留状态。
      *
      * @param jobStatus Job state on shut down
      * @param checkpointsCleaner that will cleanup copmpleted checkpoints if needed
@@ -113,6 +121,8 @@ public interface CompletedCheckpointStore {
      * This method returns whether the completed checkpoint store requires checkpoints to be
      * externalized. Externalized checkpoints have their meta data persisted, which the checkpoint
      * store can exploit (for example by simply pointing the persisted metadata).
+     * 此方法返回已完成的检查点存储是否需要外部化检查点。
+     * 外部化检查点的元数据被持久化，检查点存储可以利用这些数据（例如，通过简单地指向持久化的元数据）。
      *
      * @return True, if the store requires that checkpoints are externalized before being added,
      *     false if the store stores the metadata itself.

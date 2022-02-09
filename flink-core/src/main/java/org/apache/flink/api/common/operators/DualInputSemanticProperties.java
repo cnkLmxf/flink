@@ -24,7 +24,9 @@ import org.apache.flink.api.common.operators.util.FieldSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Container for the semantic properties associated to a dual input operator. */
+/** Container for the semantic properties associated to a dual input operator.
+ * 与双输入运算符关联的语义属性的容器。
+ * */
 @Internal
 public class DualInputSemanticProperties implements SemanticProperties {
     private static final long serialVersionUID = 1L;
@@ -32,16 +34,20 @@ public class DualInputSemanticProperties implements SemanticProperties {
     /**
      * Mapping from fields in the source record(s) in the first input to fields in the destination
      * record(s).
+     * 从第一个输入中的源记录中的字段映射到目标记录中的字段。
      */
     private Map<Integer, FieldSet> fieldMapping1;
 
     /**
      * Mapping from fields in the source record(s) in the second input to fields in the destination
      * record(s).
+     * 从第二个输入中的源记录中的字段映射到目标记录中的字段。
      */
     private Map<Integer, FieldSet> fieldMapping2;
 
-    /** Set of fields that are read in the source record(s) from the first input. */
+    /** Set of fields that are read in the source record(s) from the first input.
+     * 从第一个输入在源记录中读取的一组字段。
+     * */
     private FieldSet readFields1;
 
     /** Set of fields that are read in the source record(s) from the second input. */
@@ -107,6 +113,7 @@ public class DualInputSemanticProperties implements SemanticProperties {
     /**
      * Adds, to the existing information, a field that is forwarded directly from the source
      * record(s) in the first input to the destination record(s).
+     * 在现有信息中添加一个字段，该字段直接从第一个输入中的源记录转发到目标记录。
      *
      * @param input the input of the source field
      * @param sourceField the position in the source record
@@ -150,6 +157,7 @@ public class DualInputSemanticProperties implements SemanticProperties {
     /**
      * Adds, to the existing information, field(s) that are read in the source record(s) from the
      * first input.
+     * 将在源记录中从第一个输入读取的字段添加到现有信息。
      *
      * @param input the input of the read fields
      * @param readFields the position(s) in the source record(s)

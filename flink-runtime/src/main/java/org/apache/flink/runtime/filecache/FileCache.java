@@ -52,19 +52,25 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * The FileCache is used to access registered cache files when a task is deployed.
+ * FileCache 用于在部署任务时访问已注册的缓存文件。
  *
  * <p>Files and zipped directories are retrieved from the {@link PermanentBlobService}. The
  * life-cycle of these files is managed by the blob-service.
+ * 从 {@link PermanentBlobService} 检索文件和压缩目录。 这些文件的生命周期由 blob 服务管理。
  *
  * <p>Retrieved directories will be expanded in "{@code <system-tmp-dir>/tmp_<jobID>/}" and deleted
  * when the task is unregistered after a 5 second delay, unless a new task requests the file in the
  * meantime.
+ * 检索到的目录将在“{@code <system-tmp-dir>/tmp_<jobID>/}”中展开，
+ * 并在延迟 5 秒后取消注册任务时删除，除非同时有新任务请求该文件。
  */
 public class FileCache {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileCache.class);
 
-    /** cache-wide lock to ensure consistency. copies are not done under this lock. */
+    /** cache-wide lock to ensure consistency. copies are not done under this lock.
+     * 缓存范围的锁以确保一致性。 副本不会在此锁定下完成。
+     * */
     private final Object lock = new Object();
 
     private final Map<JobID, Map<String, Future<Path>>> entries;
@@ -136,7 +142,9 @@ public class FileCache {
         this.blobService = blobService;
     }
 
-    /** Shuts down the file cache by cancelling all. */
+    /** Shuts down the file cache by cancelling all.
+     * 通过取消所有来关闭文件缓存。
+     * */
     public void shutdown() {
         synchronized (lock) {
             // first shutdown the thread pool
@@ -175,6 +183,7 @@ public class FileCache {
 
     /**
      * If the file doesn't exists locally, retrieve the file from the blob-service.
+     * 如果该文件在本地不存在，请从 blob 服务中检索该文件。
      *
      * @param entry The cache entry descriptor (path, executable flag)
      * @param jobID The ID of the job for which the file is copied.
@@ -257,7 +266,9 @@ public class FileCache {
     //  background processes
     // ------------------------------------------------------------------------
 
-    /** Asynchronous file copy process from blob server. */
+    /** Asynchronous file copy process from blob server.
+     * 来自 blob 服务器的异步文件复制过程。
+     * */
     private static class CopyFromBlobProcess implements Callable<Path> {
 
         private final PermanentBlobKey blobKey;
@@ -296,7 +307,9 @@ public class FileCache {
         }
     }
 
-    /** Asynchronous file copy process. */
+    /** Asynchronous file copy process.
+     * 异步文件复制过程。
+     * */
     private static class CopyFromDFSProcess implements Callable<Path> {
 
         private final Path filePath;
@@ -330,7 +343,9 @@ public class FileCache {
         }
     }
 
-    /** If no task is using this file after 5 seconds, clear it. */
+    /** If no task is using this file after 5 seconds, clear it.
+     * 如果 5 秒后没有任务使用此文件，请将其清除。
+     * */
     @VisibleForTesting
     class DeleteProcess implements Runnable {
 

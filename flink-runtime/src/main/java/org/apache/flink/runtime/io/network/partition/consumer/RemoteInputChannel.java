@@ -61,43 +61,61 @@ import java.util.stream.Collectors;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** An input channel, which requests a remote partition queue. */
+/** An input channel, which requests a remote partition queue.
+ * 一个输入通道，它请求一个远程分区队列。
+ * */
 public class RemoteInputChannel extends InputChannel {
     private static final Logger LOG = LoggerFactory.getLogger(RemoteInputChannel.class);
 
     private static final int NONE = -1;
 
-    /** ID to distinguish this channel from other channels sharing the same TCP connection. */
+    /** ID to distinguish this channel from other channels sharing the same TCP connection.
+     * ID 用于将此通道与共享同一 TCP 连接的其他通道区分开来。
+     * */
     private final InputChannelID id = new InputChannelID();
 
-    /** The connection to use to request the remote partition. */
+    /** The connection to use to request the remote partition.
+     * 用于请求远程分区的连接。
+     * */
     private final ConnectionID connectionId;
 
-    /** The connection manager to use connect to the remote partition provider. */
+    /** The connection manager to use connect to the remote partition provider.
+     * 用于连接远程分区提供程序的连接管理器。
+     * */
     private final ConnectionManager connectionManager;
 
     /**
      * The received buffers. Received buffers are enqueued by the network I/O thread and the queue
      * is consumed by the receiving task thread.
+     * 接收到的缓冲区。 接收到的缓冲区由网络 I/O 线程排队，队列由接收任务线程使用。
      */
     private final PrioritizedDeque<SequenceBuffer> receivedBuffers = new PrioritizedDeque<>();
 
     /**
      * Flag indicating whether this channel has been released. Either called by the receiving task
      * thread or the task manager actor.
+     * 指示此频道是否已被释放的标志。 由接收任务线程或任务管理器参与者调用。
      */
     private final AtomicBoolean isReleased = new AtomicBoolean();
 
-    /** Client to establish a (possibly shared) TCP connection and request the partition. */
+    /** Client to establish a (possibly shared) TCP connection and request the partition.
+     * 客户端建立一个（可能是共享的）TCP 连接并请求分区。
+     * */
     private volatile PartitionRequestClient partitionRequestClient;
 
-    /** The next expected sequence number for the next buffer. */
+    /** The next expected sequence number for the next buffer.
+     * 下一个缓冲区的下一个预期序列号。
+     * */
     private int expectedSequenceNumber = 0;
 
-    /** The initial number of exclusive buffers assigned to this channel. */
+    /** The initial number of exclusive buffers assigned to this channel.
+     * 分配给此通道的独占缓冲区的初始数量。
+     * */
     private final int initialCredit;
 
-    /** The number of available buffers that have not been announced to the producer yet. */
+    /** The number of available buffers that have not been announced to the producer yet.
+     * 尚未向生产者宣布的可用缓冲区数。
+     * */
     private final AtomicInteger unannouncedCredit = new AtomicInteger(0);
 
     private final BufferManager bufferManager;
@@ -147,6 +165,7 @@ public class RemoteInputChannel extends InputChannel {
     /**
      * Setup includes assigning exclusive buffers to this input channel, and this method should be
      * called only once after this input channel is created.
+     * 设置包括为此输入通道分配独占缓冲区，并且此方法应仅在创建此输入通道后调用一次。
      */
     @Override
     void setup() throws IOException {
@@ -161,7 +180,9 @@ public class RemoteInputChannel extends InputChannel {
     // Consume
     // ------------------------------------------------------------------------
 
-    /** Requests a remote subpartition. */
+    /** Requests a remote subpartition.
+     * 请求远程子分区。
+     * */
     @VisibleForTesting
     @Override
     public void requestSubpartition(int subpartitionIndex)
@@ -187,7 +208,9 @@ public class RemoteInputChannel extends InputChannel {
         }
     }
 
-    /** Retriggers a remote subpartition request. */
+    /** Retriggers a remote subpartition request.
+     * 重新触发远程子分区请求。
+     * */
     void retriggerSubpartitionRequest(int subpartitionIndex) throws IOException {
         checkPartitionRequestQueueInitialized();
 
@@ -291,6 +314,7 @@ public class RemoteInputChannel extends InputChannel {
 
     /**
      * Enqueue this input channel in the pipeline for notifying the producer of unannounced credit.
+     * 将此输入通道排入管道中，以通知生产者未宣布的信用。
      */
     private void notifyCreditAvailable() throws IOException {
         checkPartitionRequestQueueInitialized();
@@ -337,6 +361,7 @@ public class RemoteInputChannel extends InputChannel {
     /**
      * The unannounced credit is increased by the given amount and might notify increased credit to
      * the producer.
+     * 未宣布的信用增加了给定的数量，并可能通知生产者增加的信用。
      */
     @Override
     public void notifyBufferAvailable(int numAvailableBuffers) throws IOException {
@@ -361,6 +386,7 @@ public class RemoteInputChannel extends InputChannel {
 
     /**
      * Gets the currently unannounced credit.
+     * 获取当前未宣布的信用。
      *
      * @return Credit which was not announced to the sender yet.
      */
@@ -370,6 +396,7 @@ public class RemoteInputChannel extends InputChannel {
 
     /**
      * Gets the unannounced credit and resets it to <tt>0</tt> atomically.
+     * 获取未通知的信用并将其自动重置为 <tt>0</tt>。
      *
      * @return Credit which was not announced to the sender yet.
      */
@@ -379,6 +406,7 @@ public class RemoteInputChannel extends InputChannel {
 
     /**
      * Gets the current number of received buffers which have not been processed yet.
+     * 获取当前尚未处理的已接收缓冲区数。
      *
      * @return Buffers queued for processing.
      */
@@ -421,6 +449,7 @@ public class RemoteInputChannel extends InputChannel {
     /**
      * Requests buffer from input channel directly for receiving network data. It should always
      * return an available buffer in credit-based mode unless the channel has been released.
+     * 直接从输入通道请求缓冲区以接收网络数据。 除非通道已被释放，否则它应始终以基于信用的模式返回可用缓冲区。
      *
      * @return The available buffer.
      */
@@ -433,6 +462,8 @@ public class RemoteInputChannel extends InputChannel {
      * Receives the backlog from the producer's buffer response. If the number of available buffers
      * is less than backlog + initialCredit, it will request floating buffers from the buffer
      * manager, and then notify unannounced credits to the producer.
+     * 从生产者的缓冲区响应中接收积压。 如果可用缓冲区的数量小于 backlog + initialCredit，
+     * 它将向缓冲区管理器请求浮动缓冲区，然后将未通知的信用通知生产者。
      *
      * @param backlog The number of unsent buffers in the producer's sub partition.
      */
@@ -446,6 +477,7 @@ public class RemoteInputChannel extends InputChannel {
     /**
      * Handles the input buffer. This method is taking over the ownership of the buffer and is fully
      * responsible for cleaning it up both on the happy path and in case of an error.
+     * 处理输入缓冲区。 此方法接管缓冲区的所有权，并完全负责在快乐路径上和发生错误时清理它。
      */
     public void onBuffer(Buffer buffer, int sequenceNumber, int backlog) throws IOException {
         boolean recycleBuffer = true;
@@ -561,6 +593,7 @@ public class RemoteInputChannel extends InputChannel {
     /**
      * Spills all queued buffers on checkpoint start. If barrier has already been received (and
      * reordered), spill only the overtaken buffers.
+     * 在检查点开始时溢出所有排队的缓冲区。 如果屏障已被接收（并重新排序），则仅溢出超出的缓冲区。
      */
     public void checkpointStarted(CheckpointBarrier barrier) throws CheckpointException {
         synchronized (receivedBuffers) {
@@ -646,6 +679,7 @@ public class RemoteInputChannel extends InputChannel {
     /**
      * Returns a list of buffers, checking the first n non-priority buffers, and skipping all
      * events.
+     * 返回缓冲区列表，检查前 n 个非优先级缓冲区，并跳过所有事件。
      */
     private List<Buffer> getInflightBuffersUnsafe(long checkpointId) {
         assert Thread.holdsLock(receivedBuffers);
@@ -682,6 +716,9 @@ public class RemoteInputChannel extends InputChannel {
      *     we might need to spill everything. If we have already received it, there is a bit nasty
      *     corner case of {@link SequenceBuffer#sequenceNumber} overflowing that needs to be handled
      *     as well.
+     *     如果给定 {@param sequenceNumber}，则应该溢出给定 {@link #lastBarrierSequenceNumber}。
+     *     我们可能还没有收到 {@link CheckpointBarrier}，我们可能需要泄漏所有内容。
+     *     如果我们已经收到它，那么还需要处理 {@link SequenceBuffer#sequenceNumber} 溢出的一些令人讨厌的极端情况。
      */
     private boolean shouldBeSpilled(int sequenceNumber) {
         if (lastBarrierSequenceNumber == NONE) {

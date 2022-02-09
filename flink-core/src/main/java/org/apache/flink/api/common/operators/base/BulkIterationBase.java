@@ -99,12 +99,16 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
         this.iterationResult = result;
     }
 
-    /** @return The operator representing the next partial solution. */
+    /** @return The operator representing the next partial solution.
+     * 表示下一个部分解决方案的运算符。
+     * */
     public Operator<T> getNextPartialSolution() {
         return this.iterationResult;
     }
 
-    /** @return The operator representing the termination criterion. */
+    /** @return The operator representing the termination criterion.
+     * 表示终止标准的运算符。
+     * */
     public Operator<?> getTerminationCriterion() {
         return this.terminationCriterion;
     }
@@ -165,6 +169,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
 
     /**
      * The BulkIteration meta operator cannot have broadcast inputs.
+     * BulkIteration 元运算符不能有广播输入。
      *
      * @return An empty map.
      */
@@ -175,6 +180,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
     /**
      * The BulkIteration meta operator cannot have broadcast inputs. This method always throws an
      * exception.
+     * BulkIteration 元运算符不能有广播输入。 此方法总是抛出异常。
      *
      * @param name Ignored.
      * @param root Ignored.
@@ -187,6 +193,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
     /**
      * The BulkIteration meta operator cannot have broadcast inputs. This method always throws an
      * exception.
+     * BulkIteration 元运算符不能有广播输入。 此方法总是抛出异常。
      *
      * @param inputs Ignored
      */
@@ -200,6 +207,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
     /**
      * Specialized operator to use as a recognizable place-holder for the input to the step function
      * when composing the nested data flow.
+     * 编写嵌套数据流时，用作步进函数输入的可识别占位符的专用运算符。
      */
     public static class PartialSolutionPlaceHolder<OT> extends Operator<OT> {
 
@@ -230,6 +238,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
     /**
      * Special Mapper that is added before a termination criterion and is only a container for an
      * special aggregator
+     * 在终止条件之前添加的特殊映射器，并且只是特殊聚合器的容器
      */
     public static class TerminationCriterionMapper<X> extends AbstractRichFunction
             implements FlatMapFunction<X, X> {
@@ -253,6 +262,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
     /**
      * Aggregator that basically only adds 1 for every output tuple of the termination criterion
      * branch
+     * 基本上只为终止标准分支的每个输出元组添加 1 的聚合器
      */
     @SuppressWarnings("serial")
     public static class TerminationCriterionAggregator implements Aggregator<LongValue> {
@@ -282,6 +292,7 @@ public class BulkIterationBase<T> extends SingleInputOperator<T, T, AbstractRich
     /**
      * Convergence for the termination criterion is reached if no tuple is output at current
      * iteration for the termination criterion branch
+     * 如果在终止准则分支的当前迭代中没有输出元组，则达到终止准则的收敛
      */
     public static class TerminationCriterionAggregationConvergence
             implements ConvergenceCriterion<LongValue> {

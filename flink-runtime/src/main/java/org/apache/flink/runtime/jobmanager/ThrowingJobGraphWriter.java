@@ -21,7 +21,9 @@ package org.apache.flink.runtime.jobmanager;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 
-/** {@link JobGraphWriter} implementation which does not allow to store {@link JobGraph}. */
+/** {@link JobGraphWriter} implementation which does not allow to store {@link JobGraph}.
+ * 不允许存储 {@link JobGraph} 的 {@link JobGraphWriter} 实现。
+ * */
 public enum ThrowingJobGraphWriter implements JobGraphWriter {
     INSTANCE;
 

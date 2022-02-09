@@ -20,7 +20,9 @@ package org.apache.flink.runtime.messages;
 
 import java.io.Serializable;
 
-/** A generic acknowledgement message. */
+/** A generic acknowledgement message.
+ * 通用确认消息。
+ * */
 public class Acknowledge implements Serializable {
 
     private static final long serialVersionUID = 7808628311617273755L;
@@ -62,6 +64,7 @@ public class Acknowledge implements Serializable {
     /**
      * Read resolve to preserve the singleton object property. (per best practices, this should have
      * visibility 'protected')
+     * 阅读 resolve 以保留单例对象属性。 （根据最佳实践，这应该具有“受保护”的可见性）
      */
     protected Object readResolve() throws java.io.ObjectStreamException {
         return INSTANCE;

@@ -40,6 +40,7 @@ import static org.apache.flink.util.Preconditions.checkState;
  * An implementation of a checkpoint storage for the {@link MemoryStateBackend}. Depending on
  * whether this is created with a checkpoint location, the setup supports durable checkpoints
  * (durable metadata) or not.
+ * {@link MemoryStateBackend} 的检查点存储的实现。 根据是否使用检查点位置创建，设置是否支持持久检查点（持久元数据）。
  */
 public class MemoryBackendCheckpointStorageAccess extends AbstractFsCheckpointStorageAccess {
 

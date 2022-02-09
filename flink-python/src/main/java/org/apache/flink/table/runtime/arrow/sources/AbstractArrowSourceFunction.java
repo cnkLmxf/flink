@@ -55,6 +55,7 @@ import java.util.Deque;
 
 /**
  * An Arrow {@link SourceFunction} which takes the serialized arrow record batch data as input.
+ * 一个 Arrow {@link SourceFunction}，它将序列化的箭头记录批处理数据作为输入。
  *
  * @param <OUT> The type of the records produced by this source.
  */

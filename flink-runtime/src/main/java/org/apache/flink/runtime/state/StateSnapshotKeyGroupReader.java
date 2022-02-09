@@ -27,12 +27,15 @@ import javax.annotation.Nonnull;
 
 import java.io.IOException;
 
-/** Interface for state de-serialization into {@link StateTable}s by key-group. */
+/** Interface for state de-serialization into {@link StateTable}s by key-group.
+ * 通过键组将状态反序列化为 {@link StateTable} 的接口。
+ * */
 @Internal
 public interface StateSnapshotKeyGroupReader {
 
     /**
      * Read the data for the specified key-group from the input.
+     * 从输入中读取指定密钥组的数据。
      *
      * @param div the input
      * @param keyGroupId the key-group to write

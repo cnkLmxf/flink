@@ -37,14 +37,20 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-/** Implementation of {@link TaskManagerTracker} supporting fine-grained resource management. */
+/** Implementation of {@link TaskManagerTracker} supporting fine-grained resource management.
+ * 支持细粒度资源管理的 {@link TaskManagerTracker} 的实现。
+ * */
 public class FineGrainedTaskManagerTracker implements TaskManagerTracker {
     private static final Logger LOG = LoggerFactory.getLogger(FineGrainedTaskManagerTracker.class);
 
-    /** Map for allocated and pending slots. */
+    /** Map for allocated and pending slots.
+     * 映射已分配和待处理的插槽。
+     * */
     private final Map<AllocationID, FineGrainedTaskManagerSlot> slots;
 
-    /** All currently registered task managers. */
+    /** All currently registered task managers.
+     * 所有当前注册的任务管理器。
+     * */
     private final Map<InstanceID, FineGrainedTaskManagerRegistration> taskManagerRegistrations;
 
     private final Map<PendingTaskManagerId, PendingTaskManager> pendingTaskManagers;
@@ -58,6 +64,7 @@ public class FineGrainedTaskManagerTracker implements TaskManagerTracker {
     /**
      * Pending task manager indexed by the tuple of total resource profile and default slot resource
      * profile.
+     * 由总资源配置文件和默认插槽资源配置文件的元组索引的待处理任务管理器。
      */
     private final Map<Tuple2<ResourceProfile, ResourceProfile>, Set<PendingTaskManager>>
             totalAndDefaultSlotProfilesToPendingTaskManagers;

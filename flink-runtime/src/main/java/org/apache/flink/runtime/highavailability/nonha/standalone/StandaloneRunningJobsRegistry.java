@@ -25,7 +25,9 @@ import java.util.HashMap;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A registry for running jobs, not-highly available. */
+/** A registry for running jobs, not-highly available.
+ * 用于运行作业的注册表，不高度可用。
+ * */
 public class StandaloneRunningJobsRegistry implements RunningJobsRegistry {
 
     /** The currently running jobs. */

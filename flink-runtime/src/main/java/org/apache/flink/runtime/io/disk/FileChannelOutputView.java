@@ -33,6 +33,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A {@link org.apache.flink.core.memory.DataOutputView} that is backed by a {@link
  * BlockChannelWriter}, making it effectively a data output stream. The view writes it data in
  * blocks to the underlying channel.
+ * 由 {@link BlockChannelWriter} 支持的 {@link org.apache.flink.core.memory.DataOutputView}，
+ * 使其成为有效的数据输出流。 视图将其数据以块的形式写入底层通道。
  */
 public class FileChannelOutputView extends AbstractPagedOutputView {
 
@@ -77,6 +79,7 @@ public class FileChannelOutputView extends AbstractPagedOutputView {
 
     /**
      * Closes this output, writing pending data and releasing the memory.
+     * 关闭此输出，写入待处理数据并释放内存。
      *
      * @throws IOException Thrown, if the pending data could not be written.
      */
@@ -86,6 +89,7 @@ public class FileChannelOutputView extends AbstractPagedOutputView {
 
     /**
      * Closes this output, writing pending data and releasing the memory.
+     * 关闭此输出，写入待处理数据并释放内存。
      *
      * @throws IOException Thrown, if the pending data could not be written.
      */
@@ -116,6 +120,7 @@ public class FileChannelOutputView extends AbstractPagedOutputView {
 
     /**
      * Gets the number of blocks written by this output view.
+     * 获取此输出视图写入的块数。
      *
      * @return The number of blocks written by this output view.
      */
@@ -125,6 +130,7 @@ public class FileChannelOutputView extends AbstractPagedOutputView {
 
     /**
      * Gets the number of bytes written in the latest memory segment.
+     * 获取写入最新内存段的字节数。
      *
      * @return The number of bytes written in the latest memory segment.
      */

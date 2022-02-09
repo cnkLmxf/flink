@@ -24,7 +24,9 @@ import org.apache.flink.runtime.resourcemanager.ResourceManagerId;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Base class for responses from the ResourceManager to a registration attempt by a JobMaster. */
+/** Base class for responses from the ResourceManager to a registration attempt by a JobMaster.
+ * ResourceManager 响应 JobMaster 注册尝试的基类。
+ * */
 public class JobMasterRegistrationSuccess extends RegistrationResponse.Success {
 
     private static final long serialVersionUID = 5577641250204140415L;

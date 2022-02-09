@@ -28,7 +28,9 @@ import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Optional;
 
-/** {@code ArchivedExecution} is a readonly representation of {@link Execution}. */
+/** {@code ArchivedExecution} is a readonly representation of {@link Execution}.
+ * {@code ArchivedExecution} 是 {@link Execution} 的只读表示。
+ * */
 public class ArchivedExecution implements AccessExecution, Serializable {
     private static final long serialVersionUID = 4817108757483345173L;
     // --------------------------------------------------------------------------------------------

@@ -33,6 +33,7 @@ import java.util.concurrent.Executor;
 /**
  * Implementation which archives an {@link AccessExecutionGraph} such that it stores the JSON
  * requests for all possible history server requests.
+ * 归档 {@link AccessExecutionGraph} 以便存储所有可能的历史服务器请求的 JSON 请求的实现。
  */
 class JsonResponseHistoryServerArchivist implements HistoryServerArchivist {
 

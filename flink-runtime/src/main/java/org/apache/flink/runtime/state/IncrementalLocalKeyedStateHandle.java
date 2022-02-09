@@ -30,6 +30,8 @@ import java.util.UUID;
  * State handle for local copies of {@link IncrementalRemoteKeyedStateHandle}. Consists of a {@link
  * DirectoryStateHandle} that represents the directory of the native RocksDB snapshot, the key
  * groups, and a stream state handle for Flink's state meta data file.
+ * {@link IncrementalRemoteKeyedStateHandle} 的本地副本的状态句柄。
+ * 由一个 {@link DirectoryStateHandle} 组成，它表示原生 RocksDB 快照的目录、密钥组和 Flink 状态元数据文件的流状态句柄。
  */
 public class IncrementalLocalKeyedStateHandle extends DirectoryKeyedStateHandle
         implements IncrementalKeyedStateHandle {

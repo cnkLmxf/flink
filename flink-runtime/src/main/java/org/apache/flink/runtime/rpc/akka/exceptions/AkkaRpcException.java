@@ -20,7 +20,9 @@ package org.apache.flink.runtime.rpc.akka.exceptions;
 
 import org.apache.flink.runtime.rpc.exceptions.RpcException;
 
-/** Base class for Akka RPC related exceptions. */
+/** Base class for Akka RPC related exceptions.
+ * Akka RPC 相关异常的基类。
+ * */
 public class AkkaRpcException extends RpcException {
 
     private static final long serialVersionUID = -3796329968494146418L;

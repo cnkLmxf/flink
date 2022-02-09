@@ -25,6 +25,7 @@ import java.util.Iterator;
 /**
  * A {@link StateSnapshot} that can return an iterator over all contained {@link StateEntry
  * StateEntries}.
+ * 一个 {@link StateSnapshot}，可以返回所有包含的 {@link StateEntry StateEntries} 的迭代器。
  */
 @Internal
 public interface IterableStateSnapshot<K, N, S> extends StateSnapshot {

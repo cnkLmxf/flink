@@ -36,6 +36,7 @@ import java.io.IOException;
 /**
  * The abstract base class for all Rich output formats that are file based. Contains the logic to
  * open/close the target file streams.
+ * 所有基于文件的 Rich 输出格式的抽象基类。 包含打开/关闭目标文件流的逻辑。
  */
 @Public
 public abstract class FileOutputFormat<IT> extends RichOutputFormat<IT>
@@ -45,15 +46,21 @@ public abstract class FileOutputFormat<IT> extends RichOutputFormat<IT>
 
     // --------------------------------------------------------------------------------------------
 
-    /** Behavior for creating output directories. */
+    /** Behavior for creating output directories.
+     * 创建输出目录的行为。
+     * */
     public static enum OutputDirectoryMode {
 
-        /** A directory is always created, regardless of number of write tasks. */
+        /** A directory is always created, regardless of number of write tasks.
+         * 无论写入任务的数量如何，都会始终创建一个目录。
+         * */
         ALWAYS,
 
         /**
          * A directory is only created for parallel output tasks, i.e., number of output tasks &gt;
          * 1. If number of output tasks = 1, the output is written to a single file.
+         * 仅为并行输出任务创建目录，即输出任务数>
+         * 1. 如果输出任务数 = 1，则将输出写入单个文件。
          */
         PARONLY
     }
@@ -71,6 +78,7 @@ public abstract class FileOutputFormat<IT> extends RichOutputFormat<IT>
     /**
      * Initialize defaults for output format. Needs to be a static method because it is configured
      * for local cluster execution.
+     * 初始化输出格式的默认值。 需要是静态方法，因为它是为本地集群执行而配置的。
      *
      * @param configuration The configuration to load defaults from
      */
@@ -91,7 +99,9 @@ public abstract class FileOutputFormat<IT> extends RichOutputFormat<IT>
     /** The LOG for logging messages in this class. */
     private static final Logger LOG = LoggerFactory.getLogger(FileOutputFormat.class);
 
-    /** The key under which the name of the target path is stored in the configuration. */
+    /** The key under which the name of the target path is stored in the configuration.
+     * 配置中存储目标路径名称的键。
+     * */
     public static final String FILE_PARAMETER_KEY = "flink.output.file";
 
     /** The path of the file to be written. */
@@ -111,12 +121,14 @@ public abstract class FileOutputFormat<IT> extends RichOutputFormat<IT>
     /**
      * The path that is actually written to (may a a file in a the directory defined by {@code
      * outputFilePath} )
+     * 实际写入的路径（可能是 {@code outputFilePath} 定义的目录中的文件）
      */
     private transient Path actualFilePath;
 
     /**
      * Flag indicating whether this format actually created a file, which should be removed on
      * cleanup.
+     * 指示此格式是否实际创建文件的标志，应在清理时将其删除。
      */
     private transient boolean fileCreated;
 

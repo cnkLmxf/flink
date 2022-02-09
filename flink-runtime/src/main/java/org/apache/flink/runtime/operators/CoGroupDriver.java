@@ -39,10 +39,13 @@ import org.slf4j.LoggerFactory;
 /**
  * CoGroup task which is executed by a Task Manager. The task has two inputs and one or multiple
  * outputs. It is provided with a CoGroupFunction implementation.
+ * 由任务管理器执行的 CoGroup 任务。 该任务有两个输入和一个或多个输出。 它提供了 CoGroupFunction 实现。
  *
  * <p>The CoGroupTask group all pairs that share the same key from both inputs. Each for each key,
  * the sets of values that were pair with that key of both inputs are handed to the <code>coGroup()
  * </code> method of the CoGroupFunction.
+ * CoGroupTask 将来自两个输入的共享相同密钥的所有对分组。
+ * 对于每个键，与两个输入的该键配对的值集被传递给 CoGroupFunction 的 <code>coGroup() </code> 方法。
  *
  * @see org.apache.flink.api.common.functions.CoGroupFunction
  */

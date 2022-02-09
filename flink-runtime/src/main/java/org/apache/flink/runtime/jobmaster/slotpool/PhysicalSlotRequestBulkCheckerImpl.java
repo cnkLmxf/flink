@@ -103,6 +103,7 @@ public class PhysicalSlotRequestBulkCheckerImpl implements PhysicalSlotRequestBu
     /**
      * Check the slot request bulk and timeout its requests if it has been unfulfillable for too
      * long.
+     * 如果长时间无法满足，请检查槽请求批量并使其请求超时。
      *
      * @param slotRequestBulk bulk of slot requests
      * @param slotRequestTimeout indicates how long a pending request can be unfulfillable
@@ -138,6 +139,7 @@ public class PhysicalSlotRequestBulkCheckerImpl implements PhysicalSlotRequestBu
      * Returns whether the given bulk of slot requests are possible to be fulfilled at the same time
      * with all the reusable slots in the slot pool. A reusable slot means the slot is available or
      * will not be occupied indefinitely.
+     * 返回给定的大量槽请求是否可以与槽池中的所有可重用槽同时完成。 可重复使用的插槽意味着该插槽可用或不会被无限期占用。
      *
      * @param slotRequestBulk bulk of slot requests to check
      * @param slotsRetriever supplies slots to be used for the fulfill-ability check
@@ -165,6 +167,7 @@ public class PhysicalSlotRequestBulkCheckerImpl implements PhysicalSlotRequestBu
 
     /**
      * Tries to match pending requests to all registered slots (available or allocated).
+     * 尝试将挂起的请求与所有已注册的插槽（可用或已分配）匹配。
      *
      * <p>NOTE: The complexity of the method is currently quadratic (number of pending requests x
      * number of all slots).

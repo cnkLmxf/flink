@@ -27,6 +27,7 @@ import java.io.Serializable;
 /**
  * Serialized checkpoint exception which wraps the checkpoint failure reason and its serialized
  * throwable.
+ * 包含检查点失败原因及其序列化可抛出的序列化检查点异常。
  */
 public class SerializedCheckpointException implements Serializable {
     private static final long serialVersionUID = 1L;

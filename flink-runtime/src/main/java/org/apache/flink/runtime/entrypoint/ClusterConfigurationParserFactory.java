@@ -33,6 +33,7 @@ import static org.apache.flink.runtime.entrypoint.parser.CommandLineOptions.DYNA
 /**
  * Parser factory which generates a {@link ClusterConfiguration} from the given list of command line
  * arguments.
+ * 从给定的命令行参数列表生成 {@link ClusterConfiguration} 的解析器工厂。
  */
 public class ClusterConfigurationParserFactory
         implements ParserResultFactory<ClusterConfiguration> {

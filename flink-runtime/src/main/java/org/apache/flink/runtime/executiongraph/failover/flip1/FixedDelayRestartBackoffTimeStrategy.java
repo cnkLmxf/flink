@@ -26,6 +26,7 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * Restart strategy which tries to restart a fixed number of times with a fixed backoff time in
  * between.
+ * 尝试重启固定次数的重启策略，其间有固定的退避时间。
  */
 public class FixedDelayRestartBackoffTimeStrategy implements RestartBackoffTimeStrategy {
 

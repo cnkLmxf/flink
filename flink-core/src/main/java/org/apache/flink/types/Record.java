@@ -37,17 +37,24 @@ import java.nio.ByteOrder;
  * implements a sparse tuple model, meaning that the record can contain many fields which are
  * actually null and not represented in the record. It has internally a bitmap marking which fields
  * are set and which are not.
+ * Record 表示多值数据记录。 记录是任意值的元组。 它实现了一个稀疏元组模型，
+ * 这意味着记录可以包含许多实际上为空且未在记录中表示的字段。 它在内部有一个位图标记哪些字段已设置，哪些未设置。
  *
  * <p>For efficient data exchange, a record that is read from any source holds its data in
  * serialized binary form. Fields are deserialized lazily upon first access. Modified fields are
  * cached and the modifications are incorporated into the binary representation upon the next
  * serialization or any explicit call to the {@link #updateBinaryRepresenation()} method.
+ * 为了有效的数据交换，从任何来源读取的记录以序列化二进制形式保存其数据。 字段在第一次访问时被延迟反序列化。
+ * 修改后的字段被缓存，并且在下一次序列化或对 {@link #updateBinaryRepresenation()} 方法的任何显式调用时将修改合并到二进制表示中。
  *
  * <p>IMPORTANT NOTE: Records must be used as mutable objects and be reused across user function
  * calls in order to achieve performance. The record is a heavy-weight object, designed to minimize
  * calls to the individual fields' serialization and deserialization methods. It holds quite a bit
  * of state consumes a comparably large amount of memory (&gt; 200 bytes in a 64 bit JVM) due to
  * several pointers and arrays.
+ * 重要说明：记录必须用作可变对象并在用户函数调用中重用以实现性能。
+ * 记录是一个重量级对象，旨在最大限度地减少对各个字段的序列化和反序列化方法的调用。
+ * 由于多个指针和数组，它拥有相当多的状态会消耗相当多的内存（在 64 位 JVM 中大于 200 字节）。
  *
  * <p>This class is NOT thread-safe!
  */

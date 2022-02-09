@@ -47,7 +47,9 @@ import static org.apache.flink.runtime.metrics.dump.QueryScopeInfo.INFO_CATEGORY
 import static org.apache.flink.runtime.metrics.dump.QueryScopeInfo.INFO_CATEGORY_TASK;
 import static org.apache.flink.runtime.metrics.dump.QueryScopeInfo.INFO_CATEGORY_TM;
 
-/** Utility class for the serialization of metrics. */
+/** Utility class for the serialization of metrics.
+ * 用于度量序列化的实用程序类。
+ * */
 public class MetricDumpSerialization {
 
     private static final Logger LOG = LoggerFactory.getLogger(MetricDumpSerialization.class);
@@ -56,16 +58,22 @@ public class MetricDumpSerialization {
 
     /**
      * This class encapsulates all serialized metrics and a count for each metric type.
+     * 此类封装了所有序列化的指标和每个指标类型的计数。
      *
      * <p>The counts are stored separately from the metrics since the final count for any given type
      * can only be determined after all metrics of that type were serialized. Storing them together
      * in a single byte[] would require an additional copy of all serialized metrics, as you would
      * first have to serialize the metrics into a temporary buffer to calculate the counts, write
      * the counts to the final output and copy all metrics from the temporary buffer.
+     * 计数与指标分开存储，因为任何给定类型的最终计数只能在该类型的所有指标都被序列化后才能确定。
+     * 将它们一起存储在一个 byte[] 中将需要所有序列化指标的额外副本，
+     * 因为您首先必须将指标序列化到临时缓冲区中以计算计数，将计数写入最终输出并从 临时缓冲区。
      *
      * <p>Note that while one could implement the serialization in such a way so that at least 1
      * byte (a validity flag) is written for each metric, this would require more bandwidth due to
      * the sheer number of metrics.
+     * 请注意，虽然可以以这样一种方式实现序列化，以便为每个指标写入至少 1 个字节（有效性标志），
+     * 但由于指标数量众多，这将需要更多带宽。
      */
     public static class MetricSerializationResult implements Serializable {
 

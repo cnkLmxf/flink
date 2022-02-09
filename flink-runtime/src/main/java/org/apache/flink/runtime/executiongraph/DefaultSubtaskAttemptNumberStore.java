@@ -21,7 +21,9 @@ import org.apache.flink.util.Preconditions;
 
 import java.util.List;
 
-/** Simple container for subtask attempt counts backed by a list. */
+/** Simple container for subtask attempt counts backed by a list.
+ * 由列表支持的子任务尝试计数的简单容器。
+ * */
 public class DefaultSubtaskAttemptNumberStore implements SubtaskAttemptNumberStore {
     private final List<Integer> attemptCounts;
 

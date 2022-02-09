@@ -46,6 +46,12 @@ import java.util.Objects;
  * copy-on-write operations by the {@link CopyOnWriteStateMap}. Phrased differently: the {@link
  * CopyOnWriteStateMap} provides copy-on-write isolation for this snapshot, but this snapshot does
  * not isolate modifications from the {@link CopyOnWriteStateMap}!
+ * 重要提示：请注意，此类中条目的快照完整性依赖于通过创建快照对象的 {@link CopyOnWriteStateMap} 的正确写时复制语义，
+ * 但此快照中的所有对象都必须被视为只读！
+ * 原因是此类持有的对象可能是也可能不是在 {@link CopyOnWriteStateMap} 中仍使用的原始对象的深层副本。
+ * 这取决于每个条目是否受到 {@link CopyOnWriteStateMap} 的写时复制操作的影响。
+ * 换个说法：{@link CopyOnWriteStateMap} 为这个快照提供了写时复制隔离，
+ * 但是这个快照并没有将修改与 {@link CopyOnWriteStateMap} 隔离开！
  *
  * @param <K> type of key
  * @param <N> type of namespace

@@ -47,6 +47,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * <p>The root path is watched to detect concurrent modifications in corner situations where
  * multiple instances operate concurrently. The job manager acts as a {@link
  * JobGraphStore.JobGraphListener} to react to such situations.
+ * 监视根路径以检测在多个实例同时操作的角落情况下的并发修改。
+ * 作业管理器充当 {@link JobGraphStore.JobGraphListener} 以对此类情况做出反应。
  */
 public class ZooKeeperJobGraphStoreWatcher implements JobGraphStoreWatcher {
 
@@ -55,6 +57,7 @@ public class ZooKeeperJobGraphStoreWatcher implements JobGraphStoreWatcher {
     /**
      * Cache to monitor all children. This is used to detect races with other instances working on
      * the same state.
+     * 缓存来监控所有的孩子。 这用于检测与其他在相同状态下工作的实例的竞争。
      */
     private final PathChildrenCache pathCache;
 
@@ -91,6 +94,7 @@ public class ZooKeeperJobGraphStoreWatcher implements JobGraphStoreWatcher {
      *
      * <p>Detects modifications from other job managers in corner situations. The event
      * notifications fire for changes from this job manager as well.
+     * 在角落情况下检测其他作业经理的修改。 来自此作业管理器的更改也会触发事件通知。
      */
     private final class JobGraphsPathCacheListener implements PathChildrenCacheListener {
 

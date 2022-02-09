@@ -47,6 +47,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Default implementation for {@link CheckpointPlanCalculator}. If all tasks are running, it
  * directly marks all the sources as tasks to trigger, otherwise it would try to find the running
  * tasks without running processors as tasks to trigger.
+ * {@link CheckpointPlanCalculator} 的默认实现。
+ * 如果所有任务都在运行，则直接将所有源标记为要触发的任务，
+ * 否则会在不运行处理器的情况下尝试查找正在运行的任务作为要触发的任务。
  */
 public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator {
 
@@ -64,6 +67,9 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
      * TODO Temporary flag to allow checkpoints after tasks finished. This is disabled for regular
      * jobs to keep the current behavior but we want to allow it in tests. This should be removed
      * once all parts of the stack support checkpoints after some tasks finished.
+     * TODO 临时标志以允许任务完成后的检查点。
+     * 这对于常规作业被禁用以保持当前行为，但我们希望在测试中允许它。
+     * 在某些任务完成后，一旦堆栈的所有部分都支持检查点，这应该被删除。
      */
     private boolean allowCheckpointsAfterTasksFinished;
 
@@ -124,6 +130,7 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
     /**
      * Checks if all tasks are attached with the current Execution already. This method should be
      * called from JobMaster main thread executor.
+     * 检查所有任务是否已经附加到当前执行。 这个方法应该从 JobMaster 主线程执行器中调用。
      *
      * @throws CheckpointException if some tasks do not have attached Execution.
      */
@@ -142,6 +149,7 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
     /**
      * Checks if all tasks to trigger have already been in RUNNING state. This method should be
      * called from JobMaster main thread executor.
+     * 检查所有要触发的任务是否已经处于 RUNNING 状态。 这个方法应该从 JobMaster 主线程执行器中调用。
      *
      * @throws CheckpointException if some tasks to trigger have not turned into RUNNING yet.
      */
@@ -161,6 +169,7 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
     /**
      * Computes the checkpoint plan when all tasks are running. It would simply marks all the source
      * tasks as need to trigger and all the tasks as need to wait and commit.
+     * 当所有任务都在运行时计算检查点计划。 它只是将所有源任务标记为需要触发，并将所有任务标记为需要等待和提交。
      *
      * @return The plan of this checkpoint.
      */
@@ -183,6 +192,7 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
     /**
      * Calculates the checkpoint plan after some tasks have finished. We iterate the job graph to
      * find the task that is still running, but do not has precedent running tasks.
+     * 在某些任务完成后计算检查点计划。 我们迭代作业图以找到仍在运行但没有先例运行任务的任务。
      *
      * @return The plan of this checkpoint.
      */
@@ -265,7 +275,11 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
 
     /**
      * Every task must have active upstream tasks if
-     *
+     * 每个任务都必须有活动的上游任务，如果
+     *<ol>
+     *     <li>ALL_TO_ALL 连接和一些前辈仍在运行。
+     *     <li>POINTWISE 连接和所有前辈仍在运行。
+     * </ol>
      * <ol>
      *   <li>ALL_TO_ALL connection and some predecessors are still running.
      *   <li>POINTWISE connection and all predecessors are still running.
@@ -314,6 +328,7 @@ public class DefaultCheckpointPlanCalculator implements CheckpointPlanCalculator
 
     /**
      * Collects the task running status for each job vertex.
+     * 收集每个作业顶点的任务运行状态。
      *
      * @return The task running status for each job vertex.
      */

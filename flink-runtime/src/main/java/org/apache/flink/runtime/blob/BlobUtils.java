@@ -65,6 +65,7 @@ public class BlobUtils {
 
     /**
      * Creates a BlobStore based on the parameters set in the configuration.
+     * 根据配置中设置的参数创建 BlobStore。
      *
      * @param config configuration to use
      * @return a (distributed) blob store for high availability
@@ -103,6 +104,8 @@ public class BlobUtils {
      * by {@link BlobServerOptions#STORAGE_DIRECTORY}. If this is <tt>null</tt> or empty, we will
      * fall back to Flink's temp directories (given by {@link
      * org.apache.flink.configuration.CoreOptions#TMP_DIRS}) and choose one among them at random.
+     * 在 {@link BlobServerOptions#STORAGE_DIRECTORY} 提供的配置参数下为 blob 服务创建本地存储目录。
+     * 如果这是 <tt>null</tt> 或为空，我们将回退到 Flink 的临时目录（由 {@link org.apache.flink.configuration.CoreOptions#TMP_DIRS} 提供）并随机选择其中之一。
      *
      * @param config Flink configuration
      * @return a new local storage directory
@@ -143,6 +146,7 @@ public class BlobUtils {
     /**
      * Returns the BLOB service's directory for incoming (job-unrelated) files. The directory is
      * created if it does not exist yet.
+     * 返回 BLOB 服务的传入（与作业无关）文件的目录。 如果目录尚不存在，则会创建该目录。
      *
      * @param storageDir storage directory used be the BLOB service
      * @return the BLOB service's directory for incoming files
@@ -158,6 +162,7 @@ public class BlobUtils {
 
     /**
      * Returns the (designated) physical storage location of the BLOB with the given key.
+     * 返回具有给定键的 BLOB 的（指定）物理存储位置。
      *
      * @param storageDir storage directory used be the BLOB service
      * @param key the key identifying the BLOB
@@ -177,6 +182,7 @@ public class BlobUtils {
     /**
      * Returns the BLOB server's storage directory for BLOBs belonging to the job with the given ID
      * <em>without</em> creating the directory.
+     * 为属于具有给定 ID 的作业的 BLOB 返回 BLOB 服务器的存储目录，<em></em> 无需创建目录。
      *
      * @param storageDir storage directory used be the BLOB service
      * @param jobId the ID of the job to return the storage directory for
@@ -194,10 +200,13 @@ public class BlobUtils {
 
     /**
      * Returns the path for the given blob key.
+     * 返回给定 blob 键的路径。
      *
      * <p>The returned path can be used with the (local or HA) BLOB store file system back-end for
      * recovery purposes and follows the same scheme as {@link #getStorageLocation(File, JobID,
      * BlobKey)}.
+     * 返回的路径可与（本地或 HA）BLOB 存储文件系统后端一起用于恢复目的，
+     * 并遵循与 {@link #getStorageLocation(File, JobID, BlobKey)} 相同的方案。
      *
      * @param storageDir storage directory used be the BLOB service
      * @param key the key identifying the BLOB
@@ -219,6 +228,7 @@ public class BlobUtils {
 
     /**
      * Creates a new instance of the message digest to use for the BLOB key computation.
+     * 创建消息摘要的新实例以用于 BLOB 密钥计算。
      *
      * @return a new instance of the message digest to use for the BLOB key computation
      */
@@ -233,6 +243,7 @@ public class BlobUtils {
 
     /**
      * Auxiliary method to write the length of an upcoming data chunk to an output stream.
+     * 将即将到来的数据块的长度写入输出流的辅助方法。
      *
      * @param length the length of the upcoming data chunk in bytes
      * @param outputStream the output stream to write the length to
@@ -249,6 +260,7 @@ public class BlobUtils {
 
     /**
      * Auxiliary method to read the length of an upcoming data chunk from an input stream.
+     * 从输入流中读取即将到来的数据块长度的辅助方法。
      *
      * @param inputStream the input stream to read the length from
      * @return the length of the upcoming data chunk in bytes
@@ -275,6 +287,7 @@ public class BlobUtils {
 
     /**
      * Reads exception from given {@link InputStream}.
+     * 从给定的 {@link InputStream} 读取异常。
      *
      * @param in the input stream to read from
      * @return exception that was read
@@ -298,6 +311,8 @@ public class BlobUtils {
      * Auxiliary method to read a particular number of bytes from an input stream. This method
      * blocks until the requested number of bytes have been read from the stream. If the stream
      * cannot offer enough data, an {@link EOFException} is thrown.
+     * 从输入流中读取特定字节数的辅助方法。 此方法阻塞，直到从流中读取了请求的字节数。
+     * 如果流无法提供足够的数据，则会抛出 {@link EOFException}。
      *
      * @param inputStream The input stream to read the data from.
      * @param buf The buffer to store the read data.
@@ -339,6 +354,7 @@ public class BlobUtils {
     /**
      * Moves the temporary <tt>incomingFile</tt> to its permanent location where it is available for
      * use (not thread-safe!).
+     * 将临时 <tt>incomingFile</tt> 移动到其可供使用的永久位置（不是线程安全的！）。
      *
      * @param incomingFile temporary file created during transfer
      * @param jobId ID of the job this blob belongs to or <tt>null</tt> if job-unrelated

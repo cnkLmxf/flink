@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A workset iteration is by definition converged if no records have been updated in the
  * solutionset.
+ * 如果解决方案集中没有更新记录，则工作集迭代根据定义是收敛的。
  */
 public class WorksetEmptyConvergenceCriterion implements ConvergenceCriterion<LongValue> {
 

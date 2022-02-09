@@ -29,6 +29,8 @@ import java.util.function.Supplier;
 /**
  * Simple {@link CheckpointRecoveryFactory} which creates and keeps separate {@link
  * CompletedCheckpointStore} and {@link CheckpointIDCounter} for each {@link JobID}.
+ * 简单的 {@link CheckpointRecoveryFactory} 为每个 {@link JobID} 创建并保留单独的
+ * {@link CompletedCheckpointStore} 和 {@link CheckpointIDCounter}。
  */
 public class PerJobCheckpointRecoveryFactory implements CheckpointRecoveryFactory {
     private final Function<Integer, CompletedCheckpointStore> completedCheckpointStorePerJobFactory;

@@ -24,12 +24,14 @@ import java.util.Collection;
 
 /**
  * Utility for tracking partitions and issuing release calls to task executors and shuffle masters.
+ * 用于跟踪分区和向任务执行器和 shuffle master 发出发布调用的实用程序。
  */
 public interface JobMasterPartitionTracker
         extends PartitionTracker<ResourceID, ResultPartitionDeploymentDescriptor> {
 
     /**
      * Starts the tracking of the given partition for the given task executor ID.
+     * 开始跟踪给定任务执行者 ID 的给定分区。
      *
      * @param producingTaskExecutorId ID of task executor on which the partition is produced
      * @param resultPartitionDeploymentDescriptor deployment descriptor of the partition
@@ -38,18 +40,22 @@ public interface JobMasterPartitionTracker
             ResourceID producingTaskExecutorId,
             ResultPartitionDeploymentDescriptor resultPartitionDeploymentDescriptor);
 
-    /** Releases the given partitions and stop the tracking of partitions that were released. */
+    /** Releases the given partitions and stop the tracking of partitions that were released.
+     * 释放给定的分区并停止跟踪已释放的分区。
+     * */
     void stopTrackingAndReleasePartitions(Collection<ResultPartitionID> resultPartitionIds);
 
     /**
      * Releases all partitions for the given task executor ID, and stop the tracking of partitions
      * that were released.
+     * 释放给定任务执行者 ID 的所有分区，并停止跟踪已释放的分区。
      */
     void stopTrackingAndReleasePartitionsFor(ResourceID producingTaskExecutorId);
 
     /**
      * Releases all job partitions and promotes all cluster partitions for the given task executor
      * ID, and stops the tracking of partitions that were released/promoted.
+     * 释放所有作业分区并提升给定任务执行者 ID 的所有集群分区，并停止跟踪已释放/提升的分区。
      */
     void stopTrackingAndReleaseOrPromotePartitionsFor(ResourceID producingTaskExecutorId);
 }

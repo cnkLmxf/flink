@@ -30,21 +30,30 @@ import java.io.IOException;
 
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** A basic reader implementation, which wraps an input gate and handles events. */
+/** A basic reader implementation, which wraps an input gate and handles events.
+ * 一个基本的阅读器实现，它包装了一个输入门并处理事件。
+ * */
 public abstract class AbstractReader implements ReaderBase {
 
-    /** The input gate to read from. */
+    /** The input gate to read from.
+     * 要读取的输入门。
+     * */
     protected final InputGate inputGate;
 
-    /** The task event handler to manage task event subscriptions. */
+    /** The task event handler to manage task event subscriptions.
+     * 用于管理任务事件订阅的任务事件处理程序。
+     * */
     private final TaskEventHandler taskEventHandler = new TaskEventHandler();
 
-    /** Flag indicating whether this reader allows iteration events. */
+    /** Flag indicating whether this reader allows iteration events.
+     * 指示此阅读器是否允许迭代事件的标志。
+     * */
     private boolean isIterative;
 
     /**
      * The current number of end of superstep events (reset for each superstep). A superstep is
      * finished after an end of superstep event has been received for each input channel.
+     * 当前超级步结束事件的数量（为每个超级步重置）。 在为每个输入通道接收到超级步结束事件后，超级步就完成了。
      */
     private int currentNumberOfEndOfSuperstepEvents;
 
@@ -75,6 +84,7 @@ public abstract class AbstractReader implements ReaderBase {
     /**
      * Handles the event and returns whether the reader reached an end-of-stream event (either the
      * end of the whole stream or the end of an superstep).
+     * 处理事件并返回读取器是否到达流结束事件（整个流的结束或超级步的结束）。
      */
     protected boolean handleEvent(AbstractEvent event) throws IOException {
         final Class<?> eventType = event.getClass();

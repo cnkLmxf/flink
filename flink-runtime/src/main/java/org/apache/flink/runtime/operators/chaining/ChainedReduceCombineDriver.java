@@ -51,6 +51,7 @@ public class ChainedReduceCombineDriver<T> extends ChainedDriver<T, T> {
 
     /**
      * Fix length records with a length below this threshold will be in-place sorted, if possible.
+     * 如果可能，长度低于此阈值的固定长度记录将被就地排序。
      */
     private static final int THRESHOLD_FOR_IN_PLACE_SORTING = 32;
 

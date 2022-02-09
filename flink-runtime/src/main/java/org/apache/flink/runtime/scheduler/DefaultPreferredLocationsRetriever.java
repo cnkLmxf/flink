@@ -36,6 +36,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Default implementation of {@link PreferredLocationsRetriever}. Locations based on state will be
  * returned if exist. Otherwise locations based on inputs will be returned.
+ * {@link PreferredLocationsRetriever} 的默认实现。 如果存在，将返回基于状态的位置。 否则将返回基于输入的位置。
  */
 public class DefaultPreferredLocationsRetriever implements PreferredLocationsRetriever {
 

@@ -34,6 +34,11 @@ import java.io.IOException;
  * to that, exceptions from interactions with the primary stream are immediately returned to the
  * user. This class is used to write state for local recovery as a local (secondary) copy of the
  * (primary) state snapshot that is written to a (slower but highly-available) remote filesystem.
+ * 一个 CheckpointStateOutputStream，它包装了一个主 CheckpointStateOutputStream 和一个辅助 CheckpointStateOutputStream，
+ * 并将所有写入复制到两个流中。 此流应用缓冲以减少双方法调用的数量。
+ * 此外，在用户调用 {@link #closeAndGetSecondaryHandle()} 之前，不会暴露与辅助流交互中发生的异常。
+ * 与此相反，与主流交互的异常会立即返回给用户。 此类用于将用于本地恢复的状态作为（主）状态快照的本地（辅助）副本写入
+ * （速度较慢但高度可用）远程文件系统。
  */
 public class DuplicatingCheckpointOutputStream
         extends CheckpointStreamFactory.CheckpointStateOutputStream {

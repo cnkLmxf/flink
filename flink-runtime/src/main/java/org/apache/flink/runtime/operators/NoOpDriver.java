@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A driver that does nothing but forward data from its input to its output.
+ * 除了将数据从其输入转发到其输出之外什么都不做的驱动程序。
  *
  * @param <T> The data type.
  */

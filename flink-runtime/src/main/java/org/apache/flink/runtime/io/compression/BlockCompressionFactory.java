@@ -25,6 +25,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Each compression codec has a implementation of {@link BlockCompressionFactory} to create
  * compressors and decompressors.
+ * 每个压缩编解码器都有一个 {@link BlockCompressionFactory} 的实现来创建压缩器和解压缩器。
  */
 public interface BlockCompressionFactory {
 
@@ -39,6 +40,7 @@ public interface BlockCompressionFactory {
 
     /**
      * Creates {@link BlockCompressionFactory} according to the configuration.
+     * 根据配置创建 {@link BlockCompressionFactory}。
      *
      * @param compressionFactoryName supported compression codecs or user-defined class name
      *     inherited from {@link BlockCompressionFactory}.

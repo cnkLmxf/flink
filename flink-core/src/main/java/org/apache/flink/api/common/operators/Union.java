@@ -27,13 +27,16 @@ import org.apache.flink.api.common.operators.util.UserCodeClassWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-/** This operator represents a Union between two inputs. */
+/** This operator represents a Union between two inputs.
+ * 该运算符表示两个输入之间的联合。
+ * */
 @Internal
 public class Union<T> extends DualInputOperator<T, T, T, AbstractRichFunction> {
 
     /** Creates a new Union operator. */
     public Union(BinaryOperatorInformation<T, T, T> operatorInfo, String unionLocationName) {
         // we pass it an AbstractFunction, because currently all operators expect some form of UDF
+        // 我们给它传递了一个 AbstractFunction，因为目前所有的操作符都期望某种形式的 UDF
         super(
                 new UserCodeClassWrapper<AbstractRichFunction>(AbstractRichFunction.class),
                 operatorInfo,

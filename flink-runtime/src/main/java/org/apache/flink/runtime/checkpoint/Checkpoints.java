@@ -57,18 +57,23 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * A utility class with the methods to write/load/dispose the checkpoint and savepoint metadata.
+ * 具有写入/加载/处置检查点和保存点元数据的方法的实用程序类。
  *
  * <p>Stored checkpoint metadata files have the following format:
+ * 存储的检查点元数据文件具有以下格式：
  *
  * <pre>[MagicNumber (int) | Format Version (int) | Checkpoint Metadata (variable)]</pre>
  *
  * <p>The actual savepoint serialization is version-specific via the {@link MetadataSerializer}.
+ * 实际的保存点序列化通过 {@link MetadataSerializer} 是特定于版本的。
  */
 public class Checkpoints {
 
     private static final Logger LOG = LoggerFactory.getLogger(Checkpoints.class);
 
-    /** Magic number at the beginning of every checkpoint metadata file, for sanity checks. */
+    /** Magic number at the beginning of every checkpoint metadata file, for sanity checks.
+     * 每个检查点元数据文件开头的幻数，用于完整性检查。
+     * */
     public static final int HEADER_MAGIC_NUMBER = 0x4960672d;
 
     // ------------------------------------------------------------------------
@@ -369,6 +374,8 @@ public class Checkpoints {
 
     // ------------------------------------------------------------------------
 
-    /** This class contains only static utility methods and is not meant to be instantiated. */
+    /** This class contains only static utility methods and is not meant to be instantiated.
+     * 此类仅包含静态实用程序方法，并不打算实例化。
+     * */
     private Checkpoints() {}
 }

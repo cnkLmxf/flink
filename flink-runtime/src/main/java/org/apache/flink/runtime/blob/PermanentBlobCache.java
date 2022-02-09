@@ -41,18 +41,24 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Provides a cache for permanent BLOB files including a per-job ref-counting and a staged cleanup.
+ * 为永久 BLOB 文件提供缓存，包括每个作业的引用计数和分阶段清理。
  *
  * <p>When requesting BLOBs via {@link #getFile(JobID, PermanentBlobKey)}, the cache will first
  * attempt to serve the file from its local cache. Only if the local cache does not contain the
  * desired BLOB, it will try to download it from a distributed HA file system (if available) or the
  * BLOB server.
+ * 当通过 {@link #getFile(JobID, PermanentBlobKey)} 请求 BLOB 时，缓存将首先尝试从其本地缓存提供文件。
+ * 只有当本地缓存不包含所需的 BLOB 时，它才会尝试从分布式 HA 文件系统（如果可用）或 BLOB 服务器下载它。
  *
  * <p>If files for a job are not needed any more, they will enter a staged, i.e. deferred, cleanup.
  * Files may thus still be be accessible upon recovery and do not need to be re-downloaded.
+ * 如果不再需要某个作业的文件，它们将进入暂存，即延迟清理。 因此，文件在恢复时仍可访问，无需重新下载。
  */
 public class PermanentBlobCache extends AbstractBlobCache implements PermanentBlobService {
 
-    /** Job reference counters with a time-to-live (TTL). */
+    /** Job reference counters with a time-to-live (TTL).
+     * 具有生存时间 (TTL) 的作业引用计数器。
+     * */
     @VisibleForTesting
     static class RefCount {
         /** Number of references to a job. */
@@ -61,21 +67,29 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
         /**
          * Timestamp in milliseconds when any job data should be cleaned up (no cleanup for
          * non-positive values).
+         * 应清除任何作业数据的时间戳（以毫秒为单位）（不清除非正值）。
          */
         public long keepUntil = -1;
     }
 
-    /** Map to store the number of references to a specific job. */
+    /** Map to store the number of references to a specific job.
+     * 映射以存储对特定作业的引用数。
+     * */
     private final Map<JobID, RefCount> jobRefCounters = new HashMap<>();
 
-    /** Time interval (ms) to run the cleanup task; also used as the default TTL. */
+    /** Time interval (ms) to run the cleanup task; also used as the default TTL.
+     * 运行清理任务的时间间隔（毫秒）； 也用作默认 TTL。
+     * */
     private final long cleanupInterval;
 
-    /** Timer task to execute the cleanup at regular intervals. */
+    /** Timer task to execute the cleanup at regular intervals.
+     * 定时任务以定期执行清理。
+     * */
     private final Timer cleanupTimer;
 
     /**
      * Instantiates a new cache for permanent BLOBs which are also available in an HA store.
+     * 实例化永久 BLOB 的新缓存，这些缓存也可在 HA 存储中使用。
      *
      * @param blobClientConfig global configuration
      * @param blobView (distributed) HA blob store file system to retrieve files from first
@@ -106,9 +120,12 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
 
     /**
      * Registers use of job-related BLOBs.
+     * 注册与作业相关的 BLOB 的使用。
      *
      * <p>Using any other method to access BLOBs, e.g. {@link #getFile}, is only valid within calls
      * to <tt>registerJob(JobID)</tt> and {@link #releaseJob(JobID)}.
+     * 使用任何其他方法访问 BLOB，例如 {@link #getFile}，
+     * 仅在调用 <tt>registerJob(JobID)</tt> 和 {@link #releaseJob(JobID)} 时有效。
      *
      * @param jobId ID of the job this blob belongs to
      * @see #releaseJob(JobID)
@@ -131,6 +148,7 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
 
     /**
      * Unregisters use of job-related BLOBs and allow them to be released.
+     * 取消注册与作业相关的 BLOB 的使用并允许它们被释放。
      *
      * @param jobId ID of the job this blob belongs to
      * @see #registerJob(JobID)
@@ -171,9 +189,11 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
     /**
      * Returns the path to a local copy of the file associated with the provided job ID and blob
      * key.
+     * 返回与提供的作业 ID 和 blob 键关联的文件的本地副本的路径。
      *
      * <p>We will first attempt to serve the BLOB from the local storage. If the BLOB is not in
      * there, we will try to download it from the HA store, or directly from the {@link BlobServer}.
+     * 我们将首先尝试从本地存储提供 BLOB。 如果 BLOB 不在那里，我们将尝试从 HA 商店或直接从 {@link BlobServer} 下载它。
      *
      * @param jobId ID of the job this blob belongs to
      * @param key blob key associated with the requested file
@@ -189,6 +209,7 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
 
     /**
      * Returns a file handle to the file associated with the given blob key on the blob server.
+     * 返回与 Blob 服务器上给定 Blob 键关联的文件的文件句柄。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param key identifying the file
@@ -203,6 +224,7 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
 
     /**
      * Returns the job reference counters - for testing purposes only!
+     * 返回作业引用计数器 - 仅用于测试目的！
      *
      * @return job reference counters (internal state!)
      */
@@ -214,6 +236,7 @@ public class PermanentBlobCache extends AbstractBlobCache implements PermanentBl
     /**
      * Cleanup task which is executed periodically to delete BLOBs whose ref-counter reached
      * <tt>0</tt>.
+     * 定期执行清理任务以删除引用计数器达到 0 的 BLOB
      */
     class PermanentBlobCleanupTask extends TimerTask {
         /** Cleans up BLOBs which are not referenced anymore. */

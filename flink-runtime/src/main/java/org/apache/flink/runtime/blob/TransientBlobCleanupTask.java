@@ -33,24 +33,31 @@ import java.util.concurrent.locks.Lock;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Cleanup task for transient BLOBs. */
+/** Cleanup task for transient BLOBs.
+ * 瞬态 BLOB 的清理任务。
+ * */
 class TransientBlobCleanupTask extends TimerTask {
 
     /** The log object used for debugging. */
     private final Logger log;
 
-    /** Map to store the TTL of each element stored in the local storage. */
+    /** Map to store the TTL of each element stored in the local storage.
+     * 映射存储本地存储中存储的每个元素的TTL。
+     * */
     private ConcurrentMap<Tuple2<JobID, TransientBlobKey>, Long> blobExpiryTimes;
 
     /** Lock to acquire before changing file contents. */
     private Lock writeLock;
 
-    /** Local storage directory to work on. */
+    /** Local storage directory to work on.
+     * 要处理的本地存储目录。
+     * */
     private File storageDir;
 
     /**
      * Creates a new cleanup timer task working with the given parameters from {@link BlobServer}
      * and {@link TransientBlobCache}.
+     * 使用来自 {@link BlobServer} 和 {@link TransientBlobCache} 的给定参数创建一个新的清理计时器任务。
      *
      * @param blobExpiryTimes map to store the TTL of each element stored in the local storage
      * @param writeLock lock to acquire before changing file contents
@@ -68,7 +75,9 @@ class TransientBlobCleanupTask extends TimerTask {
         this.log = checkNotNull(log);
     }
 
-    /** Cleans up transient BLOBs whose TTL is up, tolerating that files do not exist (anymore). */
+    /** Cleans up transient BLOBs whose TTL is up, tolerating that files do not exist (anymore).
+     * 清除 TTL 已启动的瞬态 BLOB，允许文件不存在（不再存在）。
+     * */
     @Override
     public void run() {
         // let's cache the current time - we do not operate on a millisecond precision anyway

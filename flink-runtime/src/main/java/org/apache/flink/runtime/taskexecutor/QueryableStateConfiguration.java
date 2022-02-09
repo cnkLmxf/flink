@@ -26,7 +26,9 @@ import java.util.Iterator;
 
 import static org.apache.flink.util.Preconditions.checkArgument;
 
-/** Simple configuration object for the parameters for the server-side of queryable state. */
+/** Simple configuration object for the parameters for the server-side of queryable state.
+ * 可查询状态的服务器端参数的简单配置对象。
+ * */
 public class QueryableStateConfiguration {
 
     private final Iterator<Integer> proxyPortRange;

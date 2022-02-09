@@ -28,6 +28,7 @@ public interface BlobStore extends BlobView {
 
     /**
      * Copies the local file to the blob store.
+     * 将本地文件复制到 blob 存储。
      *
      * @param localFile The file to copy
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
@@ -39,6 +40,7 @@ public interface BlobStore extends BlobView {
 
     /**
      * Tries to delete a blob from storage.
+     * 尝试从存储中删除 blob。
      *
      * <p>NOTE: This also tries to delete any created directories if empty.
      *
@@ -51,8 +53,10 @@ public interface BlobStore extends BlobView {
 
     /**
      * Tries to delete all blobs for the given job from storage.
+     * 尝试从存储中删除给定作业的所有 blob。
      *
      * <p>NOTE: This also tries to delete any created directories if empty.
+     * 注意：如果为空，这也会尝试删除任何创建的目录。
      *
      * @param jobId The JobID part of all blobs to delete
      * @return <tt>true</tt> if the job directory is successfully deleted or non-existing;

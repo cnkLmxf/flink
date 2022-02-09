@@ -20,7 +20,9 @@ package org.apache.flink.runtime.throwable;
 
 import java.util.Optional;
 
-/** Helper class, given a exception do the classification. */
+/** Helper class, given a exception do the classification.
+ * Helper 类，给定异常做分类。
+ * */
 public class ThrowableClassifier {
 
     /**

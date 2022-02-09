@@ -20,7 +20,9 @@ package org.apache.flink.api.common;
 
 import org.apache.flink.annotation.Public;
 
-/** The result of submitting a job to a JobManager. */
+/** The result of submitting a job to a JobManager.
+ * 将作业提交到 JobManager 的结果。
+ * */
 @Public
 public class JobSubmissionResult {
 

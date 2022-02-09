@@ -34,13 +34,17 @@ import java.io.IOException;
 /**
  * Overlays a Hadoop configuration into a container, based on a supplied Hadoop configuration
  * directory.
+ * 根据提供的 Hadoop 配置目录，将 Hadoop 配置覆盖到容器中。
  *
  * <p>The following files are copied to the container: - hadoop/conf/core-site.xml -
  * hadoop/conf/hdfs-site.xml
+ * 以下文件被复制到容器中： - hadoop/conf/core-site.xml - hadoop/conf/hdfs-site.xml
  *
  * <p>The following environment variables are set in the container: - HADOOP_CONF_DIR
+ * 在容器中设置了以下环境变量： - HADOOP_CONF_DIR
  *
  * <p>The following Flink configuration entries are updated: - fs.hdfs.hadoopconf
+ * 以下 Flink 配置条目已更新： - fs.hdfs.hadoopconf
  */
 public class HadoopConfOverlay implements ContainerOverlay {
 
@@ -100,10 +104,16 @@ public class HadoopConfOverlay implements ContainerOverlay {
 
         /**
          * Configures the overlay using the current environment's Hadoop configuration.
+         * 使用当前环境的 Hadoop 配置配置覆盖。
          *
          * <p>The following locations are checked for a Hadoop configuration: - (conf)
          * fs.hdfs.hadoopconf - (env) HADOOP_CONF_DIR - (env) HADOOP_HOME/conf - (env)
          * HADOOP_HOME/etc/hadoop
+         * 检查以下位置的 Hadoop 配置：
+         * - (conf) fs.hdfs.hadoopconf
+         * - (env) HADOOP_CONF_DIR
+         * - (env) HADOOP_HOME/conf
+         * - (env) HADOOP_HOME/etc/hadoop
          */
         public Builder fromEnvironment(Configuration globalConfiguration) {
 

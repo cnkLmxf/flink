@@ -23,18 +23,21 @@ import org.apache.flink.runtime.jobgraph.OperatorID;
 /**
  * The dispatcher through which Operators receive {@link OperatorEvent}s and through which they can
  * send OperatorEvents back to the {@code OperatorCoordinator}.
+ * Operator 接收 {@link OperatorEvent} 并通过其将 OperatorEvent 发送回 {@code OperatorCoordinator} 的调度程序。
  */
 public interface OperatorEventDispatcher {
 
     /**
      * Register a listener that is notified every time an OperatorEvent is sent from the
      * OperatorCoordinator (of the operator with the given OperatorID) to this subtask.
+     * 注册一个侦听器，每次从 OperatorCoordinator（具有给定 OperatorID 的操作员）向此子任务发送 OperatorEvent 时都会收到通知。
      */
     void registerEventHandler(OperatorID operator, OperatorEventHandler handler);
 
     /**
      * Gets the gateway through which events can be passed to the OperatorCoordinator for the
      * operator identified by the given OperatorID.
+     * 获取网关，通过该网关可以将事件传递给由给定 OperatorID 标识的操作员的 OperatorCoordinator。
      */
     OperatorEventGateway getOperatorEventGateway(OperatorID operatorId);
 }

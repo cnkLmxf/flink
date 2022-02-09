@@ -32,6 +32,8 @@ import static org.apache.flink.util.Preconditions.checkState;
  * Not thread safe class for filling in the content of the {@link MemorySegment}. To access written
  * data please use {@link BufferConsumer} which allows to build {@link Buffer} instances from the
  * written data.
+ * 不是用于填充 {@link MemorySegment} 内容的线程安全类。
+ * 要访问写入的数据，请使用 {@link BufferConsumer}，它允许从写入的数据构建 {@link Buffer} 实例。
  */
 @NotThreadSafe
 public class BufferBuilder implements AutoCloseable {
@@ -51,6 +53,8 @@ public class BufferBuilder implements AutoCloseable {
      * This method always creates a {@link BufferConsumer} starting from the current writer offset.
      * Data written to {@link BufferBuilder} before creation of {@link BufferConsumer} won't be
      * visible for that {@link BufferConsumer}.
+     * 此方法始终从当前写入器偏移量开始创建一个 {@link BufferConsumer}。
+     * 在创建 {@link BufferConsumer} 之前写入 {@link BufferBuilder} 的数据对于该 {@link BufferConsumer} 将不可见。
      *
      * @return created matching instance of {@link BufferConsumer} to this {@link BufferBuilder}.
      */
@@ -61,6 +65,7 @@ public class BufferBuilder implements AutoCloseable {
     /**
      * This method always creates a {@link BufferConsumer} starting from position 0 of {@link
      * MemorySegment}.
+     * 此方法总是从 {@link MemorySegment} 的位置 0 开始创建一个 {@link BufferConsumer}。
      *
      * @return created matching instance of {@link BufferConsumer} to this {@link BufferBuilder}.
      */
@@ -85,6 +90,7 @@ public class BufferBuilder implements AutoCloseable {
     /**
      * Append as many data as possible from {@code source}. Not everything might be copied if there
      * is not enough space in the underlying {@link MemorySegment}
+     * 从 {@code source} 附加尽可能多的数据。 如果底层 {@link MemorySegment} 中没有足够的空间，则不会复制所有内容
      *
      * @return number of copied bytes
      */
@@ -103,6 +109,7 @@ public class BufferBuilder implements AutoCloseable {
     /**
      * Make the change visible to the readers. This is costly operation (volatile access) thus in
      * case of bulk writes it's better to commit them all together instead one by one.
+     * 使更改对读者可见。 这是昂贵的操作（易失性访问），因此在批量写入的情况下，最好将它们全部一起提交，而不是一个一个地提交。
      */
     public void commit() {
         positionMarker.commit();
@@ -111,9 +118,11 @@ public class BufferBuilder implements AutoCloseable {
     /**
      * Mark this {@link BufferBuilder} and associated {@link BufferConsumer} as finished - no new
      * data writes will be allowed.
+     * 将此 {@link BufferBuilder} 和关联的 {@link BufferConsumer} 标记为已完成 - 不允许新的数据写入。
      *
      * <p>This method should be idempotent to handle failures and task interruptions. Check
      * FLINK-8948 for more details.
+     * 这种方法应该是幂等的来处理故障和任务中断。 查看 FLINK-8948 了解更多详情。
      *
      * @return number of written bytes.
      */
@@ -154,6 +163,8 @@ public class BufferBuilder implements AutoCloseable {
      * Holds a reference to the current writer position. Negative values indicate that writer
      * ({@link BufferBuilder} has finished. Value {@code Integer.MIN_VALUE} represents finished
      * empty buffer.
+     * 持有对当前写入者位置的引用。
+     * 负值表示 writer ({@link BufferBuilder} 已完成。值 {@code Integer.MIN_VALUE} 表示已完成的空缓冲区。
      */
     @ThreadSafe
     interface PositionMarker {
@@ -175,10 +186,13 @@ public class BufferBuilder implements AutoCloseable {
 
     /**
      * Cached writing implementation of {@link PositionMarker}.
+     * {@link PositionMarker} 的缓存写入实现。
      *
      * <p>Writer ({@link BufferBuilder}) and reader ({@link BufferConsumer}) caches must be
      * implemented independently of one another - so that the cached values can not accidentally
      * leak from one to another.
+     * 写入器 ({@link BufferBuilder}) 和读取器 ({@link BufferConsumer}) 缓存必须相互独立地实现
+     * - 这样缓存的值就不会意外地从一个泄漏到另一个。
      *
      * <p>Remember to commit the {@link SettablePositionMarker} to make the changes visible.
      */
@@ -187,6 +201,7 @@ public class BufferBuilder implements AutoCloseable {
 
         /**
          * Locally cached value of volatile {@code position} to avoid unnecessary volatile accesses.
+         * volatile {@code position} 的本地缓存值，以避免不必要的 volatile 访问。
          */
         private int cachedPosition = 0;
 
@@ -205,6 +220,7 @@ public class BufferBuilder implements AutoCloseable {
 
         /**
          * Marks this position as finished and returns the current position.
+         * 将此位置标记为已完成并返回当前位置。
          *
          * @return current position as of {@link #getCached()}
          */

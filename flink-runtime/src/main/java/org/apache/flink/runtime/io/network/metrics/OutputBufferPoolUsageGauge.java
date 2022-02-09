@@ -22,7 +22,9 @@ import org.apache.flink.metrics.Gauge;
 import org.apache.flink.runtime.io.network.buffer.BufferPool;
 import org.apache.flink.runtime.io.network.partition.ResultPartition;
 
-/** Gauge metric measuring the output buffer pool usage gauge for {@link ResultPartition}s. */
+/** Gauge metric measuring the output buffer pool usage gauge for {@link ResultPartition}s.
+ * Gauge metric 测量 {@link ResultPartition} 的输出缓冲池使用量表。
+ * */
 public class OutputBufferPoolUsageGauge implements Gauge<Float> {
 
     private final ResultPartition[] resultPartitions;

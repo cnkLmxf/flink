@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface for objects that can be compared by priority.
+ * 可以按优先级进行比较的对象的接口。
  *
  * @param <T> type of the compared objects.
  */

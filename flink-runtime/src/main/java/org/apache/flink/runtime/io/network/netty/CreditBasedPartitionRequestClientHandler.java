@@ -50,8 +50,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Channel handler to read the messages of buffer response or error response from the producer, to
  * write and flush the unannounced credits for the producer.
+ * 通道处理程序从生产者读取缓冲区响应或错误响应的消息，为生产者写入和刷新未通知的信用。
  *
  * <p>It is used in the new network credit-based mode.
+ * 用于新的基于网络信用的模式。
  */
 class CreditBasedPartitionRequestClientHandler extends ChannelInboundHandlerAdapter
         implements NetworkClientHandler {
@@ -59,11 +61,15 @@ class CreditBasedPartitionRequestClientHandler extends ChannelInboundHandlerAdap
     private static final Logger LOG =
             LoggerFactory.getLogger(CreditBasedPartitionRequestClientHandler.class);
 
-    /** Channels, which already requested partitions from the producers. */
+    /** Channels, which already requested partitions from the producers.
+     * 通道，已向生产者请求分区。
+     * */
     private final ConcurrentMap<InputChannelID, RemoteInputChannel> inputChannels =
             new ConcurrentHashMap<>();
 
-    /** Messages to be sent to the producers (credit announcement or resume consumption request). */
+    /** Messages to be sent to the producers (credit announcement or resume consumption request).
+     * 发送给生产者的消息（信用公告或恢复消费请求）。
+     * */
     private final ArrayDeque<ClientOutboundMessage> clientOutboundMessages = new ArrayDeque<>();
 
     private final AtomicReference<Throwable> channelError = new AtomicReference<>();
@@ -74,6 +80,7 @@ class CreditBasedPartitionRequestClientHandler extends ChannelInboundHandlerAdap
     /**
      * Set of cancelled partition requests. A request is cancelled iff an input channel is cleared
      * while data is still coming in for this channel.
+     * 一组已取消的分区请求。 如果输入通道被清除，而该通道仍有数据进入，则请求被取消。
      */
     private final ConcurrentMap<InputChannelID, InputChannelID> cancelled =
             new ConcurrentHashMap<>();
@@ -82,6 +89,7 @@ class CreditBasedPartitionRequestClientHandler extends ChannelInboundHandlerAdap
      * The channel handler context is initialized in channel active event by netty thread, the
      * context may also be accessed by task thread or canceler thread to cancel partition request
      * during releasing resources.
+     * 通道处理程序上下文由netty线程在通道活动事件中初始化，也可以由任务线程或取消器线程访问该上下文以在释放资源时取消分区请求。
      */
     private volatile ChannelHandlerContext ctx;
 

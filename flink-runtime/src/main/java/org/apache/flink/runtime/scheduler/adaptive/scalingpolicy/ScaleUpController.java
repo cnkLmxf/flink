@@ -20,7 +20,9 @@ package org.apache.flink.runtime.scheduler.adaptive.scalingpolicy;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.runtime.scheduler.adaptive.AdaptiveScheduler;
 
-/** Simple policy for controlling the scale up behavior of the {@link AdaptiveScheduler}. */
+/** Simple policy for controlling the scale up behavior of the {@link AdaptiveScheduler}.
+ * 用于控制 {@link AdaptiveScheduler} 的扩展行为的简单策略。
+ * */
 @Internal
 public interface ScaleUpController {
 

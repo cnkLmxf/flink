@@ -20,7 +20,9 @@ package org.apache.flink.runtime.taskexecutor.slot;
 
 import org.apache.flink.runtime.clusterframework.types.AllocationID;
 
-/** Exception indicating that a {@link TaskSlot} could not be found. */
+/** Exception indicating that a {@link TaskSlot} could not be found.
+ * 指示找不到 {@link TaskSlot} 的异常。
+ * */
 public class SlotNotFoundException extends Exception {
 
     private static final long serialVersionUID = -883614807750137925L;

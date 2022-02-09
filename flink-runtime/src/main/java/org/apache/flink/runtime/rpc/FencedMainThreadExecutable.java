@@ -26,11 +26,13 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Extended {@link MainThreadExecutable} interface which allows to run unfenced runnables in the
  * main thread.
+ * 扩展的 {@link MainThreadExecutable} 接口，允许在主线程中运行不受保护的可运行对象。
  */
 public interface FencedMainThreadExecutable extends MainThreadExecutable {
 
     /**
      * Run the given runnable in the main thread without attaching a fencing token.
+     * 在主线程中运行给定的可运行文件，而不附加围栏令牌。
      *
      * @param runnable to run in the main thread without validating the fencing token.
      */

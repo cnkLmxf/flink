@@ -47,7 +47,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
-/** Handler which serves the checkpoint configuration. */
+/** Handler which serves the checkpoint configuration.
+ * 为检查点配置服务的处理程序。
+ * */
 public class CheckpointConfigHandler
         extends AbstractAccessExecutionGraphHandler<CheckpointConfigInfo, JobMessageParameters>
         implements OnlyExecutionGraphJsonArchivist {

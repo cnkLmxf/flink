@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * A {@link Collector} that puts the collected elements into a given list.
+ * 将收集的元素放入给定列表的 {@link Collector}。
  *
  * @param <T> The type of the collected elements.
  */

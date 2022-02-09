@@ -27,9 +27,11 @@ import java.util.Map;
 
 /**
  * A class containing the splits assignment to the source readers.
+ * 包含对源阅读器的拆分分配的类。
  *
  * <p>The assignment is always incremental. In another word, splits in the assignment are simply
  * added to the existing assignment.
+ * 分配始终是增量的。 换句话说，分配中的拆分只是简单地添加到现有分配中。
  */
 @PublicEvolving
 public final class SplitsAssignment<SplitT extends SourceSplit> {

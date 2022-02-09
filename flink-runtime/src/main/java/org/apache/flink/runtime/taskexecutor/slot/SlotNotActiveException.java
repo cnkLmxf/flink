@@ -21,7 +21,9 @@ package org.apache.flink.runtime.taskexecutor.slot;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.runtime.clusterframework.types.AllocationID;
 
-/** Exception indicating that the given {@link TaskSlot} was not in state active. */
+/** Exception indicating that the given {@link TaskSlot} was not in state active.
+ * 指示给定 {@link TaskSlot} 未处于活动状态的异常。
+ * */
 public class SlotNotActiveException extends Exception {
 
     private static final long serialVersionUID = 4305837511564584L;

@@ -98,6 +98,7 @@ public final class StandaloneResourceManagerFactory extends ResourceManagerFacto
 
     /**
      * Get the configuration for standalone ResourceManager, overwrite invalid configs.
+     * 获取独立 ResourceManager 的配置，覆盖无效配置。
      *
      * @param configuration configuration object
      * @return the configuration for standalone ResourceManager

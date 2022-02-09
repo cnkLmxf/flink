@@ -26,12 +26,15 @@ import java.util.Set;
  * This interface exists as (temporary) adapter between the new {@link InternalPriorityQueue} and
  * the old way in which timers are written in a snapshot. This interface can probably go away once
  * timer state becomes part of the keyed state backend snapshot.
+ * 此接口作为新的 {@link InternalPriorityQueue} 和在快照中写入计时器的旧方式之间的（临时）适配器存在。
+ * 一旦计时器状态成为键控状态后端快照的一部分，此接口可能会消失。
  */
 public interface KeyGroupedInternalPriorityQueue<T> extends InternalPriorityQueue<T> {
 
     /**
      * Returns the subset of elements in the priority queue that belongs to the given key-group,
      * within the operator's key-group range.
+     * 返回优先级队列中属于给定键组的元素子集，在运算符的键组范围内。
      */
     @Nonnull
     Set<T> getSubsetForKeyGroup(int keyGroupId);

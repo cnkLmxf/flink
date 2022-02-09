@@ -26,7 +26,9 @@ import java.util.stream.Collectors;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Set of {@link LogicalVertex} that are connected through pipelined {@link LogicalResult}. */
+/** Set of {@link LogicalVertex} that are connected through pipelined {@link LogicalResult}.
+ * 通过管道 {@link LogicalResult} 连接的一组 {@link LogicalVertex}。
+ * */
 public class DefaultLogicalPipelinedRegion {
 
     private final Set<JobVertexID> vertexIDs;

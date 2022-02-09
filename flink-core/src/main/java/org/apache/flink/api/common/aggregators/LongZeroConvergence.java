@@ -24,6 +24,8 @@ import org.apache.flink.types.LongValue;
 /**
  * A {@link ConvergenceCriterion} over an {@link Aggregator} that defines convergence as reached
  * once the aggregator holds the value zero. The aggregated data type is a {@link LongValue}.
+ * {@link Aggregator} 上的 {@link ConvergenceCriterion} 定义了聚合器在聚合器保持值为零时达到的收敛。
+ * 聚合数据类型是 {@link LongValue}。
  */
 @SuppressWarnings("serial")
 @PublicEvolving

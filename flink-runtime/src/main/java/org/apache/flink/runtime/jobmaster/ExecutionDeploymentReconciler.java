@@ -23,7 +23,9 @@ import org.apache.flink.runtime.taskexecutor.ExecutionDeploymentReport;
 
 import java.util.Map;
 
-/** Component for reconciling the deployment state of executions. */
+/** Component for reconciling the deployment state of executions.
+ * 用于协调执行的部署状态的组件。
+ * */
 public interface ExecutionDeploymentReconciler {
 
     /** Factory for {@link ExecutionDeploymentReconciler}. */
@@ -35,6 +37,7 @@ public interface ExecutionDeploymentReconciler {
     /**
      * Reconciles the deployment states between all reported/expected executions for the given task
      * executor.
+     * 协调给定任务执行器的所有报告/预期执行之间的部署状态。
      *
      * @param taskExecutorHost hosting task executor
      * @param executionDeploymentReport task executor report for deployed executions

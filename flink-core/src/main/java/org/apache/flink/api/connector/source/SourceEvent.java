@@ -22,6 +22,8 @@ import org.apache.flink.annotation.PublicEvolving;
 
 import java.io.Serializable;
 
-/** An base class for the events passed between the SourceReaders and Enumerators. */
+/** An base class for the events passed between the SourceReaders and Enumerators.
+ * SourceReaders 和 Enumerators 之间传递的事件的基类。
+ * */
 @PublicEvolving
 public interface SourceEvent extends Serializable {}

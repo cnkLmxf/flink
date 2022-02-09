@@ -33,10 +33,13 @@ import java.io.IOException;
 
 /**
  * Overlays a Kerberos configuration file into a container.
+ * 将 Kerberos 配置文件覆盖到容器中。
  *
  * <p>The following files are copied to the container: - krb5.conf
+ * 以下文件被复制到容器中： - krb5.conf
  *
  * <p>The following Java system properties are set in the container: - java.security.krb5.conf
+ * 在容器中设置了以下 Java 系统属性： - java.security.krb5.conf
  */
 public class Krb5ConfOverlay extends AbstractContainerOverlay {
 
@@ -83,11 +86,14 @@ public class Krb5ConfOverlay extends AbstractContainerOverlay {
 
         /**
          * Configures the overlay using the current environment.
+         * 使用当前环境配置覆盖。
          *
          * <p>Locates the krb5.conf configuration file as per <a
          * href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/jgss/tutorials/KerberosReq.html">Java
          * documentation</a>. Note that the JRE doesn't support the KRB5_CONFIG environment variable
          * (JDK-7045913).
+         * 根据 <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/jgss/tutorials/KerberosReq.html">Java 文档
+         * </a 找到 krb5.conf 配置文件 >。 请注意，JRE 不支持 KRB5_CONFIG 环境变量 (JDK-7045913)。
          */
         public Builder fromEnvironmentOrConfiguration(Configuration globalConfiguration) {
 

@@ -21,6 +21,7 @@ package org.apache.flink.runtime.topology;
 
 /**
  * A pipelined region is a set of vertices connected via pipelined data exchanges.
+ * A pipelined region 是通过流水线数据交换连接的一组顶点。
  *
  * @param <VID> the type of the vertex ids
  * @param <RID> the type of the result ids

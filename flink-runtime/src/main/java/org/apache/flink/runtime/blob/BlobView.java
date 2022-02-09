@@ -23,11 +23,14 @@ import org.apache.flink.api.common.JobID;
 import java.io.File;
 import java.io.IOException;
 
-/** View on blobs stored in a {@link BlobStore}. */
+/** View on blobs stored in a {@link BlobStore}.
+ * 查看存储在 {@link BlobStore} 中的 Blob。
+ * */
 public interface BlobView {
 
     /**
      * Copies a blob to a local file.
+     * 将 blob 复制到本地文件。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param blobKey The blob ID

@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.taskexecutor.exceptions;
 
-/** Exception indicating that the slot allocation on the task manager failed. */
+/** Exception indicating that the slot allocation on the task manager failed.
+ * 异常表示任务管理器上的槽分配失败。
+ * */
 public class SlotAllocationException extends TaskManagerException {
 
     private static final long serialVersionUID = -4764932098204266773L;

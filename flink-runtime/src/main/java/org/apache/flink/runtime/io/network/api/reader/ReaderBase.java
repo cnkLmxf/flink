@@ -23,10 +23,14 @@ import org.apache.flink.runtime.util.event.EventListener;
 
 import java.io.IOException;
 
-/** The basic API for every reader. */
+/** The basic API for every reader.
+ * 每个读者的基本 API。
+ * */
 public interface ReaderBase {
 
-    /** Returns whether the reader has consumed the input. */
+    /** Returns whether the reader has consumed the input.
+     * 返回阅读器是否已经消费了输入。
+     * */
     boolean isFinished();
 
     // ------------------------------------------------------------------------

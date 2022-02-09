@@ -28,6 +28,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * This class encapsulates the connection information of a TaskManager, without resolving the
  * hostname. See also {@link TaskManagerLocation}.
+ * 该类封装了TaskManager的连接信息，不解析主机名。 另请参阅 {@link TaskManagerLocation}。
  */
 public class UnresolvedTaskManagerLocation implements Serializable {
 

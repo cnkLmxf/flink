@@ -37,7 +37,9 @@ import java.util.Objects;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** An overview of how many jobs are in which status. */
+/** An overview of how many jobs are in which status.
+ * 多少工作处于何种状态的概览。
+ * */
 public class JobIdsWithStatusOverview implements ResponseBody, InfoMessage {
 
     private static final long serialVersionUID = -3699051943490133183L;

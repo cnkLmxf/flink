@@ -32,6 +32,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A WatermarkGenerator that adds idleness detection to another WatermarkGenerator. If no events
  * come within a certain time (timeout duration) then this generator marks the stream as idle, until
  * the next watermark is generated.
+ * 将空闲检测添加到另一个 WatermarkGenerator 的 WatermarkGenerator。
+ * 如果在特定时间（超时持续时间）内没有事件发生，则此生成器将流标记为空闲，直到生成下一个水印。
  */
 @Public
 public class WatermarksWithIdleness<T> implements WatermarkGenerator<T> {
@@ -43,6 +45,7 @@ public class WatermarksWithIdleness<T> implements WatermarkGenerator<T> {
     /**
      * Creates a new WatermarksWithIdleness generator to the given generator idleness detection with
      * the given timeout.
+     * 创建一个新的 WatermarksWithIdleness 生成器，以使用给定的超时时间进行给定的生成器空闲检测。
      *
      * @param watermarks The original watermark generator.
      * @param idleTimeout The timeout for the idleness detection.
@@ -81,7 +84,9 @@ public class WatermarksWithIdleness<T> implements WatermarkGenerator<T> {
     @VisibleForTesting
     static final class IdlenessTimer {
 
-        /** The clock used to measure elapsed time. */
+        /** The clock used to measure elapsed time.
+         * 用于测量经过时间的时钟。
+         * */
         private final Clock clock;
 
         /** Counter to detect change. No problem if it overflows. */

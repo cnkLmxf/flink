@@ -37,7 +37,9 @@ import org.slf4j.LoggerFactory;
 import static org.apache.flink.runtime.io.network.netty.NettyMessage.PartitionRequest;
 import static org.apache.flink.runtime.io.network.netty.NettyMessage.TaskEventRequest;
 
-/** Channel handler to initiate data transfers and dispatch backwards flowing task events. */
+/** Channel handler to initiate data transfers and dispatch backwards flowing task events.
+ * 通道处理程序启动数据传输和分派反向流动的任务事件。
+ * */
 class PartitionRequestServerHandler extends SimpleChannelInboundHandler<NettyMessage> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PartitionRequestServerHandler.class);

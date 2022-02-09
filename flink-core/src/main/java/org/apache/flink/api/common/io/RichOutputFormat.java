@@ -24,6 +24,7 @@ import org.apache.flink.api.common.functions.RuntimeContext;
 /**
  * An abstract stub implementation for Rich output formats. Rich formats have access to their
  * runtime execution context via {@link #getRuntimeContext()}.
+ * 丰富输出格式的抽象存根实现。 丰富的格式可以通过 {@link #getRuntimeContext()} 访问它们的运行时执行上下文。
  */
 @Public
 public abstract class RichOutputFormat<IT> implements OutputFormat<IT> {

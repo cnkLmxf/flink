@@ -24,7 +24,9 @@ import org.apache.flink.util.Preconditions;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** Represents a pending task manager slot in the {@link SlotManager}. */
+/** Represents a pending task manager slot in the {@link SlotManager}.
+ * 表示 {@link SlotManager} 中的待处理任务管理器插槽。
+ * */
 public class PendingTaskManagerSlot {
 
     private final TaskManagerSlotId taskManagerSlotId = TaskManagerSlotId.generate();

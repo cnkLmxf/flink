@@ -34,12 +34,15 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * Extends around Netty's {@link PooledByteBufAllocator} with strict control over the number of
  * created arenas.
+ * 围绕 Netty 的 {@link PooledByteBufAllocator} 扩展，严格控制创建的 arena 数量。
  */
 public class NettyBufferPool extends PooledByteBufAllocator {
 
     private static final Logger LOG = LoggerFactory.getLogger(NettyBufferPool.class);
 
-    /** <tt>PoolArena&lt;ByteBuffer&gt;[]</tt> via Reflection. */
+    /** <tt>PoolArena&lt;ByteBuffer&gt;[]</tt> via Reflection.
+     * <tt>PoolArena<ByteBuffer>[]</tt> 通过反射。
+     * */
     private final Object[] directArenas;
 
     /** Configured number of arenas. */
@@ -48,12 +51,15 @@ public class NettyBufferPool extends PooledByteBufAllocator {
     /** Configured chunk size for the arenas. */
     private final int chunkSize;
 
-    /** We strictly prefer direct buffers and disallow heap allocations. */
+    /** We strictly prefer direct buffers and disallow heap allocations.
+     * 我们严格地喜欢直接缓冲区并且不允许堆分配。
+     * */
     private static final boolean PREFER_DIRECT = true;
 
     /**
      * Arenas allocate chunks of pageSize << maxOrder bytes. With these defaults, this results in
      * chunks of 4 MB.
+     * Arenas 分配 pageSize << maxOrder 字节的块。 使用这些默认值，这会产生 4 MB 的块。
      *
      * @see #MAX_ORDER
      */
@@ -64,6 +70,9 @@ public class NettyBufferPool extends PooledByteBufAllocator {
      * chunks of 4 MB, which is smaller than the previous default (16 MB) to further reduce the
      * netty memory overhead. According to the test result, after introducing client side zero-copy
      * in FLINK-10742, 4 MB is enough to support large-scale netty shuffle.
+     * Arenas 分配 pageSize << maxOrder 字节的块。 使用这些默认值，这会产生 4 MB 的块，
+     * 这比以前的默认值 (16 MB) 小，以进一步减少 netty 内存开销。
+     * 根据测试结果，在 FLINK-10742 中引入客户端零拷贝后，4 MB 足以支持大规模的 netty shuffle。
      *
      * @see #PAGE_SIZE
      */
@@ -71,6 +80,7 @@ public class NettyBufferPool extends PooledByteBufAllocator {
 
     /**
      * Creates Netty's buffer pool with the specified number of direct arenas.
+     * 使用指定数量的直接竞技场创建 Netty 的缓冲池。
      *
      * @param numberOfArenas Number of arenas (recommended: 2 * number of task slots)
      */
@@ -132,12 +142,16 @@ public class NettyBufferPool extends PooledByteBufAllocator {
     // Direct pool arena stats via Reflection. This is not safe when upgrading
     // Netty versions, but we are currently bound to the version we have (see
     // commit d92e422). In newer Netty versions these statistics are exposed.
+    // 通过反射直接池竞技场统计数据。 升级 Netty 版本时这是不安全的，但我们目前绑定到我们拥有的版本（参见提交 d92e422）。
+    // 在较新的 Netty 版本中，这些统计信息被公开。
     // ------------------------------------------------------------------------
 
     /**
      * Returns the number of currently allocated bytes.
+     * 返回当前分配的字节数。
      *
      * <p>The stats are gathered via Reflection and are mostly relevant for debugging purposes.
+     * 统计信息是通过反射收集的，主要用于调试目的。
      *
      * @return Number of currently allocated bytes.
      * @throws NoSuchFieldException Error getting the statistics (should not happen when the Netty
@@ -168,6 +182,7 @@ public class NettyBufferPool extends PooledByteBufAllocator {
 
     /**
      * Returns the number of allocated bytes of the given arena and chunk list.
+     * 返回给定 arena 和块列表的分配字节数。
      *
      * @param arena Arena to gather statistics about.
      * @param chunkListFieldName Chunk list to check.

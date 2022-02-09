@@ -42,7 +42,9 @@ import java.util.Arrays;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** An actor message with a detailed overview of the current status of a job. */
+/** An actor message with a detailed overview of the current status of a job.
+ * 带有作业当前状态详细概述的参与者消息。
+ * */
 @JsonSerialize(using = JobDetails.JobDetailsSerializer.class)
 @JsonDeserialize(using = JobDetails.JobDetailsDeserializer.class)
 public class JobDetails implements Serializable {

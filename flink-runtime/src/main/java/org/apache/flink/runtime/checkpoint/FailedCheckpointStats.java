@@ -29,14 +29,18 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 
 /**
  * Statistics for a failed checkpoint.
+ * 失败检查点的统计信息。
  *
  * <p>The reported statistics are mutable.
+ * 报告的统计数据是可变的。
  */
 public class FailedCheckpointStats extends PendingCheckpointStats {
 
     private static final long serialVersionUID = 8000748529515900106L;
 
-    /** Timestamp when the checkpoint was failed at the coordinator. */
+    /** Timestamp when the checkpoint was failed at the coordinator.
+     * 检查点在协调器上失败时的时间戳。
+     * */
     private final long failureTimestamp;
 
     /** Optional failure message. */
@@ -44,6 +48,7 @@ public class FailedCheckpointStats extends PendingCheckpointStats {
 
     /**
      * Creates a tracker for a failed checkpoint.
+     * 为失败的检查点创建跟踪器。
      *
      * @param checkpointId ID of the checkpoint.
      * @param triggerTimestamp Timestamp when the checkpoint was triggered.
@@ -94,7 +99,9 @@ public class FailedCheckpointStats extends PendingCheckpointStats {
         return CheckpointStatsStatus.FAILED;
     }
 
-    /** Returns the end to end duration until the checkpoint failure. */
+    /** Returns the end to end duration until the checkpoint failure.
+     * 返回检查点失败之前的端到端持续时间。
+     * */
     @Override
     public long getEndToEndDuration() {
         return Math.max(0, failureTimestamp - triggerTimestamp);
@@ -102,6 +109,7 @@ public class FailedCheckpointStats extends PendingCheckpointStats {
 
     /**
      * Returns the timestamp when this checkpoint failed.
+     * 返回此检查点失败时的时间戳。
      *
      * @return Timestamp when the checkpoint failed.
      */
@@ -111,6 +119,7 @@ public class FailedCheckpointStats extends PendingCheckpointStats {
 
     /**
      * Returns the failure message or <code>null</code> if no cause was provided.
+     * 如果未提供原因，则返回失败消息或 <code>null</code>。
      *
      * @return Failure message of the checkpoint failure or <code>null</code>.
      */

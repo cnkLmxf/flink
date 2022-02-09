@@ -29,15 +29,18 @@ import java.util.Set;
 
 /**
  * Track the finished progress of {@link ConsumerRegionGroupExecutionView}s.
+ * 跟踪 {@link ConsumerRegionGroupExecutionView} 的完成进度。
  *
  * <p>NOTE: It only contains {@link SchedulingPipelinedRegion}s that have {@link
  * ConsumedPartitionGroup}s.
+ * 注意：它仅包含具有 {@link ConsumedPartitionGroup} 的 {@link SchedulingPipelinedRegion}。
  */
 class ConsumerRegionGroupExecutionViewMaintainer {
 
     /**
      * The set of {@link ConsumerRegionGroupExecutionView}s that a SchedulingPipelinedRegion belongs
      * to.
+     * SchedulingPipelinedRegion 所属的一组 {@link ConsumerRegionGroupExecutionView}。
      */
     private final Map<SchedulingPipelinedRegion, Set<ConsumerRegionGroupExecutionView>>
             executionViewByRegion = new HashMap<>();

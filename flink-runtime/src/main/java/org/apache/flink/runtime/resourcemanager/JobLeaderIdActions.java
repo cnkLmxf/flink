@@ -23,11 +23,14 @@ import org.apache.flink.runtime.jobmaster.JobMasterId;
 
 import java.util.UUID;
 
-/** Interface for actions called by the {@link DefaultJobLeaderIdService}. */
+/** Interface for actions called by the {@link DefaultJobLeaderIdService}.
+ * {@link DefaultJobLeaderIdService} 调用的操作接口。
+ * */
 public interface JobLeaderIdActions {
 
     /**
      * Callback when a monitored job leader lost its leadership.
+     * 当受监控的工作领导者失去领导权时的回调。
      *
      * @param jobId identifying the job whose leader lost leadership
      * @param oldJobMasterId of the job manager which lost leadership
@@ -37,6 +40,7 @@ public interface JobLeaderIdActions {
     /**
      * Notify a job timeout. The job is identified by the given JobID. In order to check for the
      * validity of the timeout the timeout id of the triggered timeout is provided.
+     * 通知作业超时。 作业由给定的 JobID 标识。 为了检查超时的有效性，提供了触发超时的超时 ID。
      *
      * @param jobId JobID which identifies the timed out job
      * @param timeoutId Id of the calling timeout to differentiate valid from invalid timeouts
@@ -45,6 +49,7 @@ public interface JobLeaderIdActions {
 
     /**
      * Callback to report occurring errors.
+     * 回调以报告发生的错误。
      *
      * @param error which has occurred
      */

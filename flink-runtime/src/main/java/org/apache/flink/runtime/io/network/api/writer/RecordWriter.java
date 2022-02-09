@@ -40,15 +40,19 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 
 /**
  * An abstract record-oriented runtime result writer.
+ * 一个抽象的面向记录的运行时结果编写器。
  *
  * <p>The RecordWriter wraps the runtime's {@link ResultPartitionWriter} and takes care of channel
  * selection and serializing records into bytes.
+ * RecordWriter 包装运行时的 {@link ResultPartitionWriter} 并负责通道选择和将记录序列化为字节。
  *
  * @param <T> the type of the record that can be emitted with this record writer
  */
 public abstract class RecordWriter<T extends IOReadableWritable> implements AvailabilityProvider {
 
-    /** Default name for the output flush thread, if no name with a task reference is given. */
+    /** Default name for the output flush thread, if no name with a task reference is given.
+     * 如果没有给出带有任务引用的名称，则输出刷新线程的默认名称。
+     * */
     @VisibleForTesting
     public static final String DEFAULT_OUTPUT_FLUSH_THREAD_NAME = "OutputFlusher";
 
@@ -64,12 +68,15 @@ public abstract class RecordWriter<T extends IOReadableWritable> implements Avai
 
     protected final boolean flushAlways;
 
-    /** The thread that periodically flushes the output, to give an upper latency bound. */
+    /** The thread that periodically flushes the output, to give an upper latency bound.
+     * 定期刷新输出的线程，以给出延迟上限。
+     * */
     @Nullable private final OutputFlusher outputFlusher;
 
     /**
      * To avoid synchronization overhead on the critical path, best-effort error tracking is enough
      * here.
+     * 为了避免关键路径上的同步开销，这里尽最大努力跟踪错误就足够了。
      */
     private Throwable flusherException;
 
@@ -139,7 +146,9 @@ public abstract class RecordWriter<T extends IOReadableWritable> implements Avai
         targetPartition.flushAll();
     }
 
-    /** Sets the metric group for this RecordWriter. */
+    /** Sets the metric group for this RecordWriter.
+     * 设置此 RecordWriter 的指标组。
+     * */
     public void setMetricGroup(TaskIOMetricGroup metrics) {
         targetPartition.setMetricGroup(metrics);
     }
@@ -149,10 +158,14 @@ public abstract class RecordWriter<T extends IOReadableWritable> implements Avai
         return targetPartition.getAvailableFuture();
     }
 
-    /** This is used to send regular records. */
+    /** This is used to send regular records.
+     * 这用于发送常规记录。
+     * */
     public abstract void emit(T record) throws IOException;
 
-    /** This is used to send LatencyMarks to a random target channel. */
+    /** This is used to send LatencyMarks to a random target channel.
+     * 这用于将 LatencyMarks 发送到随机目标通道。
+     * */
     public void randomEmit(T record) throws IOException {
         checkErroneous();
 
@@ -160,12 +173,17 @@ public abstract class RecordWriter<T extends IOReadableWritable> implements Avai
         emit(record, targetSubpartition);
     }
 
-    /** This is used to broadcast streaming Watermarks in-band with records. */
+    /** This is used to broadcast streaming Watermarks in-band with records.
+     * 这用于通过记录在带内广播流式水印。
+     * */
     public abstract void broadcastEmit(T record) throws IOException;
 
-    /** Closes the writer. This stops the flushing thread (if there is one). */
+    /** Closes the writer. This stops the flushing thread (if there is one).
+     * 关闭编写器。 这会停止刷新线程（如果有的话）。
+     * */
     public void close() {
         // make sure we terminate the thread in any case
+        // 确保我们在任何情况下都终止线程
         if (outputFlusher != null) {
             outputFlusher.terminate();
             try {
@@ -180,6 +198,7 @@ public abstract class RecordWriter<T extends IOReadableWritable> implements Avai
 
     /**
      * Notifies the writer that the output flusher thread encountered an exception.
+     * 通知编写器输出刷新线程遇到异常。
      *
      * @param t The exception to report.
      */
@@ -210,6 +229,7 @@ public abstract class RecordWriter<T extends IOReadableWritable> implements Avai
 
     /**
      * A dedicated thread that periodically flushes the output buffers, to set upper latency bounds.
+     * 定期刷新输出缓冲区的专用线程，以设置延迟上限。
      *
      * <p>The thread is daemonic, because it is only a utility thread.
      */

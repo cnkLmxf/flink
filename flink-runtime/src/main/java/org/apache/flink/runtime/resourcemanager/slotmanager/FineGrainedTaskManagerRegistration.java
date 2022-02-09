@@ -31,6 +31,8 @@ import java.util.Map;
 /**
  * A FineGrainedTaskManagerRegistration represents a TaskManager. It maintains states of the
  * TaskManager needed in {@link FineGrainedSlotManager}.
+ * FineGrainedTaskManagerRegistration 代表一个TaskManager。
+ * 它维护 {@link FineGrainedSlotManager} 中所需的 TaskManager 的状态。
  */
 public class FineGrainedTaskManagerRegistration implements TaskManagerInfo {
     private final TaskExecutorConnection taskManagerConnection;

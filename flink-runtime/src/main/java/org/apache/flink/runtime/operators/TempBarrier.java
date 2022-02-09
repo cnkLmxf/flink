@@ -37,7 +37,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** This class facilitates JVM-local exchange between stages of a batch job. */
+/** This class facilitates JVM-local exchange between stages of a batch job.
+ * 此类有助于批处理作业的各个阶段之间的 JVM 本地交换。
+ * */
 public class TempBarrier<T> implements CloseableInputProvider<T> {
 
     private final SpillingBuffer buffer;

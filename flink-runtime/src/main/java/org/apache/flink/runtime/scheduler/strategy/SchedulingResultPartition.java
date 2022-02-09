@@ -25,7 +25,9 @@ import org.apache.flink.runtime.topology.Result;
 
 import java.util.List;
 
-/** Representation of {@link IntermediateResultPartition}. */
+/** Representation of {@link IntermediateResultPartition}.
+ * {@link IntermediateResultPartition} 的表示。
+ * */
 public interface SchedulingResultPartition
         extends Result<
                 ExecutionVertexID,

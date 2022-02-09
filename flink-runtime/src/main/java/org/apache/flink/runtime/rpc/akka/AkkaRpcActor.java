@@ -65,17 +65,24 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Akka rpc actor which receives {@link LocalRpcInvocation}, {@link RunAsync} and {@link CallAsync}
  * {@link ControlMessages} messages.
+ * 接收 {@link LocalRpcInvocation}、{@link RunAsync} 和
+ * {@link CallAsync} {@link ControlMessages} 消息的 Akka rpc actor。
  *
  * <p>The {@link LocalRpcInvocation} designates a rpc and is dispatched to the given {@link
  * RpcEndpoint} instance.
+ * {@link LocalRpcInvocation} 指定一个 rpc 并被分派到给定的 {@link RpcEndpoint} 实例。
  *
  * <p>The {@link RunAsync} and {@link CallAsync} messages contain executable code which is executed
  * in the context of the actor thread.
+ * {@link RunAsync} 和 {@link CallAsync} 消息包含在参与者线程的上下文中执行的可执行代码。
  *
  * <p>The {@link ControlMessages} message controls the processing behaviour of the akka rpc actor. A
  * {@link ControlMessages#START} starts processing incoming messages. A {@link ControlMessages#STOP}
  * message stops processing messages. All messages which arrive when the processing is stopped, will
  * be discarded.
+ * {@link ControlMessages} 消息控制 akka rpc actor 的处理行为。
+ * {@link ControlMessages#START} 开始处理传入消息。
+ * {@link ControlMessages#STOP} 消息停止处理消息。 处理停止时到达的所有消息都将被丢弃。
  *
  * @param <T> Type of the {@link RpcEndpoint}
  */
@@ -260,6 +267,8 @@ class AkkaRpcActor<T extends RpcEndpoint & RpcGateway> extends AbstractActor {
      * Handle rpc invocations by looking up the rpc method on the rpc endpoint and calling this
      * method with the provided method arguments. If the method has a return value, it is returned
      * to the sender of the call.
+     * 通过在 rpc 端点上查找 rpc 方法并使用提供的方法参数调用此方法来处理 rpc 调用。
+     * 如果方法有返回值，则返回给调用的发送者。
      *
      * @param rpcInvocation Rpc invocation message
      */
@@ -411,6 +420,7 @@ class AkkaRpcActor<T extends RpcEndpoint & RpcGateway> extends AbstractActor {
     /**
      * Handle asynchronous {@link Callable}. This method simply executes the given {@link Callable}
      * in the context of the actor thread.
+     * 处理异步 {@link Callable}。 此方法只是在参与者线程的上下文中执行给定的 {@link Callable}。
      *
      * @param callAsync Call async message
      */
@@ -427,6 +437,7 @@ class AkkaRpcActor<T extends RpcEndpoint & RpcGateway> extends AbstractActor {
     /**
      * Handle asynchronous {@link Runnable}. This method simply executes the given {@link Runnable}
      * in the context of the actor thread.
+     * 处理异步 {@link Runnable}。 这个方法只是在actor线程的上下文中执行给定的{@link Runnable}。
      *
      * @param runAsync Run async message
      */
@@ -464,6 +475,7 @@ class AkkaRpcActor<T extends RpcEndpoint & RpcGateway> extends AbstractActor {
 
     /**
      * Look up the rpc method on the given {@link RpcEndpoint} instance.
+     * 在给定的 {@link RpcEndpoint} 实例上查找 rpc 方法。
      *
      * @param methodName Name of the method
      * @param parameterTypes Parameter types of the method
@@ -478,6 +490,7 @@ class AkkaRpcActor<T extends RpcEndpoint & RpcGateway> extends AbstractActor {
 
     /**
      * Send throwable to sender if the sender is specified.
+     * 如果指定了发送者，则向发送者发送 throwable。
      *
      * @param throwable to send to the sender
      */
@@ -489,6 +502,7 @@ class AkkaRpcActor<T extends RpcEndpoint & RpcGateway> extends AbstractActor {
 
     /**
      * Hook to envelope self messages.
+     * 钩住自己的消息。
      *
      * @param message to envelope
      * @return enveloped message

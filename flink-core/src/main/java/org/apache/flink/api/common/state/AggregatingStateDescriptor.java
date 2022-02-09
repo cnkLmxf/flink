@@ -27,9 +27,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * A StateDescriptor for {@link AggregatingState}.
+ * {@link AggregatingState} 的 StateDescriptor。
  *
  * <p>The type internally stored in the state is the type of the {@code Accumulator} of the {@code
  * AggregateFunction}.
+ * 状态内部存储的类型是 {@code AggregateFunction} 的 {@code Accumulator} 的类型。
  *
  * @param <IN> The type of the values that are added to the state.
  * @param <ACC> The type of the accumulator (intermediate aggregation state).
@@ -40,15 +42,20 @@ public class AggregatingStateDescriptor<IN, ACC, OUT>
         extends StateDescriptor<AggregatingState<IN, OUT>, ACC> {
     private static final long serialVersionUID = 1L;
 
-    /** The aggregation function for the state. */
+    /** The aggregation function for the state.
+     * 状态的聚合函数。
+     * */
     private final AggregateFunction<IN, ACC, OUT> aggFunction;
 
     /**
      * Creates a new state descriptor with the given name, function, and type.
+     * 创建具有给定名称、函数和类型的新状态描述符。
      *
      * <p>If this constructor fails (because it is not possible to describe the type via a class),
      * consider using the {@link #AggregatingStateDescriptor(String, AggregateFunction,
      * TypeInformation)} constructor.
+     * 如果此构造函数失败（因为无法通过类描述类型），
+     * 请考虑使用 {@link #AggregatingStateDescriptor(String, AggregateFunction, TypeInformation)} 构造函数。
      *
      * @param name The (unique) name for the state.
      * @param aggFunction The {@code AggregateFunction} used to aggregate the state.
@@ -63,6 +70,7 @@ public class AggregatingStateDescriptor<IN, ACC, OUT>
 
     /**
      * Creates a new {@code ReducingStateDescriptor} with the given name and default value.
+     * 使用给定的名称和默认值创建一个新的 {@code ReducingStateDescriptor}。
      *
      * @param name The (unique) name for the state.
      * @param aggFunction The {@code AggregateFunction} used to aggregate the state.
@@ -79,6 +87,7 @@ public class AggregatingStateDescriptor<IN, ACC, OUT>
 
     /**
      * Creates a new {@code ValueStateDescriptor} with the given name and default value.
+     * 使用给定的名称和默认值创建一个新的 {@code ValueStateDescriptor}。
      *
      * @param name The (unique) name for the state.
      * @param aggFunction The {@code AggregateFunction} used to aggregate the state.
@@ -94,7 +103,9 @@ public class AggregatingStateDescriptor<IN, ACC, OUT>
         this.aggFunction = checkNotNull(aggFunction);
     }
 
-    /** Returns the aggregate function to be used for the state. */
+    /** Returns the aggregate function to be used for the state.
+     * 返回要用于状态的聚合函数。
+     * */
     public AggregateFunction<IN, ACC, OUT> getAggregateFunction() {
         return aggFunction;
     }

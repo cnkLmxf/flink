@@ -22,7 +22,9 @@ import org.apache.flink.annotation.Internal;
 import org.apache.flink.runtime.concurrent.ScheduledExecutor;
 import org.apache.flink.runtime.rpc.FatalErrorHandler;
 
-/** A factory to create a {@link DispatcherBootstrap}. */
+/** A factory to create a {@link DispatcherBootstrap}.
+ * 用于创建 {@link DispatcherBootstrap} 的工厂。
+ * */
 @Internal
 public interface DispatcherBootstrapFactory {
 

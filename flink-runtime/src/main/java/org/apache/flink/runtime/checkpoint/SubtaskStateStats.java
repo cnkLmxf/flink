@@ -24,11 +24,14 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 
 /**
  * Statistics for a single subtask that is part of a checkpoint.
+ * 作为检查点一部分的单个子任务的统计信息。
  *
  * <p>Collects data that is spread over different close places: {@link CheckpointMetaData}, {@link
  * SubtaskState}, and {@link PendingCheckpoint}.
+ * 收集分布在不同位置的数据：{@link CheckpointMetaData}、{@link SubtaskState} 和 {@link PendingCheckpoint}。
  *
  * <p>This is the smallest immutable unit of the stats.
+ * 这是统计数据中最小的不可变单位。
  */
 public class SubtaskStateStats implements Serializable {
 
@@ -36,10 +39,14 @@ public class SubtaskStateStats implements Serializable {
 
     private final int subtaskIndex;
 
-    /** Timestamp when the ack from this sub task was received at the coordinator. */
+    /** Timestamp when the ack from this sub task was received at the coordinator.
+     * 协调器收到此子任务的 ack 的时间戳。
+     * */
     private final long ackTimestamp;
 
-    /** Size of the checkpointed state at this subtask. */
+    /** Size of the checkpointed state at this subtask.
+     * 此子任务的检查点状态的大小。
+     * */
     private final long stateSize;
 
     /** Checkpoint duration at the operator (sync part) in milliseconds. */
@@ -52,7 +59,9 @@ public class SubtaskStateStats implements Serializable {
 
     private final long persistedData;
 
-    /** Alignment duration in milliseconds. */
+    /** Alignment duration in milliseconds.
+     * 对齐持续时间（以毫秒为单位）。
+     * */
     private final long alignmentDuration;
 
     /** Checkpoint start delay in milliseconds. */

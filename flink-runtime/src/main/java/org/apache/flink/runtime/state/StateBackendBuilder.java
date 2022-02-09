@@ -20,6 +20,7 @@ package org.apache.flink.runtime.state;
 
 /**
  * A mutable builder to build a state backend instance.
+ * 用于构建状态后端实例的可变构建器。
  *
  * @param <T> The type of the state backend instance.
  * @param <E> The type of Exceptions thrown in build.

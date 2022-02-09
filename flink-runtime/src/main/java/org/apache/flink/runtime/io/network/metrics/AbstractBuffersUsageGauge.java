@@ -22,7 +22,9 @@ import org.apache.flink.annotation.VisibleForTesting;
 import org.apache.flink.metrics.Gauge;
 import org.apache.flink.runtime.io.network.partition.consumer.SingleInputGate;
 
-/** Abstract gauge implementation for calculating the buffer usage percent. */
+/** Abstract gauge implementation for calculating the buffer usage percent.
+ * 用于计算缓冲区使用百分比的抽象仪表实现。
+ * */
 public abstract class AbstractBuffersUsageGauge implements Gauge<Float> {
 
     protected final SingleInputGate[] inputGates;

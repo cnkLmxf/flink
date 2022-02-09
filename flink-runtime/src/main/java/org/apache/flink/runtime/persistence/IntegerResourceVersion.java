@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 /**
  * {@link ResourceVersion} implementation with {@link Integer} value. The resource version in
  * ZooKeeper is {@link Integer}.
+ * 具有 {@link Integer} 值的 {@link ResourceVersion} 实现。 ZooKeeper 中的资源版本是 {@link Integer}。
  */
 public class IntegerResourceVersion implements ResourceVersion<IntegerResourceVersion> {
 

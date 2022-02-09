@@ -35,25 +35,36 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A TaskManagerSlot represents a slot located in a TaskManager. It has a unique identification and
  * resource profile associated.
+ * TaskManagerSlot 表示位于 TaskManager 中的插槽。 它具有相关的唯一标识和资源配置文件。
  */
 public class TaskManagerSlot implements TaskManagerSlotInformation {
 
-    /** The unique identification of this slot. */
+    /** The unique identification of this slot.
+     * 此插槽的唯一标识。
+     * */
     private final SlotID slotId;
 
     /** The resource profile of this slot. */
     private final ResourceProfile resourceProfile;
 
-    /** Gateway to the TaskExecutor which owns the slot. */
+    /** Gateway to the TaskExecutor which owns the slot.
+     * 拥有该插槽的 TaskExecutor 的网关。
+     * */
     private final TaskExecutorConnection taskManagerConnection;
 
-    /** Allocation id for which this slot has been allocated. */
+    /** Allocation id for which this slot has been allocated.
+     * 已分配此插槽的分配 ID。
+     * */
     @Nullable private AllocationID allocationId;
 
-    /** Job id for which this slot has been allocated. */
+    /** Job id for which this slot has been allocated.
+     * 已为其分配此插槽的作业 ID。
+     * */
     @Nullable private JobID jobId;
 
-    /** Assigned slot request if there is currently an ongoing request. */
+    /** Assigned slot request if there is currently an ongoing request.
+     * 如果当前有正在进行的请求，则分配槽请求。
+     * */
     private PendingSlotRequest assignedSlotRequest;
 
     private SlotState state;

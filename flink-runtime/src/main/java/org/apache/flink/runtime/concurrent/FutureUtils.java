@@ -60,7 +60,9 @@ import scala.concurrent.Future;
 import static org.apache.flink.util.Preconditions.checkCompletedNormally;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A collection of utilities that expand the usage of {@link CompletableFuture}. */
+/** A collection of utilities that expand the usage of {@link CompletableFuture}.
+ * 扩展 {@link CompletableFuture} 使用的实用程序集合。
+ * */
 public class FutureUtils {
 
     private static final CompletableFuture<Void> COMPLETED_VOID_FUTURE =
@@ -78,6 +80,7 @@ public class FutureUtils {
     /**
      * Fakes asynchronous execution by immediately executing the operation and completing the
      * supplied future either noramlly or exceptionally.
+     * 通过立即执行操作并正常或异常完成提供的未来来伪造异步执行。
      *
      * @param operation to executed
      * @param <T> type of the result
@@ -97,6 +100,7 @@ public class FutureUtils {
 
     /**
      * Retry the given operation the given number of times in case of a failure.
+     * 在失败的情况下重试给定的操作给定的次数。
      *
      * @param operation to executed
      * @param retries if the operation failed
@@ -115,6 +119,7 @@ public class FutureUtils {
     /**
      * Retry the given operation the given number of times in case of a failure only when an
      * exception is retryable.
+     * 仅当异常可重试时，才在失败的情况下重试给定的操作给定的次数。
      *
      * @param operation to executed
      * @param retries if the operation failed
@@ -138,6 +143,7 @@ public class FutureUtils {
 
     /**
      * Helper method which retries the provided operation in case of a failure.
+     * 在失败的情况下重试提供的操作的辅助方法。
      *
      * @param resultFuture to complete
      * @param operation to retry
@@ -200,6 +206,7 @@ public class FutureUtils {
 
     /**
      * Retry the given operation with the given delay in between failures.
+     * 在两次失败之间以给定的延迟重试给定的操作。
      *
      * @param operation to retry
      * @param retries number of retries
@@ -402,6 +409,7 @@ public class FutureUtils {
     /**
      * Retry the given operation with the given delay in between successful completions where the
      * result does not match a given predicate.
+     * 在结果与给定谓词不匹配的成功完成之间以给定延迟重试给定操作。
      *
      * @param operation to retry
      * @param retryDelay delay between retries
@@ -488,6 +496,7 @@ public class FutureUtils {
     /**
      * Exception with which the returned future is completed if the {@link #retry(Supplier, int,
      * Executor)} operation fails.
+     * 如果 {@link #retry(Supplier, int, Executor)} 操作失败，则返回的 future 完成的异常。
      */
     public static class RetryException extends Exception {
 
@@ -508,6 +517,7 @@ public class FutureUtils {
 
     /**
      * Times the given future out after the timeout.
+     * 超时后将给定的未来计时。
      *
      * @param future to time out
      * @param timeout after which the given future is timed out
@@ -522,6 +532,7 @@ public class FutureUtils {
 
     /**
      * Times the given future out after the timeout.
+     * 超时后将给定的future计时。
      *
      * @param future to time out
      * @param timeout after which the given future is timed out
@@ -540,6 +551,7 @@ public class FutureUtils {
 
     /**
      * Times the given future out after the timeout.
+     * 超时后将给定的future计时。
      *
      * @param future to time out
      * @param timeout after which the given future is timed out

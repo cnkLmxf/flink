@@ -40,12 +40,16 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Configuration of state TTL logic.
+ * 状态 TTL 逻辑的配置。
  *
  * <p>Note: The map state with TTL currently supports {@code null} user values only if the user
  * value serializer can handle {@code null} values. If the serializer does not support {@code null}
  * values, it can be wrapped with {@link
  * org.apache.flink.api.java.typeutils.runtime.NullableSerializer} at the cost of an extra byte in
  * the serialized form.
+ * 注意：只有当用户值序列化程序可以处理 {@code null} 值时，具有 TTL 的映射状态当前才支持 {@code null} 用户值。
+ * 如果序列化程序不支持 {@code null} 值，则可以用 {@link org.apache.flink.api.java.typeutils.runtime.NullableSerializer} 包装它，
+ * 但需要在序列化形式中增加一个字节。
  */
 @PublicEvolving
 public class StateTtlConfig implements Serializable {
@@ -59,28 +63,42 @@ public class StateTtlConfig implements Serializable {
 
     /**
      * This option value configures when to update last access timestamp which prolongs state TTL.
+     * 此选项值配置何时更新延长状态 TTL 的上次访问时间戳。
      */
     public enum UpdateType {
-        /** TTL is disabled. State does not expire. */
+        /** TTL is disabled. State does not expire.
+         * TTL 被禁用。 状态不会过期。
+         * */
         Disabled,
         /**
          * Last access timestamp is initialised when state is created and updated on every write
          * operation.
+         * 上次访问时间戳在每次写入操作创建和更新状态时初始化。
          */
         OnCreateAndWrite,
-        /** The same as <code>OnCreateAndWrite</code> but also updated on read. */
+        /** The same as <code>OnCreateAndWrite</code> but also updated on read.
+         * 与 <code>OnCreateAndWrite</code> 相同，但在读取时也会更新。
+         * */
         OnReadAndWrite
     }
 
-    /** This option configures whether expired user value can be returned or not. */
+    /** This option configures whether expired user value can be returned or not.
+     * 该选项配置是否可以返回过期的用户值。
+     * */
     public enum StateVisibility {
-        /** Return expired user value if it is not cleaned up yet. */
+        /** Return expired user value if it is not cleaned up yet.
+         * 如果尚未清理，则返回过期的用户值。
+         * */
         ReturnExpiredIfNotCleanedUp,
-        /** Never return expired user value. */
+        /** Never return expired user value.
+         * 永远不要返回过期的用户值。
+         * */
         NeverReturnExpired
     }
 
-    /** This option configures time scale to use for ttl. */
+    /** This option configures time scale to use for ttl.
+     * 此选项配置时间刻度以用于 ttl。
+     * */
     public enum TtlTimeCharacteristic {
         /**
          * Processing time, see also <code>
@@ -234,7 +252,9 @@ public class StateTtlConfig implements Serializable {
             return setTtlTimeCharacteristic(ProcessingTime);
         }
 
-        /** Cleanup expired state in full snapshot on checkpoint. */
+        /** Cleanup expired state in full snapshot on checkpoint.
+         * 在检查点的完整快照中清除过期状态。
+         * */
         @Nonnull
         public Builder cleanupFullSnapshot() {
             strategies.put(CleanupStrategies.Strategies.FULL_STATE_SCAN_SNAPSHOT, EMPTY_STRATEGY);
@@ -243,28 +263,39 @@ public class StateTtlConfig implements Serializable {
 
         /**
          * Cleanup expired state incrementally cleanup local state.
+         * 清除过期状态增量清除本地状态。
          *
          * <p>Upon every state access this cleanup strategy checks a bunch of state keys for
          * expiration and cleans up expired ones. It keeps a lazy iterator through all keys with
          * relaxed consistency if backend supports it. This way all keys should be regularly checked
          * and cleaned eventually over time if any state is constantly being accessed.
+         * 在每次状态访问时，此清理策略都会检查一组状态密钥是否过期并清理过期的密钥。
+         * 如果后端支持它，它会通过所有键保持一个惰性迭代器，并且具有宽松的一致性。
+         * 这样，如果不断访问任何状态，则应定期检查并最终清理所有密钥。
          *
          * <p>Additionally to the incremental cleanup upon state access, it can also run per every
          * record. Caution: if there are a lot of registered states using this option, they all will
          * be iterated for every record to check if there is something to cleanup.
+         * 除了状态访问时的增量清理之外，它还可以按每条记录运行。
+         * 注意：如果有很多注册状态使用此选项，它们都将针对每条记录进行迭代，以检查是否有需要清理的内容。
          *
          * <p>Note: if no access happens to this state or no records are processed in case of {@code
          * runCleanupForEveryRecord}, expired state will persist.
+         * 注意：如果在 {@code runCleanupForEveryRecord} 的情况下没有访问此状态或没有处理任何记录，则过期状态将持续存在。
          *
          * <p>Note: Time spent for the incremental cleanup increases record processing latency.
+         * 注意：用于增量清理的时间会增加记录处理延迟。
          *
          * <p>Note: At the moment incremental cleanup is implemented only for Heap state backend.
          * Setting it for RocksDB will have no effect.
+         * 注意：目前仅对堆状态后端实施增量清理。 为 RocksDB 设置它不会有任何效果。
          *
          * <p>Note: If heap state backend is used with synchronous snapshotting, the global iterator
          * keeps a copy of all keys while iterating because of its specific implementation which
          * does not support concurrent modifications. Enabling of this feature will increase memory
          * consumption then. Asynchronous snapshotting does not have this problem.
+         * 注意：如果堆状态后端与同步快照一起使用，全局迭代器会在迭代时保留所有键的副本，因为它的特定实现不支持并发修改。
+         * 启用此功能将增加内存消耗。 异步快照没有这个问题。
          *
          * @param cleanupSize max number of keys pulled from queue for clean up upon state touch for
          *     any key
@@ -281,11 +312,15 @@ public class StateTtlConfig implements Serializable {
 
         /**
          * Cleanup expired state while Rocksdb compaction is running.
+         * 在 Rocksdb 压缩运行时清理过期状态。
          *
          * <p>RocksDB compaction filter will query current timestamp, used to check expiration, from
          * Flink every time after processing {@code queryTimeAfterNumEntries} number of state
          * entries. Updating the timestamp more often can improve cleanup speed but it decreases
          * compaction performance because it uses JNI call from native code.
+         * RocksDB 压缩过滤器会在每次处理 {@code queryTimeAfterNumEntries} 个状态条目后从 Flink 查询当前时间戳，
+         * 用于检查过期时间。
+         * 更频繁地更新时间戳可以提高清理速度，但会降低压缩性能，因为它使用来自本机代码的 JNI 调用。
          *
          * @param queryTimeAfterNumEntries number of state entries to process by compaction filter
          *     before updating current timestamp
@@ -300,10 +335,13 @@ public class StateTtlConfig implements Serializable {
 
         /**
          * Disable default cleanup of expired state in background (enabled by default).
+         * 在后台禁用过期状态的默认清理（默认启用）。
          *
          * <p>If some specific cleanup is configured, e.g. {@link #cleanupIncrementally(int,
          * boolean)} or {@link #cleanupInRocksdbCompactFilter(long)}, this setting does not disable
          * it.
+         * 如果配置了一些特定的清理，例如 {@link #cleanupIncrementally(int, boolean)}
+         * 或 {@link #cleanupInRocksdbCompactFilter(long)}，此设置不会禁用它。
          */
         @Nonnull
         public Builder disableCleanupInBackground() {
@@ -335,10 +373,13 @@ public class StateTtlConfig implements Serializable {
 
     /**
      * TTL cleanup strategies.
+     * TTL 清理策略。
      *
      * <p>This class configures when to cleanup expired state with TTL. By default, state is always
      * cleaned up on explicit read access if found expired. Currently cleanup of state full snapshot
      * can be additionally activated.
+     * 此类配置何时使用 TTL 清除过期状态。
+     * 默认情况下，如果发现已过期，则始终在显式读取访问时清除状态。 目前可以另外激活状态完整快照的清理。
      */
     public static class CleanupStrategies implements Serializable {
         private static final long serialVersionUID = -1617740467277313524L;
@@ -349,14 +390,18 @@ public class StateTtlConfig implements Serializable {
 
         private final EnumMap<Strategies, CleanupStrategy> strategies;
 
-        /** Fixed strategies ordinals in {@code strategies} config field. */
+        /** Fixed strategies ordinals in {@code strategies} config field.
+         * 修复了 {@code strategy} 配置字段中的策略序数。
+         * */
         enum Strategies {
             FULL_STATE_SCAN_SNAPSHOT,
             INCREMENTAL_CLEANUP,
             ROCKSDB_COMPACTION_FILTER
         }
 
-        /** Base interface for cleanup strategies configurations. */
+        /** Base interface for cleanup strategies configurations.
+         * 清理策略配置的基本接口。
+         * */
         interface CleanupStrategy extends Serializable {}
 
         static class EmptyCleanupStrategy implements CleanupStrategy {
@@ -398,7 +443,9 @@ public class StateTtlConfig implements Serializable {
         }
     }
 
-    /** Configuration of cleanup strategy while taking the full snapshot. */
+    /** Configuration of cleanup strategy while taking the full snapshot.
+     * 拍摄完整快照时配置清理策略。
+     * */
     public static class IncrementalCleanupStrategy implements CleanupStrategies.CleanupStrategy {
         private static final long serialVersionUID = 3109278696501988780L;
 
@@ -428,7 +475,9 @@ public class StateTtlConfig implements Serializable {
         }
     }
 
-    /** Configuration of cleanup strategy using custom compaction filter in RocksDB. */
+    /** Configuration of cleanup strategy using custom compaction filter in RocksDB.
+     * 在 RocksDB 中使用自定义压缩过滤器配置清理策略。
+     * */
     public static class RocksdbCompactFilterCleanupStrategy
             implements CleanupStrategies.CleanupStrategy {
         private static final long serialVersionUID = 3109278796506988980L;

@@ -33,6 +33,7 @@ public interface HistoryServerArchivist {
 
     /**
      * Archives the given {@link ExecutionGraphInfo} on the history server.
+     * 在历史服务器上归档给定的 {@link ExecutionGraphInfo}。
      *
      * @param executionGraphInfo to store on the history server
      * @return Future which is completed once the archiving has been completed.

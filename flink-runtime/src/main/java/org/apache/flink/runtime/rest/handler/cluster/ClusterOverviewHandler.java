@@ -35,7 +35,9 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** Handler which returns the cluster overview information with version. */
+/** Handler which returns the cluster overview information with version.
+ * 返回带有版本的集群概述信息的处理程序。
+ * */
 public class ClusterOverviewHandler
         extends AbstractRestHandler<
                 RestfulGateway,

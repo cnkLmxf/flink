@@ -24,6 +24,12 @@ import org.apache.flink.configuration.HighAvailabilityOptions;
 
 /**
  * High availability mode for Flink's cluster execution. Currently supported modes are:
+ * Flink 集群执行的高可用模式。 目前支持的模式有：
+ * - NONE：没有高可用性。 - ZooKeeper：JobManager 通过 ZooKeeper 实现高可用性
+ * ZooKeeper 用于在一组 JobManager 中选择一个领导者。 这个 JobManager 负责作业的执行。
+ * 在领导者失败时，将选出一个新的领导者，它将接管旧领导者的职责 - FACTORY_CLASS：
+ * 使用配置属性 high-availability 中指定的
+ * {@link org.apache.flink.runtime.highavailability.HighAvailabilityServicesFactory} 的实现
  *
  * <p>- NONE: No high availability. - ZooKeeper: JobManager high availability via ZooKeeper
  * ZooKeeper is used to select a leader among a group of JobManager. This JobManager is responsible
@@ -31,6 +37,7 @@ import org.apache.flink.configuration.HighAvailabilityOptions;
  * the responsibilities of the old leader - FACTORY_CLASS: Use implementation of {@link
  * org.apache.flink.runtime.highavailability.HighAvailabilityServicesFactory} specified in
  * configuration property high-availability
+ *
  */
 public enum HighAvailabilityMode {
     NONE(false),
@@ -68,6 +75,7 @@ public enum HighAvailabilityMode {
 
     /**
      * Returns true if the defined recovery mode supports high availability.
+     * 如果定义的恢复模式支持高可用性，则返回 true。
      *
      * @param configuration Configuration which contains the recovery mode
      * @return true if high availability is supported by the recovery mode, otherwise false

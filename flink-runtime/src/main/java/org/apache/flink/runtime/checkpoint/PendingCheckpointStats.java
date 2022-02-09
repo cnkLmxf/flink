@@ -30,35 +30,49 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Statistics for a pending checkpoint that is still in progress.
+ * 仍在进行中的未决检查点的统计信息。
  *
  * <p>This is the starting point for all checkpoint tracking. The life cycle of instances of this
  * class is tightly coupled to a {@link PendingCheckpoint} instance, which forwards statistics about
  * acknowledged subtasks via {@link #reportSubtaskStats(JobVertexID, SubtaskStateStats)}.
+ * 这是所有检查点跟踪的起点。 此类实例的生命周期与 {@link PendingCheckpoint} 实例紧密耦合，
+ * 该实例通过 {@link #reportSubtaskStats(JobVertexID, SubtaskStateStats)} 转发有关已确认子任务的统计信息。
  *
  * <p>Depending on whether the {@link PendingCheckpoint} is finalized successfully or aborted, we
  * replace ourselves with a {@link CompletedCheckpointStats} or {@link FailedCheckpointStats} and
  * notify the {@link CheckpointStatsTracker}.
+ * 根据 {@link PendingCheckpoint} 是成功完成还是中止，我们将自己替换为 {@link CompletedCheckpointStats}
+ * 或 {@link FailedCheckpointStats} 并通知 {@link CheckpointStatsTracker}。
  *
  * <p>The statistics gathered here are all live updated.
+ * 这里收集的统计数据都是实时更新的。
  */
 public class PendingCheckpointStats extends AbstractCheckpointStats {
 
     private static final long serialVersionUID = -973959257699390327L;
 
-    /** Tracker callback when the pending checkpoint is finalized or aborted. */
+    /** Tracker callback when the pending checkpoint is finalized or aborted.
+     * 待处理检查点完成或中止时的跟踪器回调。
+     * */
     private final transient CheckpointStatsTracker.PendingCheckpointStatsCallback trackerCallback;
 
-    /** The current number of acknowledged subtasks. */
+    /** The current number of acknowledged subtasks.
+     * 当前已确认的子任务数。
+     * */
     private volatile int currentNumAcknowledgedSubtasks;
 
-    /** Current checkpoint state size over all collected subtasks. */
+    /** Current checkpoint state size over all collected subtasks.
+     * 所有收集的子任务的当前检查点状态大小。
+     * */
     private volatile long currentStateSize;
 
     private volatile long currentProcessedData;
 
     private volatile long currentPersistedData;
 
-    /** Stats of the latest acknowledged subtask. */
+    /** Stats of the latest acknowledged subtask.
+     * 最新确认的子任务的统计信息。
+     * */
     private volatile SubtaskStateStats latestAcknowledgedSubtask;
 
     /**
@@ -178,6 +192,7 @@ public class PendingCheckpointStats extends AbstractCheckpointStats {
 
     /**
      * Reports statistics for a single subtask.
+     * 报告单个子任务的统计信息。
      *
      * @param jobVertexId ID of the task/operator the subtask belongs to.
      * @param subtask The statistics for the subtask.
@@ -211,6 +226,7 @@ public class PendingCheckpointStats extends AbstractCheckpointStats {
 
     /**
      * Reports a successfully completed pending checkpoint.
+     * 报告成功完成的挂起检查点。
      *
      * @param externalPointer Optional external storage path if checkpoint was externalized.
      * @return Callback for the {@link CompletedCheckpoint} instance to notify about disposal.
@@ -237,6 +253,7 @@ public class PendingCheckpointStats extends AbstractCheckpointStats {
 
     /**
      * Reports a failed pending checkpoint.
+     * 报告失败的挂起检查点。
      *
      * @param failureTimestamp Timestamp of the failure.
      * @param cause Optional cause of the failure.

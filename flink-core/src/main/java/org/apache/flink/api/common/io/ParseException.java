@@ -23,6 +23,7 @@ import org.apache.flink.annotation.PublicEvolving;
 /**
  * Exception indicating that the parsing of input contents has failed because the data does not
  * match the configured parser.
+ * 异常表示输入内容解析失败，因为数据与配置的解析器不匹配。
  */
 @PublicEvolving
 public class ParseException extends RuntimeException {

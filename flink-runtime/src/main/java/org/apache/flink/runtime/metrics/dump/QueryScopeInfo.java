@@ -18,10 +18,13 @@
 
 package org.apache.flink.runtime.metrics.dump;
 
-/** Container for scope related information as required by the MetricQueryService. */
+/** Container for scope related information as required by the MetricQueryService.
+ * MetricQueryService 要求的范围相关信息的容器。
+ * */
 public abstract class QueryScopeInfo {
     /**
      * Categories to be returned by {@link QueryScopeInfo#getCategory()} to avoid instanceof checks.
+     * {@link QueryScopeInfo#getCategory()} 返回的类别以避免 instanceof 检查。
      */
     public static final byte INFO_CATEGORY_JM = 0;
 
@@ -30,7 +33,9 @@ public abstract class QueryScopeInfo {
     public static final byte INFO_CATEGORY_TASK = 3;
     public static final byte INFO_CATEGORY_OPERATOR = 4;
 
-    /** The remaining scope not covered by specific fields. */
+    /** The remaining scope not covered by specific fields.
+     * 特定领域未涵盖的其余范围。
+     * */
     public final String scope;
 
     private QueryScopeInfo(String scope) {
@@ -39,6 +44,7 @@ public abstract class QueryScopeInfo {
 
     /**
      * Create a copy of this QueryScopeInfo and append the given scope.
+     * 创建此 QueryScopeInfo 的副本并附加给定范围。
      *
      * @param userScope scope to append
      * @return modified copy of this QueryScopeInfo
@@ -47,6 +53,7 @@ public abstract class QueryScopeInfo {
 
     /**
      * Returns the category for this QueryScopeInfo.
+     * 返回此 QueryScopeInfo 的类别。
      *
      * @return category
      */
@@ -68,7 +75,9 @@ public abstract class QueryScopeInfo {
         return scope.isEmpty() ? additionalScope : scope + "." + additionalScope;
     }
 
-    /** Container for the job manager scope. Stores no additional information. */
+    /** Container for the job manager scope. Stores no additional information.
+     * 作业管理器范围的容器。 不存储任何附加信息。
+     * */
     public static class JobManagerQueryScopeInfo extends QueryScopeInfo {
         public JobManagerQueryScopeInfo() {
             super("");
@@ -89,7 +98,9 @@ public abstract class QueryScopeInfo {
         }
     }
 
-    /** Container for the task manager scope. Stores the ID of the task manager. */
+    /** Container for the task manager scope. Stores the ID of the task manager.
+     * 任务管理器范围的容器。 存储任务管理器的 ID。
+     * */
     public static class TaskManagerQueryScopeInfo extends QueryScopeInfo {
         public final String taskManagerID;
 
@@ -113,7 +124,9 @@ public abstract class QueryScopeInfo {
         }
     }
 
-    /** Container for the job scope. Stores the ID of the job. */
+    /** Container for the job scope. Stores the ID of the job.
+     * 作业范围的容器。 存储作业的 ID。
+     * */
     public static class JobQueryScopeInfo extends QueryScopeInfo {
         public final String jobID;
 
@@ -137,7 +150,9 @@ public abstract class QueryScopeInfo {
         }
     }
 
-    /** Container for the task scope. Stores the ID of the job/vertex and subtask index. */
+    /** Container for the task scope. Stores the ID of the job/vertex and subtask index.
+     * 任务范围的容器。 存储作业/顶点的 ID 和子任务索引。
+     * */
     public static class TaskQueryScopeInfo extends QueryScopeInfo {
         public final String jobID;
         public final String vertexID;
@@ -169,6 +184,7 @@ public abstract class QueryScopeInfo {
     /**
      * Container for the operator scope. Stores the ID of the job/vertex, the subtask index and the
      * name of the operator.
+     * 运算符范围的容器。 存储作业/顶点的 ID、子任务索引和操作员的名称。
      */
     public static class OperatorQueryScopeInfo extends QueryScopeInfo {
         public final String jobID;

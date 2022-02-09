@@ -19,7 +19,9 @@ package org.apache.flink.runtime.executiongraph;
 
 import org.apache.flink.runtime.clusterframework.types.ResourceID;
 
-/** No-op implementation of {@link ExecutionDeploymentListener}. */
+/** No-op implementation of {@link ExecutionDeploymentListener}.
+ * {@link ExecutionDeploymentListener} 的无操作实现。
+ * */
 public enum NoOpExecutionDeploymentListener implements ExecutionDeploymentListener {
     INSTANCE;
 

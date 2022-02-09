@@ -24,6 +24,7 @@ import java.io.Serializable;
  * Resource version for specific state handle on the underlying storage. The implementation also
  * needs to implement the {@link Comparable} interface so that we could compare the resource
  * versions.
+ * 底层存储上特定状态句柄的资源版本。 该实现还需要实现 {@link Comparable} 接口，以便我们可以比较资源版本。
  *
  * @param <R> Type of {@link ResourceVersion}
  */
@@ -31,6 +32,7 @@ public interface ResourceVersion<R> extends Comparable<R>, Serializable {
 
     /**
      * Check whether the state handle is existing.
+     * 检查状态句柄是否存在。
      *
      * @return true if state handle exists with current {@link ResourceVersion} on external storage.
      *     Or false it does not exist.

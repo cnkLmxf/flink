@@ -23,6 +23,7 @@ import java.io.Serializable;
 
 /**
  * RangeBoundaries is used to split the records into multiple ranges.
+ * RangeBoundaries 用于将记录拆分为多个范围。
  *
  * @param <T> The boundary type.
  */
@@ -31,6 +32,7 @@ public interface RangeBoundaries<T> extends Serializable {
 
     /**
      * Get the range index of record.
+     * 获取记录的范围索引。
      *
      * @param record The input record.
      * @return The range index.

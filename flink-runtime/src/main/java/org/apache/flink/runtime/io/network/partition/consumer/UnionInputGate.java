@@ -40,9 +40,11 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * Input gate wrapper to union the input from multiple input gates.
+ * 输入门包装器以合并来自多个输入门的输入。
  *
  * <p>Each input gate has input channels attached from which it reads data. At each input gate, the
  * input channels have unique IDs from 0 (inclusive) to the number of input channels (exclusive).
+ * 每个输入门都有连接的输入通道，从中读取数据。 在每个输入门，输入通道具有唯一的 ID，从 0（包括）到输入通道的数量（不包括）。
  *
  * <pre>
  * +---+---+      +---+---+---+
@@ -55,6 +57,8 @@ import static org.apache.flink.util.Preconditions.checkState;
  * <p>The union input gate maps these IDs from 0 to the *total* number of input channels across all
  * unioned input gates, e.g. the channels of input gate 0 keep their original indexes and the
  * channel indexes of input gate 1 are set off by 2 to 2--4.
+ * 联合输入门将这些 ID 从 0 映射到所有联合输入门的输入通道的 *total* 数量，
+ * 例如 输入门 0 的通道保持其原始索引，输入门 1 的通道索引由 2 到 2--4 偏移。
  *
  * <pre>
  * +---+---++---+---+---+
@@ -65,6 +69,7 @@ import static org.apache.flink.util.Preconditions.checkState;
  * </pre>
  *
  * <strong>It is NOT possible to recursively union union input gates.</strong>
+ * <strong>不可能递归 union 联合输入门。</strong>
  */
 public class UnionInputGate extends InputGate {
 
@@ -76,6 +81,7 @@ public class UnionInputGate extends InputGate {
     /**
      * Gates, which notified this input gate about available data. We are using it as a FIFO queue
      * of {@link InputGate}s to avoid starvation and provide some basic fairness.
+     * Gates，它通知这个输入门关于可用数据。 我们将其用作 {@link InputGate} 的 FIFO 队列，以避免饥饿并提供一些基本的公平性。
      */
     private final PrioritizedDeque<IndexedInputGate> inputGatesWithData = new PrioritizedDeque<>();
 
@@ -84,6 +90,7 @@ public class UnionInputGate extends InputGate {
     /**
      * A mapping from input gate index to (logical) channel index offset. Valid channel indexes go
      * from 0 (inclusive) to the total number of input channels (exclusive).
+     * 从输入门索引到（逻辑）通道索引偏移的映射。 有效通道索引从 0（包括）到输入通道的总数（不包括）。
      */
     private final int[] inputGateChannelIndexOffsets;
 
@@ -155,7 +162,9 @@ public class UnionInputGate extends InputGate {
         queueInputGate(inputGate, true);
     }
 
-    /** Returns the total number of input channels across all unioned input gates. */
+    /** Returns the total number of input channels across all unioned input gates.
+     * 返回所有联合输入门的输入通道总数。
+     * */
     @Override
     public int getNumberOfInputChannels() {
         return inputChannelToInputGateIndex.length;

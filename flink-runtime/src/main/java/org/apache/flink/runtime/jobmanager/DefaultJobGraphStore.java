@@ -47,6 +47,8 @@ import static org.apache.flink.util.Preconditions.checkState;
  * StateHandleStore}, we could persist the job graphs to various distributed storage. Also combined
  * with different {@link JobGraphStoreWatcher}, we could get all the changes on the job graph store
  * and do the response.
+ * {@link JobGraphStore} 的默认实现。 结合不同的 {@link StateHandleStore}，我们可以将作业图持久化到各种分布式存储中。
+ * 还结合不同的 {@link JobGraphStoreWatcher}，我们可以获取作业图存储上的所有更改并做出响应。
  */
 public class DefaultJobGraphStore<R extends ResourceVersion<R>>
         implements JobGraphStore, JobGraphStore.JobGraphListener {
@@ -56,11 +58,15 @@ public class DefaultJobGraphStore<R extends ResourceVersion<R>>
     /** Lock to synchronize with the {@link JobGraphListener}. */
     private final Object lock = new Object();
 
-    /** The set of IDs of all added job graphs. */
+    /** The set of IDs of all added job graphs.
+     * 所有添加的作业图的 ID 集。
+     * */
     @GuardedBy("lock")
     private final Set<JobID> addedJobGraphs = new HashSet<>();
 
-    /** Submitted job graphs handle store. */
+    /** Submitted job graphs handle store.
+     * 提交的作业图句柄存储。
+     * */
     private final StateHandleStore<JobGraph, R> jobGraphStateHandleStore;
 
     @GuardedBy("lock")
@@ -68,11 +74,15 @@ public class DefaultJobGraphStore<R extends ResourceVersion<R>>
 
     private final JobGraphStoreUtil jobGraphStoreUtil;
 
-    /** The external listener to be notified on races. */
+    /** The external listener to be notified on races.
+     * 要在比赛中收到通知的外部侦听器。
+     * */
     @GuardedBy("lock")
     private JobGraphListener jobGraphListener;
 
-    /** Flag indicating whether this instance is running. */
+    /** Flag indicating whether this instance is running.
+     * 指示此实例是否正在运行的标志。
+     * */
     @GuardedBy("lock")
     private volatile boolean running;
 

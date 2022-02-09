@@ -34,6 +34,7 @@ import static org.apache.flink.runtime.entrypoint.parser.CommandLineOptions.DYNA
 /**
  * {@code DynamicParametersConfigurationParserFactory} can be used to extract the dynamic parameters
  * from command line.
+ * {@code DynamicParametersConfigurationParserFactory} 可用于从命令行提取动态参数。
  */
 public class DynamicParametersConfigurationParserFactory
         implements ParserResultFactory<Configuration> {

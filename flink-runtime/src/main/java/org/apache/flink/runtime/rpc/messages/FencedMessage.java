@@ -22,6 +22,7 @@ import java.io.Serializable;
 
 /**
  * Interface for fenced messages.
+ * 隔离消息的接口。
  *
  * @param <F> type of the fencing token
  * @param <P> type of the payload

@@ -29,35 +29,49 @@ import java.io.IOException;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The reader (read view) of a BoundedBlockingSubpartition. */
+/** The reader (read view) of a BoundedBlockingSubpartition.
+ * BoundedBlockingSubpartition 的读取器（读取视图）。
+ * */
 final class BoundedBlockingSubpartitionReader implements ResultSubpartitionView {
 
-    /** The result subpartition that we read. */
+    /** The result subpartition that we read.
+     * 我们读取的结果子分区。
+     * */
     private final BoundedBlockingSubpartition parent;
 
     /**
      * The listener that is notified when there are available buffers for this subpartition view.
+     * 当此子分区视图有可用缓冲区时通知的侦听器。
      */
     private final BufferAvailabilityListener availabilityListener;
 
-    /** The next buffer (look ahead). Null once the data is depleted or reader is disposed. */
+    /** The next buffer (look ahead). Null once the data is depleted or reader is disposed.
+     * 下一个缓冲区（向前看）。 一旦数据耗尽或读取器被处置，则为空。
+     * */
     @Nullable private Buffer nextBuffer;
 
     /**
      * The reader/decoder to the memory mapped region with the data we currently read from. Null
      * once the reader empty or disposed.
+     * 读取器/解码器到内存映射区域，其中包含我们当前读取的数据。 读取器清空或处置后为空。
      */
     @Nullable private BoundedData.Reader dataReader;
 
-    /** The remaining number of data buffers (not events) in the result. */
+    /** The remaining number of data buffers (not events) in the result.
+     * 结果中剩余的数据缓冲区（不是事件）数。
+     * */
     private int dataBufferBacklog;
 
-    /** Flag whether this reader is released. Atomic, to avoid double release. */
+    /** Flag whether this reader is released. Atomic, to avoid double release.
+     * 标记此阅读器是否已释放。 原子，避免双重释放。
+     * */
     private boolean isReleased;
 
     private int sequenceNumber;
 
-    /** Convenience constructor that takes a single buffer. */
+    /** Convenience constructor that takes a single buffer.
+     * 采用单个缓冲区的便利构造函数。
+     * */
     BoundedBlockingSubpartitionReader(
             BoundedBlockingSubpartition parent,
             BoundedData data,
@@ -102,10 +116,13 @@ final class BoundedBlockingSubpartitionReader implements ResultSubpartitionView 
 
     /**
      * This method is actually only meaningful for the {@link BoundedBlockingSubpartitionType#FILE}.
+     * 这个方法实际上只对 {@link BoundedBlockingSubpartitionType#FILE} 有意义。
      *
      * <p>For the other types the {@link #nextBuffer} can not be ever set to null, so it is no need
      * to notify available via this method. But the implementation is also compatible with other
      * types even though called by mistake.
+     * 对于其他类型，{@link #nextBuffer} 不能设置为 null，因此无需通过此方法通知可用。
+     * 但是即使被错误调用，该实现也与其他类型兼容。
      */
     @Override
     public void notifyDataAvailable() {

@@ -26,21 +26,30 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 
-/** Interface of a state handle for operator state. */
+/** Interface of a state handle for operator state.
+ * 操作员状态的状态句柄接口。
+ * */
 public interface OperatorStateHandle extends StreamStateHandle {
 
-    /** Returns a map of meta data for all contained states by their name. */
+    /** Returns a map of meta data for all contained states by their name.
+     * 按名称返回所有包含状态的元数据映射。
+     * */
     Map<String, StateMetaInfo> getStateNameToPartitionOffsets();
 
-    /** Returns an input stream to read the operator state information. */
+    /** Returns an input stream to read the operator state information.
+     * 返回一个输入流以读取操作员状态信息。
+     * */
     @Override
     FSDataInputStream openInputStream() throws IOException;
 
-    /** Returns the underlying stream state handle that points to the state data. */
+    /** Returns the underlying stream state handle that points to the state data.
+     * 返回指向状态数据的底层流状态句柄。
+     * */
     StreamStateHandle getDelegateStateHandle();
 
     /**
      * The modes that determine how an {@link OperatorStreamStateHandle} is assigned to tasks during
+     * 确定 {@link OperatorStreamStateHandle} 如何分配给任务的模式
      * restore.
      */
     enum Mode {
@@ -51,7 +60,9 @@ public interface OperatorStateHandle extends StreamStateHandle {
         // stream.
     }
 
-    /** Meta information about the operator state handle. */
+    /** Meta information about the operator state handle.
+     * 关于操作符状态句柄的元信息。
+     * */
     class StateMetaInfo implements Serializable {
 
         private static final long serialVersionUID = 3593817615858941166L;

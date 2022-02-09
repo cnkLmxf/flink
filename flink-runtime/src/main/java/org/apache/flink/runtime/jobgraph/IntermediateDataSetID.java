@@ -30,13 +30,16 @@ public class IntermediateDataSetID extends AbstractID implements ResultID {
 
     private static final long serialVersionUID = 1L;
 
-    /** Creates an new random intermediate data set ID. */
+    /** Creates an new random intermediate data set ID.
+     * 创建一个新的随机中间数据集 ID。
+     * */
     public IntermediateDataSetID() {
         super();
     }
 
     /**
      * Creates a new intermediate data set ID with the bytes of the given ID.
+     * 使用给定 ID 的字节创建一个新的中间数据集 ID。
      *
      * @param from The ID to create this ID from.
      */
@@ -46,6 +49,7 @@ public class IntermediateDataSetID extends AbstractID implements ResultID {
 
     /**
      * Creates a new intermediate data set ID with the bytes of the given UUID.
+     * 使用给定 UUID 的字节创建一个新的中间数据集 ID。
      *
      * @param from The UUID to create this ID from.
      */

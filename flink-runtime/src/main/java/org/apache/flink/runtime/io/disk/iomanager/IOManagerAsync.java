@@ -33,32 +33,45 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** A version of the {@link IOManager} that uses asynchronous I/O. */
+/** A version of the {@link IOManager} that uses asynchronous I/O.
+ * 使用异步 I/O 的 {@link IOManager} 版本。
+ * */
 public class IOManagerAsync extends IOManager implements UncaughtExceptionHandler {
 
-    /** The writer threads used for asynchronous block oriented channel writing. */
+    /** The writer threads used for asynchronous block oriented channel writing.
+     * 用于异步面向块的通道写入的写入器线程。
+     * */
     private final WriterThread[] writers;
 
-    /** The reader threads used for asynchronous block oriented channel reading. */
+    /** The reader threads used for asynchronous block oriented channel reading.
+     * 用于异步面向块的通道读取的读取器线程。
+     * */
     private final ReaderThread[] readers;
 
-    /** Flag to signify that the IOManager has been shut down already */
+    /** Flag to signify that the IOManager has been shut down already
+     * Flag 表示 IOManager 已经关闭
+     * */
     private final AtomicBoolean isShutdown = new AtomicBoolean();
 
-    /** Shutdown hook to make sure that the directories are removed on exit */
+    /** Shutdown hook to make sure that the directories are removed on exit
+     * 关闭挂钩以确保在退出时删除目录
+     * */
     private final Thread shutdownHook;
 
     // -------------------------------------------------------------------------
     //               Constructors / Destructors
     // -------------------------------------------------------------------------
 
-    /** Constructs a new asynchronous I/O manager, writing files to the system 's temp directory. */
+    /** Constructs a new asynchronous I/O manager, writing files to the system 's temp directory.
+     * 构造一个新的异步 I/O 管理器，将文件写入系统的临时目录。
+     * */
     public IOManagerAsync() {
         this(EnvironmentInformation.getTemporaryFileDirectory());
     }
 
     /**
      * Constructs a new asynchronous I/O manager, writing file to the given directory.
+     * 构造一个新的异步 I/O 管理器，将文件写入给定目录。
      *
      * @param tempDir The directory to write temporary files to.
      */
@@ -69,6 +82,7 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
     /**
      * Constructs a new asynchronous I/O manager, writing file round robin across the given
      * directories.
+     * 构造一个新的异步 I/O 管理器，在给定的目录中循环写入文件。
      *
      * @param tempDirs The directories to write temporary files to.
      */
@@ -106,6 +120,7 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
      * Close method. Shuts down the reader and writer threads immediately, not waiting for their
      * pending requests to be served. This method waits until the threads have actually ceased their
      * operation.
+     * 关闭方法。 立即关闭读取器和写入器线程，而不是等待处理它们的待处理请求。 这个方法一直等到线程真正停止了它们的操作。
      */
     @Override
     public void close() throws Exception {
@@ -215,6 +230,8 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
      * Creates a block channel reader that reads blocks from the given channel. The reader reads
      * asynchronously, such that a read request is accepted, carried out at some (close) point in
      * time, and the full segment is pushed to the given queue.
+     * 创建一个从给定通道读取块的块通道读取器。 读取器异步读取，以便接受读取请求，
+     * 在某个（关闭）时间点执行，并将完整段推送到给定队列。
      *
      * @param channelID The descriptor for the channel to write to.
      * @param returnQueue The queue to put the full buffers into.
@@ -262,9 +279,13 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
      * bulk. The reader draws segments to read the blocks into from a supplied list, which must
      * contain as many segments as the channel has blocks. After the reader is done, the list with
      * the full segments can be obtained from the reader.
+     * 创建一个块通道读取器，直接从给定通道中批量读取所有块。
+     * 阅读器绘制段以从提供的列表中读取块，该列表必须包含与通道具有块一样多的段。
+     * 阅读器完成后，可以从阅读器处获取包含完整段的列表。
      *
      * <p>If a channel is not to be read in one bulk, but in multiple smaller batches, a {@link
      * BlockChannelReader} should be used.
+     * 如果不是要批量读取通道，而是要以多个较小的批次读取通道，则应使用 {@link BlockChannelReader}。
      *
      * @param channelID The descriptor for the channel to write to.
      * @param targetSegments The list to take the segments from into which to read the data.
@@ -321,6 +342,8 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
          * served, halts the thread immediately. All buffers of pending requests are handed back to
          * their channel readers and an exception is reported to them, declaring their request queue
          * as closed.
+         * 关闭线程。 此操作不会等待所有待处理的请求都被处理，而是立即停止线程。
+         * 所有未决请求的缓冲区都被交还给它们的通道阅读器，并向它们报告异常，声明它们的请求队列已关闭。
          */
         protected void shutdown() {
             synchronized (this) {
@@ -409,7 +432,9 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
         }
     } // end reading thread
 
-    /** A worker thread that asynchronously writes the buffers to disk. */
+    /** A worker thread that asynchronously writes the buffers to disk.
+     * 将缓冲区异步写入磁盘的工作线程。
+     * */
     private static final class WriterThread extends Thread {
 
         protected final RequestQueue<WriteRequest> requestQueue;
@@ -430,6 +455,8 @@ public class IOManagerAsync extends IOManager implements UncaughtExceptionHandle
          * served, halts the thread immediately. All buffers of pending requests are handed back to
          * their channel writers and an exception is reported to them, declaring their request queue
          * as closed.
+         * 关闭线程。 此操作不会等待所有待处理的请求都被处理，而是立即停止线程。
+         * 所有未决请求的缓冲区都被交还给它们的通道编写者，并向它们报告异常，声明它们的请求队列已关闭。
          */
         protected void shutdown() {
             synchronized (this) {

@@ -27,16 +27,23 @@ import java.util.concurrent.TimeUnit;
 /**
  * Interface for an executor that runs tasks in the main thread of an {@link
  * org.apache.flink.runtime.rpc.RpcEndpoint}.
+ * 在 {@link org.apache.flink.runtime.rpc.RpcEndpoint} 的主线程中运行任务的执行器接口。
  */
 public interface ComponentMainThreadExecutor extends ScheduledExecutor {
 
-    /** Returns true if the method was called in the thread of this executor. */
+    /** Returns true if the method was called in the thread of this executor.
+     * 如果在此执行程序的线程中调用该方法，则返回 true。
+     * */
     void assertRunningInMainThread();
 
-    /** Dummy implementation of ComponentMainThreadExecutor. */
+    /** Dummy implementation of ComponentMainThreadExecutor.
+     * ComponentMainThreadExecutor 的虚拟实现。
+     * */
     final class DummyComponentMainThreadExecutor implements ComponentMainThreadExecutor {
 
-        /** Customized message for the exception that is thrown on method invocation. */
+        /** Customized message for the exception that is thrown on method invocation.
+         * 方法调用时引发的异常的自定义消息。
+         * */
         private final String exceptionMessageOnInvocation;
 
         public DummyComponentMainThreadExecutor(String exceptionMessageOnInvocation) {

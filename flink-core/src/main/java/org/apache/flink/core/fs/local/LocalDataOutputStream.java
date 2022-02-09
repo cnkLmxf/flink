@@ -28,15 +28,19 @@ import java.io.IOException;
 /**
  * The <code>LocalDataOutputStream</code> class is a wrapper class for a data output stream to the
  * local file system.
+ * <code>LocalDataOutputStream</code> 类是数据输出流到本地文件系统的包装类。
  */
 @Internal
 public class LocalDataOutputStream extends FSDataOutputStream {
 
-    /** The file output stream used to write data. */
+    /** The file output stream used to write data.
+     * 用于写入数据的文件输出流。
+     * */
     private final FileOutputStream fos;
 
     /**
      * Constructs a new <code>LocalDataOutputStream</code> object from a given {@link File} object.
+     * 从给定的 {@link File} 对象构造一个新的 <code>LocalDataOutputStream</code> 对象。
      *
      * @param file the {@link File} object the data stream is read from
      * @throws IOException thrown if the data output stream cannot be created

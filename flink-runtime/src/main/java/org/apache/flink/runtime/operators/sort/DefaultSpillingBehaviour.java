@@ -25,6 +25,7 @@ import java.io.IOException;
 
 /**
  * A {@link SpillingThread.SpillingBehaviour} which spills or merges given elements directly.
+ * 直接溢出或合并给定元素的 {@link SpillingThread.SpillingBehaviour}。
  *
  * @see CombiningSpillingBehaviour
  */

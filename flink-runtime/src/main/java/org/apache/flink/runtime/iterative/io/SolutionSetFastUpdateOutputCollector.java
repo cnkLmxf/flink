@@ -25,13 +25,17 @@ import java.io.IOException;
 
 /**
  * A {@link Collector} to update the solution set of a workset iteration.
+ * 用于更新工作集迭代的解决方案集的 {@link Collector}。
  *
  * <p>The records are written to a hash table to allow in-memory point updates.
+ * 记录被写入哈希表以允许内存点更新。
  *
  * <p>Assumption for fast updates: the build side iterator of the hash table is already positioned
  * for the update. This is for example the case when a solution set update happens directly after a
  * solution set join. If this assumption doesn't hold, use {@link SolutionSetUpdateOutputCollector},
  * which probes the hash table before updating.
+ * 快速更新的假设：哈希表的构建端迭代器已经为更新定位。 例如，在解决方案集加入后直接发生解决方案集更新时就是这种情况。
+ * 如果此假设不成立，请使用 {@link SolutionSetUpdateOutputCollector}，它会在更新之前探测哈希表。
  */
 public class SolutionSetFastUpdateOutputCollector<T> implements Collector<T> {
 

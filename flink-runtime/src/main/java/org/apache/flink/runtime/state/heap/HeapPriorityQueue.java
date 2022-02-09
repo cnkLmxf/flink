@@ -31,9 +31,17 @@ import javax.annotation.Nonnull;
  * a bit simpler in the hot methods. Object identification of remove is based on object identity and
  * not on equals. We use the managed index from {@link HeapPriorityQueueElement} to find an element
  * in the queue array to support fast deletes.
+ * {@link HeapPriorityQueueElement} 对象的基本基于堆的优先级队列。
+ * 此堆支持快速删除，因为它管理包含的 {@link HeapPriorityQueueElement} 的位置索引。
+ * 堆实现是存储在数组中的简单二叉树。 堆数组中的元素索引从 1 而不是 0 开始，以使热方法中的数组索引计算更简单一些。
+ * remove 的对象识别是基于对象标识而不是等于。
+ * 我们使用来自 {@link HeapPriorityQueueElement} 的托管索引在队列数组中查找元素以支持快速删除。
  *
  * <p>Possible future improvements:
- *
+ * 未来可能的改进：
+ *<ul>
+ *     <li>我们还可以为堆实现收缩。
+ *   </ul>
  * <ul>
  *   <li>We could also implement shrinking for the heap.
  * </ul>

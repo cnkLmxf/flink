@@ -20,7 +20,9 @@ package org.apache.flink.runtime.io.network.partition;
 
 import javax.annotation.Nullable;
 
-/** A dummy implementation of the {@link ResultSubpartitionView}. */
+/** A dummy implementation of the {@link ResultSubpartitionView}.
+ * {@link ResultSubpartitionView} 的虚拟实现。
+ * */
 public class NoOpResultSubpartitionView implements ResultSubpartitionView {
 
     @Nullable

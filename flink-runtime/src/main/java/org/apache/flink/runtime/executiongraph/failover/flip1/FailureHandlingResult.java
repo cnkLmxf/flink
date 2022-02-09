@@ -34,21 +34,27 @@ import static org.apache.flink.util.Preconditions.checkState;
  * Result containing the tasks to restart upon a task failure. Also contains the reason of the
  * failure and the vertices to restart if the failure is recoverable (in contrast to non-recoverable
  * failure type or restarting suppressed by restart strategy).
+ * 包含在任务失败时重新启动的任务的结果。
+ * 还包含失败的原因以及如果失败是可恢复的则要重新启动的顶点（与不可恢复的失败类型或重新启动策略抑制的重新启动相反）。
  */
 public class FailureHandlingResult {
 
     /**
      * Task vertices to restart to recover from the failure or {@code null} if the failure is not
      * recoverable.
+     * 要重新启动以从故障中恢复的任务顶点，如果故障不可恢复，则返回 {@code null}。
      */
     private final Set<ExecutionVertexID> verticesToRestart;
 
-    /** Delay before the restarting can be conducted. */
+    /** Delay before the restarting can be conducted.
+     * 可以进行重新启动之前的延迟。
+     * */
     private final long restartDelayMS;
 
     /**
      * The {@link ExecutionVertexID} refering to the {@link ExecutionVertex} the failure is
      * originating from or {@code null} if it's a global failure.
+     * {@link ExecutionVertexID} 指的是故障源自的 {@link ExecutionVertex} 或 {@code null} 如果它是全局故障。
      */
     @Nullable private final ExecutionVertexID failingExecutionVertexId;
 
@@ -58,11 +64,14 @@ public class FailureHandlingResult {
     /** Failure timestamp. */
     private final long timestamp;
 
-    /** True if the original failure was a global failure. */
+    /** True if the original failure was a global failure.
+     * 如果原始故障是全局故障，则为真。
+     * */
     private final boolean globalFailure;
 
     /**
      * Creates a result of a set of tasks to restart to recover from the failure.
+     * 创建一组任务的结果以重新启动以从故障中恢复。
      *
      * @param failingExecutionVertexId the {@link ExecutionVertexID} referring to the {@link
      *     ExecutionVertex} the failure is originating from. Passing {@code null} as a value
@@ -92,6 +101,7 @@ public class FailureHandlingResult {
 
     /**
      * Creates a result that the failure is not recoverable and no restarting should be conducted.
+     * 创建故障不可恢复且不应重新启动的结果。
      *
      * @param failingExecutionVertexId the {@link ExecutionVertexID} referring to the {@link
      *     ExecutionVertex} the failure is originating from. Passing {@code null} as a value
@@ -143,6 +153,8 @@ public class FailureHandlingResult {
     /**
      * Returns an {@code Optional} with the {@link ExecutionVertexID} of the task causing this
      * failure or an empty {@code Optional} if it's a global failure.
+     * 返回一个 {@code Optional}，其中包含导致此失败的任务的 {@link ExecutionVertexID}，
+     * 如果是全局失败，则返回一个空的 {@code Optional}。
      *
      * @return The {@code ExecutionVertexID} of the causing task or an empty {@code Optional} if
      *     it's a global failure.
@@ -189,9 +201,11 @@ public class FailureHandlingResult {
 
     /**
      * Creates a result of a set of tasks to restart to recover from the failure.
+     * 创建一组任务的结果以重新启动以从故障中恢复。
      *
      * <p>The result can be flagged to be from a global failure triggered by the scheduler, rather
      * than from the failure of an individual task.
+     * 结果可以被标记为来自调度程序触发的全局故障，而不是来自单个任务的失败。
      *
      * @param failingExecutionVertexId the {@link ExecutionVertexID} refering to the {@link
      *     ExecutionVertex} the failure is originating from. Passing {@code null} as a value
@@ -221,9 +235,11 @@ public class FailureHandlingResult {
 
     /**
      * Creates a result that the failure is not recoverable and no restarting should be conducted.
+     * 创建故障不可恢复且不应重新启动的结果。
      *
      * <p>The result can be flagged to be from a global failure triggered by the scheduler, rather
      * than from the failure of an individual task.
+     * 结果可以被标记为来自调度程序触发的全局故障，而不是来自单个任务的失败。
      *
      * @param failingExecutionVertexId the {@link ExecutionVertexID} refering to the {@link
      *     ExecutionVertex} the failure is originating from. Passing {@code null} as a value

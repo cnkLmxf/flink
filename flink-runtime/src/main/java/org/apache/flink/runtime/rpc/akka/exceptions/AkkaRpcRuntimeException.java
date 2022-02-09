@@ -20,7 +20,9 @@ package org.apache.flink.runtime.rpc.akka.exceptions;
 
 import org.apache.flink.runtime.rpc.exceptions.RpcRuntimeException;
 
-/** Base class for Akka RPC related runtime exceptions. */
+/** Base class for Akka RPC related runtime exceptions.
+ * Akka RPC 相关运行时异常的基类。
+ * */
 public class AkkaRpcRuntimeException extends RpcRuntimeException {
     public AkkaRpcRuntimeException(String message) {
         super(message);

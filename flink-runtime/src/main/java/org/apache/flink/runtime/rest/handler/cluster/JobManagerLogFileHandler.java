@@ -31,7 +31,9 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.util.Map;
 
-/** Rest handler which serves the log files from JobManager. */
+/** Rest handler which serves the log files from JobManager.
+ * 提供来自 JobManager 的日志文件的休息处理程序。
+ * */
 public class JobManagerLogFileHandler
         extends AbstractJobManagerFileHandler<EmptyMessageParameters> {
 

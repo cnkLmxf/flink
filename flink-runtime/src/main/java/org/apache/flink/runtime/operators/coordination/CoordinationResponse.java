@@ -23,5 +23,6 @@ import java.io.Serializable;
 /**
  * Root interface for all responses from a {@link OperatorCoordinator} to the client which is the
  * response for a {@link CoordinationRequest}.
+ * 从 {@link OperatorCoordinator} 到客户端的所有响应的根接口，它是对 {@link CoordinationRequest} 的响应。
  */
 public interface CoordinationResponse extends Serializable {}

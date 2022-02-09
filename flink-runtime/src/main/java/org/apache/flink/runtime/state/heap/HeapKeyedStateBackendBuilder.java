@@ -45,6 +45,7 @@ import static org.apache.flink.runtime.state.SnapshotExecutionType.SYNCHRONOUS;
 /**
  * Builder class for {@link HeapKeyedStateBackend} which handles all necessary initializations and
  * clean ups.
+ * {@link HeapKeyedStateBackend} 的构建器类，它处理所有必要的初始化和清理。
  *
  * @param <K> The data type that the key serializer serializes.
  */

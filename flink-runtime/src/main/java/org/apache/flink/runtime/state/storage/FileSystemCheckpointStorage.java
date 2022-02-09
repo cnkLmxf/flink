@@ -47,36 +47,50 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * {@link FileSystemCheckpointStorage} checkpoints state as files to a file system.
+ * {@link FileSystemCheckpointStorage} 检查点状态为文件系统的文件。
  *
  * <p>Each checkpoint individually will store all its files in a subdirectory that includes the
  * checkpoint number, such as {@code hdfs://namenode:port/flink-checkpoints/chk-17/}.
+ * 每个检查点都会将其所有文件单独存储在包含检查点编号的子目录中，例如 {@code hdfs://namenode:port/flink-checkpoints/chk-17/}。
  *
  * <h1>State Size Considerations</h1>
+ * 状态大小注意事项
  *
  * <p>This checkpoint storage stores small state chunks directly with the metadata, to avoid
  * creating many small files. The threshold for that is configurable. When increasing this
  * threshold, the size of the checkpoint metadata increases. The checkpoint metadata of all retained
  * completed checkpoints needs to fit into the JobManager's heap memory. This is typically not a
  * problem, unless the threshold {@link #getMinFileSizeThreshold()} is increased significantly.
+ * 此检查点存储直接与元数据一起存储小状态块，以避免创建许多小文件。 阈值是可配置的。 增加此阈值时，检查点元数据的大小会增加。
+ * 所有保留的已完成检查点的检查点元数据需要适合 JobManager 的堆内存。
+ * 这通常不是问题，除非阈值 {@link #getMinFileSizeThreshold()} 显着增加。
  *
  * <h1>Persistence Guarantees</h1>
+ * 持久性保证
  *
  * <p>Checkpoints from this checkpoint storage are as persistent and available as filesystem that is
  * written to. If the file system is a persistent distributed file system, this checkpoint storage
  * supports highly available setups. The backend additionally supports savepoints and externalized
  * checkpoints.
+ * 此检查点存储中的检查点与写入的文件系统一样持久且可用。 如果文件系统是持久分布式文件系统，则此检查点存储支持高可用性设置。
+ * 后端还支持保存点和外部检查点。
  *
  * <h1>Configuration</h1>
  *
  * <p>As for all checkpoint storage policies, this backend can either be configured within the
  * application (by creating the backend with the respective constructor parameters and setting it on
  * the execution environment) or by specifying it in the Flink configuration.
+ * 对于所有的检查点存储策略，这个后端既可以在应用程序中配置（通过使用相应的构造函数参数创建后端并在执行环境中设置），
+ * 也可以在 Flink 配置中指定。
  *
  * <p>If the checkpoint storage was specified in the application, it may pick up additional
  * configuration parameters from the Flink configuration. For example, if the backend if configured
  * in the application without a default savepoint directory, it will pick up a default savepoint
  * directory specified in the Flink configuration of the running job/cluster. That behavior is
  * implemented via the {@link #configure(ReadableConfig, ClassLoader)} method.
+ * 如果在应用程序中指定了检查点存储，它可能会从 Flink 配置中获取额外的配置参数。
+ * 例如，如果后端在应用程序中配置时没有默认保存点目录，它将选择正在运行的作业/集群的 Flink 配置中指定的默认保存点目录。
+ * 该行为是通过 {@link #configure(ReadableConfig, ClassLoader)} 方法实现的。
  */
 @PublicEvolving
 public class FileSystemCheckpointStorage

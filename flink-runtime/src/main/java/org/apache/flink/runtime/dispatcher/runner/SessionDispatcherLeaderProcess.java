@@ -45,6 +45,7 @@ import java.util.concurrent.Executor;
 /**
  * Process which encapsulates the job recovery logic and life cycle management of a {@link
  * Dispatcher}.
+ * 封装 {@link Dispatcher} 的作业恢复逻辑和生命周期管理的流程。
  */
 public class SessionDispatcherLeaderProcess extends AbstractDispatcherLeaderProcess
         implements JobGraphStore.JobGraphListener {

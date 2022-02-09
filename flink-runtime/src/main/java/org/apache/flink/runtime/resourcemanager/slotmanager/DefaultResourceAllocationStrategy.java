@@ -42,14 +42,21 @@ import static org.apache.flink.runtime.resourcemanager.slotmanager.SlotManagerUt
  * slot resource profiles, thus all new pending resources should have the same profiles. A
  * requirement is considered unfulfillable if it is not fulfilled by any registered or pending
  * resources and cannot fit into the pre-defined total resource profile.
+ * 对于每个需求，此策略尝试使用任何已注册或待处理的资源来满足它（已注册的优先）。
+ * 如果任何已注册或挂起的资源都不能满足要求，它会分配一个新的挂起资源，具有预定义的总和默认槽资源配置文件，
+ * 因此所有新的挂起资源应该具有相同的配置文件。
+ * 如果任何已注册或待处理的资源都无法满足需求，并且无法适应预定义的总资源配置文件，则该需求被视为无法满足。
  *
  * <p>Note: This strategy tries to find a feasible allocation result, rather than an optimal one (in
  * term of resource utilization). It also does not guarantee always finding a feasible solution when
  * exist.
+ * 注意：这个策略试图找到一个可行的分配结果，而不是一个最优的分配结果（就资源利用率而言）。 它也不能保证总能找到可行的解决方案。
  *
  * <p>Note: The current implementation of this strategy is non-optimal, in terms of computation
  * efficiency. In the worst case, for each requirement it checks all registered and pending
  * resources. TODO: This will be optimized in FLINK-21174.
+ * 注意：就计算效率而言，此策略的当前实现不是最优的。
+ * 在最坏的情况下，对于每个需求，它都会检查所有已注册和待处理的资源。 TODO：这将在 FLINK-21174 中进行优化。
  */
 public class DefaultResourceAllocationStrategy implements ResourceAllocationStrategy {
     private final ResourceProfile defaultSlotResourceProfile;

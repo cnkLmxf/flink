@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * {@link HeartbeatManager} implementation which regularly requests a heartbeat response from its
  * monitored {@link HeartbeatTarget}. The heartbeat period is configurable.
+ * {@link HeartbeatManager} 实现定期从其监控的 {@link HeartbeatTarget} 请求心跳响应。 心跳周期是可配置的。
  *
  * @param <I> Type of the incoming heartbeat payload
  * @param <O> Type of the outgoing heartbeat payload

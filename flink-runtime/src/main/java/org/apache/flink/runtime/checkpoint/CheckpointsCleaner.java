@@ -32,6 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Delegate class responsible for checkpoints cleaning and counting the number of checkpoints yet to
  * clean.
+ * 负责检查点清理和计算尚未清理的检查点数量的委托类。
  */
 @ThreadSafe
 public class CheckpointsCleaner implements Serializable {

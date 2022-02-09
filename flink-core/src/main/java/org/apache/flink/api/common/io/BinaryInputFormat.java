@@ -46,10 +46,14 @@ import java.util.List;
  * Base class for all input formats that use blocks of fixed size. The input splits are aligned to
  * these blocks, meaning that each split will consist of one block. Without configuration, these
  * block sizes equal the native block sizes of the HDFS.
+ * 使用固定大小块的所有输入格式的基类。 输入拆分与这些块对齐，这意味着每个拆分将由一个块组成。
+ * 如果没有配置，这些块大小等于 HDFS 的本机块大小。
  *
  * <p>A block will contain a {@link BlockInfo} at the end of the block. There, the reader can find
  * some statistics about the split currently being read, that will help correctly parse the contents
  * of the block.
+ * 一个块将在块的末尾包含一个 {@link BlockInfo}。
+ * 在那里，读者可以找到有关当前正在读取的拆分的一些统计信息，这将有助于正确解析块的内容。
  */
 @Public
 public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
@@ -60,7 +64,9 @@ public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
     /** The log. */
     private static final Logger LOG = LoggerFactory.getLogger(BinaryInputFormat.class);
 
-    /** The config parameter which defines the fixed length of a record. */
+    /** The config parameter which defines the fixed length of a record.
+     * 定义记录固定长度的配置参数。
+     * */
     public static final String BLOCK_SIZE_PARAMETER_KEY = "input.block_size";
 
     public static final long NATIVE_BLOCK_SIZE = Long.MIN_VALUE;
@@ -70,15 +76,20 @@ public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
 
     private transient DataInputViewStreamWrapper dataInputStream;
 
-    /** The BlockInfo for the Block corresponding to the split currently being read. */
+    /** The BlockInfo for the Block corresponding to the split currently being read.
+     * 当前正在读取的 split 对应的 Block 的 BlockInfo。
+     * */
     private transient BlockInfo blockInfo;
 
-    /** A wrapper around the block currently being read. */
+    /** A wrapper around the block currently being read.
+     * 当前正在读取的块周围的包装器。
+     * */
     private transient BlockBasedInput blockBasedInput = null;
 
     /**
      * The number of records already read from the block. This is used to decide if the end of the
      * block has been reached.
+     * 已从块中读取的记录数。 这用于确定是否已到达块的末尾。
      */
     private long readRecords = 0;
 
@@ -88,6 +99,7 @@ public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
 
         // the if is to prevent the configure() method from
         // overwriting the value set by the setter
+        // if是为了防止configure()方法覆盖setter设置的值
 
         if (this.blockSize == NATIVE_BLOCK_SIZE) {
             long blockSize = parameters.getLong(BLOCK_SIZE_PARAMETER_KEY, NATIVE_BLOCK_SIZE);
@@ -246,6 +258,7 @@ public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
 
     /**
      * Fill in the statistics. The last modification time and the total input size are prefilled.
+     * 填写统计信息。 上次修改时间和总输入大小已预先填充。
      *
      * @param files The files that are associated with this block input format.
      * @param stats The pre-filled statistics.
@@ -332,6 +345,7 @@ public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
     /**
      * Reads the content of a block of data. The block contains its {@link BlockInfo} at the end,
      * and this method takes this into account when reading the data.
+     * 读取数据块的内容。 该块在末尾包含其{@link BlockInfo}，该方法在读取数据时会考虑到这一点。
      */
     protected class BlockBasedInput extends FilterInputStream {
         private final int maxPayloadSize;
@@ -368,6 +382,8 @@ public abstract class BinaryInputFormat<T> extends FileInputFormat<T>
 
             // the blockPos is set to 0 for the case of remote reads,
             // these are the cases where the last record of a block spills on the next block
+            // 在远程读取的情况下，blockPos 设置为 0，
+            // 这些是块的最后一条记录溢出到下一个块的情况
             this.blockPos = 0;
         }
 

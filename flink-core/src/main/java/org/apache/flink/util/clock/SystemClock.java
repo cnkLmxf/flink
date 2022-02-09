@@ -22,11 +22,15 @@ import org.apache.flink.annotation.PublicEvolving;
 
 /**
  * A clock that returns the time of the system / process.
+ * 返回系统/进程时间的时钟。
  *
  * <p>This clock uses {@link System#currentTimeMillis()} for <i>absolute time</i> and {@link
  * System#nanoTime()} for <i>relative time</i>.
+ * 此时钟使用 {@link System#currentTimeMillis()} 表示<i>绝对时间</i>，
+ * 使用 {@link System#nanoTime()} 表示<i>相对时间</i>。
  *
  * <p>This SystemClock exists as a singleton instance.
+ * 此 SystemClock 作为单例实例存在。
  */
 @PublicEvolving
 public final class SystemClock extends Clock {

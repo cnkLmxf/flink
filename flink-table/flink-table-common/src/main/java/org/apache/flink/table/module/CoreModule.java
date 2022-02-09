@@ -36,6 +36,7 @@ public class CoreModule implements Module {
     private Set<String> functionNames;
 
     private CoreModule() {
+        //初始化内建函数
         this.functionDefinitions = BuiltInFunctionDefinitions.getDefinitions();
         this.functionNames = new HashSet<>();
     }

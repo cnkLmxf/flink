@@ -32,10 +32,14 @@ import static org.apache.flink.runtime.io.network.partition.BufferReaderWriterUt
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Reader which can read all data of the target subpartition from a {@link PartitionedFile}. */
+/** Reader which can read all data of the target subpartition from a {@link PartitionedFile}.
+ * 可以从 {@link PartitionedFile} 读取目标子分区的所有数据的读取器。
+ * */
 class PartitionedFileReader {
 
-    /** Used to read buffers from file channel. */
+    /** Used to read buffers from file channel.
+     * 用于从文件通道读取缓冲区。
+     * */
     private final ByteBuffer headerBuf = BufferReaderWriterUtil.allocatedHeaderBuffer();
 
     /** Used to read index entry from index file. */
@@ -59,7 +63,9 @@ class PartitionedFileReader {
     /** Next file offset to be read. */
     private long nextOffsetToRead;
 
-    /** Number of remaining buffers in the current data region read. */
+    /** Number of remaining buffers in the current data region read.
+     * 当前读取的数据区域中剩余缓冲区的数量。
+     * */
     private int currentRegionRemainingBuffers;
 
     PartitionedFileReader(
@@ -94,8 +100,10 @@ class PartitionedFileReader {
     /**
      * Reads a buffer from the current region of the target {@link PartitionedFile} and moves the
      * read position forward.
+     * 从目标 {@link PartitionedFile} 的当前区域读取缓冲区并将读取位置向前移动。
      *
      * <p>Note: The caller is responsible for recycling the target buffer if any exception occurs.
+     * 注意：如果发生任何异常，调用者负责回收目标缓冲区。
      *
      * @param target The target {@link MemorySegment} to read data to.
      * @param recycler The {@link BufferRecycler} which is responsible to recycle the target buffer.
@@ -119,7 +127,9 @@ class PartitionedFileReader {
         return currentRegionRemainingBuffers > 0;
     }
 
-    /** Gets read priority of this file reader. Smaller value indicates higher priority. */
+    /** Gets read priority of this file reader. Smaller value indicates higher priority.
+     * 获取此文件阅读器的读取优先级。 较小的值表示较高的优先级。
+     * */
     long getPriority() {
         return nextOffsetToRead;
     }

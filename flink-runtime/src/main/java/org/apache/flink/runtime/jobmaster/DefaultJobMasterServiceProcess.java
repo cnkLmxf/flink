@@ -40,13 +40,22 @@ import java.util.function.Function;
  * Default {@link JobMasterServiceProcess} which is responsible for creating and running a {@link
  * JobMasterService}. The process is responsible for receiving the signals from the {@link
  * JobMasterService} and to create the respective {@link JobManagerRunnerResult} from it.
+ * 默认 {@link JobMasterServiceProcess} 负责创建和运行 {@link JobMasterService}。
+ * 该进程负责接收来自 {@link JobMasterService} 的信号并从中创建相应的 {@link JobManagerRunnerResult}。
  *
  * <p>The {@link JobMasterService} can be created asynchronously and the creation can also fail.
  * That is why the process needs to observe the creation operation and complete the {@link
  * #resultFuture} with an initialization failure.
+ * {@link JobMasterService} 可以异步创建，创建也可能失败。
+ * 这就是为什么进程需要观察创建操作并以初始化失败完成 {@link #resultFuture} 的原因。
  *
  * <p>The {@link #resultFuture} can be completed with the following values:
- *
+ * {@link #resultFuture} 可以使用以下值完成：
+ * <ul>
+ *     <li>{@link JobManagerRunnerResult} 表示 {@link JobMasterService} 初始化失败或作业完成
+ *     <li>{@link JobNotFinishedException} 表示 {@link JobMasterService} 尚未完成作业
+ *     <li>{@link Exception} 表示意外失败
+ * </ul>
  * <ul>
  *   <li>{@link JobManagerRunnerResult} to signal an initialization failure of the {@link
  *       JobMasterService} or the completion of a job

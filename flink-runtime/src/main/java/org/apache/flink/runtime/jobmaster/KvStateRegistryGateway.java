@@ -27,11 +27,14 @@ import org.apache.flink.runtime.state.KeyGroupRange;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
 
-/** Gateway to report key-value state registration and deregistrations. */
+/** Gateway to report key-value state registration and deregistrations.
+ * 报告键值状态注册和注销的网关。
+ * */
 public interface KvStateRegistryGateway {
 
     /**
      * Notifies that queryable state has been registered.
+     * 通知已注册可查询状态。
      *
      * @param jobId identifying the job for which to register a key value state
      * @param jobVertexId JobVertexID the KvState instance belongs to.
@@ -51,6 +54,7 @@ public interface KvStateRegistryGateway {
 
     /**
      * Notifies that queryable state has been unregistered.
+     * 通知可查询状态已取消注册。
      *
      * @param jobId identifying the job for which to unregister a key value state
      * @param jobVertexId JobVertexID the KvState instance belongs to.

@@ -31,6 +31,8 @@ import java.util.stream.StreamSupport;
 /**
  * {@code RootExceptionHistoryEntry} extending {@link ExceptionHistoryEntry} by providing a list of
  * {@code ExceptionHistoryEntry} instances to store concurrently caught failures.
+ * {@code RootExceptionHistoryEntry} 通过提供 {@code ExceptionHistoryEntry}
+ * 实例列表来扩展 {@link ExceptionHistoryEntry} 以存储并发捕获的故障。
  */
 public class RootExceptionHistoryEntry extends ExceptionHistoryEntry {
 

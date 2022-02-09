@@ -38,8 +38,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * {@link CheckpointIDCounter} instances for JobManagers running in {@link
  * HighAvailabilityMode#ZOOKEEPER}.
+ * 在 {@link HighAvailabilityMode#ZOOKEEPER} 中运行的 JobManager 的 {@link CheckpointIDCounter} 实例。
  *
  * <p>Each counter creates a ZNode:
+ * 每个计数器创建一个 ZNode：
  *
  * <pre>
  * +----O /flink/checkpoint-counter/&lt;job-id&gt; 1 [persistent]
@@ -51,6 +53,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  *
  * <p>The checkpoints IDs are required to be ascending (per job). In order to guarantee this in case
  * of job manager failures we use ZooKeeper to have a shared counter across job manager instances.
+ * 检查点 ID 需要升序（每个作业）。 为了在作业管理器失败的情况下保证这一点，
+ * 我们使用 ZooKeeper 在作业管理器实例之间共享一个计数器。
  */
 public class ZooKeeperCheckpointIDCounter implements CheckpointIDCounter {
 
@@ -62,7 +66,9 @@ public class ZooKeeperCheckpointIDCounter implements CheckpointIDCounter {
     /** Path of the shared count. */
     private final String counterPath;
 
-    /** Curator recipe for shared counts. */
+    /** Curator recipe for shared counts.
+     * 共享计数的策展人配方。
+     * */
     private final SharedCount sharedCount;
 
     private final LastStateConnectionStateListener connectionStateListener;

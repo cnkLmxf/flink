@@ -22,7 +22,9 @@ import org.apache.flink.util.Preconditions;
 
 import java.util.Optional;
 
-/** Container for meta-data of a data set. */
+/** Container for meta-data of a data set.
+ * 数据集元数据的容器。
+ * */
 public final class DataSetMetaInfo {
     private static final int UNKNOWN = -1;
 

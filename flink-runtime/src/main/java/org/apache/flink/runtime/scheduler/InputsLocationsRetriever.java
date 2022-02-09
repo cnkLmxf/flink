@@ -26,7 +26,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-/** Component to retrieve the inputs locations of a {@link Execution}. */
+/** Component to retrieve the inputs locations of a {@link Execution}.
+ * 用于检索 {@link Execution} 的输入位置的组件。
+ * */
 public interface InputsLocationsRetriever {
 
     /**

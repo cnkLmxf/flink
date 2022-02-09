@@ -41,12 +41,18 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * for which the physical slot is being allocated. {@link SlotSharingExecutionSlotAllocator} calls
  * {@link #markFulfilled(ExecutionSlotSharingGroup, AllocationID)} to move a pending request to
  * fulfilled.
+ * 批量跟踪正在为其分配物理槽的 {@link ExecutionSlotSharingGroup} 的未决和已完成的请求。
+ * {@link SlotSharingExecutionSlotAllocator} 调用
+ * {@link #markFulfilled(ExecutionSlotSharingGroup, AllocationID)} 将待处理的请求移至已完成。
  *
  * <p>Additionally the bulk keeps execution lists for each {@link ExecutionSlotSharingGroup} they
  * belong to. If the {@link #cancel(Throwable)} method is called (due to fulfillability check
  * timeout in {@link PhysicalSlotRequestBulkChecker}) then the bulk calls back the {@link
  * SlotSharingExecutionSlotAllocator} to cancel all logical slots requests for executions of all
  * bulk's {@link ExecutionSlotSharingGroup}s.
+ * 此外，批量保留它们所属的每个 {@link ExecutionSlotSharingGroup} 的执行列表。
+ * 如果调用 {@link #cancel(Throwable)} 方法（由于 {@link PhysicalSlotRequestBulkChecker} 中的可履行性检查超时），
+ * 则批量回调 {@link SlotSharingExecutionSlotAllocator} 以取消所有逻辑槽请求以执行所有批量的 { @link ExecutionSlotSharingGroup}。
  */
 class SharingPhysicalSlotRequestBulk implements PhysicalSlotRequestBulk {
     private final Map<ExecutionSlotSharingGroup, List<ExecutionVertexID>> executions;

@@ -27,17 +27,22 @@ import java.util.Collection;
 /**
  * The {@code InternalKvState} is the root of the internal state type hierarchy, similar to the
  * {@link State} being the root of the public API state hierarchy.
+ * {@code InternalKvState} 是内部状态类型层次结构的根，类似于 {@link State} 是公共 API 状态层次结构的根。
  *
  * <p>The internal state classes give access to the namespace getters and setters and access to
  * additional functionality, like raw value access or state merging.
+ * 内部状态类提供对命名空间 getter 和 setter 的访问权限以及对其他功能的访问权限，例如原始值访问或状态合并。
  *
  * <p>The public API state hierarchy is intended to be programmed against by Flink applications. The
  * internal state hierarchy holds all the auxiliary methods that are used by the runtime and not
  * intended to be used by user applications. These internal methods are considered of limited use to
  * users and only confusing, and are usually not regarded as stable across releases.
+ * 公共 API 状态层次结构旨在由 Flink 应用程序进行编程。 内部状态层次结构包含运行时使用的所有辅助方法，
+ * 而不打算由用户应用程序使用。 这些内部方法被认为对用户的使用有限并且只会令人困惑，并且通常被认为在不同版本之间不稳定。
  *
  * <p>Each specific type in the internal state hierarchy extends the type from the public state
  * hierarchy:
+ * 内部状态层次结构中的每个特定类型都扩展了公共状态层次结构中的类型：
  *
  * <pre>
  *             State

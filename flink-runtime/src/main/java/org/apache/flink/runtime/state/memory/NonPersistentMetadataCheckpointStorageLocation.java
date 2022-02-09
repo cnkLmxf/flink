@@ -31,6 +31,7 @@ import java.util.UUID;
 /**
  * A checkpoint storage location for the {@link MemoryStateBackend} in case no durable persistence
  * for metadata has been configured.
+ * {@link MemoryStateBackend} 的检查点存储位置，以防未配置元数据的持久性。
  */
 public class NonPersistentMetadataCheckpointStorageLocation extends MemCheckpointStreamFactory
         implements CheckpointStorageLocation {

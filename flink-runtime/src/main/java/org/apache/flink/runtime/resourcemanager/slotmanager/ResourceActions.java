@@ -26,11 +26,14 @@ import org.apache.flink.runtime.slots.ResourceRequirement;
 
 import java.util.Collection;
 
-/** Resource related actions which the {@link SlotManager} can perform. */
+/** Resource related actions which the {@link SlotManager} can perform.
+ * {@link SlotManager} 可以执行的资源相关操作。
+ * */
 public interface ResourceActions {
 
     /**
      * Releases the resource with the given instance id.
+     * 释放具有给定实例 ID 的资源。
      *
      * @param instanceId identifying which resource to release
      * @param cause why the resource is released
@@ -39,6 +42,7 @@ public interface ResourceActions {
 
     /**
      * Requests to allocate a resource with the given {@link WorkerResourceSpec}.
+     * 使用给定的 {@link WorkerResourceSpec} 分配资源的请求。
      *
      * @param workerResourceSpec for the to be allocated worker
      * @return whether the resource can be allocated
@@ -47,6 +51,7 @@ public interface ResourceActions {
 
     /**
      * Notifies that an allocation failure has occurred.
+     * 通知发生了分配失败。
      *
      * @param jobId to which the allocation belonged
      * @param allocationId identifying the failed allocation
@@ -57,6 +62,7 @@ public interface ResourceActions {
     /**
      * Notifies that not enough resources are available to fulfill the resource requirements of a
      * job.
+     * 通知没有足够的资源可用于满足作业的资源需求。
      *
      * @param jobId job for which not enough resources are available
      * @param acquiredResources the resources that have been acquired for the job

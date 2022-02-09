@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 /**
  * {@link SlotMatchingStrategy} which picks a matching slot from a TaskExecutor with the least
  * utilization.
+ * {@link SlotMatchingStrategy} 从利用率最低的 TaskExecutor 中选择一个匹配的插槽。
  */
 public enum LeastUtilizationSlotMatchingStrategy implements SlotMatchingStrategy {
     INSTANCE;

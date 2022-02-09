@@ -23,15 +23,23 @@ import org.apache.flink.runtime.io.disk.iomanager.FileIOChannel.ID;
 
 import java.io.File;
 
-/** The manager used for creating/getting file IO channels based on config temp dirs. */
+/** The manager used for creating/getting file IO channels based on config temp dirs.
+ * 用于基于配置临时目录创建/获取文件 IO 通道的管理器。
+ * */
 public interface FileChannelManager extends AutoCloseable {
 
-    /** Creates an ID identifying an underlying file channel and returns it. */
+    /** Creates an ID identifying an underlying file channel and returns it.
+     * 创建一个标识底层文件通道的 ID 并返回它。
+     * */
     ID createChannel();
 
-    /** Creates an enumerator for channels that logically belong together and returns it. */
+    /** Creates an enumerator for channels that logically belong together and returns it.
+     * 为逻辑上属于一起的通道创建一个枚举器并返回它。
+     * */
     Enumerator createChannelEnumerator();
 
-    /** Gets all the files corresponding to the config temp dirs. */
+    /** Gets all the files corresponding to the config temp dirs.
+     * 获取与配置临时目录对应的所有文件。
+     * */
     File[] getPaths();
 }

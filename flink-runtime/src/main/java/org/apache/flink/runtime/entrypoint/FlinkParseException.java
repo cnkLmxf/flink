@@ -20,7 +20,9 @@ package org.apache.flink.runtime.entrypoint;
 
 import org.apache.flink.util.FlinkException;
 
-/** Exception which indicates that the parsing of command line arguments failed. */
+/** Exception which indicates that the parsing of command line arguments failed.
+ * 指示命令行参数解析失败的异常。
+ * */
 public class FlinkParseException extends FlinkException {
 
     private static final long serialVersionUID = 5164983338744708430L;

@@ -37,6 +37,8 @@ import org.apache.flink.util.MutableObjectIterator;
  * The left outer join driver implements the logic of an outer join operator at runtime. It
  * instantiates a sort-merge based strategy to find joining pairs of records or joins records from
  * the left side with null if no match is found.
+ * 左外连接驱动程序在运行时实现外连接运算符的逻辑。
+ * 它实例化一个基于排序合并的策略来查找连接记录对，或者如果没有找到匹配项，则从左侧连接记录。
  */
 public class LeftOuterJoinDriver<IT1, IT2, OT> extends AbstractOuterJoinDriver<IT1, IT2, OT> {
 

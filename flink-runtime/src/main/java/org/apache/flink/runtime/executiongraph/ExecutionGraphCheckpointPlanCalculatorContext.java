@@ -26,6 +26,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A {@link CheckpointPlanCalculatorContext} implementation based on the information from an {@link
  * ExecutionGraph}.
+ * 基于来自 {@link ExecutionGraph} 的信息的 {@link CheckpointPlanCalculatorContext} 实现。
  */
 public class ExecutionGraphCheckpointPlanCalculatorContext
         implements CheckpointPlanCalculatorContext {

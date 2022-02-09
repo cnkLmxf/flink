@@ -20,12 +20,14 @@ package org.apache.flink.runtime.operators.sort;
 
 /**
  * Interface to be implemented by classes that handle exceptions.
+ * 由处理异常的类实现的接口。
  *
  * @param <E> The type of exception thrown.
  */
 public interface ExceptionHandler<E extends Throwable> {
     /**
      * This method is called when the handler should deal with an exception.
+     * 当处理程序应处理异常时调用此方法。
      *
      * @param exception The exception to handle.
      */

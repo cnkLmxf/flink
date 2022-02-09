@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A variant of the {@link org.apache.flink.api.common.JobExecutionResult} that holds its
  * accumulator data in serialized form.
+ * {@link org.apache.flink.api.common.JobExecutionResult} 的一个变体，它以序列化形式保存其累加器数据。
  */
 public class SerializedJobExecutionResult implements java.io.Serializable {
 
@@ -70,6 +71,7 @@ public class SerializedJobExecutionResult implements java.io.Serializable {
     /**
      * Gets the net execution time of the job, i.e., the execution time in the parallel system,
      * without the pre-flight steps like the optimizer in a desired time unit.
+     * 获取作业的净执行时间，即在并行系统中的执行时间，而无需像优化器这样的飞行前步骤在所需的时间单位内。
      *
      * @param desiredUnit the unit of the <tt>NetRuntime</tt>
      * @return The net execution time in the desired unit.

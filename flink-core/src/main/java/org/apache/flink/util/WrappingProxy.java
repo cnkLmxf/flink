@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Internal;
 /**
  * Interface for objects that wrap another object and proxy (possibly a subset) of the methods of
  * that object.
+ * 包装另一个对象和该对象方法的代理（可能是子集）的对象的接口。
  *
  * @param <T> The type that is wrapped.
  */

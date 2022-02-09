@@ -29,12 +29,15 @@ import java.util.concurrent.CompletableFuture;
  * Oracle for {@link KvStateLocation} in the cluster. In order to answer {@link InternalKvState}
  * location requests, the {@link TaskExecutor} have to register and unregister their respective
  * key-value states at the oracle.
+ * 集群中 {@link KvStateLocation} 的 Oracle。
+ * 为了回答 {@link InternalKvState} 位置请求，{@link TaskExecutor} 必须在 oracle 中注册和取消注册它们各自的键值状态。
  */
 public interface KvStateLocationOracle {
 
     /**
      * Requests a {@link KvStateLocation} for the specified {@link InternalKvState} registration
      * name.
+     * 为指定的 {@link InternalKvState} 注册名称请求 {@link KvStateLocation}。
      *
      * @param jobId identifying the job for which to request the {@link KvStateLocation}
      * @param registrationName Name under which the KvState has been registered.

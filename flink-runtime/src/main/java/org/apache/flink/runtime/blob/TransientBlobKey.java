@@ -20,7 +20,9 @@ package org.apache.flink.runtime.blob;
 
 import org.apache.flink.annotation.VisibleForTesting;
 
-/** BLOB key referencing transient BLOB files. */
+/** BLOB key referencing transient BLOB files.
+ * BLOB 键引用瞬态 BLOB 文件。
+ * */
 public final class TransientBlobKey extends BlobKey {
 
     /** Constructs a new BLOB key. */

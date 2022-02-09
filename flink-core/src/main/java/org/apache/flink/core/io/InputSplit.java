@@ -25,9 +25,11 @@ import java.io.Serializable;
 /**
  * This interface must be implemented by all kind of input splits that can be assigned to input
  * formats.
+ * 该接口必须由可以分配给输入格式的所有类型的输入拆分来实现。
  *
  * <p>Input splits are transferred in serialized form via the messages, so they need to be
  * serializable as defined by {@link java.io.Serializable}.
+ * 输入拆分通过消息以序列化形式传输，因此它们需要按照 {@link java.io.Serializable} 的定义进行序列化。
  */
 @Public
 public interface InputSplit extends Serializable {

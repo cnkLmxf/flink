@@ -24,9 +24,11 @@ import java.io.IOException;
 
 /**
  * A synchronous {@link BufferFileReader} implementation.
+ * 一个同步的 {@link BufferFileReader} 实现。
  *
  * <p>This currently bypasses the I/O manager as it is the only synchronous implementation, which is
  * currently in use.
+ * 这目前绕过了 I/O 管理器，因为它是当前正在使用的唯一同步实现。
  *
  * <p>TODO Refactor I/O manager setup and refactor this into it
  */

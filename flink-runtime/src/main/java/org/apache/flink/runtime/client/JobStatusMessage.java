@@ -21,7 +21,9 @@ package org.apache.flink.runtime.client;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.api.common.JobStatus;
 
-/** A simple message that holds the state of a job execution. */
+/** A simple message that holds the state of a job execution.
+ * 保存作业执行状态的简单消息。
+ * */
 public class JobStatusMessage implements java.io.Serializable {
 
     private final JobID jobId;

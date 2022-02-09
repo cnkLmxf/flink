@@ -25,7 +25,9 @@ import java.util.ServiceLoader;
 
 import static org.apache.flink.shaded.guava18.com.google.common.collect.Iterators.concat;
 
-/** A thin wrapper around {@link PluginManager} to load {@link StateChangelogWriterFactory}. */
+/** A thin wrapper around {@link PluginManager} to load {@link StateChangelogWriterFactory}.
+ * 围绕 {@link PluginManager} 加载 {@link StateChangelogWriterFactory} 的薄包装。
+ * */
 @Internal
 public class StateChangelogWriterFactoryLoader {
     private final PluginManager pluginManager;

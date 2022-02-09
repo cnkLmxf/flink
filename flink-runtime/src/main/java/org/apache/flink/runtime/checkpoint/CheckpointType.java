@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.checkpoint;
 
-/** The type of checkpoint to perform. */
+/** The type of checkpoint to perform.
+ * 要执行的检查点的类型。
+ * */
 public enum CheckpointType {
 
     /** A checkpoint, full or incremental. */
@@ -27,10 +29,14 @@ public enum CheckpointType {
     /** A regular savepoint. */
     SAVEPOINT(true, PostCheckpointAction.NONE, "Savepoint"),
 
-    /** A savepoint taken while suspending the job. */
+    /** A savepoint taken while suspending the job.
+     * 暂停作业时采取的保存点。
+     * */
     SAVEPOINT_SUSPEND(true, PostCheckpointAction.SUSPEND, "Suspend Savepoint"),
 
-    /** A savepoint taken while terminating the job. */
+    /** A savepoint taken while terminating the job.
+     * 终止作业时采取的保存点。
+     * */
     SAVEPOINT_TERMINATE(true, PostCheckpointAction.TERMINATE, "Terminate Savepoint");
 
     private final boolean isSavepoint;
@@ -73,7 +79,9 @@ public enum CheckpointType {
         return name;
     }
 
-    /** What's the intended action after the checkpoint (relevant for stopping with savepoint). */
+    /** What's the intended action after the checkpoint (relevant for stopping with savepoint).
+     * 检查点之后的预期操作是什么（与保存点停止相关）。
+     * */
     public enum PostCheckpointAction {
         NONE,
         SUSPEND,

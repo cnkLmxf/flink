@@ -47,22 +47,30 @@ import java.util.concurrent.TimeUnit;
  * manager responsible for the job). The leader id will be exposed as a future via the {@link
  * #getLeaderId(JobID)}. The future will only be completed with an exception in case the service
  * will be stopped.
+ * 为已注册的作业检索当前作业领导者 ID（负责该作业的作业经理的领导者 ID）的服务。
+ * 领导者 ID 将通过 {@link #getLeaderId(JobID)} 公开为未来。 未来只会在服务停止的情况下完成。
  */
 public class DefaultJobLeaderIdService implements JobLeaderIdService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultJobLeaderIdService.class);
 
-    /** High availability services to use by this service. */
+    /** High availability services to use by this service.
+     * 此服务使用的高可用性服务。
+     * */
     private final HighAvailabilityServices highAvailabilityServices;
 
     private final ScheduledExecutor scheduledExecutor;
 
     private final Time jobTimeout;
 
-    /** Map of currently monitored jobs. */
+    /** Map of currently monitored jobs.
+     * 当前监控作业的地图。
+     * */
     private final Map<JobID, JobLeaderIdListener> jobLeaderIdListeners;
 
-    /** Actions to call when the job leader changes. */
+    /** Actions to call when the job leader changes.
+     * 工作负责人变更时要调用的操作。
+     * */
     private JobLeaderIdActions jobLeaderIdActions;
 
     public DefaultJobLeaderIdService(
@@ -97,6 +105,7 @@ public class DefaultJobLeaderIdService implements JobLeaderIdService {
 
     /**
      * Checks whether the service has been started.
+     * 检查服务是否已启动。
      *
      * @return True if the service has been started; otherwise false
      */
@@ -189,6 +198,7 @@ public class DefaultJobLeaderIdService implements JobLeaderIdService {
      * Listener which stores the current leader id and exposes them as a future value when
      * requested. The returned future will always be completed properly except when stopping the
      * listener.
+     * 侦听器，它存储当前的领导者 ID，并在请求时将它们公开为未来值。 返回的未来将始终正确完成，除非停止侦听器。
      */
     private final class JobLeaderIdListener implements LeaderRetrievalListener {
         private final Object timeoutLock = new Object();
@@ -199,10 +209,14 @@ public class DefaultJobLeaderIdService implements JobLeaderIdService {
         private volatile CompletableFuture<UUID> leaderIdFuture;
         private volatile boolean running = true;
 
-        /** Null if no timeout has been scheduled; otherwise non null. */
+        /** Null if no timeout has been scheduled; otherwise non null.
+         * 如果没有安排超时，则为 Null； 否则非空。
+         * */
         @Nullable private volatile ScheduledFuture<?> timeoutFuture;
 
-        /** Null if no timeout has been scheduled; otherwise non null. */
+        /** Null if no timeout has been scheduled; otherwise non null.
+         * 如果没有安排超时，则为 Null； 否则非空。
+         * */
         @Nullable private volatile UUID timeoutId;
 
         private JobLeaderIdListener(

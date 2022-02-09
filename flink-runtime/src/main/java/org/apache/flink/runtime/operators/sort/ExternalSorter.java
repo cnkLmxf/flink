@@ -42,6 +42,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Internally, the logic is factored into two or three threads (read, sort, spill) which communicate
  * through a set of blocking queues, forming a closed loop. Memory is allocated using the {@link
  * MemoryManager} interface. Thus the component will not exceed the provided memory limits.
+ * {@link ExternalSorter} 是一个成熟的分拣机。 它实现了多路归并排序。
+ * 在内部，逻辑被分解为两个或三个线程（读取、排序、溢出），它们通过一组阻塞队列进行通信，形成一个闭环。
+ * 使用 {@link MemoryManager} 接口分配内存。 因此，组件不会超过提供的内存限制。
  */
 public class ExternalSorter<E> implements Sorter<E> {
 
@@ -72,13 +75,18 @@ public class ExternalSorter<E> implements Sorter<E> {
     /**
      * The memory segments used first for sorting and later for reading/pre-fetching during the
      * external merge.
+     * 内存段首先用于排序，然后在外部合并期间用于读取/预取。
      */
     private final List<MemorySegment> sortReadMemory;
 
-    /** The memory segments used to stage data to be written. */
+    /** The memory segments used to stage data to be written.
+     * 用于暂存要写入的数据的内存段。
+     * */
     private final List<MemorySegment> writeMemory;
 
-    /** The memory manager through which memory is allocated and released. */
+    /** The memory manager through which memory is allocated and released.
+     * 分配和释放内存的内存管理器。
+     * */
     private final MemoryManager memoryManager;
 
     // ------------------------------------------------------------------------
@@ -147,12 +155,16 @@ public class ExternalSorter<E> implements Sorter<E> {
      * Shuts down all the threads initiated by this sort/merger. Also releases all previously
      * allocated memory, if it has not yet been released by the threads, and closes and deletes all
      * channels (removing the temporary files).
+     * 关闭由此排序/合并启动的所有线程。 如果尚未被线程释放，还会释放所有先前分配的内存，并关闭并删除所有通道（删除临时文件）。
      *
      * <p>The threads are set to exit directly, but depending on their operation, it may take a
      * while to actually happen. The sorting thread will for example not finish before the current
      * batch is sorted. This method attempts to wait for the working thread to exit. If it is
      * however interrupted, the method exits immediately and is not guaranteed how long the threads
      * continue to exist and occupy resources afterwards.
+     * 线程被设置为直接退出，但根据它们的操作，实际发生可能需要一段时间。
+     * 例如，排序线程将不会在当前批次被排序之前完成。 此方法尝试等待工作线程退出。
+     * 但是，如果它被中断，则该方法立即退出，并且不保证线程继续存在多长时间并随后占用资源。
      *
      * @see java.io.Closeable#close()
      */

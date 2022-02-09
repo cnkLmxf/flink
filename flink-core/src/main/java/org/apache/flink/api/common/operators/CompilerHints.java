@@ -29,6 +29,8 @@ import java.util.Set;
  * optimizer will use them to estimate the sizes of the intermediate results. Note that these values
  * are optional hints, the optimizer will always generate a valid plan without them as well. The
  * hints may help, however, to improve the plan choice.
+ * 封装编译器提示的类，描述了用户函数的行为。 如果设置，优化器将使用它们来估计中间结果的大小。
+ * 请注意，这些值是可选提示，优化器也将始终生成一个有效的计划，而无需它们。 然而，这些提示可能有助于改进计划选择。
  */
 @Internal
 public class CompilerHints {
@@ -102,6 +104,7 @@ public class CompilerHints {
 
     /**
      * Gets the FieldSets that are unique
+     * 获取唯一的 FieldSet
      *
      * @return List of FieldSet that are unique
      */
@@ -111,6 +114,7 @@ public class CompilerHints {
 
     /**
      * Adds a FieldSet to be unique
+     * 添加一个 FieldSet 是唯一的
      *
      * @param uniqueFieldSet The unique FieldSet
      */
@@ -123,6 +127,7 @@ public class CompilerHints {
 
     /**
      * Adds a field as having only unique values.
+     * 添加一个只有唯一值的字段。
      *
      * @param field The field with unique values.
      */
@@ -135,6 +140,7 @@ public class CompilerHints {
 
     /**
      * Adds multiple FieldSets to be unique
+     * 添加多个 FieldSet 是唯一的
      *
      * @param uniqueFieldSets A set of unique FieldSet
      */

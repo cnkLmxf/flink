@@ -27,13 +27,16 @@ import javax.annotation.Nullable;
 
 import java.io.Serializable;
 
-/** Simple container to hold an exception and the corresponding timestamp. */
+/** Simple container to hold an exception and the corresponding timestamp.
+ * 保存异常和相应时间戳的简单容器。
+ * */
 public class ErrorInfo implements Serializable {
 
     private static final long serialVersionUID = -6138942031953594202L;
 
     /**
      * The exception that we keep holding forever. Has no strong reference to any user-defined code.
+     * 我们永远持有的例外。 对任何用户定义的代码没有强引用。
      */
     private final SerializedThrowable exception;
 
@@ -41,6 +44,7 @@ public class ErrorInfo implements Serializable {
 
     /**
      * Instantiates an {@code ErrorInfo} to cover inconsistent behavior due to FLINK-21376.
+     * 实例化一个 {@code ErrorInfo} 以覆盖由于 FLINK-21376 导致的不一致行为。
      *
      * @param exception The error cause that might be {@code null}.
      * @param timestamp The timestamp the error was noticed.
@@ -83,6 +87,7 @@ public class ErrorInfo implements Serializable {
 
     /**
      * Returns the contained exception as a string.
+     * 将包含的异常作为字符串返回。
      *
      * @return failure causing exception as a string, or {@code "(null)"}
      */
@@ -92,6 +97,7 @@ public class ErrorInfo implements Serializable {
 
     /**
      * Returns the timestamp for the contained exception.
+     * 返回包含的异常的时间戳。
      *
      * @return timestamp of contained exception, or 0 if no exception was set
      */

@@ -33,11 +33,14 @@ import java.io.IOException;
 
 /**
  * Overlays an SSL keystore/truststore into a container.
+ * 将 SSL 密钥库/信任库覆盖到容器中。
  *
  * <p>The following files are placed into the container: - keystore.jks - truststore.jks
+ * 以下文件被放入容器中： - keystore.jks - truststore.jks
  *
  * <p>The following Flink configuration entries are set: - security.ssl.keystore -
  * security.ssl.truststore
+ * 设置了以下 Flink 配置条目： - security.ssl.keystore - security.ssl.truststore
  */
 public class SSLStoreOverlay extends AbstractContainerOverlay {
 
@@ -97,9 +100,13 @@ public class SSLStoreOverlay extends AbstractContainerOverlay {
 
         /**
          * Configures the overlay using the current environment (and global configuration).
+         * 使用当前环境（和全局配置）配置覆盖。
          *
          * <p>The following Flink configuration settings are used to source the keystore and
          * truststore: - security.ssl.keystore - security.ssl.truststore
+         * 以下 Flink 配置设置用于获取密钥库和信任库：
+         * - security.ssl.keystore
+         * - security.ssl.truststore
          */
         public Builder fromEnvironment(Configuration globalConfiguration) {
 

@@ -45,6 +45,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Abstract {@link MetricGroup} that contains key functionality for adding metrics and groups.
+ * 包含用于添加指标和组的关键功能的抽象 {@link MetricGroup}。
  *
  * <p><b>IMPORTANT IMPLEMENTATION NOTE</b>
  *
@@ -53,11 +54,17 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Since closing groups recursively closes the subgroups, the lock acquisition order must be
  * strictly from parent group to subgroup. If at any point, a subgroup holds its group lock and
  * calls a parent method that also acquires the lock, it will create a deadlock condition.
+ * 此类使用锁来添加和删除度量对象。 这样做是为了防止在同时关闭组并添加指标和子组的情况下发生资源泄漏。
+ * 由于关闭组递归地关闭子组，因此锁获取顺序必须严格从父组到子组。
+ * 如果在任何时候，子组持有其组锁并调用也获取锁的父方法，它将创建死锁条件。
  *
  * <p>An AbstractMetricGroup can be {@link #close() closed}. Upon closing, the group de-register all
  * metrics from any metrics reporter and any internal maps. Note that even closed metrics groups
  * return Counters, Gauges, etc to the code, to prevent exceptions in the monitored code. These
  * metrics simply do not get reported any more, when created on a closed group.
+ * AbstractMetricGroup 可以{@link #close() 关闭}。 关闭后，该小组从任何指标报告者和任何内部地图中注销所有指标。
+ * 请注意，即使是封闭的指标组也会将 Counters、Gauges 等返回给代码，以防止受监控代码中出现异常。
+ * 在封闭组上创建这些指标时，根本不会再报告这些指标。
  *
  * @param <A> The type of the parent MetricGroup
  */
@@ -71,13 +78,19 @@ public abstract class AbstractMetricGroup<A extends AbstractMetricGroup<?>> impl
     /** The parent group containing this group. */
     protected final A parent;
 
-    /** The map containing all variables and their associated values, lazily computed. */
+    /** The map containing all variables and their associated values, lazily computed.
+     * 包含所有变量及其关联值的映射，延迟计算。
+     * */
     protected volatile Map<String, String>[] variables;
 
-    /** The registry that this metrics group belongs to. */
+    /** The registry that this metrics group belongs to.
+     * 此指标组所属的注册表。
+     * */
     protected final MetricRegistry registry;
 
-    /** All metrics that are directly contained in this group. */
+    /** All metrics that are directly contained in this group.
+     * 直接包含在该组中的所有指标。
+     * */
     private final Map<String, Metric> metrics = new HashMap<>();
 
     /** All metric subgroups of this group. */
@@ -86,6 +99,7 @@ public abstract class AbstractMetricGroup<A extends AbstractMetricGroup<?>> impl
     /**
      * The metrics scope represented by this group. For example ["host-7", "taskmanager-2",
      * "window_word_count", "my-mapper" ].
+     * 该组表示的指标范围。 例如 ["host-7", "taskmanager-2", "window_word_count", "my-mapper" ]。
      */
     private final String[] scopeComponents;
 
@@ -93,12 +107,15 @@ public abstract class AbstractMetricGroup<A extends AbstractMetricGroup<?>> impl
      * Array containing the metrics scope represented by this group for each reporter, as a
      * concatenated string, lazily computed. For example:
      * "host-7.taskmanager-2.window_word_count.my-mapper"
+     * 包含此组为每个报告者表示的指标范围的数组，作为连接字符串，延迟计算。 例如：
+     *   “host-7.taskmanager-2.window_word_count.my-mapper”
      */
     private final String[] scopeStrings;
 
     /**
      * The logical metrics scope represented by this group for each reporter, as a concatenated
      * string, lazily computed. For example: "taskmanager.job.task"
+     * 该组为每个报告者表示的逻辑度量范围，作为连接字符串，延迟计算。 例如：“taskmanager.job.task”
      */
     private String[] logicalScopeStrings;
 

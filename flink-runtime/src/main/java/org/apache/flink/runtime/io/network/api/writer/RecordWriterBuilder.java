@@ -20,7 +20,9 @@ package org.apache.flink.runtime.io.network.api.writer;
 
 import org.apache.flink.core.io.IOReadableWritable;
 
-/** Utility class to encapsulate the logic of building a {@link RecordWriter} instance. */
+/** Utility class to encapsulate the logic of building a {@link RecordWriter} instance.
+ * 封装构建 {@link RecordWriter} 实例的逻辑的实用程序类。
+ * */
 public class RecordWriterBuilder<T extends IOReadableWritable> {
 
     private ChannelSelector<T> selector = new RoundRobinChannelSelector<>();

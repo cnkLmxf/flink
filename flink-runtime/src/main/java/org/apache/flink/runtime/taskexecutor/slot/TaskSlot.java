@@ -41,7 +41,13 @@ import java.util.stream.Collectors;
 /**
  * Container for multiple {@link TaskSlotPayload tasks} belonging to the same slot. A {@link
  * TaskSlot} can be in one of the following states:
- *
+ * 属于同一插槽的多个 {@link TaskSlotPayload 任务} 的容器。 {@link TaskSlot} 可以处于以下状态之一：
+ *<ul>
+ *     <li>空闲 - 插槽为空且未分配给作业
+ *     <li>Releaving - 插槽变空后即将被释放。
+ *     <li>已分配 - 已为作业分配插槽。
+ *     <li>活动 - 作业管理器正在积极使用该槽，该作业管理器是分配作业的领导者。
+ *</ul>
  * <ul>
  *   <li>Free - The slot is empty and not allocated to a job
  *   <li>Releasing - The slot is about to be freed after it has become empty.
@@ -52,12 +58,15 @@ import java.util.stream.Collectors;
  *
  * <p>A task slot can only be allocated if it is in state free. An allocated task slot can transit
  * to state active.
+ * 只有在空闲状态下才能分配任务槽。 分配的任务槽可以转换为活动状态。
  *
  * <p>An active slot allows to add tasks from the respective job and with the correct allocation id.
  * An active slot can be marked as inactive which sets the state back to allocated.
+ * 活动槽允许从相应的作业添加任务并使用正确的分配 ID。 活动槽可以被标记为非活动状态，这会将状态设置回已分配。
  *
  * <p>An allocated or active slot can only be freed if it is empty. If it is not empty, then it's
  * state can be set to releasing indicating that it can be freed once it becomes empty.
+ * 分配的或活动的插槽只有在它为空时才能被释放。 如果它不是空的，那么它的状态可以设置为释放，表示一旦它变空就可以被释放。
  *
  * @param <T> type of the {@link TaskSlotPayload} stored in this slot
  */

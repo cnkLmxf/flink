@@ -21,16 +21,21 @@ package org.apache.flink.runtime.rpc.messages;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Message for asynchronous runnable invocations */
+/** Message for asynchronous runnable invocations
+ * 异步可运行调用的消息
+ * */
 public final class RunAsync {
 
     private final Runnable runnable;
 
-    /** The delay after which the runnable should be called */
+    /** The delay after which the runnable should be called
+     * 应调用 runnable 的延迟时间
+     * */
     private final long atTimeNanos;
 
     /**
      * Creates a new {@code RunAsync} message.
+     * 创建一个新的 {@code RunAsync} 消息。
      *
      * @param runnable The Runnable to run.
      * @param atTimeNanos The time (as for System.nanoTime()) when to execute the runnable.

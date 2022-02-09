@@ -26,6 +26,7 @@ import java.io.IOException;
  * The resettable iterator is a specialization of the iterator, allowing to reset the iterator and
  * re-retrieve elements. Whether the iterator is completely reset or only partially depends on the
  * actual implementation.
+ * 可重置迭代器是迭代器的一种特殊化，允许重置迭代器并重新检索元素。 迭代器是完全重置还是仅部分重置取决于实际实现。
  */
 public interface ResettableMutableObjectIterator<E> extends MutableObjectIterator<E> {
 

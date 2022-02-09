@@ -26,7 +26,9 @@ import org.apache.flink.runtime.rest.messages.RescalingParallelismQueryParameter
 import java.util.Collection;
 import java.util.Collections;
 
-/** {@link MessageParameters} for triggering the rescaling of a job. */
+/** {@link MessageParameters} for triggering the rescaling of a job.
+ * {@link MessageParameters} 用于触发作业的重新缩放。
+ * */
 public class RescalingTriggerMessageParameters extends JobMessageParameters {
 
     public final RescalingParallelismQueryParameter rescalingParallelismQueryParameter =

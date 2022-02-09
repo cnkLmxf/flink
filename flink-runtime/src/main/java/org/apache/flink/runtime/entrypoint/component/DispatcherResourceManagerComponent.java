@@ -206,7 +206,9 @@ public class DispatcherResourceManagerComponent implements AutoCloseableAsync {
                 ApplicationStatus.CANCELED, "DispatcherResourceManagerComponent has been closed.");
     }
 
-    /** Service which gives access to a {@link ResourceManagerGateway}. */
+    /** Service which gives access to a {@link ResourceManagerGateway}.
+     * 提供访问 {@link ResourceManagerGateway} 的服务。
+     * */
     interface ResourceManagerService extends AutoCloseableAsync {
 
         ResourceManagerGateway getGateway();

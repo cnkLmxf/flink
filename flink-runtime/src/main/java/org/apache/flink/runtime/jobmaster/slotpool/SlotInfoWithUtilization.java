@@ -26,6 +26,7 @@ import org.apache.flink.runtime.taskmanager.TaskManagerLocation;
 /**
  * Container for {@link SlotInfo} and the task executors utilization (freeSlots /
  * totalOfferedSlots).
+ * {@link SlotInfo} 和任务执行器利用率的容器（freeSlots / totalOfferedSlots）。
  */
 public final class SlotInfoWithUtilization implements SlotInfo {
     private final SlotInfo slotInfoDelegate;

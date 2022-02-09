@@ -48,6 +48,7 @@ import java.util.concurrent.Executor;
 /**
  * Factory class for creating {@link ActiveResourceManager} with various implementations of {@link
  * ResourceManagerDriver}.
+ * 使用 {@link ResourceManagerDriver} 的各种实现创建 {@link ActiveResourceManager} 的工厂类。
  */
 public abstract class ActiveResourceManagerFactory<WorkerType extends ResourceIDRetrievable>
         extends ResourceManagerFactory<WorkerType> {

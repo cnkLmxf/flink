@@ -26,7 +26,9 @@ import java.util.Collection;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The metadata of a snapshot (checkpoint or savepoint). */
+/** The metadata of a snapshot (checkpoint or savepoint).
+ * 快照的元数据（检查点或保存点）。
+ * */
 public class CheckpointMetadata implements Disposable {
 
     /** The checkpoint ID. */

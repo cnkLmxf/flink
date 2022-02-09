@@ -40,6 +40,10 @@ import java.util.concurrent.ScheduledFuture;
  * ExecutionGraph} cannot be executed, the state transitions back into {@link WaitingForResources}.
  * If there are enough slots for the {@link ExecutionGraph} to run, the state transitions to {@link
  * Executing}.
+ * 等待创建 {@link ExecutionGraph} 的状态。 如果创建失败，则状态转换为 {@link Finished}。
+ * 如果创建成功，则系统会尝试分配所需的插槽。
+ * 如果可用槽的集合已更改，以至于创建的 {@link ExecutionGraph} 无法执行，则状态转换回 {@link WaitingForResources}。
+ * 如果有足够的插槽供 {@link ExecutionGraph} 运行，则状态转换为 {@link Execution}。
  */
 public class CreatingExecutionGraph implements State {
 

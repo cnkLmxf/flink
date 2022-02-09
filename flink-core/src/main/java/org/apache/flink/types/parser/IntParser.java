@@ -23,6 +23,7 @@ import org.apache.flink.annotation.PublicEvolving;
 /**
  * Parses a decimal text field into a IntValue. Only characters '1' to '0' and '-' are allowed. The
  * parser does not check for the maximum value.
+ * 将十进制文本字段解析为 IntValue。 只允许使用字符“1”到“0”和“-”。 解析器不检查最大值。
  */
 @PublicEvolving
 public class IntParser extends FieldParser<Integer> {

@@ -27,6 +27,7 @@ import java.util.Optional;
 /**
  * A serializable wrapper container for transferring parts of the {@link
  * java.lang.management.ThreadInfo}.
+ * 用于传输 {@link java.lang.management.ThreadInfo} 部分的可序列化包装容器。
  */
 public class ThreadInfoSample implements Serializable {
 

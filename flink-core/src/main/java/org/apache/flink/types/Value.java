@@ -25,9 +25,11 @@ import java.io.Serializable;
 
 /**
  * Basic value interface for types that act as serializable values.
+ * 用作可序列化值的类型的基本值接口。
  *
  * <p>This interface extends {@link IOReadableWritable} and requires to implement the serialization
  * of its value.
+ * 该接口扩展了 {@link IOReadableWritable} 并需要实现其值的序列化。
  *
  * @see org.apache.flink.core.io.IOReadableWritable
  */

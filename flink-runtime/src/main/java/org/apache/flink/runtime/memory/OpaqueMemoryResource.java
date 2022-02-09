@@ -28,8 +28,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * An opaque memory resource, meaning a memory resource not understood by Flink or the JVM. An
  * example for this is a native resource, like RocksDB's block cache memory pool.
+ * 不透明的内存资源，即 Flink 或 JVM 不理解的内存资源。 一个例子就是原生资源，比如 RocksDB 的块缓存内存池。
  *
  * <p>The resource must be closed after it is not used any more.
+ * 资源在不再使用后必须关闭。
  */
 public final class OpaqueMemoryResource<T> implements AutoCloseable {
 

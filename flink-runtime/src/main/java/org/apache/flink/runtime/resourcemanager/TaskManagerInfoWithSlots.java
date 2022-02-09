@@ -27,7 +27,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 
-/** Contains the base information about a {@link TaskExecutor} and its allocated slots. */
+/** Contains the base information about a {@link TaskExecutor} and its allocated slots.
+ * 包含有关 {@link TaskExecutor} 及其分配槽的基本信息。
+ * */
 public class TaskManagerInfoWithSlots implements Serializable {
 
     private static final long serialVersionUID = 1L;

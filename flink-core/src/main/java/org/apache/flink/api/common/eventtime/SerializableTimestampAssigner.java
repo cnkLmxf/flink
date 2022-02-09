@@ -22,7 +22,9 @@ import org.apache.flink.annotation.PublicEvolving;
 
 import java.io.Serializable;
 
-/** A {@link TimestampAssigner} that is also {@link java.io.Serializable}. */
+/** A {@link TimestampAssigner} that is also {@link java.io.Serializable}.
+ * 一个 {@link TimestampAssigner} 也是 {@link java.io.Serializable}。
+ * */
 @PublicEvolving
 @FunctionalInterface
 public interface SerializableTimestampAssigner<T> extends TimestampAssigner<T>, Serializable {}

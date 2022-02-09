@@ -32,7 +32,9 @@ import java.util.List;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Partition descriptor for {@link ShuffleMaster} to obtain {@link ShuffleDescriptor}. */
+/** Partition descriptor for {@link ShuffleMaster} to obtain {@link ShuffleDescriptor}.
+ * {@link ShuffleMaster} 的分区描述符以获得 {@link ShuffleDescriptor}。
+ * */
 public class PartitionDescriptor implements Serializable {
 
     private static final long serialVersionUID = 6343547936086963705L;

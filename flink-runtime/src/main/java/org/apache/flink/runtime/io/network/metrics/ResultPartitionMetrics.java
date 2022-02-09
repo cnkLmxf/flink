@@ -24,7 +24,9 @@ import org.apache.flink.runtime.io.network.partition.ResultPartition;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Collects metrics of a result partition. */
+/** Collects metrics of a result partition.
+ * 收集结果分区的指标。
+ * */
 public class ResultPartitionMetrics {
 
     private final ResultPartition partition;
@@ -42,6 +44,7 @@ public class ResultPartitionMetrics {
     /**
      * Iterates over all sub-partitions and collects the total number of queued buffers in a
      * best-effort way.
+     * 迭代所有子分区并以尽力而为的方式收集排队缓冲区的总数。
      *
      * @return total number of queued buffers
      */
@@ -52,6 +55,7 @@ public class ResultPartitionMetrics {
     /**
      * Iterates over all sub-partitions and collects the minimum number of queued buffers in a
      * sub-partition in a best-effort way.
+     * 迭代所有子分区并尽最大努力收集子分区中排队缓冲区的最小数量。
      *
      * @return minimum number of queued buffers per sub-partition (<tt>0</tt> if sub-partitions
      *     exist)
@@ -78,6 +82,7 @@ public class ResultPartitionMetrics {
     /**
      * Iterates over all sub-partitions and collects the maximum number of queued buffers in a
      * sub-partition in a best-effort way.
+     * 迭代所有子分区并尽最大努力收集子分区中排队缓冲区的最大数量。
      *
      * @return maximum number of queued buffers per sub-partition
      */
@@ -98,8 +103,10 @@ public class ResultPartitionMetrics {
     /**
      * Iterates over all sub-partitions and collects the average number of queued buffers in a
      * sub-partition in a best-effort way.
+     * 迭代所有子分区并尽最大努力收集子分区中排队缓冲区的最大数量。
      *
      * @return average number of queued buffers per sub-partition
+     * 每个子分区的平均排队缓冲区数
      */
     float refreshAndGetAvg() {
         return partition.getNumberOfQueuedBuffers() / (float) partition.getNumberOfSubpartitions();

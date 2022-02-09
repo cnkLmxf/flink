@@ -21,11 +21,14 @@ package org.apache.flink.util;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-/** Closeable interface which allows to close a resource in a non blocking fashion. */
+/** Closeable interface which allows to close a resource in a non blocking fashion.
+ * 可关闭接口，允许以非阻塞方式关闭资源。
+ * */
 public interface AutoCloseableAsync extends AutoCloseable {
 
     /**
      * Trigger the closing of the resource and return the corresponding close future.
+     * 触发关闭资源并返回对应的关闭future。
      *
      * @return Future which is completed once the resource has been closed
      */

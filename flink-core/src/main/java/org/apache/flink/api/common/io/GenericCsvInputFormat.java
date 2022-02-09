@@ -61,6 +61,8 @@ public abstract class GenericCsvInputFormat<OT> extends DelimitedInputFormat<OT>
 
     // To speed up readRecord processing. Used to find windows line endings.
     // It is set when open so that readRecord does not have to evaluate it
+    // 加速 readRecord 处理。 用于查找 windows 行尾。
+    // 它在打开时设置，以便 readRecord 不必评估它
     protected boolean lineDelimiterIsLinebreak = false;
 
     protected transient int commentCount;
@@ -76,6 +78,7 @@ public abstract class GenericCsvInputFormat<OT> extends DelimitedInputFormat<OT>
 
     // The byte representation of the delimiter is updated consistent with
     // current charset.
+    // 分隔符的字节表示与当前字符集一致更新。
     private byte[] fieldDelim = DEFAULT_FIELD_DELIMITER;
     private String fieldDelimString = null;
 
@@ -89,6 +92,7 @@ public abstract class GenericCsvInputFormat<OT> extends DelimitedInputFormat<OT>
 
     // The byte representation of the comment prefix is updated consistent with
     // current charset.
+    // 注释前缀的字节表示与当前字符集一致更新。
     protected byte[] commentPrefix = null;
     private String commentPrefixString = null;
 

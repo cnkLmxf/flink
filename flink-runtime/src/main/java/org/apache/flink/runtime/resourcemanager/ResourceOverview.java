@@ -22,7 +22,9 @@ import org.apache.flink.runtime.clusterframework.types.ResourceProfile;
 
 import java.io.Serializable;
 
-/** Class containing information about the available cluster resources. */
+/** Class containing information about the available cluster resources.
+ * 包含有关可用集群资源信息的类。
+ * */
 public class ResourceOverview implements Serializable {
 
     private static final long serialVersionUID = 7618746920569224557L;

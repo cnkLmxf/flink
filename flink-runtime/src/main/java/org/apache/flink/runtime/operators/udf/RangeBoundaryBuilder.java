@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * Build RangeBoundaries with input records. First, sort the input records, and then select the
  * boundaries with same interval.
+ * 使用输入记录构建 RangeBoundaries。 首先，对输入记录进行排序，然后选择具有相同间隔的边界。
  *
  * @param <T>
  */

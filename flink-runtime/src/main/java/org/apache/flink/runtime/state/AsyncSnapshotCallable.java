@@ -45,6 +45,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * statements about the duration. At the very end, this class calls {@link
  * #cleanupProvidedResources()}. The implementation of this method should release all provided
  * resources that have been passed into the snapshot from the synchronous part of the snapshot.
+ * 概述异步快照策略的基类。此类的实现通常使用已在快照的同步部分中创建的资源进行实例化。
+ * 然后，在异步部分调用 {@link #callInternal()} 的实现。此方法创建的所有资源都应在方法结束时释放。
+ * 如果创建的资源是 {@link Closeable} 对象并且可以阻塞调用（例如输入/输出流），
+ * 它们应该注册到快照的 {@link CloseableRegistry} 以便可以在取消时关闭和解除阻塞。
+ * {@link #callInternal()} 结束后，调用 {@link #logAsyncSnapshotComplete(long)}。
+ * 在该方法中，实现可以发出有关持续时间的日志语句。最后，这个类调用 {@link #cleanupProvidedResources()}。
+ * 此方法的实现应该释放所有已从快照的同步部分传递到快照中的提供的资源。
  *
  * @param <T> type of the result.
  */

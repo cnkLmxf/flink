@@ -41,27 +41,35 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Provides access to transient BLOB files stored at the {@link BlobServer}.
+ * 提供对存储在 {@link BlobServer} 中的瞬态 BLOB 文件的访问。
  *
  * <p>TODO: make this truly transient by returning file streams to a local copy with the remote
  * being removed upon retrieval and the local copy being deleted at the end of the stream.
+ * TODO：通过将文件流返回到本地副本，在检索时删除远程副本并在流的末尾删除本地副本，使这真正成为暂时的。
  */
 public class TransientBlobCache extends AbstractBlobCache implements TransientBlobService {
 
     /**
      * Map to store the TTL of each element stored in the local storage, i.e. via one of the {@link
      * #getFile} methods.
+     * 映射以存储存储在本地存储中的每个元素的 TTL，即通过 {@link #getFile} 方法之一。
      */
     private final ConcurrentHashMap<Tuple2<JobID, TransientBlobKey>, Long> blobExpiryTimes =
             new ConcurrentHashMap<>();
 
-    /** Time interval (ms) to run the cleanup task; also used as the default TTL. */
+    /** Time interval (ms) to run the cleanup task; also used as the default TTL.
+     * 运行清理任务的时间间隔（毫秒）； 也用作默认 TTL。
+     * */
     private final long cleanupInterval;
 
-    /** Timer task to execute the cleanup at regular intervals. */
+    /** Timer task to execute the cleanup at regular intervals.
+     * 定时任务以定期执行清理。
+     * */
     private final Timer cleanupTimer;
 
     /**
      * Instantiates a new BLOB cache.
+     * 实例化一个新的 BLOB 缓存。
      *
      * @param blobClientConfig global configuration
      * @param serverAddress address of the {@link BlobServer} to use for fetching files from or
@@ -163,6 +171,7 @@ public class TransientBlobCache extends AbstractBlobCache implements TransientBl
 
     /**
      * Deletes the file associated with the blob key in this BLOB cache.
+     * 删除与此 BLOB 缓存中的 blob 键关联的文件。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param key blob key associated with the file to be deleted
@@ -194,6 +203,7 @@ public class TransientBlobCache extends AbstractBlobCache implements TransientBl
 
     /**
      * Returns the blob expiry times - for testing purposes only!
+     * 返回 blob 到期时间 - 仅用于测试目的！
      *
      * @return blob expiry times (internal state!)
      */
@@ -204,6 +214,7 @@ public class TransientBlobCache extends AbstractBlobCache implements TransientBl
 
     /**
      * Returns a file handle to the file associated with the given blob key on the blob server.
+     * 返回与 Blob 服务器上给定 Blob 键关联的文件的文件句柄。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param key identifying the file

@@ -27,7 +27,9 @@ import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.Optional;
 
-/** {@code ArchivedExecutionVertex} is a readonly representation of {@link ExecutionVertex}. */
+/** {@code ArchivedExecutionVertex} is a readonly representation of {@link ExecutionVertex}.
+ * {@code ArchivedExecutionVertex} 是 {@link ExecutionVertex} 的只读表示。
+ * */
 public class ArchivedExecutionVertex implements AccessExecutionVertex, Serializable {
 
     private static final long serialVersionUID = -6708241535015028576L;

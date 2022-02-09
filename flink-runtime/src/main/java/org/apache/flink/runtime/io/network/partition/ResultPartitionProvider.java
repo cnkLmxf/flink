@@ -20,10 +20,14 @@ package org.apache.flink.runtime.io.network.partition;
 
 import java.io.IOException;
 
-/** Interface for creating result partitions. */
+/** Interface for creating result partitions.
+ * Interface for creating result partitions.
+ * */
 public interface ResultPartitionProvider {
 
-    /** Returns the requested intermediate result partition input view. */
+    /** Returns the requested intermediate result partition input view.
+     * 返回请求的中间结果分区输入视图。
+     * */
     ResultSubpartitionView createSubpartitionView(
             ResultPartitionID partitionId,
             int index,

@@ -59,6 +59,9 @@ import java.util.concurrent.TimeUnit;
  * Store for {@link ExecutionGraphInfo} instances. The store writes the archived execution graph
  * information to disk and keeps the most recently used execution graphs in a memory cache for
  * faster serving. Moreover, the stored execution graphs are periodically cleaned up.
+ * 存储 {@link ExecutionGraphInfo} 实例。
+ * 存储将归档的执行图信息写入磁盘，并将最近使用的执行图保存在内存缓存中，以便更快地提供服务。
+ * 此外，存储的执行图会定期清理。
  */
 public class FileExecutionGraphInfoStore implements ExecutionGraphInfoStore {
 

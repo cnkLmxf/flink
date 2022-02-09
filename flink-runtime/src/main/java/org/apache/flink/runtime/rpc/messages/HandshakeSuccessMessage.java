@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.rpc.messages;
 
-/** Handshake success response. */
+/** Handshake success response.
+ * 握手成功响应。
+ * */
 public enum HandshakeSuccessMessage {
     INSTANCE
 }

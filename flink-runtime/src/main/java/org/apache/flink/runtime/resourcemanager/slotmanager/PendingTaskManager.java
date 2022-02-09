@@ -21,7 +21,9 @@ package org.apache.flink.runtime.resourcemanager.slotmanager;
 import org.apache.flink.runtime.clusterframework.types.ResourceProfile;
 import org.apache.flink.util.Preconditions;
 
-/** Represents a pending task manager in the {@link SlotManager}. */
+/** Represents a pending task manager in the {@link SlotManager}.
+ * 表示 {@link SlotManager} 中的待处理任务管理器。
+ * */
 public class PendingTaskManager {
     private final PendingTaskManagerId pendingTaskManagerId;
     private final ResourceProfile totalResourceProfile;

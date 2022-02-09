@@ -32,10 +32,13 @@ import static org.apache.flink.util.Preconditions.checkArgument;
  * A output data result of an individual task (one partition of an intermediate result), produced
  * and communicated in a batch manner: The result must be produced completely before it can be
  * consumed.
+ * 单个任务的输出数据结果（中间结果的一个分区），以批处理方式生成和通信：结果必须完全生成才能被消费。
  *
  * <p>In this particular implementation, the batch result is written to (and read from) one file per
  * sub-partition. This implementation hence requires at least as many files (file handles) and
  * memory buffers as the parallelism of the target task that the data is shuffled to.
+ * 在这个特定的实现中，批处理结果被写入（和读取）每个子分区的一个文件。
+ * 因此，此实现至少需要与数据被洗牌到的目标任务的并行度一样多的文件（文件句柄）和内存缓冲区。
  */
 public class BoundedBlockingResultPartition extends BufferWritingResultPartition {
 

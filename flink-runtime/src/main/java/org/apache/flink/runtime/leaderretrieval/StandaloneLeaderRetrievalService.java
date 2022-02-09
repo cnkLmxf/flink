@@ -29,9 +29,12 @@ import static org.apache.flink.util.Preconditions.checkState;
  * Standalone implementation of the {@link LeaderRetrievalService}. This implementation assumes that
  * there is only a single contender for leadership (e.g., a single JobManager or ResourceManager
  * process) and that this process is reachable under a constant address.
+ * {@link LeaderRetrievalService} 的独立实现。
+ * 这个实现假设只有一个领导竞争者（例如，一个 JobManager 或 ResourceManager 进程），并且这个进程在一个恒定地址下是可访问的。
  *
  * <p>As soon as this service is started, it immediately notifies the leader listener of the leader
  * contender with the pre-configured address.
+ * 该服务一启动，就立即用预先配置的地址通知领导竞争者的领导侦听器。
  */
 public class StandaloneLeaderRetrievalService implements LeaderRetrievalService {
 
@@ -49,6 +52,7 @@ public class StandaloneLeaderRetrievalService implements LeaderRetrievalService 
     /**
      * Creates a StandaloneLeaderRetrievalService with the given leader address. The leaderId will
      * be null.
+     * 使用给定的领导者地址创建一个 StandaloneLeaderRetrievalService。 leaderId 将为空。
      *
      * @param leaderAddress The leader's pre-configured address
      * @deprecated Use {@link #StandaloneLeaderRetrievalService(String, UUID)} instead
@@ -61,6 +65,7 @@ public class StandaloneLeaderRetrievalService implements LeaderRetrievalService 
 
     /**
      * Creates a StandaloneLeaderRetrievalService with the given leader address.
+     * 使用给定的领导者地址创建一个 StandaloneLeaderRetrievalService。
      *
      * @param leaderAddress The leader's pre-configured address
      * @param leaderId The constant leaderId.

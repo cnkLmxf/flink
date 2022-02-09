@@ -29,7 +29,9 @@ import java.util.Deque;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Restart strategy which can restart when failure rate is not exceeded. */
+/** Restart strategy which can restart when failure rate is not exceeded.
+ * 不超过故障率时可以重启的重启策略。
+ * */
 public class FailureRateRestartBackoffTimeStrategy implements RestartBackoffTimeStrategy {
 
     private final long failuresIntervalMS;

@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 
 /**
  * {@link CompletedCheckpointStore} for JobManagers running in {@link HighAvailabilityMode#NONE}.
+ * {@link CompletedCheckpointStore} 用于在 {@link HighAvailabilityMode#NONE} 中运行的 JobManager。
  */
 public class StandaloneCompletedCheckpointStore implements CompletedCheckpointStore {
 

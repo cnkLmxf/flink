@@ -22,7 +22,9 @@ import org.apache.flink.runtime.executiongraph.ExecutionAttemptID;
 import java.io.Serializable;
 import java.util.Set;
 
-/** A report about the currently deployed executions of a TaskExecutor. */
+/** A report about the currently deployed executions of a TaskExecutor.
+ * 有关当前已部署的 TaskExecutor 执行的报告。
+ * */
 public class ExecutionDeploymentReport implements Serializable {
 
     private static final long serialVersionUID = -2731996813330298044L;

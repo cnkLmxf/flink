@@ -32,9 +32,15 @@ import java.util.stream.Collectors;
 /**
  * Records modifications of {@link org.apache.flink.runtime.executiongraph.ExecutionVertex
  * ExecutionVertices}, and allows for checking whether a vertex was modified.
+ * 记录 {@link org.apache.flink.runtime.executiongraph.ExecutionVertex ExecutionVertices} 的修改，
+ * 并允许检查顶点是否被修改。
  *
  * <p>Examples for modifications include:
- *
+ * 修改示例包括：
+ *<ul>
+ *    <li>取消底层执行
+ *     <li>执行顶点的部署
+ *   </ul>
  * <ul>
  *   <li>cancellation of the underlying execution
  *   <li>deployment of the execution vertex

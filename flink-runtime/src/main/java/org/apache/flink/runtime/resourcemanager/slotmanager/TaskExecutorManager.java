@@ -52,7 +52,14 @@ import java.util.stream.StreamSupport;
 /**
  * SlotManager component for various task executor related responsibilities of the slot manager,
  * including:
- *
+ * SlotManager 组件，用于槽管理器的各种任务执行器相关职责，包括：
+ *<ul>
+ *     <li>跟踪注册的任务执行者
+ *     <li>分配新的任务执行器（按需和冗余）
+ *     <li>释放空闲的任务执行者
+ *     <li>跟踪待处理的插槽（来自当前正在分配的执行程序的预期插槽
+ *     <li>跟踪每个任务执行器上使用了多少个槽
+ * </ul>
  * <ul>
  *   <li>tracking registered task executors
  *   <li>allocating new task executors (both on-demand, and for redundancy)
@@ -64,35 +71,50 @@ import java.util.stream.StreamSupport;
  * <p>Dev note: This component only exists to keep the code out of the slot manager. It covers many
  * aspects that aren't really the responsibility of the slot manager, and should be refactored to
  * live outside the slot manager and split into multiple parts.
+ * 开发说明：此组件的存在只是为了将代码排除在插槽管理器之外。
+ * 它涵盖了插槽管理器不真正负责的许多方面，应该重构以存在于插槽管理器之外并拆分为多个部分。
  */
 class TaskExecutorManager implements AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(TaskExecutorManager.class);
 
     private final ResourceProfile defaultSlotResourceProfile;
 
-    /** The default resource spec of workers to request. */
+    /** The default resource spec of workers to request.
+     * 要请求的工作人员的默认资源规范。
+     * */
     private final WorkerResourceSpec defaultWorkerResourceSpec;
 
     private final int numSlotsPerWorker;
 
-    /** Defines the max limitation of the total number of slots. */
+    /** Defines the max limitation of the total number of slots.
+     * 定义插槽总数的最大限制。
+     * */
     private final int maxSlotNum;
 
     /**
      * Release task executor only when each produced result partition is either consumed or failed.
+     * 仅当每个生成的结果分区被消耗或失败时才释放任务执行器。
      */
     private final boolean waitResultConsumedBeforeRelease;
 
-    /** Defines the number of redundant taskmanagers. */
+    /** Defines the number of redundant taskmanagers.
+     * 定义冗余任务管理器的数量。
+     * */
     private final int redundantTaskManagerNum;
 
-    /** Timeout after which an unused TaskManager is released. */
+    /** Timeout after which an unused TaskManager is released.
+     * 释放未使用的 TaskManager 后的超时。
+     * */
     private final Time taskManagerTimeout;
 
-    /** Callbacks for resource (de-)allocations. */
+    /** Callbacks for resource (de-)allocations.
+     * 资源（取消）分配的回调。
+     * */
     private final ResourceActions resourceActions;
 
-    /** All currently registered task managers. */
+    /** All currently registered task managers.
+     * 所有当前注册的任务管理器。
+     * */
     private final Map<InstanceID, TaskManagerRegistration> taskManagerRegistrations =
             new HashMap<>();
 
@@ -246,6 +268,7 @@ class TaskExecutorManager implements AutoCloseable {
 
     /**
      * Tries to allocate a worker that can provide a slot with the given resource profile.
+     * 尝试分配一个可以为给定资源配置文件提供插槽的工作人员。
      *
      * @param requestedSlotResourceProfile desired slot profile
      * @return an upper bound resource requirement that can be fulfilled by the new worker, if one
@@ -353,6 +376,7 @@ class TaskExecutorManager implements AutoCloseable {
 
     /**
      * Allocate a number of workers based on the input param.
+     * 根据输入参数分配多个工人。
      *
      * @param workerNum the number of workers to allocate
      * @return the number of successfully allocated workers

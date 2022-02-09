@@ -26,6 +26,8 @@ import org.apache.flink.runtime.event.RuntimeEvent;
  * Marks the end of recovered state of {@link RecoveredInputChannel} of this subtask or {@link
  * org.apache.flink.runtime.io.network.partition.ResultSubpartition ResultSubpartition} on the
  * upstream.
+ * 标记此子任务的 {@link RecoveredInputChannel} 或上游的
+ * {@link org.apache.flink.runtime.io.network.partition.ResultSubpartition ResultSubpartition} 的恢复状态结束。
  */
 public class EndOfChannelStateEvent extends RuntimeEvent {
 

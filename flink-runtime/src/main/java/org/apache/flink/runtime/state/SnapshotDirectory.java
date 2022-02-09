@@ -36,6 +36,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * whether or not a snapshot was already completed. For a completed snapshot, the ownership for
  * cleanup is transferred to the created directory state handle. For incomplete snapshots, calling
  * {@link #cleanup()} will delete the underlying directory resource.
+ * 此类表示作为状态快照目标的目录。 此类提供了一些在处理此类目录时简化资源管理的方法，
+ * 例如 它可以在快照完成时产生一个 {@link DirectoryStateHandle}，并且处理会考虑快照是否已经完成。
+ * 对于完成的快照，清理的所有权转移到创建的目录状态句柄。
+ * 对于不完整的快照，调用 {@link #cleanup()} 将删除底层目录资源。
  */
 public abstract class SnapshotDirectory {
 

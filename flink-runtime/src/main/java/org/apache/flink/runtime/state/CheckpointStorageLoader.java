@@ -47,14 +47,19 @@ public class CheckpointStorageLoader {
     /**
      * Loads the checkpoint storage from the configuration, from the parameter
      * 'state.checkpoint-storage', as defined in {@link CheckpointingOptions#CHECKPOINT_STORAGE}.
+     * 根据 {@link CheckpointingOptions#CHECKPOINT_STORAGE} 中定义的参数“state.checkpoint-storage”从配置加载检查点存储。
      *
      * <p>The implementation can be specified either via their shortcut name, or via the class name
      * of a {@link CheckpointStorageFactory}. If a CheckpointStorageFactory class name is specified,
      * the factory is instantiated (via its zero-argument constructor) and its {@link
      * CheckpointStorageFactory#createFromConfig(ReadableConfig, ClassLoader)} method is called.
+     * 可以通过快捷方式名称或 {@link CheckpointStorageFactory} 的类名指定实现。
+     * 如果指定了 CheckpointStorageFactory 类名，则工厂被实例化（通过其零参数构造函数）
+     * 并调用其 {@link CheckpointStorageFactory#createFromConfig(ReadableConfig, ClassLoader)} 方法。
      *
      * <p>Recognized shortcut names are '{@value #JOB_MANAGER_STORAGE_NAME}', and '{@value
      * #FILE_SYSTEM_STORAGE_NAME}'.
+     * 可识别的快捷方式名称为“{@value #JOB_MANAGER_STORAGE_NAME}”和“{@value #FILE_SYSTEM_STORAGE_NAME}”。
      *
      * @param config The configuration to load the checkpoint storage from
      * @param classLoader The class loader that should be used to load the checkpoint storage
@@ -127,18 +132,24 @@ public class CheckpointStorageLoader {
     /**
      * Loads the configured {@link CheckpointStorage} for the job based on the following precedent
      * rules:
+     * 根据以下先例规则为作业加载配置的 {@link CheckpointStorage}：
      *
      * <p>1) If the jobs configured {@link StateBackend} implements {@code CheckpointStorage} it
      * will always be used. This is to maintain backwards compatibility with older versions of Flink
      * that intermixed these responsibilities.
+     * 1) 如果配置的作业 {@link StateBackend} 实现了 {@code CheckpointStorage}，它将始终被使用。
+     * 这是为了保持与混合这些职责的旧版本 Flink 的向后兼容性。
      *
      * <p>2) Use the {@link CheckpointStorage} instance configured via the {@code
      * StreamExecutionEnvironment}.
+     * 使用通过 {@code StreamExecutionEnvironment} 配置的 {@link CheckpointStorage} 实例。
      *
      * <p>3) Use the {@link CheckpointStorage} instance configured via the clusters
      * <b>flink-conf.yaml</b>.
+     * 使用通过集群 <b>flink-conf.yaml</b> 配置的 {@link CheckpointStorage} 实例。
      *
      * <p>4) Load a default {@link CheckpointStorage} instance.
+     * 加载默认的 {@link CheckpointStorage} 实例。
      *
      * @param fromApplication The checkpoint storage instance passed to the jobs
      *     StreamExecutionEnvironment. Or null if not was set.
@@ -215,6 +226,9 @@ public class CheckpointStorageLoader {
      * backwards compatibility, the default storage will be {@link FileSystemCheckpointStorage} if a
      * checkpoint directory was configured, {@link
      * org.apache.flink.runtime.state.storage.JobManagerCheckpointStorage} otherwise.
+     * 如果没有明确配置，则创建默认检查点存储实例。
+     * 为了向后兼容，如果配置了检查点目录，则默认存储为 {@link FileSystemCheckpointStorage}，
+     * 否则为 {@link org.apache.flink.runtime.state.storage.JobManagerCheckpointStorage}。
      *
      * @param config The configuration to load the checkpoint storage from
      * @param classLoader The class loader that should be used to load the checkpoint storage

@@ -42,9 +42,16 @@ import static org.apache.flink.runtime.checkpoint.CheckpointFailureReason.TOO_MA
  * Decides whether a {@link CheckpointCoordinator.CheckpointTriggerRequest checkpoint request}
  * should be executed, dropped or postponed. Dropped requests are failed immediately. Postponed
  * requests are enqueued into a queue and can be dequeued later.
+ * 决定是否应该执行、删除或推迟 {@link CheckpointCoordinator.CheckpointTriggerRequest 检查点请求}。
+ * 丢弃的请求会立即失败。 延迟的请求被排入队列，稍后可以出列。
  *
  * <p>Decision is made according to:
- *
+ * 根据以下情况作出决定：
+ *<ul>
+ *     <li>检查点属性（例如 isForce、isPeriodic）
+ *     <li>检查点配置（例如最大并发检查点、最小暂停）
+ *     <li>当前状态（其他排队请求、待处理检查点、上次检查点完成时间）
+ * </ul>
  * <ul>
  *   <li>checkpoint properties (e.g. isForce, isPeriodic)
  *   <li>checkpointing configuration (e.g. max concurrent checkpoints, min pause)
@@ -105,6 +112,7 @@ class CheckpointRequestDecider {
 
     /**
      * Submit a new checkpoint request and decide whether it or some other request can be executed.
+     * 提交一个新的检查点请求并决定是否可以执行它或其他一些请求。
      *
      * @return request that should be executed
      */
@@ -132,6 +140,7 @@ class CheckpointRequestDecider {
 
     /**
      * Choose one of the queued requests to execute, if any.
+     * 选择要执行的排队请求之一（如果有）。
      *
      * @return request that should be executed
      */
@@ -146,6 +155,8 @@ class CheckpointRequestDecider {
     /**
      * Choose the next {@link CheckpointTriggerRequest request} to execute based on the provided
      * candidate and the current state. Acquires a lock and may update the state.
+     * 根据提供的候选者和当前状态选择要执行的下一个 {@link CheckpointTriggerRequest 请求}。
+     * 获取锁并可能更新状态。
      *
      * @return request that should be executed
      */

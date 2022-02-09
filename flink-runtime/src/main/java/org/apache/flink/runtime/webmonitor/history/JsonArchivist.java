@@ -27,16 +27,20 @@ import java.util.Collection;
 /**
  * Interface for all classes that want to participate in the archiving of job-related json
  * responses.
+ * 所有希望参与归档作业相关 json 响应的类的接口。
  */
 public interface JsonArchivist {
 
     /**
      * Returns a {@link Collection} of {@link ArchivedJson}s containing JSON responses and their
      * respective REST URL for a given job.
+     * 返回包含给定作业的 JSON 响应及其各自 REST URL 的 {@link ArchivedJson} 的 {@link Collection}。
      *
      * <p>The collection should contain one entry for every response that could be generated for the
      * given job, for example one entry for each task. The REST URLs should be unique and must not
      * contain placeholders.
+     * 该集合应该为给定作业可能生成的每个响应包含一个条目，例如每个任务一个条目。
+     * REST URL 应该是唯一的，并且不能包含占位符。
      *
      * @param executionGraphInfo {@link AccessExecutionGraph}-related information for which the
      *     responses should be generated

@@ -44,10 +44,14 @@ import static org.apache.flink.runtime.metrics.dump.MetricDumpSerialization.Metr
 /**
  * The MetricQueryService creates a key-value representation of all metrics currently registered
  * with Flink when queried.
+ * MetricQueryService 会在查询时创建当前向 Flink 注册的所有指标的键值表示。
  *
  * <p>It is realized as an actor and can be notified of - an added metric by calling {@link
  * #addMetric(String, Metric, AbstractMetricGroup)} - a removed metric by calling {@link
  * #removeMetric(Metric)} - a metric dump request by calling {@link #queryMetrics(Time)}
+ * 它被实现为一个参与者，并且可以通过调用 {@link #addMetric(String, Metric, AbstractMetricGroup)} 通知添加的度量
+ * - 通过调用 {@link #removeMetric(Metric)} 删除的度量
+ * - 度量转储请求 通过调用 {@link #queryMetrics(Time)}
  */
 public class MetricQueryService extends RpcEndpoint implements MetricQueryServiceGateway {
     private static final Logger LOG = LoggerFactory.getLogger(MetricQueryService.class);
@@ -215,6 +219,7 @@ public class MetricQueryService extends RpcEndpoint implements MetricQueryServic
      * Lightweight method to replace unsupported characters. If the string does not contain any
      * unsupported characters, this method creates no new string (and in fact no new objects at
      * all).
+     * 替换不受支持的字符的轻量级方法。 如果字符串不包含任何不受支持的字符，则此方法不会创建新字符串（实际上根本不会创建新对象）。
      *
      * <p>Replacements:
      *
@@ -252,6 +257,7 @@ public class MetricQueryService extends RpcEndpoint implements MetricQueryServic
 
     /**
      * Starts the MetricQueryService actor in the given actor system.
+     * 在给定的参与者系统中启动 MetricQueryService 参与者。
      *
      * @param rpcService The rpcService running the MetricQueryService
      * @param resourceID resource ID to disambiguate the actor name

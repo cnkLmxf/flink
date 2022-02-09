@@ -24,6 +24,7 @@ import org.apache.flink.annotation.PublicEvolving;
  * Implementing this interface allows a Program to have a description of the plan which can be shown
  * to the user. For a more detailed description of what should be included in the description see
  * getDescription().
+ * 实现此接口允许程序具有可以显示给用户的计划描述。 有关描述中应包含的内容的更详细描述，请参见 getDescription()。
  */
 @PublicEvolving
 public interface ProgramDescription {
@@ -33,6 +34,8 @@ public interface ProgramDescription {
      * arguments if they are available. The description should be simple text as it may be rendered
      * in different environments (console, web interface, ...). Typical things that should be
      * included are:
+     * 返回汇编程序生成的计划的描述以及参数（如果可用）的描述。 描述应该是简单的文本，
+     * 因为它可能会在不同的环境中呈现（控制台、Web 界面……）。 应该包括的典型内容是：
      *
      * <ul>
      *   <li>expected input format

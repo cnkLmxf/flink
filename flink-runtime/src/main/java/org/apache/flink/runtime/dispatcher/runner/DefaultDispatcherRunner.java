@@ -35,6 +35,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Runner for the {@link org.apache.flink.runtime.dispatcher.Dispatcher} which is responsible for
  * the leader election.
+ * 负责领导选举的 {@link org.apache.flink.runtime.dispatcher.Dispatcher} 的 Runner。
  */
 public final class DefaultDispatcherRunner implements DispatcherRunner, LeaderContender {
 

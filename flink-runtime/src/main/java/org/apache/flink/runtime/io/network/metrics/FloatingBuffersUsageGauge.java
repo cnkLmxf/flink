@@ -25,7 +25,9 @@ import org.apache.flink.runtime.io.network.partition.consumer.SingleInputGate;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Gauge metric measuring the floating buffers usage gauge for {@link SingleInputGate}s. */
+/** Gauge metric measuring the floating buffers usage gauge for {@link SingleInputGate}s.
+ * 测量 {@link SingleInputGate} 的浮动缓冲区使用量表的量表指标。
+ * */
 public class FloatingBuffersUsageGauge extends AbstractBuffersUsageGauge {
 
     public FloatingBuffersUsageGauge(SingleInputGate[] inputGates) {

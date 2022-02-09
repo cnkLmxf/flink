@@ -27,9 +27,12 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * A regular record-oriented runtime result writer.
+ * 一个常规的面向记录的运行时结果编写器。
  *
  * <p>The ChannelSelectorRecordWriter extends the {@link RecordWriter} and emits records to the
  * channel selected by the {@link ChannelSelector} for regular {@link #emit(IOReadableWritable)}.
+ * ChannelSelectorRecordWriter 扩展了 {@link RecordWriter}
+ * 并将记录发送到 {@link ChannelSelector} 为常规 {@link #emit(IOReadableWritable)} 选择的通道。
  *
  * @param <T> the type of the record that can be emitted with this record writer
  */

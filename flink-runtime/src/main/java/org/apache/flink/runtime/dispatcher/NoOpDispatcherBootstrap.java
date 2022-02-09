@@ -24,6 +24,7 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 /**
  * A {@link DispatcherBootstrap} which submits the provided {@link JobGraph job graphs} for
  * execution upon dispatcher initialization.
+ * 一个 {@link DispatcherBootstrap}，它提交提供的 {@link JobGraph 作业图}，以便在调度程序初始化时执行。
  */
 @Internal
 public class NoOpDispatcherBootstrap implements DispatcherBootstrap {

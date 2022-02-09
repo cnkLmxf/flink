@@ -22,6 +22,7 @@ import org.apache.flink.api.common.state.AppendingState;
 
 /**
  * The peer to the {@link AppendingState} in the internal state type hierarchy.
+ * 内部状态类型层次结构中 {@link AppendingState} 的对等体。
  *
  * <p>See {@link InternalKvState} for a description of the internal state hierarchy.
  *

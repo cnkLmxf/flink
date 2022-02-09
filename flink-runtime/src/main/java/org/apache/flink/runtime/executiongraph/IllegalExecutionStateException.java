@@ -23,6 +23,7 @@ import org.apache.flink.runtime.execution.ExecutionState;
 /**
  * A special {@link IllegalStateException} indicating a mismatch in the expected and actual {@link
  * ExecutionState} of an {@link Execution}.
+ * 一个特殊的 {@link IllegalStateException} 表示 {@link Execution} 的预期和实际 {@link ExecutionState} 不匹配。
  */
 public class IllegalExecutionStateException extends IllegalStateException {
 

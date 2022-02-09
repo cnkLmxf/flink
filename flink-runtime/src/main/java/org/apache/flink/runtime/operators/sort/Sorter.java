@@ -23,5 +23,6 @@ import org.apache.flink.runtime.operators.util.CloseableInputProvider;
 /**
  * The SortMerger interface representing the public interface to all specific Sort-Merge
  * implementations.
+ * SortMerger 接口表示所有特定 Sort-Merge 实现的公共接口。
  */
 public interface Sorter<E> extends CloseableInputProvider<E> {}

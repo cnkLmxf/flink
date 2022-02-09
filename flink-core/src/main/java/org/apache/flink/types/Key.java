@@ -26,9 +26,14 @@ import org.apache.flink.annotation.PublicEvolving;
  * other keys of the same type. In addition, keys must implement a correct {@link
  * java.lang.Object#hashCode()} method and {@link java.lang.Object#equals(Object)} method to ensure
  * that grouping on keys works properly.
+ * 这个接口必须由所有作为键的数据类型来实现。 键用于建立值之间的关系。
+ * 一个键必须始终是 {@link java.lang.Comparable} 到相同类型的其他键。
+ * 此外，键必须实现正确的 {@link java.lang.Object#hashCode()} 方法和
+ * {@link java.lang.Object#equals(Object)} 方法，以确保对键的分组正常工作。
  *
  * <p>This interface extends {@link org.apache.flink.types.Value} and requires to implement the
  * serialization of its value.
+ * 该接口扩展了 {@link org.apache.flink.types.Value} 并需要实现其值的序列化。
  *
  * @see org.apache.flink.types.Value
  * @see org.apache.flink.core.io.IOReadableWritable
@@ -43,6 +48,7 @@ public interface Key<T> extends Value, Comparable<T> {
     /**
      * All keys must override the hash-code function to generate proper deterministic hash codes,
      * based on their contents.
+     * 所有键都必须覆盖散列码函数以根据其内容生成正确的确定性散列码。
      *
      * @return The hash code of the key
      */
@@ -50,6 +56,7 @@ public interface Key<T> extends Value, Comparable<T> {
 
     /**
      * Compares the object on equality with another object.
+     * 比较对象与另一个对象是否相等。
      *
      * @param other The other object to compare against.
      * @return True, iff this object is identical to the other object, false otherwise.

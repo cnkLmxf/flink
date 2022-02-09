@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.scheduler.adaptive;
 
-/** Interface which denotes that {@link State} can react to newly available resource (slots). */
+/** Interface which denotes that {@link State} can react to newly available resource (slots).
+ * 表示 {@link State} 可以对新可用资源（插槽）做出反应的接口。
+ * */
 interface ResourceConsumer {
 
     /** Notifies that new resources are available. */

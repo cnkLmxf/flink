@@ -29,7 +29,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-/** Writes channel state during checkpoint/savepoint. */
+/** Writes channel state during checkpoint/savepoint.
+ * 在检查点/保存点期间写入通道状态。
+ * */
 @Internal
 public interface ChannelStateWriter extends Closeable {
 
@@ -80,16 +82,20 @@ public interface ChannelStateWriter extends Closeable {
      * Sequence number for the buffers that were saved during the previous execution attempt; then
      * restored; and now are to be saved again (as opposed to the buffers received from the upstream
      * or from the operator).
+     * 在上一次执行尝试期间保存的缓冲区的序列号； 然后恢复； 现在将再次保存（与从上游或操作员接收的缓冲区相反）。
      */
     int SEQUENCE_NUMBER_RESTORED = -1;
 
     /**
      * Signifies that buffer sequence number is unknown (e.g. if passing sequence numbers is not
      * implemented).
+     * 表示缓冲区序列号未知（例如，如果未实现传递序列号）。
      */
     int SEQUENCE_NUMBER_UNKNOWN = -2;
 
-    /** Initiate write of channel state for the given checkpoint id. */
+    /** Initiate write of channel state for the given checkpoint id.
+     * 启动给定检查点 ID 的通道状态写入。
+     * */
     void start(long checkpointId, CheckpointOptions checkpointOptions);
 
     /**
@@ -97,6 +103,9 @@ public interface ChannelStateWriter extends Closeable {
      * org.apache.flink.runtime.io.network.partition.consumer.InputChannel InputChannel}. Must be
      * called after {@link #start} (long)} and before {@link #finishInput(long)}. Buffers are
      * recycled after they are written or exception occurs.
+     * 从 {@link org.apache.flink.runtime.io.network.partition.consumer.InputChannel InputChannel} 添加动态缓冲区。
+     * 必须在 {@link #start} (long)} 和 {@link #finishInput(long)} 之前调用。
+     * 缓冲区在写入或发生异常后会被回收。
      *
      * @param startSeqNum sequence number of the 1st passed buffer. It is intended to use for
      *     incremental snapshots. If no data is passed it is ignored.
@@ -115,6 +124,8 @@ public interface ChannelStateWriter extends Closeable {
      * org.apache.flink.runtime.io.network.partition.ResultSubpartition ResultSubpartition}. Must be
      * called after {@link #start} and before {@link #finishOutput(long)}. Buffers are recycled
      * after they are written or exception occurs.
+     * 从 {@link org.apache.flink.runtime.io.network.partition.ResultSubpartition ResultSubpartition} 添加动态缓冲区。
+     * 必须在 {@link #start} 和 {@link #finishOutput(long)} 之前调用。 缓冲区在写入或发生异常后会被回收。
      *
      * @param startSeqNum sequence number of the 1st passed buffer. It is intended to use for
      *     incremental snapshots. If no data is passed it is ignored.
@@ -133,6 +144,9 @@ public interface ChannelStateWriter extends Closeable {
      * #start(long, CheckpointOptions)} and all of the input data of the given checkpoint added.
      * When both {@link #finishInput} and {@link #finishOutput} were called the results can be
      * (eventually) obtained using {@link #getAndRemoveWriteResult}
+     * 为给定的检查点 ID 完成通道状态数据的写入。 必须在 {@link #start(long, CheckpointOptions)}
+     * 并添加给定检查点的所有输入数据之后调用。 当同时调用 {@link #finishInput} 和 {@link #finishOutput} 时，
+     * 可以（最终）使用 {@link #getAndRemoveWriteResult} 获得结果
      */
     void finishInput(long checkpointId);
 
@@ -141,11 +155,16 @@ public interface ChannelStateWriter extends Closeable {
      * #start(long, CheckpointOptions)} and all of the output data of the given checkpoint added.
      * When both {@link #finishInput} and {@link #finishOutput} were called the results can be
      * (eventually) obtained using {@link #getAndRemoveWriteResult}
+     * 为给定的检查点 ID 完成通道状态数据的写入。
+     * 必须在 {@link #start(long, CheckpointOptions)} 并添加给定检查点的所有输出数据之后调用。
+     * 当同时调用 {@link #finishInput} 和 {@link #finishOutput} 时，
+     * 可以（最终）使用 {@link #getAndRemoveWriteResult} 获得结果
      */
     void finishOutput(long checkpointId);
 
     /**
      * Aborts the checkpoint and fails pending result for this checkpoint.
+     * 中止检查点并失败此检查点的挂起结果。
      *
      * @param cleanup true if {@link #getAndRemoveWriteResult(long)} is not supposed to be called
      *     afterwards.
@@ -154,6 +173,7 @@ public interface ChannelStateWriter extends Closeable {
 
     /**
      * Must be called after {@link #start(long, CheckpointOptions)} once.
+     * 必须在 {@link #start(long, CheckpointOptions)} 之后调用一次。
      *
      * @throws IllegalArgumentException if the passed checkpointId is not known.
      */

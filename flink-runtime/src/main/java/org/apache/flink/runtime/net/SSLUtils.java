@@ -63,11 +63,14 @@ import static org.apache.flink.shaded.netty4.io.netty.handler.ssl.SslProvider.OP
 import static org.apache.flink.shaded.netty4.io.netty.handler.ssl.SslProvider.OPENSSL_REFCNT;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Common utilities to manage SSL transport settings. */
+/** Common utilities to manage SSL transport settings.
+ * 用于管理 SSL 传输设置的常用实用程序。
+ * */
 public class SSLUtils {
 
     /**
      * Checks whether SSL for internal communication (rpc, data transport, blob server) is enabled.
+     * 检查是否启用了用于内部通信（rpc、数据传输、blob 服务器）的 SSL。
      */
     public static boolean isInternalSSLEnabled(Configuration sslConfig) {
         @SuppressWarnings("deprecation")
@@ -75,14 +78,18 @@ public class SSLUtils {
         return sslConfig.getBoolean(SecurityOptions.SSL_INTERNAL_ENABLED, fallbackFlag);
     }
 
-    /** Checks whether SSL for the external REST endpoint is enabled. */
+    /** Checks whether SSL for the external REST endpoint is enabled.
+     * 检查是否启用了外部 REST 端点的 SSL。
+     * */
     public static boolean isRestSSLEnabled(Configuration sslConfig) {
         @SuppressWarnings("deprecation")
         final boolean fallbackFlag = sslConfig.getBoolean(SecurityOptions.SSL_ENABLED);
         return sslConfig.getBoolean(SecurityOptions.SSL_REST_ENABLED, fallbackFlag);
     }
 
-    /** Checks whether mutual SSL authentication for the external REST endpoint is enabled. */
+    /** Checks whether mutual SSL authentication for the external REST endpoint is enabled.
+     * 检查是否启用了外部 REST 端点的相互 SSL 身份验证。
+     * */
     public static boolean isRestSSLAuthenticationEnabled(Configuration sslConfig) {
         checkNotNull(sslConfig, "sslConfig");
         return isRestSSLEnabled(sslConfig)
@@ -92,6 +99,7 @@ public class SSLUtils {
     /**
      * Creates a factory for SSL Server Sockets from the given configuration. SSL Server Sockets are
      * always part of internal communication.
+     * 根据给定的配置为 SSL 服务器套接字创建工厂。 SSL 服务器套接字始终是内部通信的一部分。
      */
     public static ServerSocketFactory createSSLServerSocketFactory(Configuration config)
             throws Exception {
@@ -110,6 +118,7 @@ public class SSLUtils {
     /**
      * Creates a factory for SSL Client Sockets from the given configuration. SSL Client Sockets are
      * always part of internal communication.
+     * 根据给定的配置为 SSL 客户端套接字创建工厂。 SSL 客户端套接字始终是内部通信的一部分。
      */
     public static SocketFactory createSSLClientSocketFactory(Configuration config)
             throws Exception {
@@ -121,7 +130,9 @@ public class SSLUtils {
         return sslContext.getSocketFactory();
     }
 
-    /** Creates a SSLEngineFactory to be used by internal communication server endpoints. */
+    /** Creates a SSLEngineFactory to be used by internal communication server endpoints.
+     * 创建供内部通信服务器端点使用的 SSLEngineFactory。
+     * */
     public static SSLHandlerFactory createInternalServerSSLEngineFactory(final Configuration config)
             throws Exception {
         SslContext sslContext = createInternalNettySSLContext(config, false);
@@ -136,7 +147,9 @@ public class SSLUtils {
                 config.getInteger(SecurityOptions.SSL_INTERNAL_CLOSE_NOTIFY_FLUSH_TIMEOUT));
     }
 
-    /** Creates a SSLEngineFactory to be used by internal communication client endpoints. */
+    /** Creates a SSLEngineFactory to be used by internal communication client endpoints.
+     * 创建一个供内部通信客户端端点使用的 SSLEngineFactory。
+     * */
     public static SSLHandlerFactory createInternalClientSSLEngineFactory(final Configuration config)
             throws Exception {
         SslContext sslContext = createInternalNettySSLContext(config, true);
@@ -153,6 +166,7 @@ public class SSLUtils {
 
     /**
      * Creates a {@link SSLHandlerFactory} to be used by the REST Servers.
+     * 创建一个 {@link SSLHandlerFactory} 供 REST 服务器使用。
      *
      * @param config The application configuration.
      */
@@ -170,6 +184,7 @@ public class SSLUtils {
 
     /**
      * Creates a {@link SSLHandlerFactory} to be used by the REST Clients.
+     * 创建一个 {@link SSLHandlerFactory} 供 REST 客户端使用。
      *
      * @param config The application configuration.
      */
@@ -303,6 +318,7 @@ public class SSLUtils {
     /**
      * Creates the SSL Context for internal SSL, if internal SSL is configured. For internal SSL,
      * the client and server side configuration are identical, because of mutual authentication.
+     * 如果配置了内部 SSL，则为内部 SSL 创建 SSL 上下文。 对于内部 SSL，由于相互身份验证，客户端和服务器端配置相同。
      */
     @Nullable
     private static SSLContext createInternalSSLContext(Configuration config, boolean clientMode)
@@ -325,6 +341,7 @@ public class SSLUtils {
     /**
      * Creates the SSL Context for internal SSL, if internal SSL is configured. For internal SSL,
      * the client and server side configuration are identical, because of mutual authentication.
+     * 如果配置了内部 SSL，则为内部 SSL 创建 SSL 上下文。 对于内部 SSL，由于相互身份验证，客户端和服务器端配置相同。
      */
     @Nullable
     private static SslContext createInternalNettySSLContext(
@@ -362,7 +379,9 @@ public class SSLUtils {
                 .build();
     }
 
-    /** Creates an SSL context for clients against the external REST endpoint. */
+    /** Creates an SSL context for clients against the external REST endpoint.
+     * 针对外部 REST 端点为客户端创建 SSL 上下文。
+     * */
     @Nullable
     @VisibleForTesting
     public static SSLContext createRestSSLContext(Configuration config, boolean clientMode)
@@ -387,6 +406,7 @@ public class SSLUtils {
     /**
      * Creates an SSL context for the external REST SSL. If mutual authentication is configured the
      * client and the server side configuration are identical.
+     * 为外部 REST SSL 创建 SSL 上下文。 如果配置了相互身份验证，则客户端和服务器端配置相同。
      */
     @Nullable
     public static SslContext createRestNettySSLContext(

@@ -27,12 +27,16 @@ import javax.annotation.Nullable;
 
 /**
  * A size-based cache of accessed checkpoints for completed and failed checkpoints.
+ * 已访问检查点的基于大小的缓存，用于完成和失败的检查点。
  *
  * <p>Having this cache in place for accessed stats improves the user experience quite a bit as
  * accessed checkpoint stats stay available and don't expire. For example if you manage to click on
  * the last checkpoint in the history, it is not available via the stats as soon as another
  * checkpoint is triggered. With the cache in place, the checkpoint will still be available for
  * investigation.
+ * 为访问的统计信息设置此缓存可以大大改善用户体验，因为访问的检查点统计信息保持可用并且不会过期。
+ * 例如，如果您设法单击历史记录中的最后一个检查点，则一旦触发另一个检查点，它就无法通过统计信息获得。
+ * 缓存到位后，检查点仍可用于调查。
  */
 public class CheckpointStatsCache {
 
@@ -51,6 +55,7 @@ public class CheckpointStatsCache {
 
     /**
      * Try to add the checkpoint to the cache.
+     * 尝试将检查点添加到缓存中。
      *
      * @param checkpoint Checkpoint to be added.
      */
@@ -64,6 +69,7 @@ public class CheckpointStatsCache {
 
     /**
      * Try to look up a checkpoint by it's ID in the cache.
+     * 尝试通过缓存中的 ID 查找检查点。
      *
      * @param checkpointId ID of the checkpoint to look up.
      * @return The checkpoint or <code>null</code> if checkpoint not found.

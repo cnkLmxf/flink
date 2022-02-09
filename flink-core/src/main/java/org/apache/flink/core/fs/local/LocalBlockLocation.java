@@ -24,10 +24,13 @@ import org.apache.flink.util.StringUtils;
 
 /**
  * Implementation of the {@link BlockLocation} interface for a local file system.
+ * 本地文件系统的 {@link BlockLocation} 接口的实现。
  *
  * <p>Local files have only one block that represents the entire file. The block has no location
  * information, because it is not accessible where the files (or their block) actually reside,
  * especially in cases where the files are on a mounted file system.
+ * 本地文件只有一个代表整个文件的块。
+ * 该块没有位置信息，因为无法访问文件（或它们的块）实际驻留的位置，尤其是在文件位于已挂载的文件系统上的情况下。
  */
 @Internal
 public class LocalBlockLocation implements BlockLocation {

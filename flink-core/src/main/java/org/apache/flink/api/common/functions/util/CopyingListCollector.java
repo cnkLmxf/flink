@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * A {@link Collector} that collects deep copies of its elements in a list.
+ * 一个 {@link Collector}，用于收集列表中其元素的深层副本。
  *
  * @param <T> The type of the collected elements.
  */

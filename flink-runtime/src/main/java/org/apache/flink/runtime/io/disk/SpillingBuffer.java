@@ -31,7 +31,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** An output view that buffers written data in memory pages and spills them when they are full. */
+/** An output view that buffers written data in memory pages and spills them when they are full.
+ * 一个输出视图，它在内存页面中缓冲写入的数据，并在它们已满时将它们溢出。
+ * */
 public class SpillingBuffer extends AbstractPagedOutputView {
 
     private final ArrayList<MemorySegment> fullSegments;
@@ -191,6 +193,8 @@ public class SpillingBuffer extends AbstractPagedOutputView {
     /**
      * Utility method that moves elements. It avoids copying the data into a dedicated array first,
      * as the {@link ArrayList#addAll(java.util.Collection)} method does.
+     * 移动元素的实用方法。 它避免了首先将数据复制到专用数组中，
+     * 就像 {@link ArrayList#addAll(java.util.Collection)} 方法所做的那样。
      *
      * @param <E>
      * @param source

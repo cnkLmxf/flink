@@ -36,6 +36,7 @@ import java.util.Optional;
 /**
  * Common interface for the runtime {@link DefaultExecutionGraph} and {@link
  * ArchivedExecutionGraph}.
+ * 运行时 {@link DefaultExecutionGraph} 和 {@link ArchivedExecutionGraph} 的通用接口。
  */
 public interface AccessExecutionGraph extends JobStatusProvider {
     /**
@@ -69,6 +70,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
     /**
      * Returns the exception that caused the job to fail. This is the first root exception that was
      * not recoverable and triggered job failure.
+     * 返回导致作业失败的异常。 这是第一个不可恢复并触发作业失败的根异常。
      *
      * @return failure causing exception, or null
      */
@@ -86,6 +88,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns a map containing all job vertices for this execution graph.
+     * 返回包含此执行图的所有作业顶点的映射。
      *
      * @return map containing all job vertices for this execution graph
      */
@@ -94,6 +97,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
     /**
      * Returns an iterable containing all job vertices for this execution graph in the order they
      * were created.
+     * 按创建顺序返回包含此执行图的所有作业顶点的可迭代对象。
      *
      * @return iterable containing all job vertices for this execution graph in the order they were
      *     created
@@ -102,6 +106,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns an iterable containing all execution vertices for this execution graph.
+     * 返回包含此执行图的所有执行顶点的可迭代对象。
      *
      * @return iterable containing all execution vertices for this execution graph
      */
@@ -109,6 +114,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns the timestamp for the given {@link JobStatus}.
+     * 返回给定 {@link JobStatus} 的时间戳。
      *
      * @param status status for which the timestamp should be returned
      * @return timestamp for the given job status
@@ -118,6 +124,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
     /**
      * Returns the {@link CheckpointCoordinatorConfiguration} or <code>null</code> if checkpointing
      * is disabled.
+     * 如果检查点被禁用，则返回 {@link CheckpointCoordinatorConfiguration} 或 <code>null</code>。
      *
      * @return JobCheckpointingConfiguration for this execution graph
      */
@@ -127,6 +134,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
     /**
      * Returns a snapshot of the checkpoint statistics or <code>null</code> if checkpointing is
      * disabled.
+     * 如果检查点被禁用，则返回检查点统计信息或 <code>null</code> 的快照。
      *
      * @return Snapshot of the checkpoint statistics for this execution graph
      */
@@ -135,6 +143,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns the {@link ArchivedExecutionConfig} for this execution graph.
+     * 返回此执行图的 {@link ArchivedExecutionConfig}。
      *
      * @return execution config summary for this execution graph, or null in case of errors
      */
@@ -143,6 +152,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns whether the job for this execution graph is stoppable.
+     * 返回此执行图的作业是否可停止。
      *
      * @return true, if all sources tasks are stoppable, false otherwise
      */
@@ -150,6 +160,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns the aggregated user-defined accumulators as strings.
+     * 将聚合的用户定义累加器作为字符串返回。
      *
      * @return aggregated user-defined accumulators as strings.
      */
@@ -157,6 +168,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns a map containing the serialized values of user-defined accumulators.
+     * 返回包含用户定义累加器的序列化值的映射。
      *
      * @return map containing serialized values of user-defined accumulators
      */
@@ -164,6 +176,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns the state backend name for this ExecutionGraph.
+     * 返回此 ExecutionGraph 的状态后端名称。
      *
      * @return The state backend name, or an empty Optional in the case of batch jobs
      */
@@ -171,6 +184,7 @@ public interface AccessExecutionGraph extends JobStatusProvider {
 
     /**
      * Returns the checkpoint storage name for this ExecutionGraph.
+     * 返回此 ExecutionGraph 的检查点存储名称。
      *
      * @return The checkpoint storage name, or an empty Optional in the case of batch jobs
      */

@@ -27,6 +27,7 @@ import java.util.Collection;
 
 /**
  * Base class for {@link MergingState} ({@link InternalMergingState}) that is stored on the heap.
+ * 存储在堆上的 {@link MergingState} ({@link InternalMergingState}) 的基类。
  *
  * @param <K> The type of the key.
  * @param <N> The type of the namespace.

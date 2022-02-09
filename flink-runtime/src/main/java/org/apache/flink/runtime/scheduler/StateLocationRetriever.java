@@ -23,7 +23,9 @@ import org.apache.flink.runtime.taskmanager.TaskManagerLocation;
 
 import java.util.Optional;
 
-/** Component to retrieve the state location of an execution vertex. */
+/** Component to retrieve the state location of an execution vertex.
+ * 检索执行顶点的状态位置的组件。
+ * */
 @FunctionalInterface
 public interface StateLocationRetriever {
 

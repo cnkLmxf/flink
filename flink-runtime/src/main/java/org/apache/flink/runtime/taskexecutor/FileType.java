@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.taskexecutor;
 
-/** Different file types to request from the {@link TaskExecutor}. */
+/** Different file types to request from the {@link TaskExecutor}.
+ * 从 {@link TaskExecutor} 请求的不同文件类型。
+ * */
 public enum FileType {
     /** The log file type for taskmanager. */
     LOG,

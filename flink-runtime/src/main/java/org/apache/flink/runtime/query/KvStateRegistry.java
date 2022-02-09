@@ -30,13 +30,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A registry for {@link InternalKvState} instances per task manager.
+ * 每个任务管理器的 {@link InternalKvState} 实例的注册表。
  *
  * <p>This is currently only used for KvState queries: KvState instances, which are marked as
  * queryable in their state descriptor are registered here and can be queried by the {@link
  * KvStateServer}.
+ * 这目前仅用于 KvState 查询：在其状态描述符中标记为可查询的 KvState 实例在此处注册，并且可以通过 {@link KvStateServer} 查询。
  *
  * <p>KvState is registered when it is created/restored and unregistered when the owning operator
  * stops running.
+ * KvState 在创建/恢复时注册，当拥有的 operator 停止运行时取消注册。
  */
 public class KvStateRegistry {
 
@@ -44,7 +47,9 @@ public class KvStateRegistry {
     private final ConcurrentHashMap<KvStateID, KvStateEntry<?, ?, ?>> registeredKvStates =
             new ConcurrentHashMap<>(4);
 
-    /** Registry listeners to be notified on registration/unregistration. */
+    /** Registry listeners to be notified on registration/unregistration.
+     * 在注册/注销时通知注册监听器。
+     * */
     private final ConcurrentHashMap<JobID, KvStateRegistryListener> listeners =
             new ConcurrentHashMap<>(4);
 
@@ -114,6 +119,7 @@ public class KvStateRegistry {
 
     /**
      * Unregisters the KvState instance identified by the given KvStateID.
+     * 注销由给定 KvStateID 标识的 KvState 实例。
      *
      * @param jobId JobId the KvState instance belongs to
      * @param kvStateId KvStateID to identify the KvState instance
@@ -141,6 +147,8 @@ public class KvStateRegistry {
     /**
      * Returns the {@link KvStateEntry} containing the requested instance as identified by the given
      * KvStateID, along with its {@link KvStateInfo} or <code>null</code> if none is registered.
+     * 返回包含由给定 KvStateID 标识的请求实例的 {@link KvStateEntry}，
+     * 以及它的 {@link KvStateInfo} 或 <code>null</code>（如果没有注册）。
      *
      * @param kvStateId KvStateID to identify the KvState instance
      * @return The {@link KvStateEntry} instance identified by the KvStateID or <code>null</code> if
@@ -155,6 +163,7 @@ public class KvStateRegistry {
     /**
      * Creates a {@link TaskKvStateRegistry} facade for the {@link Task} identified by the given
      * JobID and JobVertexID instance.
+     * 为给定 JobID 和 JobVertexID 实例标识的 {@link Task} 创建一个 {@link TaskKvStateRegistry} 外观。
      *
      * @param jobId JobID of the task
      * @param jobVertexId JobVertexID of the task

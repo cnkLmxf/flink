@@ -46,6 +46,7 @@ public interface TaskManagerSlotInformation {
 
     /**
      * Returns true if the required {@link ResourceProfile} can be fulfilled by this slot.
+     * 如果此插槽可以满足所需的 {@link ResourceProfile}，则返回 true。
      *
      * @param required resources
      * @return true if the this slot can fulfill the resource requirements

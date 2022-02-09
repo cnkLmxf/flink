@@ -25,7 +25,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/** A composite overlay that delegates to a set of inner overlays. */
+/** A composite overlay that delegates to a set of inner overlays.
+ * 委托给一组内部叠加层的复合叠加层。
+ * */
 public class CompositeContainerOverlay implements ContainerOverlay {
 
     private final List<ContainerOverlay> overlays;

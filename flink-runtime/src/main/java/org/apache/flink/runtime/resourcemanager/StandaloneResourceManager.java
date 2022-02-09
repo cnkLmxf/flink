@@ -40,12 +40,16 @@ import java.util.concurrent.TimeUnit;
 /**
  * A standalone implementation of the resource manager. Used when the system is started in
  * standalone mode (via scripts), rather than via a resource framework like YARN or Mesos.
+ * 资源管理器的独立实现。 当系统以独立模式（通过脚本）启动时使用，而不是通过像 YARN 或 Mesos 这样的资源框架。
  *
  * <p>This ResourceManager doesn't acquire new resources.
+ * 此 ResourceManager 不会获取新资源。
  */
 public class StandaloneResourceManager extends ResourceManager<ResourceID> {
 
-    /** The duration of the startup period. A duration of zero means there is no startup period. */
+    /** The duration of the startup period. A duration of zero means there is no startup period.
+     * 启动周期的持续时间。 持续时间为零意味着没有启动期。
+     * */
     private final Time startupPeriodTime;
 
     public StandaloneResourceManager(

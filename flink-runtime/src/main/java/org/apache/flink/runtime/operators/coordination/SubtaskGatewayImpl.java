@@ -34,6 +34,8 @@ import java.util.concurrent.Executor;
 /**
  * Implementation of the {@link OperatorCoordinator.SubtaskGateway} interface that access to
  * subtasks for status and event sending via {@link SubtaskAccess}.
+ * {@link OperatorCoordinator.SubtaskGateway} 接口的实现，
+ * 该接口通过 {@link SubtaskAccess} 访问子任务以发送状态和事件。
  */
 class SubtaskGatewayImpl implements OperatorCoordinator.SubtaskGateway {
 

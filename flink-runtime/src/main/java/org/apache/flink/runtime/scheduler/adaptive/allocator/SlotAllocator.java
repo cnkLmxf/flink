@@ -23,7 +23,9 @@ import org.apache.flink.runtime.util.ResourceCounter;
 import java.util.Collection;
 import java.util.Optional;
 
-/** Component for calculating the slot requirements and mapping of vertices to slots. */
+/** Component for calculating the slot requirements and mapping of vertices to slots.
+ * 用于计算槽要求和顶点到槽的映射的组件。
+ * */
 public interface SlotAllocator {
 
     /**

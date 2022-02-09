@@ -25,11 +25,13 @@ import org.apache.flink.runtime.util.event.EventListener;
 /**
  * The task event publisher is used for publishing the event to the registered {@link EventListener}
  * instances.
+ * 任务事件发布者用于将事件发布到已注册的 {@link EventListener} 实例。
  */
 public interface TaskEventPublisher {
 
     /**
      * Publishes the event to the registered {@link EventListener} instances.
+     * 将事件发布到已注册的 {@link EventListener} 实例。
      *
      * @param partitionId the partition ID to get registered handlers
      * @param event the task event to be published to the handlers

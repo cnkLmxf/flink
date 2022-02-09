@@ -48,6 +48,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Allocates {@link LogicalSlot}s from physical shared slots.
+ * 从物理共享槽中分配 {@link LogicalSlot}。
  *
  * <p>The allocator maintains a shared slot for each {@link ExecutionSlotSharingGroup}. It allocates
  * a physical slot for the shared slot and then allocates logical slots from it for scheduled tasks.
@@ -55,6 +56,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * shared slot. Each subsequent sharing subtask allocates a logical slot from the existing shared
  * slot. The shared/physical slot can be released only if all the requested logical slots are
  * released or canceled.
+ * 分配器为每个 {@link ExecutionSlotSharingGroup} 维护一个共享槽。
+ * 它为共享槽分配一个物理槽，然后从中为计划任务分配逻辑槽。 在任何托管子任务请求共享槽时，物理槽被延迟分配给共享槽。
+ * 每个后续的共享子任务都会从现有的共享槽中分配一个逻辑槽。 只有当所有请求的逻辑槽都被释放或取消时，共享/物理槽才能被释放。
  */
 class SlotSharingExecutionSlotAllocator implements ExecutionSlotAllocator {
     private static final Logger LOG =

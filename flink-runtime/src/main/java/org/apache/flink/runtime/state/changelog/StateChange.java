@@ -20,7 +20,9 @@ package org.apache.flink.runtime.state.changelog;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.util.Preconditions;
 
-/** Change of state of a keyed operator. Used for generic incremental checkpoints. */
+/** Change of state of a keyed operator. Used for generic incremental checkpoints.
+ * 键控操作符的状态变化。 用于通用增量检查点。
+ * */
 @Internal
 public class StateChange {
 

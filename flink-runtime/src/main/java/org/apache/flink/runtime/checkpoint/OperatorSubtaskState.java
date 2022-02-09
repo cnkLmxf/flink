@@ -42,9 +42,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * a (logical) operator (e.g. a flatmap operator) consists of the union of all {@link
  * OperatorSubtaskState}s from all parallel tasks that physically execute parallelized, physical
  * instances of the operator.
+ * 此类封装了运算符的一个并行实例的状态。 （
+ * 逻辑）算子（例如平面图算子）的完整状态由所有并行任务的所有 {@link OperatorSubtaskState} 的联合组成，
+ * 这些并行任务在物理上执行算子的并行化物理实例。
  *
  * <p>The full state of the logical operator is represented by {@link OperatorState} which consists
  * of {@link OperatorSubtaskState}s.
+ * 逻辑运算符的完整状态由 {@link OperatorState} 表示，它由 {@link OperatorSubtaskState} 组成。
  *
  * <p>Typically, we expect all collections in this class to be of size 0 or 1, because there is up
  * to one state handle produced per state type (e.g. managed-keyed, raw-operator, ...). In
@@ -54,6 +58,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * operator subtask can become responsible for the state of multiple previous subtasks. The
  * collections can then store all the state handles that are relevant to build up the new subtask
  * state.
+ * 通常，我们希望此类中的所有集合的大小为 0 或 1，因为每个状态类型最多生成一个状态句柄（例如 managed-keyed、raw-operator ......）。
+ * 特别是，这在拍摄快照时成立。 在集合中拥有状态句柄的目的是在恢复状态时也可以重用这个类。
+ * 正常情况下，每个集合的预期大小仍然是 0 或 1，除了按比例缩小。
+ * 在缩减中，一个算子子任务可以负责多个先前子任务的状态。 然后集合可以存储与建立新的子任务状态相关的所有状态句柄。
  */
 public class OperatorSubtaskState implements CompositeStateHandle {
 
@@ -61,21 +69,27 @@ public class OperatorSubtaskState implements CompositeStateHandle {
 
     private static final long serialVersionUID = -2394696997971923995L;
 
-    /** Snapshot from the {@link org.apache.flink.runtime.state.OperatorStateBackend}. */
+    /** Snapshot from the {@link org.apache.flink.runtime.state.OperatorStateBackend}.
+     * 来自 {@link org.apache.flink.runtime.state.OperatorStateBackend} 的快照。
+     * */
     private final StateObjectCollection<OperatorStateHandle> managedOperatorState;
 
     /**
      * Snapshot written using {@link
      * org.apache.flink.runtime.state.OperatorStateCheckpointOutputStream}.
+     * 使用 {@link org.apache.flink.runtime.state.OperatorStateCheckpointOutputStream} 编写的快照。
      */
     private final StateObjectCollection<OperatorStateHandle> rawOperatorState;
 
-    /** Snapshot from {@link org.apache.flink.runtime.state.KeyedStateBackend}. */
+    /** Snapshot from {@link org.apache.flink.runtime.state.KeyedStateBackend}.
+     * 来自 {@link org.apache.flink.runtime.state.KeyedStateBackend} 的快照。
+     * */
     private final StateObjectCollection<KeyedStateHandle> managedKeyedState;
 
     /**
      * Snapshot written using {@link
      * org.apache.flink.runtime.state.KeyedStateCheckpointOutputStream}.
+     * 使用 {@link org.apache.flink.runtime.state.KeyedStateCheckpointOutputStream} 编写的快照。
      */
     private final StateObjectCollection<KeyedStateHandle> rawKeyedState;
 
@@ -89,6 +103,9 @@ public class OperatorSubtaskState implements CompositeStateHandle {
      * output operator before rescaling. Note that this field is only set by {@link
      * StateAssignmentOperation} and will not be persisted in the checkpoint itself as it can only
      * be calculated if the the post-recovery scale factor is known.
+     * 重新调整分区的输出运算符时，每个分区集的子分区映射。 键是分区 id，值包含重新缩放之前输出算子的所有子任务索引。
+     * 请注意，此字段仅由 {@link StateAssignmentOperation} 设置，并且不会保留在检查点本身中，
+     * 因为只有在已知恢复后比例因子时才能计算它。
      */
     private final InflightDataRescalingDescriptor inputRescalingDescriptor;
 
@@ -98,12 +115,16 @@ public class OperatorSubtaskState implements CompositeStateHandle {
      * rescaling. Note that this field is only set by {@link StateAssignmentOperation} and will not
      * be persisted in the checkpoint itself as it can only be calculated if the the post-recovery
      * scale factor is known.
+     * 重新调整门的输入算子时每个输入集的输入通道映射。 键是门索引，值包含重新缩放之前输入算子的所有子任务索引。
+     * 请注意，此字段仅由 {@link StateAssignmentOperation} 设置，并且不会保留在检查点本身中，
+     * 因为只有在已知恢复后比例因子时才能计算它。
      */
     private final InflightDataRescalingDescriptor outputRescalingDescriptor;
 
     /**
      * The state size. This is also part of the deserialized state handle. We store it here in order
      * to not deserialize the state handle when gathering stats.
+     * 状态大小。 这也是反序列化状态句柄的一部分。 我们将其存储在这里是为了在收集统计信息时不反序列化状态句柄。
      */
     private final long stateSize;
 

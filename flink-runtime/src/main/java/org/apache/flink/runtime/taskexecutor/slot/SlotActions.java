@@ -22,7 +22,9 @@ import org.apache.flink.runtime.clusterframework.types.AllocationID;
 
 import java.util.UUID;
 
-/** Interface to trigger slot actions from within the {@link TaskSlotTable}. */
+/** Interface to trigger slot actions from within the {@link TaskSlotTable}.
+ * 从 {@link TaskSlotTable} 中触发槽操作的接口。
+ * */
 public interface SlotActions {
 
     /**

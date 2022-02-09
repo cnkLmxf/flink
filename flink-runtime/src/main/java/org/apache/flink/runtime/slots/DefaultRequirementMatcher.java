@@ -27,6 +27,7 @@ import java.util.function.Function;
 /**
  * Default implementation of {@link RequirementMatcher}. This matcher finds the first requirement
  * that a) is not unfulfilled and B) matches the resource profile.
+ * {@link RequirementMatcher} 的默认实现。 此匹配器找到第一个要求，即 a) 未满足且 B) 匹配资源配置文件。
  */
 public class DefaultRequirementMatcher implements RequirementMatcher {
     @Override

@@ -36,6 +36,7 @@ import java.util.TreeMap;
 /**
  * A class that is responsible for tracking the past split assignments made by {@link
  * SplitEnumerator}.
+ * 一个类，负责跟踪 {@link SplitEnumerator} 过去所做的拆分分配。
  */
 @Internal
 public class SplitAssignmentTracker<SplitT extends SourceSplit> {

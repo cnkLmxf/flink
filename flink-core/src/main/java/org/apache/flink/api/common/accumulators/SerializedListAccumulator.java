@@ -32,8 +32,10 @@ import java.util.List;
 /**
  * This accumulator stores a collection of objects in serialized form, so that the stored objects
  * are not affected by modifications to the original objects.
+ * 这个累加器以序列化的形式存储一组对象，这样存储的对象就不会受到对原始对象的修改的影响。
  *
  * <p>Objects may be deserialized on demand with a specific classloader.
+ * 可以使用特定的类加载器按需反序列化对象。
  *
  * @param <T> The type of the accumulated objects
  */

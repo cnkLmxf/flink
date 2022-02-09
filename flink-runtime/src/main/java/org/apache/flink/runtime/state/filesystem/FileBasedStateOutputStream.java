@@ -37,11 +37,14 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A {@link CheckpointStateOutputStream} that writes into a specified file and returns a {@link
  * FileStateHandle} upon closing.
+ * 写入指定文件并在关闭时返回 {@link FileStateHandle} 的 {@link CheckpointStateOutputStream}。
  *
  * <p>Unlike the {@link
  * org.apache.flink.runtime.state.filesystem.FsCheckpointStreamFactory.FsCheckpointStateOutputStream},
  * this stream does not have a threshold below which it returns a memory byte stream handle, and
  * does not create random files, but writes to a specified file.
+ * 与 {@link org.apache.flink.runtime.state.filesystem.FsCheckpointStreamFactory.FsCheckpointStateOutputStream} 不同，
+ * 此流没有阈值，低于该阈值它会返回内存字节流句柄，并且不会创建随机文件，而是写入 指定的文件。
  */
 public final class FileBasedStateOutputStream extends CheckpointStateOutputStream {
 

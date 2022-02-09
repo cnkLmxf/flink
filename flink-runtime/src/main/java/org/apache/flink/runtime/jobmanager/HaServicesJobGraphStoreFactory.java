@@ -24,6 +24,7 @@ import org.apache.flink.util.FlinkRuntimeException;
 /**
  * {@link JobGraphStoreFactory} implementation which creates a {@link JobGraphStore} using the
  * provided {@link HighAvailabilityServices}.
+ * {@link JobGraphStoreFactory} 实现，它使用提供的 {@link HighAvailabilityServices} 创建一个 {@link JobGraphStore}。
  */
 public class HaServicesJobGraphStoreFactory implements JobGraphStoreFactory {
     private final HighAvailabilityServices highAvailabilityServices;

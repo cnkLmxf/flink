@@ -32,7 +32,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-/** Base class for iteration {@link TaskEvent} transmitting operator aggregators. */
+/** Base class for iteration {@link TaskEvent} transmitting operator aggregators.
+ * 迭代 {@link TaskEvent} 传输运算符聚合器的基类。
+ * */
 public abstract class IterationEventWithAggregators extends TaskEvent {
 
     protected static final String[] NO_STRINGS = new String[0];

@@ -39,6 +39,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * JMX Server implementation that JMX clients can connect to.
+ * JMX 客户端可以连接到的 JMX 服务器实现。
  *
  * <p>Heavily based on j256 simplejmx project
  *
@@ -118,7 +119,9 @@ class JMXServer {
         rmiServerReference.set(rmiServer.toStub());
     }
 
-    /** A registry that only exposes a single remote object. */
+    /** A registry that only exposes a single remote object.
+     * 仅公开单个远程对象的注册表。
+     * */
     @SuppressWarnings("restriction")
     private static class JmxRegistry extends sun.rmi.registry.RegistryImpl {
         private final String lookupName;

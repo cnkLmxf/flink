@@ -23,7 +23,9 @@ import org.apache.flink.util.Preconditions;
 import java.io.Serializable;
 import java.util.List;
 
-/** Response to the request to collect thread details samples. */
+/** Response to the request to collect thread details samples.
+ * 响应收集线程详细信息样本的请求。
+ * */
 public class TaskThreadInfoResponse implements Serializable {
 
     private static final long serialVersionUID = -4786454630050578031L;

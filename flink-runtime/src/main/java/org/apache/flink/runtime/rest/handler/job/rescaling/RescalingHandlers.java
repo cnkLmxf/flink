@@ -38,7 +38,9 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** Rest handler to trigger and poll the rescaling of a running job. */
+/** Rest handler to trigger and poll the rescaling of a running job.
+ * 休息处理程序触发和轮询正在运行的作业的重新缩放。
+ * */
 public class RescalingHandlers
         extends AbstractAsynchronousOperationHandlers<AsynchronousJobOperationKey, Acknowledge> {
 
@@ -48,7 +50,9 @@ public class RescalingHandlers
                 HttpResponseStatus.SERVICE_UNAVAILABLE);
     }
 
-    /** Handler which triggers the rescaling of the specified job. */
+    /** Handler which triggers the rescaling of the specified job.
+     * 触发指定作业重新缩放的处理程序。
+     * */
     public class RescalingTriggerHandler
             extends TriggerHandler<
                     RestfulGateway, EmptyRequestBody, RescalingTriggerMessageParameters> {
@@ -84,7 +88,9 @@ public class RescalingHandlers
         }
     }
 
-    /** Handler which reports the status of the rescaling operation. */
+    /** Handler which reports the status of the rescaling operation.
+     * 报告重新缩放操作状态的处理程序。
+     * */
     public class RescalingStatusHandler
             extends StatusHandler<
                     RestfulGateway, AsynchronousOperationInfo, RescalingStatusMessageParameters> {

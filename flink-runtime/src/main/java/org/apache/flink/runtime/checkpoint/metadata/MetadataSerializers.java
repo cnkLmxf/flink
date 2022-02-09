@@ -23,8 +23,10 @@ import java.util.Map;
 
 /**
  * Helper to access {@link MetadataSerializer}s for specific format versions.
+ * 帮助程序访问特定格式版本的 {@link MetadataSerializer}。
  *
  * <p>The serializer for a specific version can be obtained via {@link #getSerializer(int)}.
+ * 可以通过 {@link #getSerializer(int)} 获取特定版本的序列化程序。
  */
 public class MetadataSerializers {
 
@@ -42,6 +44,7 @@ public class MetadataSerializers {
 
     /**
      * Returns the {@link MetadataSerializer} for the given savepoint version.
+     * 返回给定保存点版本的 {@link MetadataSerializer}。
      *
      * @param version Savepoint version to get serializer for
      * @return Savepoint for the given version
@@ -59,6 +62,8 @@ public class MetadataSerializers {
 
     // ------------------------------------------------------------------------
 
-    /** Utility method class, not meant to be instantiated. */
+    /** Utility method class, not meant to be instantiated.
+     * 实用方法类，不打算实例化。
+     * */
     private MetadataSerializers() {}
 }

@@ -29,6 +29,7 @@ import java.util.List;
 /**
  * This implementation of {@link StateTable} uses {@link CopyOnWriteStateMap}. This implementation
  * supports asynchronous snapshots.
+ * {@link StateTable} 的此实现使用 {@link CopyOnWriteStateMap}。 此实现支持异步快照。
  *
  * @param <K> type of key.
  * @param <N> type of namespace.

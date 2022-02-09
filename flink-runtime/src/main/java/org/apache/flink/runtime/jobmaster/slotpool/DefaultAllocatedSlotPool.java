@@ -44,10 +44,14 @@ public class DefaultAllocatedSlotPool implements AllocatedSlotPool {
 
     private final Map<AllocationID, AllocatedSlot> registeredSlots;
 
-    /** Map containing all free slots and since when they are free. */
+    /** Map containing all free slots and since when they are free.
+     * 包含所有空闲插槽的地图以及它们何时空闲。
+     * */
     private final Map<AllocationID, Long> freeSlotsSince;
 
-    /** Index containing a mapping between TaskExecutors and their slots. */
+    /** Index containing a mapping between TaskExecutors and their slots.
+     * 包含 TaskExecutor 与其插槽之间的映射的索引。
+     * */
     private final Map<ResourceID, Set<AllocationID>> slotsPerTaskExecutor;
 
     public DefaultAllocatedSlotPool() {

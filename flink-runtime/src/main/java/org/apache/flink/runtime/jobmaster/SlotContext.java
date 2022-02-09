@@ -23,13 +23,16 @@ import org.apache.flink.runtime.jobmanager.slots.TaskManagerGateway;
 /**
  * Interface for the context of a {@link LogicalSlot}. This context contains information about the
  * underlying allocated slot and how to communicate with the TaskManager on which it was allocated.
+ * {@link LogicalSlot} 上下文的接口。 此上下文包含有关底层分配槽以及如何与分配它的 TaskManager 通信的信息。
  */
 public interface SlotContext extends SlotInfo {
 
     /**
      * Gets the actor gateway that can be used to send messages to the TaskManager.
+     * 获取可用于向任务管理器发送消息的参与者网关。
      *
      * <p>This method should be removed once the new interface-based RPC abstraction is in place
+     * 一旦新的基于接口的 RPC 抽象到位，就应该删除这个方法
      *
      * @return The gateway that can be used to send messages to the TaskManager.
      */

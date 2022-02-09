@@ -38,6 +38,7 @@ import java.util.ArrayList;
 /**
  * Base class for iterators that fetch a block of data into main memory and offer resettable access
  * to the data in that block.
+ * 迭代器的基类，将数据块提取到主内存并提供对该块中数据的可重置访问。
  */
 abstract class AbstractBlockResettableIterator<T> implements MemoryBlockIterator {
 

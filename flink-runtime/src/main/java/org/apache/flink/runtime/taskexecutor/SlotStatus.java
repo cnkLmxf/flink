@@ -27,7 +27,9 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** This describes the slot current status which located in TaskManager. */
+/** This describes the slot current status which located in TaskManager.
+ * 这描述了位于 TaskManager 中的插槽当前状态。
+ * */
 public class SlotStatus implements Serializable {
 
     private static final long serialVersionUID = 5099191707339664493L;

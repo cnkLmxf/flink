@@ -34,6 +34,8 @@ import java.util.concurrent.CompletableFuture;
  * Fenced extension of the {@link AkkaRpcActor}. This actor will be started for {@link
  * FencedRpcEndpoint} and is responsible for filtering out invalid messages with respect to the
  * current fencing token.
+ * {@link AkkaRpcActor} 的围栏扩展。
+ * 此actor 将为{@link FencedRpcEndpoint} 启动，并负责过滤掉与当前防护令牌相关的无效消息。
  *
  * @param <F> type of the fencing token
  * @param <T> type of the RpcEndpoint

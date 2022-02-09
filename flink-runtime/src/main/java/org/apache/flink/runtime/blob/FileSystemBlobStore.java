@@ -39,14 +39,18 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Blob store backed by {@link FileSystem}.
+ * 由 {@link FileSystem} 支持的 Blob 存储。
  *
  * <p>This is used in addition to the local blob storage for high availability.
+ * 这与本地 blob 存储一起使用以实现高可用性。
  */
 public class FileSystemBlobStore implements BlobStoreService {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileSystemBlobStore.class);
 
-    /** The file system in which blobs are stored. */
+    /** The file system in which blobs are stored.
+     * 存储 blob 的文件系统。
+     * */
     private final FileSystem fileSystem;
 
     /** The base path of the blob store. */

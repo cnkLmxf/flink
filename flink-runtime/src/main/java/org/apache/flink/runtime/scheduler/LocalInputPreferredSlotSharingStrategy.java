@@ -45,6 +45,9 @@ import static org.apache.flink.util.Preconditions.checkState;
  * This strategy tries to reduce remote data exchanges. Execution vertices, which are connected and
  * belong to the same SlotSharingGroup, tend to be put in the same ExecutionSlotSharingGroup.
  * Co-location constraints will be respected.
+ * 该策略试图减少远程数据交换。
+ * 相互连接并属于同一个 SlotSharingGroup 的执行顶点往往会放在同一个 ExecutionSlotSharingGroup 中。
+ * 将遵守协同定位限制。
  */
 class LocalInputPreferredSlotSharingStrategy implements SlotSharingStrategy {
 

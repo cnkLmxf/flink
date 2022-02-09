@@ -31,9 +31,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Provides a virtual execution state of a {@link SchedulingPipelinedRegion}.
+ * 提供 {@link SchedulingPipelinedRegion} 的虚拟执行状态。
  *
  * <p>A pipelined region can be either finished or unfinished. It is finished iff. all its
  * executions have reached the finished state.
+ * 流水线区域可以是已完成或未完成的。 它完成了。 它的所有处决都达到了完成状态。
  */
 class PipelinedRegionExecutionView {
 

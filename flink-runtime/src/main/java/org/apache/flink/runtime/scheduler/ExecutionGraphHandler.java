@@ -48,7 +48,9 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.Executor;
 
-/** Handler for the {@link ExecutionGraph} which offers some common operations. */
+/** Handler for the {@link ExecutionGraph} which offers some common operations.
+ * {@link ExecutionGraph} 的处理程序，它提供了一些常用操作。
+ * */
 public class ExecutionGraphHandler {
 
     private final ExecutionGraph executionGraph;

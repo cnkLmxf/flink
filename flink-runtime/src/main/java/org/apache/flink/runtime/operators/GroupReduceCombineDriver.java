@@ -50,9 +50,15 @@ import java.util.List;
  * {@code IN} to any type of type {@code OUT}. In contrast, the RichGroupReduceFunction requires the
  * combine method to have the same input and output type to be able to reduce the elements after the
  * combine from {@code IN} to {@code OUT}.
+ * 用于 CombineGroup 转换或 GroupReduce 转换的非链式组合驱动程序，其中用户提供了带有组合方法的 RichGroupReduceFunction。
+ * 组合是在内存中使用惰性方法执行的，该方法仅组合当前适合排序器的元素。 这可能导致部分解决方案。
+ * 在 RichGroupReduceFunction 的情况下，此部分结果将转换为适当的确定性结果。
+ * CombineGroup 使用 GroupCombineFunction 接口，该接口允许将 {@code IN} 类型的值组合到 {@code OUT} 类型的任何类型。
+ * 相比之下，RichGroupReduceFunction 要求 combine 方法具有相同的输入和输出类型，才能将 combine 后的元素从 {@code IN} 减少到 {@code OUT}。
  *
  * <p>The GroupReduceCombineDriver uses a combining iterator over its input. The output of the
  * iterator is emitted.
+ * GroupReduceCombineDriver 在其输入上使用组合迭代器。 发出迭代器的输出。
  *
  * @param <IN> The data type consumed by the combiner.
  * @param <OUT> The data type produced by the combiner.
@@ -64,6 +70,7 @@ public class GroupReduceCombineDriver<IN, OUT>
 
     /**
      * Fix length records with a length below this threshold will be in-place sorted, if possible.
+     * 如果可能，长度低于此阈值的固定长度记录将被就地排序。
      */
     private static final int THRESHOLD_FOR_IN_PLACE_SORTING = 32;
 
@@ -277,6 +284,7 @@ public class GroupReduceCombineDriver<IN, OUT>
 
     /**
      * Gets the number of oversized records handled by this combiner.
+     * 获取此组合器处理的超大记录数。
      *
      * @return The number of oversized records handled by this combiner.
      */

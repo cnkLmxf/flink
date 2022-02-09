@@ -24,6 +24,7 @@ import org.apache.flink.runtime.iterative.task.IterationTailTask;
 /**
  * Broker to hand over {@link SolutionSetUpdateBarrier} from {@link IterationHeadTask} to {@link
  * IterationTailTask}.
+ * 经纪人将 {@link SolutionSetUpdateBarrier} 从 {@link IterationHeadTask} 移交给 {@link IterationTailTask}。
  */
 public class SolutionSetUpdateBarrierBroker extends Broker<SolutionSetUpdateBarrier> {
 

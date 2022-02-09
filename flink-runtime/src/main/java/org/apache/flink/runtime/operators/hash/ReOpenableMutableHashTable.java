@@ -35,12 +35,15 @@ public class ReOpenableMutableHashTable<BT, PT> extends MutableHashTable<BT, PT>
     /** Channel for the spilled partitions */
     private final FileIOChannel.Enumerator spilledInMemoryPartitions;
 
-    /** Stores the initial partitions and a list of the files that contain the spilled contents */
+    /** Stores the initial partitions and a list of the files that contain the spilled contents
+     * 存储初始分区和包含溢出内容的文件列表
+     * */
     private List<HashPartition<BT, PT>> initialPartitions;
 
     /**
      * The values of these variables are stored here after the initial open() Required to restore
      * the initial state before each additional probe phase.
+     * 这些变量的值存储在初始 open() 之后，需要在每个附加探测阶段之前恢复初始状态。
      */
     private int initialBucketCount;
 
@@ -148,9 +151,12 @@ public class ReOpenableMutableHashTable<BT, PT> extends MutableHashTable<BT, PT>
      * This method stores the initial hash table's contents on disk if hash join needs the memory
      * for further partition processing. The initial hash table is rebuild before a new secondary
      * input is opened.
+     * 如果散列连接需要内存以进行进一步的分区处理，则此方法将初始散列表的内容存储在磁盘上。
+     * 在打开新的辅助输入之前重建初始哈希表。
      *
      * <p>For the sake of simplicity we iterate over all in-memory elements and store them in one
      * file. The file is hashed into memory upon opening a new probe input.
+     * 为了简单起见，我们遍历所有内存元素并将它们存储在一个文件中。 在打开新的探测输入时，该文件被散列到内存中。
      *
      * @throws IOException
      */

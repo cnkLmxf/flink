@@ -20,12 +20,15 @@ package org.apache.flink.runtime.io.compression;
 
 import java.nio.ByteBuffer;
 
-/** A decompressor which decompresses a block each time. */
+/** A decompressor which decompresses a block each time.
+ * 每次解压块的解压器。
+ * */
 public interface BlockDecompressor {
 
     /**
      * Decompress source data read from ({@link ByteBuffer#position()} + {@code srcOff}), and write
      * the decompressed data to dst.
+     * 从 ({@link ByteBuffer#position()} + {@code srcOff}) 读取的源数据解压，并将解压后的数据写入 dst。
      *
      * @param src Compressed data to read from
      * @param srcOff The start offset of compressed data

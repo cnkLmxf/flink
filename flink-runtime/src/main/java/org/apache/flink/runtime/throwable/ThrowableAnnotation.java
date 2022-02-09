@@ -24,7 +24,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/** Annotation to classify subclasses of {@link Throwable} into categories w.r.t. recovery. */
+/** Annotation to classify subclasses of {@link Throwable} into categories w.r.t. recovery.
+ * 将 {@link Throwable} 的子类分类为 w.r.t 类别的注释。 恢复。
+ * */
 @Inherited
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -40,7 +40,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.Executor;
 
-/** Collection of methods to deal with checkpoint master hooks. */
+/** Collection of methods to deal with checkpoint master hooks.
+ * 处理检查点主钩子的方法集合。
+ * */
 public class MasterHooks {
 
     // ------------------------------------------------------------------------
@@ -97,6 +99,7 @@ public class MasterHooks {
 
     /**
      * Trigger master hook and return a completable future with state.
+     * 触发主钩子并返回带有状态的可完成future。
      *
      * @param hook The master hook given
      * @param checkpointId The checkpoint ID of the triggering checkpoint
@@ -175,9 +178,11 @@ public class MasterHooks {
     /**
      * Calls the restore method given checkpoint master hooks and passes the given master state to
      * them where state with a matching name is found.
+     * 调用给定检查点主挂钩的恢复方法，并将给定的主状态传递给它们，在那里找到具有匹配名称的状态。
      *
      * <p>If state is found and no hook with the same name is found, the method throws an exception,
      * unless the {@code allowUnmatchedState} flag is set.
+     * 如果找到状态并且没有找到同名的钩子，则该方法抛出异常，除非设置了 {@code allowUnmatchedState} 标志。
      *
      * @param masterHooks The hooks to call restore on
      * @param states The state to pass to the hooks
@@ -293,6 +298,7 @@ public class MasterHooks {
 
     /**
      * Wraps a hook such that the user-code classloader is applied when the hook is invoked.
+     * 包装一个钩子，以便在调用钩子时应用用户代码类加载器。
      *
      * @param hook the hook to wrap
      * @param userClassLoader the classloader to use

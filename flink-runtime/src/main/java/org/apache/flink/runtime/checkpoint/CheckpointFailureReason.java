@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.checkpoint;
 
-/** Various reasons why a checkpoint was failure. */
+/** Various reasons why a checkpoint was failure.
+ * 检查点失败的各种原因。
+ * */
 public enum CheckpointFailureReason {
     PERIODIC_SCHEDULER_SHUTDOWN(true, "Periodic checkpoint scheduler is shut down."),
 

@@ -26,15 +26,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** View over a pipelined in-memory only subpartition. */
+/** View over a pipelined in-memory only subpartition.
+ * 查看流水线内存中的子分区。
+ * */
 public class PipelinedSubpartitionView implements ResultSubpartitionView {
 
-    /** The subpartition this view belongs to. */
+    /** The subpartition this view belongs to.
+     * 此视图所属的子分区。
+     * */
     private final PipelinedSubpartition parent;
 
     private final BufferAvailabilityListener availabilityListener;
 
-    /** Flag indicating whether this view has been released. */
+    /** Flag indicating whether this view has been released.
+     * 指示此视图是否已被释放的标志。
+     * */
     final AtomicBoolean isReleased;
 
     public PipelinedSubpartitionView(

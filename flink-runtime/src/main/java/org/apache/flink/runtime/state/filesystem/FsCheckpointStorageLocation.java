@@ -31,7 +31,9 @@ import java.io.IOException;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A storage location for checkpoints on a file system. */
+/** A storage location for checkpoints on a file system.
+ * 文件系统上检查点的存储位置。
+ * */
 public class FsCheckpointStorageLocation extends FsCheckpointStreamFactory
         implements CheckpointStorageLocation {
 

@@ -42,6 +42,7 @@ import java.util.NoSuchElementException;
  * Implementation of a resettable iterator. While iterating the first time over the data, the
  * iterator writes the records to a spillable buffer. Any subsequent iteration re-reads the data
  * from that buffer.
+ * 可重置迭代器的实现。 第一次迭代数据时，迭代器将记录写入可溢出缓冲区。 任何后续迭代都会从该缓冲区重新读取数据。
  *
  * @param <T> The type of record that the iterator handles.
  */

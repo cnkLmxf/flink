@@ -36,6 +36,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * The direct executor service directly executes the runnables and the callables in the calling
  * thread.
+ * 直接执行器服务直接执行调用线程中的可运行对象和可调用对象。
  */
 class DirectExecutorService implements ExecutorService {
     static final DirectExecutorService INSTANCE = new DirectExecutorService();

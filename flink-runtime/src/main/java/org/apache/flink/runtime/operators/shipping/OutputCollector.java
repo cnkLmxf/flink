@@ -31,6 +31,8 @@ import java.util.List;
 /**
  * The OutputCollector collects records, and emits them to the {@link RecordWriter}s. The
  * OutputCollector tracks to which writers a deep-copy must be given and which not.
+ * OutputCollector 收集记录，并将它们发送到 {@link RecordWriter}。
+ * OutputCollector 跟踪必须向哪些作者提供深层副本，哪些不提供。
  */
 public class OutputCollector<T> implements Collector<T> {
 
@@ -43,6 +45,8 @@ public class OutputCollector<T> implements Collector<T> {
      * Initializes the output collector with a set of writers. To specify for a writer that it must
      * be fed with a deep-copy, set the bit in the copy flag bit mask to 1 that corresponds to the
      * position of the writer within the {@link List}.
+     * 使用一组编写器初始化输出收集器。
+     * 要为写入器指定必须使用深度复制，请将复制标志位掩码中的位设置为 1，该位对应于写入器在 {@link List}中的位置。
      *
      * @param writers List of all writers.
      */
@@ -55,7 +59,9 @@ public class OutputCollector<T> implements Collector<T> {
                         writers.toArray(new RecordWriter[writers.size()]);
     }
 
-    /** Collects a record and emits it to all writers. */
+    /** Collects a record and emits it to all writers.
+     * 收集记录并将其发送给所有作者。
+     * */
     @Override
     public void collect(T record) {
         if (record != null) {
@@ -85,6 +91,7 @@ public class OutputCollector<T> implements Collector<T> {
 
     /**
      * List of writers that are associated with this output collector
+     * 与此输出收集器关联的编写器列表
      *
      * @return list of writers
      */

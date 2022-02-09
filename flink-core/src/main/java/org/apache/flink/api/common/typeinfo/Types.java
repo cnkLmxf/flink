@@ -55,15 +55,21 @@ import java.util.Map;
 /**
  * This class gives access to the type information of the most common types for which Flink has
  * built-in serializers and comparators.
+ * 此类提供对 Flink 内置序列化器和比较器的最常见类型的类型信息的访问。
  *
  * <p>In many cases, Flink tries to analyze generic signatures of functions to determine return
  * types automatically. This class is intended for cases where type information has to be supplied
  * manually or cases where automatic type inference results in an inefficient type.
+ * 在许多情况下，Flink 会尝试分析函数的通用签名来自动确定返回类型。
+ * 此类适用于必须手动提供类型信息的情况或自动类型推断导致类型效率低下的情况。
  *
  * <p>Please note that the Scala API and Table API have dedicated Types classes. (See <code>
  * org.apache.flink.api.scala.Types</code> and <code>org.apache.flink.table.api.Types</code>)
+ * 请注意，Scala API 和 Table API 有专门的 Types 类。
+ * （参见 <code> org.apache.flink.api.scala.Types</code> 和 <code>org.apache.flink.table.api.Types</code>）
  *
  * <p>A more convenient alternative might be a {@link TypeHint}.
+ * 更方便的选择可能是 {@link TypeHint}。
  *
  * @see TypeInformation#of(Class) specify type information based on a class that will be analyzed
  * @see TypeInformation#of(TypeHint) specify type information based on a {@link TypeHint}

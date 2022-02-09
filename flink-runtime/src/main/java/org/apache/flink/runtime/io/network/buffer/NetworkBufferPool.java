@@ -52,10 +52,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * The NetworkBufferPool is a fixed size pool of {@link MemorySegment} instances for the network
  * stack.
+ * NetworkBufferPool 是网络堆栈的固定大小的 {@link MemorySegment} 实例池。
  *
  * <p>The NetworkBufferPool creates {@link LocalBufferPool}s from which the individual tasks draw
  * the buffers for the network data transfer. When new local buffer pools are created, the
  * NetworkBufferPool dynamically redistributes the buffers between the pools.
+ * NetworkBufferPool 创建 {@link LocalBufferPool}，各个任务从中提取缓冲区以进行网络数据传输。
+ * 当创建新的本地缓冲池时，NetworkBufferPool 会在池之间动态重新分配缓冲区。
  */
 public class NetworkBufferPool
         implements BufferPoolFactory, MemorySegmentProvider, AvailabilityProvider {
@@ -324,7 +327,9 @@ public class NetworkBufferPool
         return buffers;
     }
 
-    /** Returns a future that is completed when there are free segments in this pool. */
+    /** Returns a future that is completed when there are free segments in this pool.
+     * 返回当此池中有空闲段时完成的future。
+     * */
     @Override
     public CompletableFuture<?> getAvailableFuture() {
         return availabilityHelper.getAvailableFuture();
@@ -435,6 +440,7 @@ public class NetworkBufferPool
     }
 
     // Must be called from synchronized block
+    // 必须从同步块中调用
     private void tryRedistributeBuffers(int numberOfSegmentsToRequest) throws IOException {
         assert Thread.holdsLock(factoryLock);
 

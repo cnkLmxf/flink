@@ -41,19 +41,28 @@ import static org.apache.flink.util.Preconditions.checkState;
  * by region. Before writing a new region, the method {@link PartitionedFileWriter#startNewRegion}
  * must be called. After writing all data, the method {@link PartitionedFileWriter#finish} must be
  * called to close all opened files and return the target {@link PartitionedFile}.
+ * 可以写入缓冲区并生成 {@link PartitionedFile} 的文件编写器。 数据是按区域写入的。
+ * 在写入新区域之前，必须调用方法 {@link PartitionedFileWriter#startNewRegion}。
+ * 写入所有数据后，必须调用方法 {@link PartitionedFileWriter#finish} 关闭所有打开的文件并返回目标 {@link PartitionedFile}。
  */
 @NotThreadSafe
 public class PartitionedFileWriter implements AutoCloseable {
 
     private static final int MIN_INDEX_BUFFER_SIZE = 50 * PartitionedFile.INDEX_ENTRY_SIZE;
 
-    /** Number of channels. When writing a buffer, target subpartition must be in this range. */
+    /** Number of channels. When writing a buffer, target subpartition must be in this range.
+     * 通道数。 写入缓冲区时，目标子分区必须在此范围内。
+     * */
     private final int numSubpartitions;
 
-    /** Opened data file channel of the target {@link PartitionedFile}. */
+    /** Opened data file channel of the target {@link PartitionedFile}.
+     * 打开目标 {@link PartitionedFile} 的数据文件通道。
+     * */
     private final FileChannel dataFileChannel;
 
-    /** Opened index file channel of the target {@link PartitionedFile}. */
+    /** Opened index file channel of the target {@link PartitionedFile}.
+     * 目标 {@link PartitionedFile} 的已打开索引文件通道。
+     * */
     private final FileChannel indexFileChannel;
 
     /** Data file path of the target {@link PartitionedFile}. */
@@ -93,6 +102,8 @@ public class PartitionedFileWriter implements AutoCloseable {
      * Broadcast region is an optimization for the broadcast partition which writes the same data to
      * all subpartitions. For a broadcast region, data is only written once and the indexes of all
      * subpartitions point to the same offset in the data file.
+     * 广播区域是对广播分区的优化，它将相同的数据写入所有子分区。
+     * 对于广播区域，数据只写入一次，所有子分区的索引都指向数据文件中的相同偏移量。
      */
     private boolean isBroadcastRegion;
 
@@ -141,9 +152,11 @@ public class PartitionedFileWriter implements AutoCloseable {
 
     /**
      * Persists the region index of the current data region and starts a new region to write.
+     * 保持当前数据区域的区域索引并开始一个新的区域进行写入。
      *
      * <p>Note: The caller is responsible for releasing the failed {@link PartitionedFile} if any
      * exception occurs.
+     * 注意：如果发生任何异常，调用者负责释放失败的 {@link PartitionedFile}。
      *
      * @param isBroadcastRegion Whether it's a broadcast region. See {@link #isBroadcastRegion}.
      */
@@ -206,9 +219,12 @@ public class PartitionedFileWriter implements AutoCloseable {
      * Writes a list of {@link Buffer}s to this {@link PartitionedFile}. It guarantees that after
      * the return of this method, the target buffers can be released. In a data region, all data of
      * the same subpartition must be written together.
+     * 将 {@link Buffer} 列表写入此 {@link PartitionedFile}。
+     * 它保证在该方法返回后，可以释放目标缓冲区。 在一个数据区域中，同一子分区的所有数据必须一起写入。
      *
      * <p>Note: The caller is responsible for recycling the target buffers and releasing the failed
      * {@link PartitionedFile} if any exception occurs.
+     * 注意：如果发生任何异常，调用者负责回收目标缓冲区并释放失败的 {@link PartitionedFile}。
      */
     public void writeBuffers(List<BufferWithChannel> bufferWithChannels) throws IOException {
         checkState(!isFinished, "File writer is already finished.");
@@ -290,9 +306,11 @@ public class PartitionedFileWriter implements AutoCloseable {
     /**
      * Finishes writing the {@link PartitionedFile} which closes the file channel and returns the
      * corresponding {@link PartitionedFile}.
+     * 完成 {@link PartitionedFile} 的写入，关闭文件通道并返回相应的 {@link PartitionedFile}。
      *
      * <p>Note: The caller is responsible for releasing the failed {@link PartitionedFile} if any
      * exception occurs.
+     * 注意：如果发生任何异常，调用者负责释放失败的 {@link PartitionedFile}。
      */
     public PartitionedFile finish() throws IOException {
         checkState(!isFinished, "File writer is already finished.");
@@ -324,7 +342,9 @@ public class PartitionedFileWriter implements AutoCloseable {
                 indexEntryCache);
     }
 
-    /** Used to close and delete the failed {@link PartitionedFile} when any exception occurs. */
+    /** Used to close and delete the failed {@link PartitionedFile} when any exception occurs.
+     * 用于在任何异常发生时关闭和删除失败的 {@link PartitionedFile}。
+     * */
     public void releaseQuietly() {
         IOUtils.closeQuietly(this);
         IOUtils.deleteFileQuietly(dataFilePath);

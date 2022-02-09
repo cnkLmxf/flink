@@ -24,12 +24,14 @@ public interface IndexedSortable {
     /**
      * Compare items at the given addresses consistent with the semantics of {@link
      * java.util.Comparator#compare(Object, Object)}.
+     * 比较给定地址处的项目是否符合 {@link java.util.Comparator#compare(Object, Object)} 的语义。
      */
     int compare(int i, int j);
 
     /**
      * Compare records at the given addresses consistent with the semantics of {@link
      * java.util.Comparator#compare(Object, Object)}.
+     * 比较给定地址的记录与 {@link java.util.Comparator#compare(Object, Object)} 的语义一致。
      *
      * @param segmentNumberI index of memory segment containing first record
      * @param segmentOffsetI offset into memory segment containing first record
@@ -45,6 +47,7 @@ public interface IndexedSortable {
 
     /**
      * Swap records at the given addresses.
+     * 交换给定地址的记录。
      *
      * @param segmentNumberI index of memory segment containing first record
      * @param segmentOffsetI offset into memory segment containing first record
@@ -55,6 +58,7 @@ public interface IndexedSortable {
 
     /**
      * Gets the number of elements in the sortable.
+     * 获取可排序元素的数量。
      *
      * @return The number of elements.
      */
@@ -62,6 +66,7 @@ public interface IndexedSortable {
 
     /**
      * Gets the size of each record, the number of bytes separating the head of successive records.
+     * 获取每条记录的大小，即分隔连续记录头部的字节数。
      *
      * @return The record size
      */
@@ -69,6 +74,7 @@ public interface IndexedSortable {
 
     /**
      * Gets the number of elements in each memory segment.
+     * 获取每个内存段中的元素数。
      *
      * @return The number of records per segment
      */

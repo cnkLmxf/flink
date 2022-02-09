@@ -134,7 +134,7 @@ public final class StreamTableEnvironmentImpl extends TableEnvironmentImpl
 
         // temporary solution until FLINK-15635 is fixed
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
+        //module里是各种支持的函数
         ModuleManager moduleManager = new ModuleManager();
 
         CatalogManager catalogManager =
@@ -153,6 +153,7 @@ public final class StreamTableEnvironmentImpl extends TableEnvironmentImpl
                 new FunctionCatalog(tableConfig, catalogManager, moduleManager);
 
         Map<String, String> executorProperties = settings.toExecutorProperties();
+        //内部通过spi获取到StreamExecutor
         Executor executor = lookupExecutor(executorProperties, executionEnvironment);
 
         Map<String, String> plannerProperties = settings.toPlannerProperties();

@@ -33,6 +33,8 @@ import java.util.Optional;
  * Wrapper around a {@link StreamStateHandle} to make the referenced state object retrievable trough
  * a simple get call. This implementation expects that the object was serialized through default
  * serialization of Java's {@link java.io.ObjectOutputStream}.
+ * 包装 {@link StreamStateHandle} 以使引用的状态对象可通过简单的 get 调用进行检索。
+ * 此实现期望对象通过 Java 的 {@link java.io.ObjectOutputStream} 的默认序列化进行序列化。
  *
  * @param <T> type of the retrievable object which is stored under the wrapped stream handle
  */

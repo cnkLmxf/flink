@@ -36,7 +36,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
-/** Utility class for {@link TaskExecutorResourceSpec} of running {@link TaskExecutor}. */
+/** Utility class for {@link TaskExecutorResourceSpec} of running {@link TaskExecutor}.
+ * 运行 {@link TaskExecutor} 的 {@link TaskExecutorResourceSpec} 的实用程序类。
+ * */
 public class TaskExecutorResourceUtils {
     private static final Logger LOG = LoggerFactory.getLogger(TaskExecutorResourceUtils.class);
 

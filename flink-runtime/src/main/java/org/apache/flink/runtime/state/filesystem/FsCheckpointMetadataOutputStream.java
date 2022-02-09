@@ -36,6 +36,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A {@link CheckpointMetadataOutputStream} that writes a specified file and directory, and returns
  * a {@link FsCompletedCheckpointStorageLocation} upon closing.
+ * 写入指定文件和目录的 {@link CheckpointMetadataOutputStream}，
+ * 并在关闭时返回 {@link FsCompletedCheckpointStorageLocation}。
  */
 public final class FsCheckpointMetadataOutputStream extends CheckpointMetadataOutputStream {
 

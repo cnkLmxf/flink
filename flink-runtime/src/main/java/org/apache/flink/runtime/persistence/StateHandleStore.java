@@ -30,13 +30,17 @@ import java.util.List;
 /**
  * Class which stores state via the provided {@link RetrievableStateStorageHelper} and writes the
  * returned state handle to distributed coordination system(e.g. Zookeeper, Kubernetes, etc.).
+ * 通过提供的 {@link RetrievableStateStorageHelper} 存储状态并将返回的状态句柄写入分布式协调系统（例如 Zookeeper、Kubernetes 等）的类。
  *
  * <p>To avoid concurrent modification issues, the implementation needs to ensure that only the
  * leader could update the state store.
+ * 为了避免并发修改问题，实现需要确保只有领导者可以更新状态存储。
  *
  * <p>Even some methods name contains the "lock"(e.g. {@link #getAndLock}), it does not mean the
  * implementation has to actually lock a specific state handle. Also it could have an empty
  * implementation for release operation.
+ * 甚至某些方法名称包含“锁”（例如 {@link #getAndLock}），这并不意味着实现必须实际锁定特定的状态句柄。
+ * 它也可能有一个用于发布操作的空实现。
  *
  * @param <T> Type of state
  * @param <R> Type of {@link ResourceVersion}
@@ -46,6 +50,8 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
     /**
      * Persist the state to distributed storage(e.g. S3, HDFS, etc.). And then creates a state
      * handle, stores it in the distributed coordination system(e.g. ZooKeeper, Kubernetes, etc.).
+     * 将状态持久化到分布式存储（例如 S3、HDFS 等）。
+     * 然后创建一个状态句柄，将其存储在分布式协调系统（例如 ZooKeeper、Kubernetes 等）中。
      *
      * @param name Key name in ConfigMap or child path name in ZooKeeper
      * @param state State to be added
@@ -62,6 +68,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
     /**
      * Replaces a state handle in the distributed coordination system and discards the old state
      * handle.
+     * 替换分布式协调系统中的状态句柄并丢弃旧的状态句柄。
      *
      * @param name Key name in ConfigMap or child path name in ZooKeeper
      * @param resourceVersion resource version of previous storage object. If the resource version
@@ -79,6 +86,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
 
     /**
      * Returns resource version of state handle with specific name on the underlying storage.
+     * 返回基础存储上具有特定名称的状态句柄的资源版本。
      *
      * @param name Key name in ConfigMap or child path name in ZooKeeper
      * @return current resource version on the underlying storage.
@@ -88,6 +96,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
 
     /**
      * Gets the {@link RetrievableStateHandle} stored with the given name.
+     * 获取使用给定名称存储的 {@link RetrievableStateHandle}。
      *
      * @param name Key name in ConfigMap or child path name in ZooKeeper
      * @return The retrieved state handle
@@ -99,6 +108,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
 
     /**
      * Gets all available state handles from the storage.
+     * 从存储中获取所有可用的状态句柄。
      *
      * @return All retrieved state handles.
      * @throws Exception if get state handle operation failed
@@ -107,6 +117,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
 
     /**
      * Return a list of all valid name for state handles.
+     * 返回状态句柄的所有有效名称的列表。
      *
      * @return List of valid state handle name. The name is key name in ConfigMap or child path name
      *     in ZooKeeper.
@@ -118,6 +129,8 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
      * Releases the lock for the given state handle and tries to remove the state handle if it is no
      * longer locked. It returns the {@link RetrievableStateHandle} stored under the given state
      * node if any. Also the state on the external storage will be discarded.
+     * 释放给定状态句柄的锁，如果状态句柄不再被锁定，则尝试删除它。
+     * 它返回存储在给定状态节点下的 {@link RetrievableStateHandle}（如果有）。 外部存储上的状态也将被丢弃。
      *
      * @param name Key name in ConfigMap or child path name in ZooKeeper
      * @return True if the state handle could be removed.
@@ -129,6 +142,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
      * Releases and removes all the states. Not only the state handles in the distributed
      * coordination system will be removed, but also the real state data on the distributed storage
      * will be discarded.
+     * 释放并删除所有状态。 不仅分布式协调系统中的状态句柄会被移除，分布式存储上的真实状态数据也会被丢弃。
      *
      * @throws Exception if releasing, removing the handles or discarding the state failed
      */
@@ -136,6 +150,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
 
     /**
      * Only clears all the state handle pointers on Kubernetes or ZooKeeper.
+     * 仅清除 Kubernetes 或 ZooKeeper 上的所有状态句柄指针。
      *
      * @throws Exception if removing the handles failed
      */
@@ -145,6 +160,8 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
      * Releases the lock on the specific state handle so that it could be deleted by other {@link
      * StateHandleStore}. If no lock exists or the underlying storage does not support, nothing will
      * happen.
+     * 释放特定状态句柄上的锁定，以便它可以被其他 {@link StateHandleStore} 删除。
+     * 如果不存在锁或底层存储不支持，则不会发生任何事情。
      *
      * @throws Exception if releasing the lock
      */
@@ -154,6 +171,7 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
      * Releases all the locks on corresponding state handle so that it could be deleted by other
      * {@link StateHandleStore}. If no lock exists or the underlying storage does not support,
      * nothing will happen.
+     * 释放相应状态句柄上的所有锁，以便它可以被其他 {@link StateHandleStore} 删除。 如果不存在锁或底层存储不支持，则不会发生任何事情。
      *
      * @throws Exception if releasing the locks
      */
@@ -184,7 +202,9 @@ public interface StateHandleStore<T extends Serializable, R extends ResourceVers
         }
     }
 
-    /** The key already exists in ConfigMap or the Zookeeper node already exists. */
+    /** The key already exists in ConfigMap or the Zookeeper node already exists.
+     * ConfigMap中已经存在key或者Zookeeper节点已经存在。
+     * */
     class AlreadyExistException extends FlinkException {
 
         private static final long serialVersionUID = 1L;

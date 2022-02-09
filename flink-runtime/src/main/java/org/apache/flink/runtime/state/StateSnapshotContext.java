@@ -24,13 +24,18 @@ import org.apache.flink.annotation.PublicEvolving;
  * This interface provides a context in which operators that use managed (i.e. state that is managed
  * by state backends) or raw (i.e. the operator can write it's state streams) state can perform a
  * snapshot.
+ * 该接口提供了一个上下文，在该上下文中，使用托管（即由状态后端管理的状态）或原始（即操作员可以写入其状态流）状态的操作符可以执行快照。
  */
 @PublicEvolving
 public interface StateSnapshotContext extends FunctionSnapshotContext {
 
-    /** Returns an output stream for keyed state */
+    /** Returns an output stream for keyed state
+     * 返回键控状态的输出流
+     * */
     KeyedStateCheckpointOutputStream getRawKeyedOperatorStateOutput() throws Exception;
 
-    /** Returns an output stream for operator state */
+    /** Returns an output stream for operator state
+     * 返回操作员状态的输出流
+     * */
     OperatorStateCheckpointOutputStream getRawOperatorStateOutput() throws Exception;
 }

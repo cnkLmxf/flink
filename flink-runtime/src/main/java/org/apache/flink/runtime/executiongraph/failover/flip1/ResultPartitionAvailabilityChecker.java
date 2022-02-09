@@ -19,11 +19,14 @@ package org.apache.flink.runtime.executiongraph.failover.flip1;
 
 import org.apache.flink.runtime.jobgraph.IntermediateResultPartitionID;
 
-/** This checker helps to query result partition availability. */
+/** This checker helps to query result partition availability.
+ * 此检查器有助于查询结果分区可用性。
+ * */
 public interface ResultPartitionAvailabilityChecker {
 
     /**
      * Returns whether the given partition is available.
+     * 返回给定分区是否可用。
      *
      * @param resultPartitionID ID of the result partition to query
      * @return whether the given partition is available

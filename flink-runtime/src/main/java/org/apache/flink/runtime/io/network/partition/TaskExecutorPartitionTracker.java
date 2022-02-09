@@ -23,45 +23,57 @@ import org.apache.flink.runtime.taskexecutor.partition.ClusterPartitionReport;
 
 import java.util.Collection;
 
-/** Utility for tracking partitions. */
+/** Utility for tracking partitions.
+ * 用于跟踪分区的实用程序。
+ * */
 public interface TaskExecutorPartitionTracker
         extends PartitionTracker<JobID, TaskExecutorPartitionInfo> {
 
     /**
      * Starts the tracking of the given partition for the given job.
+     * 开始跟踪给定作业的给定分区。
      *
      * @param producingJobId ID of job by which the partition is produced
      * @param partitionInfo information about the partition
      */
     void startTrackingPartition(JobID producingJobId, TaskExecutorPartitionInfo partitionInfo);
 
-    /** Releases the given partitions and stop the tracking of partitions that were released. */
+    /** Releases the given partitions and stop the tracking of partitions that were released.
+     * 释放给定的分区并停止跟踪已释放的分区。
+     * */
     void stopTrackingAndReleaseJobPartitions(Collection<ResultPartitionID> resultPartitionIds);
 
     /**
      * Releases all partitions for the given job and stop the tracking of partitions that were
      * released.
+     * 释放给定作业的所有分区并停止跟踪已释放的分区。
      */
     void stopTrackingAndReleaseJobPartitionsFor(JobID producingJobId);
 
-    /** Promotes the given partitions. */
+    /** Promotes the given partitions.
+     * 提升给定的分区。
+     * */
     void promoteJobPartitions(Collection<ResultPartitionID> partitionsToPromote);
 
     /**
      * Releases partitions associated with the given datasets and stops tracking of partitions that
      * were released.
+     * 释放与给定数据集关联的分区并停止跟踪已释放的分区。
      *
      * @param dataSetsToRelease data sets to release
      */
     void stopTrackingAndReleaseClusterPartitions(
             Collection<IntermediateDataSetID> dataSetsToRelease);
 
-    /** Releases and stops tracking all partitions. */
+    /** Releases and stops tracking all partitions.
+     * 释放并停止跟踪所有分区。
+     * */
     void stopTrackingAndReleaseAllClusterPartitions();
 
     /**
      * Creates a {@link ClusterPartitionReport}, describing which cluster partitions are currently
      * available.
+     * 创建一个 {@link ClusterPartitionReport}，描述当前可用的集群分区。
      */
     ClusterPartitionReport createClusterPartitionReport();
 }

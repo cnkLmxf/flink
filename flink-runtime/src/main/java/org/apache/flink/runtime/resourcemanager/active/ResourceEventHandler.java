@@ -23,12 +23,15 @@ import org.apache.flink.runtime.clusterframework.types.ResourceIDRetrievable;
 
 import java.util.Collection;
 
-/** Callback interfaces for handling resource events from external resource managers. */
+/** Callback interfaces for handling resource events from external resource managers.
+ * 用于处理来自外部资源管理器的资源事件的回调接口。
+ * */
 public interface ResourceEventHandler<WorkerType extends ResourceIDRetrievable> {
 
     /**
      * Notifies that workers of previous attempt have been recovered from the external resource
      * manager.
+     * 通知先前尝试的工作人员已从外部资源管理器中恢复。
      *
      * @param recoveredWorkers Collection of worker nodes, in the deployment specific type.
      */
@@ -36,6 +39,7 @@ public interface ResourceEventHandler<WorkerType extends ResourceIDRetrievable> 
 
     /**
      * Notifies that the worker has been terminated.
+     * 通知工作人员已被终止。
      *
      * <p>See also {@link ResourceManagerDriver#requestResource}.
      *
@@ -46,6 +50,7 @@ public interface ResourceEventHandler<WorkerType extends ResourceIDRetrievable> 
 
     /**
      * Notifies that an error has occurred that the process cannot proceed.
+     * 通知已发生错误，进程无法继续。
      *
      * @param exception Exception that describes the error.
      */

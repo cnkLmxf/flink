@@ -29,10 +29,14 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Partition producer descriptor for {@link ShuffleMaster} to obtain {@link ShuffleDescriptor}.
+ * {@link ShuffleMaster} 的分区生产者描述符以获得 {@link ShuffleDescriptor}。
  *
  * <p>The producer descriptor contains general producer specific information relevant for the
  * shuffle service: the producer location as {@link ResourceID}, {@link ExecutionAttemptID} and the
  * network connection information for shuffle data exchange (address and port).
+ * 生产者描述符包含与 shuffle 服务相关的一般生产者特定信息：
+ * 生产者位置为 {@link ResourceID}、{@link ExecutionAttemptID}
+ * 以及用于 shuffle 数据交换的网络连接信息（地址和端口）。
  */
 public class ProducerDescriptor {
     /** The resource ID to identify the container where the producer execution is deployed. */

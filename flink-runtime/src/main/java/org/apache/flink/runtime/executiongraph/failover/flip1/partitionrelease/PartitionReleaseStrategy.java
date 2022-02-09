@@ -29,11 +29,13 @@ import java.util.List;
 /**
  * Interface for strategies that decide when to release {@link IntermediateResultPartition
  * IntermediateResultPartitions}.
+ * 决定何时发布 {@link IntermediateResultPartition IntermediateResultPartitions} 的策略接口。
  */
 public interface PartitionReleaseStrategy {
 
     /**
      * Calling this method informs the strategy that a vertex finished.
+     * 调用此方法会通知该顶点已完成的策略。
      *
      * @param finishedVertex Id of the vertex that finished the execution
      * @return A list of result partitions that can be released
@@ -43,6 +45,7 @@ public interface PartitionReleaseStrategy {
     /**
      * Calling this method informs the strategy that a vertex is no longer in finished state, e.g.,
      * when a vertex is re-executed.
+     * 调用此方法会通知策略顶点不再处于完成状态，例如，当重新执行顶点时。
      *
      * @param executionVertexID Id of the vertex that is no longer in finished state.
      */

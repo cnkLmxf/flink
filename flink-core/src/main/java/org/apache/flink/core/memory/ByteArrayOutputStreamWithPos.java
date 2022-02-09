@@ -28,6 +28,7 @@ import java.util.Arrays;
 /**
  * Un-synchronized stream similar to Java's ByteArrayOutputStream that also exposes the current
  * position.
+ * 类似于 Java 的 ByteArrayOutputStream 的非同步流，它也公开当前位置。
  */
 @Internal
 public class ByteArrayOutputStreamWithPos extends OutputStream {

@@ -33,6 +33,7 @@ import java.io.IOException;
 /**
  * This class provides a static factory method to create different implementations of {@link
  * StateSnapshotKeyGroupReader} depending on the provided serialization format version.
+ * 这个类提供了一个静态工厂方法来创建 {@link StateSnapshotKeyGroupReader} 的不同实现，具体取决于提供的序列化格式版本。
  *
  * <p>The implementations are also located here as inner classes.
  */

@@ -39,6 +39,9 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@link LeaderRetrievalDriver}, we could retrieve the leader information from different storage.
  * The leader address as well as the current leader session ID will be retrieved from {@link
  * LeaderRetrievalDriver}.
+ * {@link org.apache.flink.runtime.leaderelection.DefaultLeaderElectionService} 的对应项。
+ * 由不同的 {@link LeaderRetrievalDriver} 组成，我们可以从不同的存储中检索领导者信息。
+ * 领导者地址以及当前领导者会话 ID 将从 {@link LeaderRetrievalDriver} 中检索。
  */
 public class DefaultLeaderRetrievalService
         implements LeaderRetrievalService, LeaderRetrievalEventHandler {
@@ -59,7 +62,9 @@ public class DefaultLeaderRetrievalService
     @GuardedBy("lock")
     private volatile boolean running;
 
-    /** Listener which will be notified about leader changes. */
+    /** Listener which will be notified about leader changes.
+     * 将收到有关领导者更改的通知的侦听器。
+     * */
     private volatile LeaderRetrievalListener leaderListener;
 
     private LeaderRetrievalDriver leaderRetrievalDriver;
@@ -67,6 +72,7 @@ public class DefaultLeaderRetrievalService
     /**
      * Creates a default leader retrieval service with specified {@link
      * LeaderRetrievalDriverFactory}.
+     * 使用指定的 {@link LeaderRetrievalDriverFactory} 创建默认领导者检索服务。
      *
      * @param leaderRetrievalDriverFactory {@link LeaderRetrievalDriverFactory} used for creating
      *     {@link LeaderRetrievalDriver}.
@@ -117,6 +123,7 @@ public class DefaultLeaderRetrievalService
 
     /**
      * Called by specific {@link LeaderRetrievalDriver} to notify leader address.
+     * 由特定的 {@link LeaderRetrievalDriver} 调用以通知领导地址。
      *
      * @param leaderInformation new notified leader information address. The exception will be
      *     handled by leader listener.

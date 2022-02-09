@@ -23,6 +23,7 @@ import org.apache.flink.core.io.IOReadableWritable;
 /**
  * The deserialization delegate is used during deserialization to read an arbitrary element as if it
  * implements {@link IOReadableWritable}, with the help of a type serializer.
+ * 反序列化委托在反序列化过程中用于读取任意元素，就好像它实现了 {@link IOReadableWritable}，在类型序列化程序的帮助下。
  *
  * @param <T> The type to be represented as an IOReadableWritable.
  */

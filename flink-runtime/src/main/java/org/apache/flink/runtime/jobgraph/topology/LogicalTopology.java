@@ -22,7 +22,9 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.JobVertexID;
 import org.apache.flink.runtime.topology.Topology;
 
-/** Represents a logical topology, i.e. {@link JobGraph}. */
+/** Represents a logical topology, i.e. {@link JobGraph}.
+ * 表示逻辑拓扑，即 {@link JobGraph}。
+ * */
 public interface LogicalTopology
         extends Topology<
                 JobVertexID,

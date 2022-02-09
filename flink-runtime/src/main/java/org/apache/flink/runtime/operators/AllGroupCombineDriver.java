@@ -37,6 +37,8 @@ import org.slf4j.LoggerFactory;
  * Non-chained driver for the partial group reduce operator that acts like a combiner with a custom
  * output type OUT. Like @org.apache.flink.runtime.operators.GroupCombineDriver but without grouping
  * and sorting. May emit partially reduced results.
+ * 部分组 reduce 运算符的非链式驱动程序，其作用类似于具有自定义输出类型 OUT 的组合器。
+ * 像 @org.apache.flink.runtime.operators.GroupCombineDriver 但没有分组和排序。 可能会发出部分减少的结果。
  *
  * @see GroupCombineFunction
  */

@@ -31,35 +31,50 @@ import java.util.Arrays;
 
 /**
  * Location information for all key groups of a {@link InternalKvState} instance.
+ * {@link InternalKvState} 实例的所有键组的位置信息。
  *
  * <p>This is populated by the {@link KvStateLocationRegistry} and used by the queryable state to
  * target queries.
+ * 这由 {@link KvStateLocationRegistry} 填充，并由可查询状态用于定位查询。
  */
 public class KvStateLocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** JobID the KvState instances belong to. */
+    /** JobID the KvState instances belong to.
+     * KvState 实例所属的 JobID。
+     * */
     private final JobID jobId;
 
-    /** JobVertexID the KvState instances belong to. */
+    /** JobVertexID the KvState instances belong to.
+     * KvState 实例所属的 JobVertexID。
+     * */
     private final JobVertexID jobVertexId;
 
-    /** Number of key groups of the operator the KvState instances belong to. */
+    /** Number of key groups of the operator the KvState instances belong to.
+     * KvState 实例所属的算子的键组数。
+     * */
     private final int numKeyGroups;
 
-    /** Name under which the KvState instances have been registered. */
+    /** Name under which the KvState instances have been registered.
+     * KvState 实例注册的名称。
+     * */
     private final String registrationName;
 
-    /** IDs for each KvState instance where array index corresponds to key group index. */
+    /** IDs for each KvState instance where array index corresponds to key group index.
+     * 每个 KvState 实例的 ID，其中数组索引对应于键组索引。
+     * */
     private final KvStateID[] kvStateIds;
 
     /**
      * Server address for each KvState instance where array index corresponds to key group index.
+     * 每个 KvState 实例的服务器地址，其中数组索引对应于键组索引。
      */
     private final InetSocketAddress[] kvStateAddresses;
 
-    /** Current number of registered key groups. */
+    /** Current number of registered key groups.
+     * 当前已注册的密钥组数。
+     * */
     private int numRegisteredKeyGroups;
 
     /**
@@ -145,6 +160,7 @@ public class KvStateLocation implements Serializable {
     /**
      * Returns the registered server address for the key group index or <code>null</code> if none is
      * registered yet.
+     * 返回键组索引的注册服务器地址，如果还没有注册，则返回 <code>null</code>。
      *
      * @param keyGroupIndex Key group index to get server address for.
      * @return the server address for the key group index or <code>null</code> if none is registered

@@ -23,7 +23,9 @@ import org.apache.flink.runtime.jobgraph.OperatorID;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-/** An interface to access basic properties of an operator in the context of its coordinator. */
+/** An interface to access basic properties of an operator in the context of its coordinator.
+ * 在其协调器的上下文中访问操作员的基本属性的接口。
+ * */
 public interface OperatorInfo {
 
     OperatorID operatorId();

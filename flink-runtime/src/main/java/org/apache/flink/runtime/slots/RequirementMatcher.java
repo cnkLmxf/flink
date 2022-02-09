@@ -23,7 +23,9 @@ import org.apache.flink.runtime.util.ResourceCounter;
 import java.util.Optional;
 import java.util.function.Function;
 
-/** A matcher for resource profiles to requirements. */
+/** A matcher for resource profiles to requirements.
+ * 资源配置文件与需求的匹配器。
+ * */
 public interface RequirementMatcher {
 
     /**

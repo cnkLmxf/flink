@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Public;
 /**
  * A timestamp assigner that assigns timestamps based on the machine's wall clock. If this assigner
  * is used after a stream source, it realizes "ingestion time" semantics.
+ * 一个时间戳分配器，根据机器的挂钟分配时间戳。 如果在流源之后使用此分配器，则它实现了“摄取时间”语义。
  *
  * @param <T> The type of the elements that get timestamps assigned.
  */
@@ -34,6 +35,7 @@ public final class IngestionTimeAssigner<T> implements TimestampAssigner<T> {
     @Override
     public long extractTimestamp(T element, long recordTimestamp) {
         // make sure timestamps are monotonously increasing, even when the system clock re-syncs
+        // 确保时间戳单调增加，即使系统时钟重新同步
         final long now = Math.max(System.currentTimeMillis(), maxTimestamp);
         maxTimestamp = now;
         return now;

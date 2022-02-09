@@ -22,7 +22,9 @@ import org.apache.flink.annotation.Internal;
 
 import java.math.BigDecimal;
 
-/** An external resource. */
+/** An external resource.
+ * 外部资源。
+ * */
 @Internal
 public class ExternalResource extends Resource<ExternalResource> {
     private static final long serialVersionUID = 1L;

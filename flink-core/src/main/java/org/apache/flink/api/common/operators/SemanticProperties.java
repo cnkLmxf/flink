@@ -24,13 +24,16 @@ import org.apache.flink.api.common.operators.util.FieldSet;
 
 import java.io.Serializable;
 
-/** Container for the semantic properties associated to an operator. */
+/** Container for the semantic properties associated to an operator.
+ * 与运算符关联的语义属性的容器。
+ * */
 @Internal
 public interface SemanticProperties extends Serializable {
 
     /**
      * Returns the indexes of all target fields to which a source field has been unmodified copied
      * by a function.
+     * 返回源字段未被函数复制到的所有目标字段的索引。
      *
      * @param input The input id for the requested source field (0 for first input, 1 for second
      *     input)
@@ -43,6 +46,7 @@ public interface SemanticProperties extends Serializable {
     /**
      * Returns the index of the source field on the given input from which the target field has been
      * unmodified copied by a function.
+     * 返回给定输入上的源字段的索引，目标字段已被函数从该输入中未修改地复制。
      *
      * @param input The input id for the requested source field (0 for first input, 1 for second
      *     input)
@@ -54,6 +58,7 @@ public interface SemanticProperties extends Serializable {
 
     /**
      * Returns the position indexes of all fields of an input that are accessed by a function.
+     * 返回函数访问的输入的所有字段的位置索引。
      *
      * @param input The input id for which accessed fields are requested.
      * @return A set of fields of the specified input which have been accessed by the function. Null

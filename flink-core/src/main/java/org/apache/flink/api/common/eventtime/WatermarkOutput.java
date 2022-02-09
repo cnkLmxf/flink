@@ -20,23 +20,29 @@ package org.apache.flink.api.common.eventtime;
 
 import org.apache.flink.annotation.Public;
 
-/** An output for watermarks. The output accepts watermarks and idleness (inactivity) status. */
+/** An output for watermarks. The output accepts watermarks and idleness (inactivity) status.
+ * 水印的输出。 输出接受水印和空闲（不活动）状态。
+ * */
 @Public
 public interface WatermarkOutput {
 
     /**
      * Emits the given watermark.
+     * 发出给定的水印。
      *
      * <p>Emitting a watermark also implicitly marks the stream as <i>active</i>, ending previously
      * marked idleness.
+     * 发出水印也隐式地将流标记为 <i>active</i>，结束之前标记的空闲状态。
      */
     void emitWatermark(Watermark watermark);
 
     /**
      * Marks this output as idle, meaning that downstream operations do not wait for watermarks from
      * this output.
+     * 将此输出标记为空闲，这意味着下游操作不会等待来自此输出的水印。
      *
      * <p>An output becomes active again as soon as the next watermark is emitted.
+     * 一旦发出下一个水印，输出就会再次变为活动状态。
      */
     void markIdle();
 }

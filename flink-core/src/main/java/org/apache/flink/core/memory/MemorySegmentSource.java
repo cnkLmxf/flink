@@ -20,12 +20,15 @@ package org.apache.flink.core.memory;
 
 import org.apache.flink.annotation.Internal;
 
-/** Interface describing entities that can provide memory segments. */
+/** Interface describing entities that can provide memory segments.
+ * 描述可以提供内存段的实体的接口。
+ * */
 @Internal
 public interface MemorySegmentSource {
 
     /**
      * Gets the next memory segment. If no more segments are available, it returns null.
+     * 获取下一个内存段。 如果没有更多可用段，则返回 null。
      *
      * @return The next memory segment, or null, if none is available.
      */

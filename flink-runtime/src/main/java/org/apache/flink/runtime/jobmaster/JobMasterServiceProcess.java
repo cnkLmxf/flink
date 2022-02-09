@@ -26,20 +26,26 @@ import javax.annotation.Nonnull;
 
 import java.util.concurrent.CompletableFuture;
 
-/** JobMasterServiceProcess is responsible for running a {@link JobMasterService}. */
+/** JobMasterServiceProcess is responsible for running a {@link JobMasterService}.
+ * JobMasterServiceProcess 负责运行 {@link JobMasterService}。
+ * */
 public interface JobMasterServiceProcess extends AutoCloseableAsync {
 
     static JobMasterServiceProcess waitingForLeadership() {
         return WaitingForLeadership.INSTANCE;
     }
 
-    /** True iff the {@link JobMasterService} has been initialized and is running. */
+    /** True iff the {@link JobMasterService} has been initialized and is running.
+     * 如果 {@link JobMasterService} 已初始化并正在运行，则为真。
+     * */
     boolean isInitializedAndRunning();
 
     /**
      * Future which is completed with the {@link JobMasterGateway} once the {@link JobMasterService}
      * has been created. Upon closing of the process, this future is completed exceptionally if it
      * is still uncompleted.
+     * 创建 {@link JobMasterService} 后，使用 {@link JobMasterGateway} 完成的未来。
+     * 在流程结束时，如果该未来仍未完成，则异常完成。
      */
     CompletableFuture<JobMasterGateway> getJobMasterGatewayFuture();
 
@@ -48,10 +54,15 @@ public interface JobMasterServiceProcess extends AutoCloseableAsync {
      * {@link JobManagerRunnerResult}, {@link JobNotFinishedException} if the job was not finished
      * or an {@link Throwable} if an unexpected failure occurs. Upon closing of the process, this
      * future is completed exceptionally with {@link JobNotFinishedException}.
+     * 以作业执行结果完成的未来。 作业的结果可以是 {@link JobManagerRunnerResult}，如果作业未完成，
+     * 则可以是 {@link JobNotFinishedException}；如果发生意外失败，则可以是 {@link Throwable}。
+     * 在流程结束后，这个未来会异常完成，并带有 {@link JobNotFinishedException}。
      */
     CompletableFuture<JobManagerRunnerResult> getResultFuture();
 
-    /** Future which is completed with the {@link JobMasterService} address once it is created. */
+    /** Future which is completed with the {@link JobMasterService} address once it is created.
+     * Future 创建完成后使用 {@link JobMasterService} 地址完成。
+     * */
     CompletableFuture<String> getLeaderAddressFuture();
 
     enum WaitingForLeadership implements JobMasterServiceProcess {

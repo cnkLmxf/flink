@@ -36,22 +36,34 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * The reader (read view) of a BoundedBlockingSubpartition based on {@link
  * org.apache.flink.shaded.netty4.io.netty.channel.FileRegion}.
+ * 基于 {@link org.apache.flink.shaded.netty4.io.netty.channel.FileRegion}
+ * 的 BoundedBlockingSubpartition 的读取器（读取视图）。
  */
 public class BoundedBlockingSubpartitionDirectTransferReader implements ResultSubpartitionView {
 
-    /** The result subpartition that we read. */
+    /** The result subpartition that we read.
+     * 我们读取的结果子分区。
+     * */
     private final BoundedBlockingSubpartition parent;
 
-    /** The reader/decoder to the file region with the data we currently read from. */
+    /** The reader/decoder to the file region with the data we currently read from.
+     * 带有我们当前读取的数据的文件区域的读取器/解码器。
+     * */
     private final BoundedData.Reader dataReader;
 
-    /** The remaining number of data buffers (not events) in the result. */
+    /** The remaining number of data buffers (not events) in the result.
+     * 结果中剩余的数据缓冲区（不是事件）数。
+     * */
     private int numDataBuffers;
 
-    /** The remaining number of data buffers and events in the result. */
+    /** The remaining number of data buffers and events in the result.
+     * 结果中剩余的数据缓冲区和事件数。
+     * */
     private int numDataAndEventBuffers;
 
-    /** Flag whether this reader is released. */
+    /** Flag whether this reader is released.
+     * 标记此阅读器是否已释放。
+     * */
     private boolean isReleased;
 
     private int sequenceNumber;
@@ -110,6 +122,8 @@ public class BoundedBlockingSubpartitionDirectTransferReader implements ResultSu
     public boolean isAvailable(int numCreditsAvailable) {
         // We simply assume there are no events except EndOfPartitionEvent for bath jobs,
         // then it has no essential effect to ignore the judgement of next event buffer.
+        // 我们简单假设bath作业除了EndOfPartitionEvent之外没有事件，
+        // 那么忽略对next event buffer的判断并没有本质的影响。
         return numCreditsAvailable > 0 && numDataAndEventBuffers > 0;
     }
 
@@ -162,6 +176,8 @@ public class BoundedBlockingSubpartitionDirectTransferReader implements ResultSu
     /**
      * The reader to read from {@link BoundedBlockingSubpartition} and return the wrapped {@link
      * org.apache.flink.shaded.netty4.io.netty.channel.FileRegion} based buffer.
+     * 读取器从 {@link BoundedBlockingSubpartition} 读取并返回基于包装的
+     * {@link org.apache.flink.shaded.netty4.io.netty.channel.FileRegion} 缓冲区。
      */
     static final class FileRegionReader implements BoundedData.Reader {
 

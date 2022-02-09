@@ -27,8 +27,10 @@ import java.util.List;
 /**
  * The {@code GlobalCommitter} is responsible for creating and committing an aggregated committable,
  * which we call global committable (see {@link #combine}).
+ * {@code GlobalCommitter} 负责创建和提交一个聚合的可提交表，我们称之为全局可提交表（参见 {@link #combine}）。
  *
  * <p>The {@code GlobalCommitter} runs with parallelism equal to 1.
+ * {@code GlobalCommitter} 以等于 1 的并行度运行。
  *
  * @param <CommT> The type of information needed to commit data staged by the sink
  * @param <GlobalCommT> The type of the aggregated committable
@@ -38,6 +40,7 @@ public interface GlobalCommitter<CommT, GlobalCommT> extends AutoCloseable {
 
     /**
      * Find out which global committables need to be retried when recovering from the failure.
+     * 找出从故障中恢复时需要重试哪些全局可提交文件。
      *
      * @param globalCommittables A list of {@link GlobalCommT} for which we want to verify which
      *     ones were successfully committed and which ones did not.
@@ -49,6 +52,7 @@ public interface GlobalCommitter<CommT, GlobalCommT> extends AutoCloseable {
 
     /**
      * Compute an aggregated committable from a list of committables.
+     * 从可提交的列表中计算聚合的可提交。
      *
      * @param committables A list of {@link CommT} to be combined into a {@link GlobalCommT}.
      * @return an aggregated committable
@@ -58,6 +62,7 @@ public interface GlobalCommitter<CommT, GlobalCommT> extends AutoCloseable {
 
     /**
      * Commit the given list of {@link GlobalCommT}.
+     * 提交给定的 {@link GlobalCommT} 列表。
      *
      * @param globalCommittables a list of {@link GlobalCommT}.
      * @return A list of {@link GlobalCommT} needed to re-commit, which is needed in case we
@@ -68,6 +73,7 @@ public interface GlobalCommitter<CommT, GlobalCommT> extends AutoCloseable {
 
     /**
      * Signals that there is no committable any more.
+     * 表示不再有可提交的信号。
      *
      * @throws IOException if fail to handle this notification.
      */

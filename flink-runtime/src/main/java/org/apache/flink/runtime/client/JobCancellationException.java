@@ -23,6 +23,7 @@ import org.apache.flink.api.common.JobID;
 /**
  * An exception which is thrown by the JobClient if a job is aborted as a result of a user
  * cancellation.
+ * 如果作业由于用户取消而中止，则由 JobClient 引发的异常。
  */
 public class JobCancellationException extends JobExecutionException {
 

@@ -29,7 +29,9 @@ import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.annotatio
 
 import javax.annotation.Nullable;
 
-/** Basic information object for asynchronous operations. */
+/** Basic information object for asynchronous operations.
+ * 异步操作的基本信息对象。
+ * */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AsynchronousOperationInfo {
 

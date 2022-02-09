@@ -33,6 +33,7 @@ import java.util.Optional;
 
 /**
  * This class implements a {@link SlotSelectionStrategy} that is based on location preference hints.
+ * 此类实现基于位置偏好提示的 {@link SlotSelectionStrategy}。
  */
 public abstract class LocationPreferenceSlotSelectionStrategy implements SlotSelectionStrategy {
 

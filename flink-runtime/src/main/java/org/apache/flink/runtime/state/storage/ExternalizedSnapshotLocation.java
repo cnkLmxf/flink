@@ -34,6 +34,8 @@ import java.util.Optional;
  * {@link ExternalizedSnapshotLocation} configures and validates the base checkpoint- and savepoint
  * directory paths, but also accepts null for both of then, in which case creating externalized
  * checkpoint is not possible, and it is not possible to create a savepoint with a default path.
+ * {@link ExternalizedSnapshotLocation} 配置和验证基本检查点和保存点目录路径，
+ * 但也接受两者的 null，在这种情况下创建外部检查点是不可能的，并且不可能创建具有默认路径的保存点。
  */
 class ExternalizedSnapshotLocation implements Serializable {
 

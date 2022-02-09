@@ -26,6 +26,10 @@ import org.apache.flink.util.Collector;
  * the {@link org.apache.flink.api.common.functions.RuntimeContext} and provides setup and teardown
  * methods: {@link RichFunction#open(org.apache.flink.configuration.Configuration)} and {@link
  * RichFunction#close()}.
+ * {@link MapPartitionFunction} 的丰富变体。
+ * 作为一个 {@link RichFunction}，它可以访问 {@link org.apache.flink.api.common.functions.RuntimeContext}
+ * 并提供设置和拆卸方法：{@link RichFunction#open(org.apache.flink.configuration.Configuration)}
+ * 和 {@link RichFunction#close()}。
  *
  * @param <I> Type of the input elements.
  * @param <O> Type of the returned elements.

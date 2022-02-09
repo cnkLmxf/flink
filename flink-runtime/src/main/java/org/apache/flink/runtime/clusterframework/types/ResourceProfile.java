@@ -49,8 +49,12 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * calculate a matching score to decide which profile we should choose when we have lots of
  * candidate slots. It should be generated from {@link ResourceSpec} with the input and output
  * memory calculated in JobMaster.
+ * 在需要或提供时描述插槽的不可变资源配置文件。 可以检查配置文件是否可以匹配另一个配置文件的要求，
+ * 此外，我们可以计算匹配分数来决定当我们有很多候选插槽时我们应该选择哪个配置文件。
+ * 它应该从 {@link ResourceSpec} 生成，输入和输出内存在 JobMaster 中计算。
  *
  * <p>Resource Profiles have a total ordering, defined by comparing these fields in sequence:
+ * 资源配置文件具有总排序，通过按顺序比较这些字段来定义：
  *
  * <ol>
  *   <li>Memory Size
@@ -59,6 +63,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * </ol>
  *
  * The extended resources are compared ordered by the resource names.
+ * 扩展资源按资源名称排序。
  */
 public class ResourceProfile implements Serializable {
 
@@ -70,12 +75,16 @@ public class ResourceProfile implements Serializable {
      * It can also be used for describing remaining resource of a multi task slot that contains
      * tasks with unknown resource requirements. It should not be used for describing total resource
      * of a task executor / slot, which should always be specific.
+     * 指示未知资源需求的 ResourceProfile。 这主要用于描述未指定所需资源的确切数量的资源需求。
+     * 它还可以用于描述包含具有未知资源需求的任务的多任务槽的剩余资源。
+     * 它不应该用于描述任务执行器/槽的总资源，它应该始终是特定的。
      */
     public static final ResourceProfile UNKNOWN = new ResourceProfile();
 
     /**
      * A ResourceProfile that indicates infinite resource that matches any resource requirement, for
      * testability purpose only.
+     * 一个 ResourceProfile 指示匹配任何资源要求的无限资源，仅用于可测试性目的。
      */
     @VisibleForTesting
     public static final ResourceProfile ANY =
@@ -282,13 +291,19 @@ public class ResourceProfile implements Serializable {
     /**
      * Check whether all fields of this resource profile are no less than the given resource
      * profile.
+     * 检查此资源配置文件的所有字段是否不小于给定的资源配置文件。
      *
      * <p>It is not same with the total resource comparison. It return true iff each resource
      * field(cpu, task heap memory, managed memory, etc.) is no less than the respective field of
      * the given profile.
+     * 与总资源比较不同。 如果每个资源字段（cpu、任务堆内存、托管内存等）不小于给定配置文件的相应字段，则返回 true。
      *
      * <p>For example, assume that this profile has 1 core, 50 managed memory and 100 heap memory.
-     *
+     * 例如，假设此配置文件有 1 个核心、50 个托管内存和 100 个堆内存。
+     *<ol>
+     *     <li>如果另一个配置文件有 2 个核心、10 个托管内存和 1000 个堆内存，则比较将返回 false。
+     *     <li>如果另一个配置文件有 1 个核心、50 个托管内存和 150 个堆内存，则比较将返回 true。
+     * </ol>
      * <ol>
      *   <li>The comparison will return false if the other profile has 2 core, 10 managed memory and
      *       1000 heap memory.
@@ -371,6 +386,7 @@ public class ResourceProfile implements Serializable {
 
     /**
      * Calculates the sum of two resource profiles.
+     * 计算两个资源配置文件的总和。
      *
      * @param other The other resource profile to add.
      * @return The merged resource profile.
@@ -408,6 +424,7 @@ public class ResourceProfile implements Serializable {
 
     /**
      * Subtracts another piece of resource profile from this one.
+     * 从这个中减去另一个资源配置文件。
      *
      * @param other The other resource profile to subtract.
      * @return The subtracted resource profile.
@@ -645,6 +662,7 @@ public class ResourceProfile implements Serializable {
         /**
          * Add the given extended resource. The old value with the same resource name will be
          * replaced if present.
+         * 添加给定的扩展资源。 如果存在，将替换具有相同资源名称的旧值。
          */
         public Builder setExtendedResource(ExternalResource extendedResource) {
             this.extendedResources.put(extendedResource.getName(), extendedResource);
@@ -654,6 +672,7 @@ public class ResourceProfile implements Serializable {
         /**
          * Add the given extended resources. This will discard all the previous added extended
          * resources.
+         * 添加给定的扩展资源。 这将丢弃所有先前添加的扩展资源。
          */
         public Builder setExtendedResources(Collection<ExternalResource> extendedResources) {
             this.extendedResources =

@@ -23,6 +23,7 @@ import org.apache.flink.annotation.PublicEvolving;
 /**
  * This interface is implemented by classes that provide a version number. Versions numbers can be
  * used to differentiate between evolving classes.
+ * 该接口由提供版本号的类实现。 版本号可用于区分不断发展的类。
  */
 @PublicEvolving
 public interface Versioned {
@@ -30,6 +31,7 @@ public interface Versioned {
     /**
      * Returns the version number of the object. Versions numbers can be used to differentiate
      * evolving classes.
+     * 返回对象的版本号。 版本号可用于区分不断发展的类。
      */
     int getVersion();
 }

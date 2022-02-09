@@ -25,7 +25,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
-/** {@link SlotMatchingStrategy} which picks the first matching slot. */
+/** {@link SlotMatchingStrategy} which picks the first matching slot.
+ * {@link SlotMatchingStrategy} 选择第一个匹配的插槽。
+ * */
 public enum AnyMatchingSlotMatchingStrategy implements SlotMatchingStrategy {
     INSTANCE;
 

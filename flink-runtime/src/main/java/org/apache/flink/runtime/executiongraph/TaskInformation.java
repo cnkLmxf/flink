@@ -27,12 +27,15 @@ import java.io.Serializable;
 /**
  * Container class for operator/task specific information which are stored at the {@link
  * ExecutionJobVertex}. This information is shared by all sub tasks of this operator.
+ * 存储在 {@link ExecutionJobVertex} 的operator/task特定信息的容器类。 此信息由该操作员的所有子任务共享。
  */
 public class TaskInformation implements Serializable {
 
     private static final long serialVersionUID = -9006218793155953789L;
 
-    /** Job vertex id of the associated job vertex. */
+    /** Job vertex id of the associated job vertex.
+     * 关联作业顶点的作业顶点 ID。
+     * */
     private final JobVertexID jobVertexId;
 
     /** Name of the task. */

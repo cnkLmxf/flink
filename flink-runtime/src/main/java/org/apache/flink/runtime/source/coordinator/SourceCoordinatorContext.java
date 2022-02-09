@@ -60,9 +60,19 @@ import java.util.function.BiConsumer;
  * A context class for the {@link OperatorCoordinator}. Compared with {@link SplitEnumeratorContext}
  * this class allows interaction with state and sending {@link OperatorEvent} to the SourceOperator
  * while {@link SplitEnumeratorContext} only allows sending {@link SourceEvent}.
+ * {@link OperatorCoordinator} 的上下文类。 与 {@link SplitEnumeratorContext} 相比，
+ * 该类允许与状态交互并将 {@link OperatorEvent} 发送到 SourceOperator，
+ * 而 {@link SplitEnumeratorContext} 只允许发送 {@link SourceEvent}。
  *
  * <p>The context serves a few purposes:
- *
+ * 上下文有几个目的：
+ *<ul>
+ *     <li>信息提供者 - 上下文为枚举器提供必要的信息，以便它了解源阅读器的状态及其拆分分配。 这些信息允许拆分枚举器进行协调。
+ *     <li>Action taker - 上下文还提供了枚举器可以采取的一些操作来执行协调。 到目前为止，有两个操作：
+ *          1）将拆分分配给源阅读器。 和
+ *          2) 将自定义 {@link SourceEvent SourceEvents} 发送给源阅读器。
+ *    <li>线程模型强制执行 - 上下文确保对协调器状态的所有操作都由同一个线程处理。
+ *   </ul>
  * <ul>
  *   <li>Information provider - The context provides necessary information to the enumerator for it
  *       to know what is the status of the source readers and their split assignments. These

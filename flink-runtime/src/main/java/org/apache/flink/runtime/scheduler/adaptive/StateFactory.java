@@ -20,6 +20,7 @@ package org.apache.flink.runtime.scheduler.adaptive;
 
 /**
  * Factory for creating adaptive scheduler state instances.
+ * 用于创建自适应调度程序状态实例的工厂。
  *
  * @param <T> Type of the state.
  */

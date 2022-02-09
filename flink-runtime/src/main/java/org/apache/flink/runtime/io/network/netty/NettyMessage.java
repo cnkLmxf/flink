@@ -55,15 +55,18 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * A simple and generic interface to serialize messages to Netty's buffer space.
+ * 一个简单而通用的接口，用于将消息序列化到 Netty 的缓冲区空间。
  *
  * <p>This class must be public as long as we are using a Netty version prior to 4.0.45. Please
  * check FLINK-7845 for more information.
+ * 只要我们使用的是 4.0.45 之前的 Netty 版本，这个类就必须是公共的。 请查看 FLINK-7845 了解更多信息。
  */
 public abstract class NettyMessage {
 
     // ------------------------------------------------------------------------
     // Note: Every NettyMessage subtype needs to have a public 0-argument
     // constructor in order to work with the generic deserializer.
+    // 注意：每个 NettyMessage 子类型都需要有一个公共的 0 参数构造函数才能使用通用反序列化器。
     // ------------------------------------------------------------------------
 
     static final int FRAME_HEADER_LENGTH =
@@ -80,9 +83,11 @@ public abstract class NettyMessage {
     /**
      * Allocates a new (header and contents) buffer and adds some header information for the frame
      * decoder.
+     * 分配一个新的（标题和内容）缓冲区并为帧解码器添加一些标题信息。
      *
      * <p>Before sending the buffer, you must write the actual length after adding the contents as
      * an integer to position <tt>0</tt>!
+     * 在发送缓冲区之前，必须将内容作为整数添加到位置<tt>0</tt>后写入实际长度！
      *
      * @param allocator byte buffer allocator to use
      * @param id {@link NettyMessage} subclass ID
@@ -96,9 +101,11 @@ public abstract class NettyMessage {
     /**
      * Allocates a new (header and contents) buffer and adds some header information for the frame
      * decoder.
+     * 分配一个新的（标题和内容）缓冲区并为帧解码器添加一些标题信息。
      *
      * <p>If the <tt>contentLength</tt> is unknown, you must write the actual length after adding
      * the contents as an integer to position <tt>0</tt>!
+     * 如果 <tt>contentLength</tt> 未知，则必须将内容作为整数添加到位置 <tt>0</tt> 后写入实际长度！
      *
      * @param allocator byte buffer allocator to use
      * @param id {@link NettyMessage} subclass ID
@@ -112,9 +119,11 @@ public abstract class NettyMessage {
 
     /**
      * Allocates a new buffer and adds some header information for the frame decoder.
+     * 分配一个新的缓冲区并为帧解码器添加一些头信息。
      *
      * <p>If the <tt>contentLength</tt> is unknown, you must write the actual length after adding
      * the contents as an integer to position <tt>0</tt>!
+     * 如果 <tt>contentLength</tt> 未知，则必须将内容作为整数添加到位置 <tt>0</tt> 后写入实际长度！
      *
      * @param allocator byte buffer allocator to use
      * @param id {@link NettyMessage} subclass ID
@@ -180,9 +189,14 @@ public abstract class NettyMessage {
      * additional memory copy inside {@link #extractFrame(ChannelHandlerContext, ByteBuf, int, int)}
      * since we completely decode the {@link ByteBuf} inside {@link #decode(ChannelHandlerContext,
      * ByteBuf)} and will not re-use it afterwards.
+     * 基于 netty 的 {@link LengthFieldBasedFrameDecoder} 的消息解码器，
+     * 但避免了 {@link #extractFrame(ChannelHandlerContext, ByteBuf, int, int)} 内的额外内存副本，
+     * 因为我们完全解码了 {@link #decode(ChannelHandlerContext, ByteBuf)} 内的 {@link ByteBuf} }
+     * 并且以后不会重复使用它。
      *
      * <p>The frame-length encoder will be based on this transmission scheme created by {@link
      * NettyMessage#allocateBuffer(ByteBufAllocator, byte, int)}:
+     * 帧长编码器将基于 {@link NettyMessage#allocateBuffer(ByteBufAllocator, byte, int)} 创建的这种传输方案：
      *
      * <pre>
      * +------------------+------------------+--------++----------------+
@@ -383,12 +397,15 @@ public abstract class NettyMessage {
         /**
          * Parses the message header part and composes a new BufferResponse with an empty data
          * buffer. The data buffer will be filled in later.
+         * 解析消息头部分并用空数据缓冲区组成一个新的 BufferResponse。 稍后将填充数据缓冲区。
          *
          * @param messageHeader the serialized message header.
          * @param bufferAllocator the allocator for network buffer.
          * @return a BufferResponse object with the header parsed and the data buffer to fill in
          *     later. The data buffer will be null if the target channel has been released or the
          *     buffer size is 0.
+         *     一个 BufferResponse 对象，其中包含已解析的标头和稍后要填充的数据缓冲区。
+         *     如果目标通道已被释放或缓冲区大小为 0，则数据缓冲区将为空。
          */
         static BufferResponse readFrom(
                 ByteBuf messageHeader, NetworkBufferAllocator bufferAllocator) {

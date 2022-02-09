@@ -20,7 +20,9 @@ package org.apache.flink.runtime.io.disk.iomanager;
 
 import java.io.IOException;
 
-/** A base class for synchronous readers and writers. */
+/** A base class for synchronous readers and writers.
+ * 同步读取器和写入器的基类。
+ * */
 public abstract class SynchronousFileIOChannel extends AbstractFileIOChannel {
 
     protected SynchronousFileIOChannel(FileIOChannel.ID channelID, boolean writeEnabled)

@@ -26,7 +26,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.zip.GZIPInputStream;
 
-/** Factory for input streams that decompress the GZIP compression format. */
+/** Factory for input streams that decompress the GZIP compression format.
+ * 用于解压缩 GZIP 压缩格式的输入流的工厂。
+ * */
 @Internal
 public class GzipInflaterInputStreamFactory implements InflaterInputStreamFactory<GZIPInputStream> {
 

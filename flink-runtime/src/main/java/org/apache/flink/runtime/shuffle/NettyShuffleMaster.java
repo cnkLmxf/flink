@@ -25,7 +25,9 @@ import org.apache.flink.runtime.shuffle.NettyShuffleDescriptor.PartitionConnecti
 
 import java.util.concurrent.CompletableFuture;
 
-/** Default {@link ShuffleMaster} for netty and local file based shuffle implementation. */
+/** Default {@link ShuffleMaster} for netty and local file based shuffle implementation.
+ * 默认 {@link ShuffleMaster} 用于基于网络和本地文件的 shuffle 实现。
+ * */
 public enum NettyShuffleMaster implements ShuffleMaster<NettyShuffleDescriptor> {
     INSTANCE;
 

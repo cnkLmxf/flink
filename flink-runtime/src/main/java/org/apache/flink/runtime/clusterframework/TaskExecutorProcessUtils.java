@@ -45,9 +45,11 @@ import static org.apache.flink.configuration.ConfigurationUtils.assembleDynamicC
 
 /**
  * Utility class for TaskExecutor memory configurations.
+ * TaskExecutor 内存配置的实用程序类。
  *
  * <p>See {@link TaskExecutorProcessSpec} for details about memory components of TaskExecutor and
  * their relationships.
+ * 有关 TaskExecutor 的内存组件及其关系的详细信息，请参阅 {@link TaskExecutorProcessSpec}。
  */
 public class TaskExecutorProcessUtils {
 

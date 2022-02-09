@@ -30,10 +30,14 @@ import static org.apache.flink.util.Preconditions.checkState;
 /** Compressor for {@link Buffer}. */
 public class BufferCompressor {
 
-    /** The backing block compressor for data compression. */
+    /** The backing block compressor for data compression.
+     * 用于数据压缩的后备块压缩器。
+     * */
     private final BlockCompressor blockCompressor;
 
-    /** The intermediate buffer for the compressed data. */
+    /** The intermediate buffer for the compressed data.
+     * 压缩数据的中间缓冲区。
+     * */
     private final NetworkBuffer internalBuffer;
 
     public BufferCompressor(int bufferSize, String factoryName) {
@@ -55,9 +59,13 @@ public class BufferCompressor {
      * be stored in the intermediate buffer of this {@link BufferCompressor} and returned to the
      * caller. The caller must guarantee that the returned {@link Buffer} has been freed when
      * calling the method next time.
+     * 使用 {@link BlockCompressor} 压缩给定的 {@link Buffer}。
+     * 压缩后的数据将存储在此 {@link BufferCompressor} 的中间缓冲区中并返回给调用者。
+     * 调用者必须保证下次调用该方法时返回的 {@link Buffer} 已被释放。
      *
      * <p>Notes that the compression will always start from offset 0 to the size of the input {@link
      * Buffer}.
+     * 请注意，压缩总是从偏移量 0 开始到输入 {@link Buffer} 的大小。
      */
     public Buffer compressToIntermediateBuffer(Buffer buffer) {
         int compressedLen;
@@ -74,8 +82,11 @@ public class BufferCompressor {
      * The difference between this method and {@link #compressToIntermediateBuffer(Buffer)} is that
      * this method will copy the compressed data back to the input {@link Buffer} starting from
      * offset 0.
+     * 此方法与 {@link #compressToIntermediateBuffer(Buffer)} 的区别在于，
+     * 此方法将从偏移量 0 开始将压缩数据复制回输入 {@link Buffer}。
      *
      * <p>The caller must guarantee that the input {@link Buffer} is writable.
+     * 调用者必须保证输入 {@link Buffer} 是可写的。
      */
     public Buffer compressToOriginalBuffer(Buffer buffer) {
         int compressedLen;
@@ -95,6 +106,7 @@ public class BufferCompressor {
     /**
      * Compresses the given {@link Buffer} into the intermediate buffer and returns the compressed
      * data size.
+     * 将给定的 {@link Buffer} 压缩到中间缓冲区并返回压缩后的数据大小。
      */
     private int compress(Buffer buffer) {
         checkArgument(buffer != null, "The input buffer must not be null.");

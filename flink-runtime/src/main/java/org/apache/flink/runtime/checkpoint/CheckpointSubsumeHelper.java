@@ -28,9 +28,18 @@ import java.util.Optional;
  * Encapsulates the logic to subsume older checkpoints by {@link CompletedCheckpointStore checkpoint
  * stores}. In general, checkpoints should be subsumed whenever state.checkpoints.num-retained is
  * exceeded.
+ * 通过 {@link CompletedCheckpointStore checkpoint stores} 封装包含旧检查点的逻辑。
+ * 一般来说，只要 state.checkpoints.num-retained 被超过，就应该包含检查点。
  *
  * <p>Additional considerations:
- *
+ *<ul>
+ *     <li>保存点必须存储在同一队列中以防止重复（@see <a href="https://issues.apache.org/jira/browse/FLINK-10354">FLINK-10354</a>）。
+ *    <li>为防止队列无限增长，保存点也与检查点一起计入 num-retained
+ *   <li>保存点的实际状态不应在包含时被丢弃。
+ *    <li>应至少保留一个（最近的）检查点（不是保存点）。 否则，后续增量检查点可能会引用丢弃状态
+ *    （@see <a href="https://issues.apache.org/jira/browse/FLINK-21351">FLINK-21351</a>）。
+ *    <li>除非使用保存点停止作业，否则以后不会创建检查点。
+ *   </ul>
  * <ul>
  *   <li>Savepoints must be stored in the same queue to prevent duplicates (@see <a
  *       href="https://issues.apache.org/jira/browse/FLINK-10354">FLINK-10354</a>).

@@ -22,6 +22,7 @@ import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 
 /**
  * Exception which indicates that the {@link TaskExecutor} could not register at the master in time.
+ * 表示 {@link TaskExecutor} 无法及时注册到 master 的异常。
  */
 public class RegistrationTimeoutException extends TaskManagerException {
     private static final long serialVersionUID = -6377818046575001931L;

@@ -40,14 +40,23 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Describe the different resource factors of the operator with UDF.
+ * 用 UDF 描述算子的不同资源因素。
  *
  * <p>Resource provides {@link #merge(ResourceSpec)} method for chained operators when generating
  * job graph.
+ * Resource 在生成作业图时为链式运算符提供了 {@link #merge(ResourceSpec)} 方法。
  *
  * <p>Resource provides {@link #lessThanOrEqual(ResourceSpec)} method to compare these fields in
  * sequence:
- *
- * <ol>
+ * Resource 提供了 {@link #lessThanOrEqual(ResourceSpec)} 方法来按顺序比较这些字段：
+ *<ol>
+ *     <li>CPU 内核
+ *     <li>任务堆内存
+ *     <li>任务堆外内存
+ *     <li>托管内存
+ *     <li>扩展资源
+ *   </ol>
+ *<ol>
  *   <li>CPU cores
  *   <li>Task Heap Memory
  *   <li>Task Off-Heap Memory
@@ -60,30 +69,43 @@ public final class ResourceSpec implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** A ResourceSpec that indicates an unknown set of resources. */
+    /** A ResourceSpec that indicates an unknown set of resources.
+     * 指示一组未知资源的 ResourceSpec。
+     * */
     public static final ResourceSpec UNKNOWN = new ResourceSpec();
 
     /**
      * The default ResourceSpec used for operators and transformation functions. Currently equal to
      * {@link #UNKNOWN}.
+     * 用于运算符和转换函数的默认 ResourceSpec。 当前等于 {@link #UNKNOWN}。
      */
     public static final ResourceSpec DEFAULT = UNKNOWN;
 
-    /** A ResourceSpec that indicates zero amount of resources. */
+    /** A ResourceSpec that indicates zero amount of resources.
+     * 指示资源数量为零的 ResourceSpec。
+     * */
     public static final ResourceSpec ZERO = ResourceSpec.newBuilder(0.0, 0).build();
 
-    /** How many cpu cores are needed. Can be null only if it is unknown. */
+    /** How many cpu cores are needed. Can be null only if it is unknown.
+     * 需要多少个 cpu 核心。 只有在未知时才能为空。
+     * */
     @Nullable private final CPUResource cpuCores;
 
-    /** How much task heap memory is needed. */
+    /** How much task heap memory is needed.
+     * 需要多少任务堆内存。
+     * */
     @Nullable // can be null only for UNKNOWN
     private final MemorySize taskHeapMemory;
 
-    /** How much task off-heap memory is needed. */
+    /** How much task off-heap memory is needed.
+     * 需要多少任务堆外内存。
+     * */
     @Nullable // can be null only for UNKNOWN
     private final MemorySize taskOffHeapMemory;
 
-    /** How much managed memory is needed. */
+    /** How much managed memory is needed.
+     * 需要多少托管内存。
+     * */
     @Nullable // can be null only for UNKNOWN
     private final MemorySize managedMemory;
 
@@ -109,7 +131,9 @@ public final class ResourceSpec implements Serializable {
                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    /** Creates a new ResourceSpec with all fields unknown. */
+    /** Creates a new ResourceSpec with all fields unknown.
+     * 创建一个所有字段都未知的新 ResourceSpec。
+     * */
     private ResourceSpec() {
         this.cpuCores = null;
         this.taskHeapMemory = null;
@@ -121,6 +145,7 @@ public final class ResourceSpec implements Serializable {
     /**
      * Used by system internally to merge the other resources of chained operators when generating
      * the job graph.
+     * 系统内部用于在生成作业图时合并链式运算符的其他资源。
      *
      * @param other Reference to resource to merge in.
      * @return The new resource with merged values.
@@ -152,6 +177,7 @@ public final class ResourceSpec implements Serializable {
 
     /**
      * Subtracts another resource spec from this one.
+     * 从此资源规格中减去另一个资源规格。
      *
      * @param other The other resource spec to subtract.
      * @return The subtracted resource spec.
@@ -220,6 +246,7 @@ public final class ResourceSpec implements Serializable {
     /**
      * Checks the current resource less than or equal with the other resource by comparing all the
      * fields in the resource.
+     * 通过比较资源中的所有字段来检查当前资源是否小于或等于其他资源。
      *
      * @param other The resource to compare
      * @return True if current resource is less than or equal with the other resource, otherwise
@@ -377,6 +404,7 @@ public final class ResourceSpec implements Serializable {
         /**
          * Add the given extended resource. The old value with the same resource name will be
          * replaced if present.
+         * 添加给定的扩展资源。 如果存在，将替换具有相同资源名称的旧值。
          */
         public Builder setExtendedResource(ExternalResource extendedResource) {
             this.extendedResources.put(extendedResource.getName(), extendedResource);
@@ -386,6 +414,7 @@ public final class ResourceSpec implements Serializable {
         /**
          * Add the given extended resources. This will discard all the previous added extended
          * resources.
+         * 添加给定的扩展资源。 这将丢弃所有先前添加的扩展资源。
          */
         public Builder setExtendedResources(Collection<ExternalResource> extendedResources) {
             this.extendedResources =

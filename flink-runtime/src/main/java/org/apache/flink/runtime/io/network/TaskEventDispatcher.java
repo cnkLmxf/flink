@@ -36,9 +36,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * The task event dispatcher dispatches events flowing backwards from a consuming task to the task
  * producing the consumed result.
+ * 任务事件分派器分派从消费任务向后流动的事件到产生消费结果的任务。
  *
  * <p>Backwards events only work for tasks, which produce pipelined results, where both the
  * producing and consuming task are running at the same time.
+ * 向后事件仅适用于产生流水线结果的任务，其中生产任务和消费任务同时运行。
  */
 public class TaskEventDispatcher implements TaskEventPublisher {
     private static final Logger LOG = LoggerFactory.getLogger(TaskEventDispatcher.class);
@@ -48,6 +50,7 @@ public class TaskEventDispatcher implements TaskEventPublisher {
     /**
      * Registers the given partition for incoming task events allowing calls to {@link
      * #subscribeToEvent(ResultPartitionID, EventListener, Class)}.
+     * 为传入任务事件注册给定分区，允许调用 {@link #subscribeToEvent(ResultPartitionID, EventListener, Class)}。
      *
      * @param partitionId the partition ID
      */
@@ -68,6 +71,7 @@ public class TaskEventDispatcher implements TaskEventPublisher {
     /**
      * Removes the given partition from listening to incoming task events, thus forbidding calls to
      * {@link #subscribeToEvent(ResultPartitionID, EventListener, Class)}.
+     * 从监听传入任务事件中删除给定分区，这禁止调用 {@link #subscribeToEvent(ResultPartitionID, EventListener, Class)}。
      *
      * @param partitionId the partition ID
      */
@@ -85,6 +89,7 @@ public class TaskEventDispatcher implements TaskEventPublisher {
 
     /**
      * Subscribes a listener to this dispatcher for events on a partition.
+     * 订阅此调度程序的侦听器以获取分区上的事件。
      *
      * @param partitionId ID of the partition to subscribe for (must be registered via {@link
      *     #registerPartition(ResultPartitionID)} first!)
@@ -112,6 +117,7 @@ public class TaskEventDispatcher implements TaskEventPublisher {
 
     /**
      * Publishes the event to the registered {@link EventListener} instances.
+     * 将事件发布到已注册的 {@link EventListener} 实例。
      *
      * <p>This method is either called directly from a {@link LocalInputChannel} or the network I/O
      * thread on behalf of a {@link RemoteInputChannel}.
@@ -137,7 +143,9 @@ public class TaskEventDispatcher implements TaskEventPublisher {
         return false;
     }
 
-    /** Removes all registered event handlers. */
+    /** Removes all registered event handlers.
+     * 删除所有已注册的事件处理程序。
+     * */
     public void clearAll() {
         synchronized (registeredHandlers) {
             registeredHandlers.clear();

@@ -32,10 +32,14 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * An implementation of the {@link HighAvailabilityServices} for the non-high-availability case.
  * This implementation can be used for testing, and for cluster setups that do not tolerate failures
  * of the master processes (JobManager, ResourceManager).
+ * 用于非高可用性情况的 {@link HighAvailabilityServices} 的实现。
+ * 此实现可用于测试，以及不容忍主进程（JobManager、ResourceManager）故障的集群设置。
  *
  * <p>This implementation has no dependencies on any external services. It returns a fix
  * pre-configured ResourceManager and JobManager, and stores checkpoints and metadata simply on the
  * heap or on a local file system and therefore in a storage without guarantees.
+ * 此实现不依赖于任何外部服务。 它返回一个修复预配置的 ResourceManager 和 JobManager，
+ * 并将检查点和元数据简单地存储在堆上或本地文件系统上，因此存储在没有保证的存储中。
  */
 public class StandaloneHaServices extends AbstractNonHaServices {
 
@@ -49,6 +53,7 @@ public class StandaloneHaServices extends AbstractNonHaServices {
 
     /**
      * Creates a new services class for the fix pre-defined leaders.
+     * 为修复预定义的领导者创建一个新的服务类。
      *
      * @param resourceManagerAddress The fix address of the ResourceManager
      * @param clusterRestEndpointAddress

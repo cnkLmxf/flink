@@ -44,6 +44,7 @@ import static org.apache.flink.runtime.blob.BlobUtils.writeLength;
 /**
  * The BLOB output stream is a special implementation of an {@link OutputStream} to send data vi PUT
  * to the BLOB server.
+ * BLOB 输出流是 {@link OutputStream} 的一种特殊实现，用于将数据 vi PUT 发送到 BLOB 服务器。
  */
 final class BlobOutputStream extends OutputStream {
 

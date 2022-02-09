@@ -26,6 +26,7 @@ import java.io.Serializable;
 /**
  * The interface for Source. It acts like a factory class that helps construct the {@link
  * SplitEnumerator} and {@link SourceReader} and corresponding serializers.
+ * Source 的接口。 它就像一个工厂类，帮助构建 {@link SplitEnumerator} 和 {@link SourceReader} 以及相应的序列化程序。
  *
  * @param <T> The type of records produced by the source.
  * @param <SplitT> The type of splits handled by the source.
@@ -36,6 +37,7 @@ public interface Source<T, SplitT extends SourceSplit, EnumChkT> extends Seriali
 
     /**
      * Get the boundedness of this source.
+     * 获取此源的有界性。
      *
      * @return the boundedness of this source.
      */
@@ -44,6 +46,7 @@ public interface Source<T, SplitT extends SourceSplit, EnumChkT> extends Seriali
     /**
      * Creates a new reader to read data from the splits it gets assigned. The reader starts fresh
      * and does not have any state to resume.
+     * 创建一个新的读取器以从分配的拆分中读取数据。 读者重新开始，没有任何状态可以恢复。
      *
      * @param readerContext The {@link SourceReaderContext context} for the source reader.
      * @return A new SourceReader.
@@ -54,6 +57,7 @@ public interface Source<T, SplitT extends SourceSplit, EnumChkT> extends Seriali
 
     /**
      * Creates a new SplitEnumerator for this source, starting a new input.
+     * 为此源创建一个新的 SplitEnumerator，开始一个新的输入。
      *
      * @param enumContext The {@link SplitEnumeratorContext context} for the split enumerator.
      * @return A new SplitEnumerator.
@@ -65,6 +69,7 @@ public interface Source<T, SplitT extends SourceSplit, EnumChkT> extends Seriali
 
     /**
      * Restores an enumerator from a checkpoint.
+     * 从检查点恢复枚举器。
      *
      * @param enumContext The {@link SplitEnumeratorContext context} for the restored split
      *     enumerator.
@@ -83,6 +88,7 @@ public interface Source<T, SplitT extends SourceSplit, EnumChkT> extends Seriali
     /**
      * Creates a serializer for the source splits. Splits are serialized when sending them from
      * enumerator to reader, and when checkpointing the reader's current state.
+     * 为源拆分创建一个序列化程序。 在将拆分从枚举器发送到阅读器以及检查阅读器的当前状态时，拆分会被序列化。
      *
      * @return The serializer for the split type.
      */
@@ -91,6 +97,8 @@ public interface Source<T, SplitT extends SourceSplit, EnumChkT> extends Seriali
     /**
      * Creates the serializer for the {@link SplitEnumerator} checkpoint. The serializer is used for
      * the result of the {@link SplitEnumerator#snapshotState()} method.
+     * 为 {@link SplitEnumerator} 检查点创建序列化程序。
+     * 序列化程序用于 {@link SplitEnumerator#snapshotState()} 方法的结果。
      *
      * @return The serializer for the SplitEnumerator checkpoint.
      */

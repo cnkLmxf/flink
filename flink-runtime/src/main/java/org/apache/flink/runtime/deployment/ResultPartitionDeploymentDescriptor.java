@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Deployment descriptor for a result partition.
+ * 结果分区的部署描述符。
  *
  * @see ResultPartition
  */
@@ -45,7 +46,9 @@ public class ResultPartitionDeploymentDescriptor implements Serializable {
 
     private final int maxParallelism;
 
-    /** Flag whether the result partition should notify master when its data is available. */
+    /** Flag whether the result partition should notify master when its data is available.
+     * 标记结果分区是否应在其数据可用时通知 master。
+     * */
     private final boolean notifyPartitionDataAvailable;
 
     public ResultPartitionDeploymentDescriptor(

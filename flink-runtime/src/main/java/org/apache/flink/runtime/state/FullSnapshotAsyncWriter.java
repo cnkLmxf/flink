@@ -39,6 +39,7 @@ import static org.apache.flink.runtime.state.FullSnapshotUtil.setMetaDataFollows
 /**
  * An asynchronous writer that can write a full snapshot/savepoint from a {@link
  * FullSnapshotResources}.
+ * 可以从 {@link FullSnapshotResources} 写入完整快照/保存点的异步写入器。
  *
  * @param <K> type of the backend keys.
  */

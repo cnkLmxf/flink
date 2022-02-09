@@ -20,18 +20,26 @@ package org.apache.flink.runtime.metrics.dump;
 
 import org.apache.flink.util.Preconditions;
 
-/** A container for a dumped metric that contains the scope, name and value(s) of the metric. */
+/** A container for a dumped metric that contains the scope, name and value(s) of the metric.
+ * 转储指标的容器，其中包含指标的范围、名称和值。
+ * */
 public abstract class MetricDump {
-    /** Categories to be returned by {@link MetricDump#getCategory()} to avoid instanceof checks. */
+    /** Categories to be returned by {@link MetricDump#getCategory()} to avoid instanceof checks.
+     * {@link MetricDump#getCategory()} 返回的类别以避免 instanceof 检查。
+     * */
     public static final byte METRIC_CATEGORY_COUNTER = 0;
 
     public static final byte METRIC_CATEGORY_GAUGE = 1;
     public static final byte METRIC_CATEGORY_HISTOGRAM = 2;
     public static final byte METRIC_CATEGORY_METER = 3;
 
-    /** The scope information for the stored metric. */
+    /** The scope information for the stored metric.
+     * 存储指标的范围信息。
+     * */
     public final QueryScopeInfo scopeInfo;
-    /** The name of the stored metric. */
+    /** The name of the stored metric.
+     * 存储的指标的名称。
+     * */
     public final String name;
 
     private MetricDump(QueryScopeInfo scopeInfo, String name) {
@@ -41,6 +49,7 @@ public abstract class MetricDump {
 
     /**
      * Returns the category for this MetricDump.
+     * 返回此 MetricDump 的类别。
      *
      * @return category
      */
@@ -75,7 +84,9 @@ public abstract class MetricDump {
         }
     }
 
-    /** Container for the value of a {@link org.apache.flink.metrics.Gauge} as a string. */
+    /** Container for the value of a {@link org.apache.flink.metrics.Gauge} as a string.
+     * {@link org.apache.flink.metrics.Gauge} 作为字符串的值的容器。
+     * */
     public static class GaugeDump extends MetricDump {
         public final String value;
 
@@ -90,7 +101,9 @@ public abstract class MetricDump {
         }
     }
 
-    /** Container for the values of a {@link org.apache.flink.metrics.Histogram}. */
+    /** Container for the values of a {@link org.apache.flink.metrics.Histogram}.
+     * {@link org.apache.flink.metrics.Histogram} 值的容器。
+     * */
     public static class HistogramDump extends MetricDump {
         public final long min;
         public final long max;
@@ -139,7 +152,9 @@ public abstract class MetricDump {
         }
     }
 
-    /** Container for the rate of a {@link org.apache.flink.metrics.Meter}. */
+    /** Container for the rate of a {@link org.apache.flink.metrics.Meter}.
+     * {@link org.apache.flink.metrics.Meter} 速率的容器。
+     * */
     public static class MeterDump extends MetricDump {
         public final double rate;
 

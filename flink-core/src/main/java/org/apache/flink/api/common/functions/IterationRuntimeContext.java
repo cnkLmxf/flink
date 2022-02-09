@@ -26,12 +26,14 @@ import org.apache.flink.types.Value;
 /**
  * A specialization of the {@link RuntimeContext} available in iterative computations of the DataSet
  * API.
+ * 在 DataSet API 的迭代计算中可用的 {@link RuntimeContext} 的特殊化。
  */
 @Public
 public interface IterationRuntimeContext extends RuntimeContext {
 
     /**
      * Gets the number of the current superstep. Superstep numbers start at <i>1</i>.
+     * 获取当前超级步的编号。 超级步数从 <i>1</i> 开始。
      *
      * @return The number of the current superstep.
      */

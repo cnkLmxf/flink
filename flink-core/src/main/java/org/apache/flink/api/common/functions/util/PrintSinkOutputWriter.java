@@ -22,7 +22,9 @@ import org.apache.flink.annotation.Internal;
 import java.io.PrintStream;
 import java.io.Serializable;
 
-/** Print sink output writer for DataStream and DataSet print API. */
+/** Print sink output writer for DataStream and DataSet print API.
+ * 用于 DataStream 和 DataSet 打印 API 的打印接收器输出编写器。
+ * */
 @Internal
 public class PrintSinkOutputWriter<IN> implements Serializable {
 

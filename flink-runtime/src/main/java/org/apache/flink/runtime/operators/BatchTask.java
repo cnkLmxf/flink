@@ -82,6 +82,7 @@ import static java.util.Collections.emptyList;
 /**
  * The base class for all batch tasks. Encapsulated common behavior and implements the main
  * life-cycle of the user code.
+ * 所有批处理任务的基类。 封装常见行为并实现用户代码的主要生命周期。
  */
 public class BatchTask<S extends Function, OT> extends AbstractInvokable
         implements TaskContext<S, OT> {
@@ -93,21 +94,26 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
     /**
      * The driver that invokes the user code (the stub implementation). The central driver in this
      * task (further drivers may be chained behind this driver).
+     * 调用用户代码的驱动程序（存根实现）。 此任务的中心驱动程序（其他驱动程序可能链接在此驱动程序后面）。
      */
     protected volatile Driver<S, OT> driver;
 
     /**
      * The instantiated user code of this task's main operator (driver). May be null if the operator
      * has no udf.
+     * 此任务的主要操作员（驱动程序）的实例化用户代码。 如果运算符没有 udf，则可能为 null。
      */
     protected S stub;
 
-    /** The udf's runtime context. */
+    /** The udf's runtime context.
+     * udf 的运行时上下文。
+     * */
     protected DistributedRuntimeUDFContext runtimeUdfContext;
 
     /**
      * The collector that forwards the user code's results. May forward to a channel or to chained
      * drivers within this task.
+     * 转发用户代码结果的收集器。 可以转发到该任务中的通道或链接的驱动程序。
      */
     protected Collector<OT> output;
 
@@ -115,76 +121,113 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * The output writers for the data that this task forwards to the next task. The latest driver
      * (the central, if no chained drivers exist, otherwise the last chained driver) produces its
      * output to these writers.
+     * 此任务转发到下一个任务的数据的输出编写器。
+     * 最新的驱动程序（如果不存在链接驱动程序，则为中央驱动程序，否则为最后一个链接驱动程序）将其输出生成给这些写入器。
      */
     protected List<RecordWriter<?>> eventualOutputs;
 
     /** The input readers of this task. */
     protected MutableReader<?>[] inputReaders;
 
-    /** The input readers for the configured broadcast variables for this task. */
+    /** The input readers for the configured broadcast variables for this task.
+     * 为此任务配置的广播变量的输入阅读器。
+     * */
     protected MutableReader<?>[] broadcastInputReaders;
 
-    /** The inputs reader, wrapped in an iterator. Prior to the local strategies, etc... */
+    /** The inputs reader, wrapped in an iterator. Prior to the local strategies, etc...
+     * 输入阅读器，包装在迭代器中。 之前的本地策略等...
+     * */
     protected MutableObjectIterator<?>[] inputIterators;
 
-    /** The indices of the iterative inputs. Empty, if the task is not iterative. */
+    /** The indices of the iterative inputs. Empty, if the task is not iterative.
+     * 迭代输入的索引。 如果任务不是迭代的，则为空。
+     * */
     protected int[] iterativeInputs;
 
-    /** The indices of the iterative broadcast inputs. Empty, if non of the inputs is iterative. */
+    /** The indices of the iterative broadcast inputs. Empty, if non of the inputs is iterative.
+     * 迭代广播输入的索引。 如果没有输入是迭代的，则为空。
+     * */
     protected int[] iterativeBroadcastInputs;
 
-    /** The local strategies that are applied on the inputs. */
+    /** The local strategies that are applied on the inputs.
+     * 应用于输入的本地策略。
+     * */
     protected volatile CloseableInputProvider<?>[] localStrategies;
 
     /**
      * The optional temp barriers on the inputs for dead-lock breaking. Are optionally resettable.
+     * 用于死锁破坏的输入上的可选温度屏障。 可选择重置。
      */
     protected volatile TempBarrier<?>[] tempBarriers;
 
-    /** The resettable inputs in the case where no temp barrier is needed. */
+    /** The resettable inputs in the case where no temp barrier is needed.
+     * 在不需要临时屏障的情况下的可复位输入。
+     * */
     protected volatile SpillingResettableMutableObjectIterator<?>[] resettableInputs;
 
     /**
      * The inputs to the operator. Return the readers' data after the application of the local
      * strategy and the temp-table barrier.
+     * 操作员的输入。 应用本地策略和临时表屏障后返回读者数据。
      */
     protected MutableObjectIterator<?>[] inputs;
 
-    /** The serializers for the input data type. */
+    /** The serializers for the input data type.
+     * 输入数据类型的序列化器。
+     * */
     protected TypeSerializerFactory<?>[] inputSerializers;
 
-    /** The serializers for the broadcast input data types. */
+    /** The serializers for the broadcast input data types.
+     * 广播输入数据类型的序列化器。
+     * */
     protected TypeSerializerFactory<?>[] broadcastInputSerializers;
 
-    /** The comparators for the central driver. */
+    /** The comparators for the central driver.
+     * 中央驱动器的比较器。
+     * */
     protected TypeComparator<?>[] inputComparators;
 
-    /** The task configuration with the setup parameters. */
+    /** The task configuration with the setup parameters.
+     * 带有设置参数的任务配置。
+     * */
     protected TaskConfig config;
 
-    /** A list of chained drivers, if there are any. */
+    /** A list of chained drivers, if there are any.
+     * 链式驱动程序列表（如果有）。
+     * */
     protected ArrayList<ChainedDriver<?, ?>> chainedTasks;
 
     /**
      * Certain inputs may be excluded from resetting. For example, the initial partial solution in
      * an iteration head must not be reset (it is read through the back channel), when all others
      * are reset.
+     * 某些输入可能会被排除在复位之外。 例如，当所有其他解决方案都重置时，不得重置迭代头中的初始部分解决方案（通过反向通道读取）。
      */
     private boolean[] excludeFromReset;
 
-    /** Flag indicating for each input whether it is cached and can be reset. */
+    /** Flag indicating for each input whether it is cached and can be reset.
+     * 指示每个输入是否被缓存并且可以重置的标志。
+     * */
     private boolean[] inputIsCached;
 
-    /** flag indicating for each input whether it must be asynchronously materialized. */
+    /** flag indicating for each input whether it must be asynchronously materialized.
+     * 指示每个输入是否必须异步实现的标志。
+     * */
     private boolean[] inputIsAsyncMaterialized;
 
-    /** The amount of memory per input that is dedicated to the materialization. */
+    /** The amount of memory per input that is dedicated to the materialization.
+     * 每个输入专用于具体化的内存量。
+     * */
     private int[] materializationMemory;
 
-    /** The flag that tags the task as still running. Checked periodically to abort processing. */
+    /** The flag that tags the task as still running. Checked periodically to abort processing.
+     * 将任务标记为仍在运行的标志。 定期检查以中止处理。
+     * */
     protected volatile boolean running = true;
 
-    /** The accumulator map used in the RuntimeContext. */
+    /** The accumulator map used in the RuntimeContext.
+     * RuntimeContext 中使用的累加器映射。
+     * */
     protected Map<String, Accumulator<?, ?>> accumulatorMap;
 
     private OperatorMetricGroup metrics;
@@ -196,6 +239,7 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */
@@ -634,9 +678,11 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
 
     /**
      * Sets the last output {@link Collector} of the collector chain of this {@link BatchTask}.
+     * 设置此 {@link BatchTask} 的收集器链的最后一个输出 {@link Collector}。
      *
      * <p>In case of chained tasks, the output collector of the last {@link ChainedDriver} is set.
      * Otherwise it is the single collector of the {@link BatchTask}.
+     * 在链式任务的情况下，设置最后一个 {@link ChainedDriver} 的输出收集器。 否则它是 {@link BatchTask} 的单个收集器。
      *
      * @param newOutputCollector new output collector to set as last collector
      */
@@ -683,6 +729,7 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * Creates the record readers for the number of inputs as defined by {@link
      * #getNumTaskInputs()}. This method requires that the task configuration, the driver, and the
      * user-code class loader are set.
+     * 为 {@link #getNumTaskInputs()} 定义的输入数量创建记录阅读器。 此方法需要设置任务配置、驱动程序和用户代码类加载器。
      */
     protected void initInputReaders() throws Exception {
         final int numInputs = getNumTaskInputs();
@@ -730,6 +777,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * Creates the record readers for the extra broadcast inputs as configured by {@link
      * TaskConfig#getNumBroadcastInputs()}. This method requires that the task configuration, the
      * driver, and the user-code class loader are set.
+     * 为 {@link TaskConfig#getNumBroadcastInputs()} 配置的额外广播输入创建记录阅读器。
+     * 此方法需要设置任务配置、驱动程序和用户代码类加载器。
      */
     protected void initBroadcastInputReaders() throws Exception {
         final int numBroadcastInputs = this.config.getNumBroadcastInputs();
@@ -766,7 +815,9 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
         this.broadcastInputReaders = broadcastInputReaders;
     }
 
-    /** Creates all the serializers and comparators. */
+    /** Creates all the serializers and comparators.
+     * 创建所有序列化器和比较器。
+     * */
     protected void initInputsSerializersAndComparators(int numInputs, int numComparators) {
         this.inputSerializers = new TypeSerializerFactory<?>[numInputs];
         this.inputComparators = numComparators > 0 ? new TypeComparator<?>[numComparators] : null;
@@ -795,7 +846,9 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
         }
     }
 
-    /** Creates all the serializers and iterators for the broadcast inputs. */
+    /** Creates all the serializers and iterators for the broadcast inputs.
+     * 为广播输入创建所有序列化器和迭代器。
+     * */
     protected void initBroadcastInputsSerializers(int numBroadcastInputs) {
         this.broadcastInputSerializers = new TypeSerializerFactory<?>[numBroadcastInputs];
 
@@ -812,6 +865,7 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
     /**
      * NOTE: This method must be invoked after the invocation of {@code #initInputReaders()} and
      * {@code #initInputSerializersAndComparators(int)}!
+     * 注意：必须在调用 {@code #initInputReaders()} 和 {@code #initInputSerializersAndComparators(int)} 之后调用此方法！
      */
     protected void initLocalStrategies(int numInputs) throws Exception {
 
@@ -1121,6 +1175,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
     /**
      * Creates a writer for each output. Creates an OutputCollector which forwards its input to all
      * writers. The output collector applies the configured shipping strategies for each writer.
+     * 为每个输出创建一个 writer。 创建一个将其输入转发给所有写入器的 OutputCollector。
+     * 输出收集器为每个写入器应用配置的运输策略。
      */
     protected void initOutputs() throws Exception {
         this.chainedTasks = new ArrayList<>();
@@ -1281,6 +1337,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * Utility function that composes a string for logging purposes. The string includes the given
      * message, the given name of the task and the index in its subtask group as well as the number
      * of instances that exist in its subtask group.
+     * 为记录目的组成一个字符串的实用函数。
+     * 该字符串包括给定的消息、给定的任务名称和其子任务组中的索引以及存在于其子任务组中的实例数。
      *
      * @param message The main message for the log.
      * @param taskName The name of the task.
@@ -1303,6 +1361,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * Prints an error message and throws the given exception. If the exception is of the type
      * {@link ExceptionInChainedStubException} then the chain of contained exceptions is followed
      * until an exception of a different type is found.
+     * 打印一条错误消息并抛出给定的异常。
+     * 如果异常属于 {@link ExceptionInChainedStubException} 类型，则跟踪包含的异常链，直到找到不同类型的异常。
      *
      * @param ex The exception to be thrown.
      * @param parent The parent task, whose information is included in the log message.
@@ -1337,6 +1397,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * The output collector contains the writers that forward the data to the different tasks that
      * the given task is connected to. Each writer applies the partitioning as described in the
      * configuration.
+     * 如给定配置所述，为给定任务创建 {@link Collector}。
+     * 输出收集器包含将数据转发到给定任务连接到的不同任务的编写器。 每个写入器都按照配置中的描述应用分区。
      *
      * @param task The task that the output collector is created for.
      * @param config The configuration describing the output shipping strategies.
@@ -1402,6 +1464,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
     /**
      * Creates a writer for each output. Creates an OutputCollector which forwards its input to all
      * writers. The output collector applies the configured shipping strategy.
+     * 为每个输出创建一个 writer。
+     * 创建一个将其输入转发给所有写入器的 OutputCollector。 输出收集器应用配置的运输策略。
      */
     @SuppressWarnings("unchecked")
     public static <T> Collector<T> initOutputs(
@@ -1488,6 +1552,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * org.apache.flink.api.common.functions.RichFunction#open(Configuration)} method. If the open
      * call produces an exception, a new exception with a standard error message is created, using
      * the encountered exception as its cause.
+     * 使用其 {@link org.apache.flink.api.common.functions.RichFunction#open(Configuration)} 方法打开给定的存根。
+     * 如果 open 调用产生异常，则会创建一个带有标准错误消息的新异常，并使用遇到的异常作为其原因。
      *
      * @param stub The user code instance to be opened.
      * @param parameters The parameters supplied to the user code.
@@ -1511,6 +1577,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * org.apache.flink.api.common.functions.RichFunction#close()} method. If the close call
      * produces an exception, a new exception with a standard error message is created, using the
      * encountered exception as its cause.
+     * 使用其 {@link org.apache.flink.api.common.functions.RichFunction#close()} 方法关闭给定的存根。
+     * 如果 close 调用产生异常，则会创建一个带有标准错误消息的新异常，并使用遇到的异常作为其原因。
      *
      * @param stub The user code instance to be closed.
      * @throws Exception Thrown, if the user code's close method produces an exception.
@@ -1531,6 +1599,7 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
     /**
      * Opens all chained tasks, in the order as they are stored in the array. The opening process
      * creates a standardized log info message.
+     * 按照存储在数组中的顺序打开所有链接的任务。 打开过程会创建一个标准化的日志信息消息。
      *
      * @param tasks The tasks to be opened.
      * @param parent The parent task, used to obtain parameters to include in the log message.
@@ -1550,6 +1619,7 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
     /**
      * Closes all chained tasks, in the order as they are stored in the array. The closing process
      * creates a standardized log info message.
+     * 按照存储在数组中的顺序关闭所有链接的任务。 关闭过程会创建标准化的日志信息消息。
      *
      * @param tasks The tasks to be closed.
      * @param parent The parent task, used to obtain parameters to include in the log message.
@@ -1570,6 +1640,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * Cancels all tasks via their {@link ChainedDriver#cancelTask()} method. Any occurring
      * exception and error is suppressed, such that the canceling method of every task is invoked in
      * all cases.
+     * 通过他们的 {@link ChainedDriver#cancelTask()} 方法取消所有任务。
+     * 任何发生的异常和错误都会被抑制，因此在所有情况下都会调用每个任务的取消方法。
      *
      * @param tasks The tasks to be canceled.
      */
@@ -1591,6 +1663,8 @@ public class BatchTask<S extends Function, OT> extends AbstractInvokable
      * Instantiates a user code class from is definition in the task configuration. The class is
      * instantiated without arguments using the null-ary constructor. Instantiation will fail if
      * this constructor does not exist or is not public.
+     * 从任务配置中的定义实例化用户代码类。 该类是使用空元构造函数实例化的，没有参数。
+     * 如果此构造函数不存在或不公开，则实例化将失败。
      *
      * @param <T> The generic type of the user code class.
      * @param config The task configuration containing the class description.

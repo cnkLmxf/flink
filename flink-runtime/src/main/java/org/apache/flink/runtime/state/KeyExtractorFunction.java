@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Function to extract a key from a given object.
+ * 从给定对象中提取键的函数。
  *
  * @param <T> type of the element from which we extract the key.
  */

@@ -40,6 +40,7 @@ import java.util.List;
 /**
  * A task deployment descriptor contains all the information necessary to deploy a task on a task
  * manager.
+ * 任务部署描述符包含在任务管理器上部署任务所需的所有信息。
  */
 public final class TaskDeploymentDescriptor implements Serializable {
 
@@ -48,6 +49,7 @@ public final class TaskDeploymentDescriptor implements Serializable {
     /**
      * Wrapper class for serialized values which may be offloaded to the {@link
      * org.apache.flink.runtime.blob.BlobServer} or not.
+     * 序列化值的包装类，可以卸载到 {@link org.apache.flink.runtime.blob.BlobServer} 或不卸载。
      *
      * @param <T> type of the serialized value
      */
@@ -59,6 +61,7 @@ public final class TaskDeploymentDescriptor implements Serializable {
     /**
      * A serialized value that is not offloaded to the {@link
      * org.apache.flink.runtime.blob.BlobServer}.
+     * 未卸载到 {@link org.apache.flink.runtime.blob.BlobServer} 的序列化值。
      *
      * @param <T> type of the serialized value
      */
@@ -79,6 +82,7 @@ public final class TaskDeploymentDescriptor implements Serializable {
     /**
      * Reference to a serialized value that was offloaded to the {@link
      * org.apache.flink.runtime.blob.BlobServer}.
+     * 对卸载到 {@link org.apache.flink.runtime.blob.BlobServer} 的序列化值的引用。
      *
      * @param <T> type of the serialized value
      */
@@ -96,24 +100,34 @@ public final class TaskDeploymentDescriptor implements Serializable {
         }
     }
 
-    /** Serialized job information or <tt>null</tt> if offloaded. */
+    /** Serialized job information or <tt>null</tt> if offloaded.
+     * 如果已卸载，则序列化作业信息或 <tt>null</tt>。
+     * */
     private MaybeOffloaded<JobInformation> serializedJobInformation;
 
-    /** Serialized task information or <tt>null</tt> if offloaded. */
+    /** Serialized task information or <tt>null</tt> if offloaded.
+     * 如果已卸载，则序列化任务信息或 <tt>null</tt>。
+     * */
     private MaybeOffloaded<TaskInformation> serializedTaskInformation;
 
     /**
      * The ID referencing the job this task belongs to.
+     * 引用此任务所属作业的 ID。
      *
      * <p>NOTE: this is redundant to the information stored in {@link #serializedJobInformation} but
      * needed in order to restore offloaded data.
+     * 注意：这对于存储在 {@link #serializedJobInformation} 中的信息是多余的，但需要用于恢复卸载的数据。
      */
     private final JobID jobId;
 
-    /** The ID referencing the attempt to execute the task. */
+    /** The ID referencing the attempt to execute the task.
+     * 引用尝试执行任务的 ID。
+     * */
     private final ExecutionAttemptID executionId;
 
-    /** The allocation ID of the slot in which the task shall be run. */
+    /** The allocation ID of the slot in which the task shall be run.
+     * 任务应在其中运行的槽的分配 ID。
+     * */
     private final AllocationID allocationId;
 
     /** The task's index in the subtask group. */
@@ -122,13 +136,19 @@ public final class TaskDeploymentDescriptor implements Serializable {
     /** Attempt number the task. */
     private final int attemptNumber;
 
-    /** The list of produced intermediate result partition deployment descriptors. */
+    /** The list of produced intermediate result partition deployment descriptors.
+     * 生成的中间结果分区部署描述符列表。
+     * */
     private final List<ResultPartitionDeploymentDescriptor> producedPartitions;
 
-    /** The list of consumed intermediate result partitions. */
+    /** The list of consumed intermediate result partitions.
+     * 消耗的中间结果分区列表。
+     * */
     private final List<InputGateDeploymentDescriptor> inputGates;
 
-    /** Information to restore the task. This can be null if there is no state to restore. */
+    /** Information to restore the task. This can be null if there is no state to restore.
+     * 恢复任务的信息。 如果没有要恢复的状态，这可以为 null。
+     * */
     @Nullable private final JobManagerTaskRestore taskRestore;
 
     public TaskDeploymentDescriptor(
@@ -165,6 +185,7 @@ public final class TaskDeploymentDescriptor implements Serializable {
 
     /**
      * Return the sub task's serialized job information.
+     * 返回子任务的序列化作业信息。
      *
      * @return serialized job information (may throw {@link IllegalStateException} if {@link
      *     #loadBigData(PermanentBlobService)} is not called beforehand).
@@ -183,6 +204,7 @@ public final class TaskDeploymentDescriptor implements Serializable {
 
     /**
      * Return the sub task's serialized task information.
+     * 返回子任务的序列化任务信息。
      *
      * @return serialized task information (may throw {@link IllegalStateException} if {@link
      *     #loadBigData(PermanentBlobService)} is not called beforehand)).
@@ -245,6 +267,7 @@ public final class TaskDeploymentDescriptor implements Serializable {
 
     /**
      * Loads externalized data from the BLOB store back to the object.
+     * 将 BLOB 存储中的外部化数据加载回对象。
      *
      * @param blobService the blob store to use (may be <tt>null</tt> if {@link
      *     #serializedJobInformation} and {@link #serializedTaskInformation} are non-<tt>null</tt>)

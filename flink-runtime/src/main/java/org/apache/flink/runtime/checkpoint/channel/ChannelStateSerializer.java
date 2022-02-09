@@ -54,7 +54,9 @@ interface ChannelStateSerializer {
     long getHeaderLength();
 }
 
-/** Wrapper around various buffers to receive channel state data. */
+/** Wrapper around various buffers to receive channel state data.
+ * 包装各种缓冲区以接收通道状态数据。
+ * */
 @Internal
 @NotThreadSafe
 interface ChannelStateByteBuffer extends AutoCloseable {
@@ -67,6 +69,7 @@ interface ChannelStateByteBuffer extends AutoCloseable {
     /**
      * Read up to <code>bytesToRead</code> bytes into this buffer from the given {@link
      * InputStream}.
+     * 从给定的 {@link InputStream} 将最多 <code>bytesToRead</code> 个字节读入此缓冲区。
      *
      * @return the total number of bytes read into this buffer.
      */

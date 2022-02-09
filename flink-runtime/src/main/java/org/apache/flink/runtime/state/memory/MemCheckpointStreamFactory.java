@@ -29,7 +29,9 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/** {@link CheckpointStreamFactory} that produces streams that write to in-memory byte arrays. */
+/** {@link CheckpointStreamFactory} that produces streams that write to in-memory byte arrays.
+ * {@link CheckpointStreamFactory} 生成写入内存字节数组的流。
+ * */
 public class MemCheckpointStreamFactory implements CheckpointStreamFactory {
 
     /** The maximal size that the snapshotted memory state may have */

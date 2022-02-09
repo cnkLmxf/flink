@@ -34,7 +34,9 @@ public class IntermediateResultPartition {
 
     private final EdgeManager edgeManager;
 
-    /** Whether this partition has produced some data. */
+    /** Whether this partition has produced some data.
+     * 该分区是否产生了一些数据。
+     * */
     private boolean hasDataProduced = false;
 
     public IntermediateResultPartition(

@@ -27,7 +27,9 @@ import org.apache.flink.shaded.curator4.org.apache.curator.framework.CuratorFram
 
 import javax.annotation.Nonnull;
 
-/** ZooKeeper based implementation for {@link ClientHighAvailabilityServices}. */
+/** ZooKeeper based implementation for {@link ClientHighAvailabilityServices}.
+ * {@link ClientHighAvailabilityServices} 基于 ZooKeeper 的实现。
+ * */
 public class ZooKeeperClientHAServices implements ClientHighAvailabilityServices {
 
     private static final String REST_SERVER_LEADER_PATH = "/rest_server_lock";

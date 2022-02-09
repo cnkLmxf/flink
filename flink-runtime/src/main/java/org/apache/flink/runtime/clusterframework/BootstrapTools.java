@@ -63,6 +63,7 @@ import static org.apache.flink.configuration.ConfigOptions.key;
 /**
  * Tools for starting JobManager and TaskManager processes, including the Actor Systems used to run
  * the JobManager and TaskManager actors.
+ * 用于启动 JobManager 和 TaskManager 进程的工具，包括用于运行 JobManager 和 TaskManager 演员的演员系统。
  */
 public class BootstrapTools {
     /** Internal option which says if default value is used for {@link CoreOptions#TMP_DIRS}. */
@@ -79,6 +80,7 @@ public class BootstrapTools {
 
     /**
      * Starts a remote ActorSystem at given address and specific port range.
+     * 在给定地址和特定端口范围启动远程 ActorSystem。
      *
      * @param configuration The Flink configuration
      * @param externalAddress The external address to access the ActorSystem.
@@ -108,6 +110,7 @@ public class BootstrapTools {
 
     /**
      * Starts a remote ActorSystem at given address and specific port range.
+     * 在给定地址和特定端口范围启动远程 ActorSystem。
      *
      * @param configuration The Flink configuration
      * @param actorSystemName Name of the started {@link ActorSystem}
@@ -176,6 +179,7 @@ public class BootstrapTools {
 
     /**
      * Starts a remote Actor System at given address and specific port.
+     * 在给定地址和特定端口启动远程 Actor 系统。
      *
      * @param configuration The Flink configuration.
      * @param actorSystemName Name of the started {@link ActorSystem}
@@ -243,6 +247,7 @@ public class BootstrapTools {
 
     /**
      * Starts a local Actor System.
+     * 启动本地 Actor 系统。
      *
      * @param configuration The Flink configuration.
      * @param actorSystemName Name of the started ActorSystem.
@@ -284,6 +289,7 @@ public class BootstrapTools {
 
     /**
      * Starts an Actor System with given Akka config.
+     * 使用给定的 Akka 配置启动一个 Actor 系统。
      *
      * @param akkaConfig Config of the started ActorSystem.
      * @param actorSystemName Name of the started ActorSystem.
@@ -301,6 +307,7 @@ public class BootstrapTools {
 
     /**
      * Writes a Flink YAML config file from a Flink Configuration object.
+     * 从 Flink 配置对象写入 Flink YAML 配置文件。
      *
      * @param cfg The Flink config
      * @param file The File to write to
@@ -319,6 +326,7 @@ public class BootstrapTools {
 
     /**
      * Sets the value of a new config key to the value of a deprecated config key.
+     * 将新配置键的值设置为不推荐使用的配置键的值。
      *
      * @param config Config to write
      * @param deprecated The old config key
@@ -338,6 +346,7 @@ public class BootstrapTools {
     /**
      * Sets the value of a new config key to the value of a deprecated config key. Taking into
      * account the changed prefix.
+     * 将新配置键的值设置为不推荐使用的配置键的值。 考虑到更改的前缀。
      *
      * @param config Config to write
      * @param deprecatedPrefix Old prefix of key
@@ -367,15 +376,20 @@ public class BootstrapTools {
 
     /**
      * Get an instance of the dynamic properties option.
+     * 获取动态属性选项的实例。
      *
      * <p>Dynamic properties allow the user to specify additional configuration values with -D, such
      * as <tt> -Dfs.overwrite-files=true -Dtaskmanager.memory.network.min=536346624</tt>
+     * 动态属性允许用户使用 -D 指定额外的配置值，
+     * 例如 <tt> -Dfs.overwrite-files=true -Dtaskmanager.memory.network.min=536346624</tt>
      */
     public static Option newDynamicPropertiesOption() {
         return new Option(DYNAMIC_PROPERTIES_OPT, true, "Dynamic properties");
     }
 
-    /** Parse the dynamic properties (passed on the command line). */
+    /** Parse the dynamic properties (passed on the command line).
+     * 解析动态属性（在命令行上传递）。
+     * */
     public static Configuration parseDynamicProperties(CommandLine cmd) {
         final Configuration config = new Configuration();
 
@@ -396,6 +410,7 @@ public class BootstrapTools {
 
     /**
      * Generates the shell command to start a task manager.
+     * 生成 shell 命令以启动任务管理器。
      *
      * @param flinkConfig The Flink configuration.
      * @param tmParams Parameters for the task manager.
@@ -481,16 +496,29 @@ public class BootstrapTools {
 
     // ------------------------------------------------------------------------
 
-    /** Private constructor to prevent instantiation. */
+    /** Private constructor to prevent instantiation.
+     * 用于防止实例化的私有构造函数。
+     * */
     private BootstrapTools() {}
 
     /**
      * Replaces placeholders in the template start command with values from startCommandValues.
+     * 用 startCommandValues 中的值替换模板启动命令中的占位符。
      *
      * <p>If the default template {@link
      * ConfigConstants#DEFAULT_YARN_CONTAINER_START_COMMAND_TEMPLATE} is used, the following keys
      * must be present in the map or the resulting command will still contain placeholders:
-     *
+     * 如果使用默认模板 {@link ConfigConstants#DEFAULT_YARN_CONTAINER_START_COMMAND_TEMPLATE}，
+     * 则映射中必须存在以下键，否则生成的命令仍将包含占位符：
+     *<ul>
+     *     <li><tt>java</tt> = Java 可执行文件的路径
+     *     <li><tt>jvmmem</tt> = JVM 内存限制和调整
+     *     <li><tt>jvmopts</tt> = Java VM 的其他选项
+     *     <li><tt>logging</tt> = 与日志相关的配置设置
+     *     <li><tt>class</tt> = 要执行的主类
+     *     <li><tt>args</tt> = 主类的参数
+     *     <li><tt>redirects</tt> = 输出重定向
+     *   </ul>
      * <ul>
      *   <li><tt>java</tt> = path to the Java executable
      *   <li><tt>jvmmem</tt> = JVM memory limits and tweaks
@@ -517,6 +545,7 @@ public class BootstrapTools {
 
     /**
      * Set temporary configuration directories if necessary.
+     * 如有必要，设置临时配置目录。
      *
      * @param configuration flink config to patch
      * @param defaultDirs in case no tmp directories is set, next directories will be applied
@@ -537,6 +566,7 @@ public class BootstrapTools {
 
     /**
      * Clones the given configuration and resets instance specific config options.
+     * 克隆给定的配置并重置实例特定的配置选项。
      *
      * @param configuration to clone
      * @return Cloned configuration with reset instance specific config options
@@ -552,18 +582,23 @@ public class BootstrapTools {
         return clonedConfiguration;
     }
 
-    /** Configuration interface for {@link ActorSystem} underlying executor. */
+    /** Configuration interface for {@link ActorSystem} underlying executor.
+     * {@link ActorSystem} 底层执行器的配置接口。
+     * */
     public interface ActorSystemExecutorConfiguration {
 
         /**
          * Create the executor {@link Config} for the respective executor.
+         * 为各自的执行者创建执行者 {@link Config}。
          *
          * @return Akka config for the respective executor
          */
         Config getAkkaConfig();
     }
 
-    /** Configuration for a fork join executor. */
+    /** Configuration for a fork join executor.
+     * fork join 执行器的配置。
+     * */
     public static class ForkJoinExecutorConfiguration implements ActorSystemExecutorConfiguration {
 
         private final double parallelismFactor;
@@ -657,6 +692,9 @@ public class BootstrapTools {
      * target config contains the key or the value is different, it should be added to results.
      * Otherwise, if the base config contains and target config does not contain the key, it will be
      * ignored.
+     * 根据两个 Flink 配置获取动态属性。
+     * 如果 base config 不包含而 target config 包含 key 或 value 不同，则应将其添加到结果中。
+     * 否则，如果基本配置包含而目标配置不包含密钥，它将被忽略。
      *
      * @param baseConfig The base configuration.
      * @param targetConfig The target configuration.
@@ -706,12 +744,22 @@ public class BootstrapTools {
      * is 'foo'\''bar'. See <a
      * href="https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash">https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash</a>
      * for more information about Unix escaping.
+     * 转义所有动态属性值。 对于类 Unix 操作系统（Linux、MacOS、FREE_BSD 等），每个值都将用单引号括起来。
+     * 这适用于除单引号本身之外的所有字符。 要转义单引号，请关闭它之前的引用，插入转义的单引号，然后重新打开引用。
+     * 例如，值为 foo'bar，转义值为 'foo'\''bar'。
+     * 请参阅 <a href="https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash">
+     *     https://stackoverflow.com/questions/15783701/which -characters-need-to-be-escaped-when-using-bash</a>
+     *     了解有关 Unix 转义的更多信息。
      *
      * <p>For Windows OS, each value will be surrounded with double quotes. The double quote itself
      * needs to be escaped with back slash. Also the caret symbol need to be escaped with double
      * carets since Windows uses it to escape characters. See <a
      * href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">https://en.wikibooks.org/wiki/Windows_Batch_Scripting</a>
      * for more information about Windows escaping.
+     * 对于 Windows 操作系统，每个值都将用双引号引起来。 双引号本身需要用反斜杠转义。
+     * 此外，插入符号需要使用双插入符号进行转义，因为 Windows 使用它来转义字符。
+     * 有关 Windows 转义的更多信息，请参阅 <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">
+     *     https://en.wikibooks.org/wiki/Windows_Batch_Scripting</a>。
      *
      * @param value value to be escaped
      * @return escaped value

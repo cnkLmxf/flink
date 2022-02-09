@@ -39,6 +39,7 @@ import java.util.Map;
 /**
  * The interface to be implemented by drivers that do not run in an own task context, but are
  * chained to other tasks.
+ * 由不在自己的任务上下文中运行但链接到其他任务的驱动程序实现的接口。
  */
 public abstract class ChainedDriver<IT, OT> implements Collector<IT> {
 

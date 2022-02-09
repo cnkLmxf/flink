@@ -24,6 +24,8 @@ import org.apache.flink.api.common.JobStatus;
  * This class represents a {@link CheckpointIDCounter} if checkpointing is deactivated.
  * Consequently, no component should use methods of this class other than {@link #start()} and
  * {@link #shutdown}.
+ * 如果检查点已停用，则此类表示 {@link CheckpointIDCounter}。
+ * 因此，除了 {@link #start()} 和 {@link #shutdown} 之外，任何组件都不应使用此类的方法。
  */
 public enum DeactivatedCheckpointIDCounter implements CheckpointIDCounter {
     INSTANCE;

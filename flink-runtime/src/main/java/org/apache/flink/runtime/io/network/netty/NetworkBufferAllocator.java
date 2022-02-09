@@ -31,7 +31,9 @@ import javax.annotation.Nullable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** An allocator used for requesting buffers in the client side netty handlers. */
+/** An allocator used for requesting buffers in the client side netty handlers.
+ * 用于在客户端 netty 处理程序中请求缓冲区的分配器。
+ * */
 class NetworkBufferAllocator {
     private final NetworkClientHandler networkClientHandler;
 
@@ -41,6 +43,7 @@ class NetworkBufferAllocator {
 
     /**
      * Allocates a pooled network buffer for the specific input channel.
+     * 为特定输入通道分配池化网络缓冲区。
      *
      * @param receiverId The id of the requested input channel.
      * @return The pooled network buffer.
@@ -54,6 +57,7 @@ class NetworkBufferAllocator {
         // If the input channel has been released, we cannot allocate buffer and the received
         // message
         // will be discarded.
+        // 如果输入通道已经被释放，我们无法分配缓冲区，接收到的消息将被丢弃。
         if (inputChannel != null) {
             buffer = inputChannel.requestBuffer();
         }
@@ -63,6 +67,7 @@ class NetworkBufferAllocator {
 
     /**
      * Allocates an un-pooled network buffer with the specific size.
+     * 分配具有特定大小的非池化网络缓冲区。
      *
      * @param size The requested buffer size.
      * @param dataType The data type this buffer represents.

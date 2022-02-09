@@ -168,6 +168,7 @@ import java.util.function.Function;
 
 /**
  * Rest endpoint which serves the web frontend REST calls.
+ * 服务于 Web 前端 REST 调用的 Rest 端点。
  *
  * @param <T> type of the leader gateway
  */

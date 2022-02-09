@@ -31,8 +31,10 @@ import java.io.Closeable;
 
 /**
  * Utility class for logging actions that happened in the network stack for debugging purposes.
+ * 用于记录网络堆栈中发生的操作以用于调试目的的实用程序类。
  *
  * <p>Action parameter typically includes class and method names.
+ * 动作参数通常包括类和方法名。
  */
 public class NetworkActionsLogger {
     private static final Logger LOG = LoggerFactory.getLogger(NetworkActionsLogger.class);

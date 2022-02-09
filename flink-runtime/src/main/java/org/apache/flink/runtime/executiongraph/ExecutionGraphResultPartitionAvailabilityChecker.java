@@ -30,14 +30,19 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A {@link ResultPartitionAvailabilityChecker} which decides the intermediate result partition
  * availability based on whether the corresponding result partition in the execution graph is
  * tracked.
+ * 一个{@link ResultPartitionAvailabilityChecker}，它根据是否跟踪执行图中的相应结果分区来决定中间结果分区的可用性。
  */
 public class ExecutionGraphResultPartitionAvailabilityChecker
         implements ResultPartitionAvailabilityChecker {
 
-    /** The function maps an IntermediateResultPartitionID to a ResultPartitionID. */
+    /** The function maps an IntermediateResultPartitionID to a ResultPartitionID.
+     * 该函数将 IntermediateResultPartitionID 映射到 ResultPartitionID。
+     * */
     private final Function<IntermediateResultPartitionID, ResultPartitionID> partitionIDMapper;
 
-    /** The tracker that tracks all available result partitions. */
+    /** The tracker that tracks all available result partitions.
+     * 跟踪所有可用结果分区的跟踪器。
+     * */
     private final JobMasterPartitionTracker partitionTracker;
 
     ExecutionGraphResultPartitionAvailabilityChecker(

@@ -25,7 +25,9 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
-/** Initial state of the {@link AdaptiveScheduler}. */
+/** Initial state of the {@link AdaptiveScheduler}.
+ * {@link AdaptiveScheduler} 的初始状态。
+ * */
 class Created implements State {
 
     private final Context context;

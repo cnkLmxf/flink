@@ -24,7 +24,9 @@ import org.apache.flink.core.memory.DataOutputView;
 
 import java.io.IOException;
 
-/** A {@link DeserializationDelegate} that reuses an existing instance upon deserialization. */
+/** A {@link DeserializationDelegate} that reuses an existing instance upon deserialization.
+ * 在反序列化时重用现有实例的 {@link DeserializationDelegate}。
+ * */
 public class ReusingDeserializationDelegate<T> implements DeserializationDelegate<T> {
 
     private T instance;

@@ -44,22 +44,30 @@ import static org.apache.flink.util.Preconditions.checkState;
  * in contrast to implementations where records are written to a joint structure, from which the
  * subpartitions draw the data after the write phase is finished, for example the sort-based
  * partitioning.
+ * 将缓冲区直接写入 {@link ResultSubpartition} 的 {@link ResultPartition}。
+ * 这与将记录写入联合结构的实现形成对比，在写入阶段完成后，子分区从联合结构中提取数据，例如基于排序的分区。
  *
  * <p>To avoid confusion: On the read side, all subpartitions return buffers (and backlog) to be
  * transported through the network.
+ * 为避免混淆：在读取端，所有子分区都返回缓冲区（和积压）以通过网络传输。
  */
 public abstract class BufferWritingResultPartition extends ResultPartition {
 
-    /** The subpartitions of this partition. At least one. */
+    /** The subpartitions of this partition. At least one.
+     * 此分区的子分区。 最后一个。
+     * */
     protected final ResultSubpartition[] subpartitions;
 
     /**
      * For non-broadcast mode, each subpartition maintains a separate BufferBuilder which might be
      * null.
+     * 对于非广播模式，每个子分区都维护一个单独的 BufferBuilder，它可能为空。
      */
     private final BufferBuilder[] unicastBufferBuilders;
 
-    /** For broadcast mode, a single BufferBuilder is shared by all subpartitions. */
+    /** For broadcast mode, a single BufferBuilder is shared by all subpartitions.
+     * 对于广播模式，单个 BufferBuilder 由所有子分区共享。
+     * */
     private BufferBuilder broadcastBufferBuilder;
 
     private TimerGauge backPressuredTimeMsPerSecond = new TimerGauge();

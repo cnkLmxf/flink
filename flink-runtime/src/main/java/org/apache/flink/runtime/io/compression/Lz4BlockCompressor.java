@@ -31,6 +31,7 @@ import static org.apache.flink.runtime.io.compression.Lz4BlockCompressionFactory
 /**
  * Encode data into LZ4 format (not compatible with the LZ4 Frame format). It reads from and writes
  * to byte arrays provided from the outside, thus reducing copy time.
+ * 将数据编码为 LZ4 格式（与 LZ4 帧格式不兼容）。 它读取和写入从外部提供的字节数组，从而减少复制时间。
  *
  * <p>This class is copied and modified from {@link net.jpountz.lz4.LZ4BlockOutputStream}.
  */

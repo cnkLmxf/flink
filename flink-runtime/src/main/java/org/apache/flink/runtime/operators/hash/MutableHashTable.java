@@ -49,12 +49,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * An implementation of a Hybrid Hash Join. The join starts operating in memory and gradually starts
  * spilling contents to disk, when the memory is not sufficient. It does not need to know a priori
  * how large the input will be.
+ * 混合哈希联接的实现。 当内存不足时，连接开始在内存中运行并逐渐开始将内容溢出到磁盘。 它不需要先验地知道输入有多大。
  *
  * <p>The design of this class follows in many parts the design presented in "Hash joins and hash
  * teams in Microsoft SQL Server", by Goetz Graefe et al. In its current state, the implementation
  * lacks features like dynamic role reversal, partition tuning, or histogram guided partitioning.
+ * 此类的设计在很多部分都遵循 Goetz Graefe 等人在“Microsoft SQL Server 中的哈希连接和哈希团队”中提出的设计。
+ * 在当前状态下，该实现缺乏动态角色反转、分区调整或直方图引导分区等功能。
  *
  * <p>The layout of the buckets inside a memory segment is as follows:
+ * 内存段内的桶的布局如下：
  *
  * <pre>
  * +----------------------------- Bucket x ----------------------------
@@ -93,18 +97,22 @@ public class MutableHashTable<BT, PT> implements MemorySegmentSource {
     //                         Internal Constants
     // ------------------------------------------------------------------------
 
-    /** The maximum number of recursive partitionings that the join does before giving up. */
+    /** The maximum number of recursive partitionings that the join does before giving up.
+     * 连接在放弃之前执行的最大递归分区数。
+     * */
     private static final int MAX_RECURSION_DEPTH = 3;
 
     /**
      * The minimum number of memory segments the hash join needs to be supplied with in order to
      * work.
+     * 为了工作，哈希连接需要提供的最小内存段数。
      */
     private static final int MIN_NUM_MEMORY_SEGMENTS = 33;
 
     /**
      * The maximum number of partitions, which defines the spilling granularity. Each recursion, the
      * data is divided maximally into that many partitions, which are processed in one chuck.
+     * 最大分区数，定义溢出粒度。 每次递归，将数据最大程度地划分为多个分区，在一个卡盘中处理。
      */
     private static final int MAX_NUM_PARTITIONS = Byte.MAX_VALUE;
 
@@ -112,18 +120,24 @@ public class MutableHashTable<BT, PT> implements MemorySegmentSource {
      * The default record width that is used when no width is given. The record width is used to
      * determine the ratio of the number of memory segments intended for partition buffers and the
      * number of memory segments in the hash-table structure.
+     * 未指定宽度时使用的默认记录宽度。 记录宽度用于确定用于分区缓冲区的内存段数与哈希表结构中的内存段数之比。
      */
     private static final int DEFAULT_RECORD_LEN = 24;
 
-    /** The length of the hash code stored in the bucket. */
+    /** The length of the hash code stored in the bucket.
+     * 存储在桶中的哈希码的长度。
+     * */
     private static final int HASH_CODE_LEN = 4;
 
-    /** The length of a pointer from a hash bucket to the record in the buffers. */
+    /** The length of a pointer from a hash bucket to the record in the buffers.
+     * 从哈希桶到缓冲区中记录的指针的长度。
+     * */
     private static final int POINTER_LEN = 8;
 
     /**
      * The number of bytes that the entry in the hash structure occupies, in bytes. It corresponds
      * to a 4 byte hash value and an 8 byte pointer.
+     * 哈希结构中的条目占用的字节数，以字节为单位。 它对应于一个 4 字节的哈希值和一个 8 字节的指针。
      */
     private static final int RECORD_TABLE_BYTES = HASH_CODE_LEN + POINTER_LEN;
 
@@ -143,21 +157,27 @@ public class MutableHashTable<BT, PT> implements MemorySegmentSource {
 
     // ------------------------------ Bucket Header Fields ------------------------------
 
-    /** Offset of the field in the bucket header indicating the bucket's partition. */
+    /** Offset of the field in the bucket header indicating the bucket's partition.
+     * 桶头中字段的偏移量，表示桶的分区。
+     * */
     private static final int HEADER_PARTITION_OFFSET = 0;
 
     /**
      * Offset of the field in the bucket header indicating the bucket's status (spilled or
      * in-memory).
+     * 桶头中字段的偏移量，指示桶的状态（溢出或内存中）。
      */
     private static final int HEADER_STATUS_OFFSET = 1;
 
-    /** Offset of the field in the bucket header indicating the bucket's element count. */
+    /** Offset of the field in the bucket header indicating the bucket's element count.
+     * 桶头中字段的偏移量，指示桶的元素计数。
+     * */
     private static final int HEADER_COUNT_OFFSET = 2;
 
     /**
      * Offset of the field in the bucket header that holds the forward pointer to its first overflow
      * bucket.
+     * 桶头中字段的偏移量，该字段持有指向其第一个溢出桶的前向指针。
      */
     private static final int HEADER_FORWARD_OFFSET = 4;
 

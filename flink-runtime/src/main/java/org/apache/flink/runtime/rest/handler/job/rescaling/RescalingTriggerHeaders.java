@@ -25,7 +25,9 @@ import org.apache.flink.runtime.rest.messages.JobIDPathParameter;
 
 import org.apache.flink.shaded.netty4.io.netty.handler.codec.http.HttpResponseStatus;
 
-/** Message headers for triggering the rescaling of a job. */
+/** Message headers for triggering the rescaling of a job.
+ * 用于触发作业重新缩放的消息标头。
+ * */
 public class RescalingTriggerHeaders
         extends AsynchronousOperationTriggerMessageHeaders<
                 EmptyRequestBody, RescalingTriggerMessageParameters> {

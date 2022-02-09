@@ -24,7 +24,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Objects;
 
-/** Current address and fencing token of the leading ResourceManager. */
+/** Current address and fencing token of the leading ResourceManager.
+ *  领先 ResourceManager 的当前地址和隔离令牌。
+ * */
 public class ResourceManagerAddress {
 
     @Nonnull private final String address;

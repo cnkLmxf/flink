@@ -21,9 +21,11 @@ package org.apache.flink.runtime.messages.webmonitor;
 /**
  * This message requests an overview of the jobs on the JobManager, including running jobs and/or
  * finished jobs.
+ * 此消息请求对 JobManager 上的作业进行概述，包括正在运行的作业和/或已完成的作业。
  *
  * <p>The response to this message is a {@link
  * org.apache.flink.runtime.messages.webmonitor.MultipleJobsDetails} message.
+ * 对此消息的响应是 {@link org.apache.flink.runtime.messages.webmonitor.MultipleJobsDetails} 消息。
  */
 public class RequestJobDetails implements InfoMessage {
 

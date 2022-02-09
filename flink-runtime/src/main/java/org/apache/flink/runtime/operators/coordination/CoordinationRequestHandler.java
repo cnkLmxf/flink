@@ -23,11 +23,13 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Coordinator interface which can handle {@link CoordinationRequest}s and response with {@link
  * CoordinationResponse}s to the client.
+ * 可以处理 {@link CoordinationRequest} 并使用 {@link CoordinationResponse} 响应客户端的协调器接口。
  */
 public interface CoordinationRequestHandler {
 
     /**
      * Called when receiving a request from the client.
+     * 收到客户端的请求时调用。
      *
      * @param request the request received
      * @return a future containing the response from the coordinator for this request

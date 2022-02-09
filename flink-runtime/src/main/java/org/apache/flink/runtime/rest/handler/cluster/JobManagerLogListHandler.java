@@ -43,7 +43,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-/** Handler which serves detailed JobManager log list information. */
+/** Handler which serves detailed JobManager log list information.
+ * 提供详细 JobManager 日志列表信息的处理程序。
+ * */
 public class JobManagerLogListHandler
         extends AbstractRestHandler<
                 RestfulGateway, EmptyRequestBody, LogListInfo, EmptyMessageParameters> {

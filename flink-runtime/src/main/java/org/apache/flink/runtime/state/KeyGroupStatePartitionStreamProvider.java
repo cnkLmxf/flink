@@ -26,6 +26,7 @@ import java.io.InputStream;
 /**
  * This class provides access to an input stream that contains state data for one key group and the
  * key group id.
+ * 此类提供对包含一个密钥组的状态数据和密钥组 ID 的输入流的访问。
  */
 @PublicEvolving
 public class KeyGroupStatePartitionStreamProvider extends StatePartitionStreamProvider {

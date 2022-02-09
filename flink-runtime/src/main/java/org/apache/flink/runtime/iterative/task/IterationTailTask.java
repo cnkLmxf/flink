@@ -32,14 +32,18 @@ import org.slf4j.LoggerFactory;
 
 /**
  * An iteration tail, which runs a driver inside.
+ * 一个迭代尾部，它在内部运行一个驱动程序。
  *
  * <p>If the iteration state is updated, the output of this task will be send back to the {@link
  * IterationHeadTask} via a BackChannel for the workset -OR- a HashTable for the solution set.
  * Therefore this task must be scheduled on the same instance as the head. It's also possible for
  * the tail to update *both* the workset and the solution set.
+ * 如果迭代状态已更新，则此任务的输出将通过工作集的 BackChannel 或解决方案集的 HashTable 发送回 {@link IterationHeadTask}。
+ * 因此，该任务必须安排在与头部相同的实例上。 尾部也可以同时更新工作集和解决方案集。
  *
  * <p>If there is a separate solution set tail, the iteration head has to make sure to wait for it
  * to finish.
+ * 如果有单独的解集尾，迭代头必须确保等待它完成。
  */
 public class IterationTailTask<S extends Function, OT> extends AbstractIterativeTask<S, OT> {
 
@@ -53,6 +57,7 @@ public class IterationTailTask<S extends Function, OT> extends AbstractIterative
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */

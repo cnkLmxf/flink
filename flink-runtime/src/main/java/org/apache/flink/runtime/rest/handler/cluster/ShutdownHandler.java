@@ -34,7 +34,9 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** REST handler which allows to shut down the cluster. */
+/** REST handler which allows to shut down the cluster.
+ * 允许关闭集群的 REST 处理程序。
+ * */
 public class ShutdownHandler
         extends AbstractRestHandler<
                 RestfulGateway, EmptyRequestBody, EmptyResponseBody, EmptyMessageParameters> {

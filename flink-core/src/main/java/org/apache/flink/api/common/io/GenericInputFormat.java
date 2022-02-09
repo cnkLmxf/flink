@@ -25,7 +25,9 @@ import org.apache.flink.core.io.GenericInputSplit;
 
 import java.io.IOException;
 
-/** Generic base class for all Rich inputs that are not based on files. */
+/** Generic base class for all Rich inputs that are not based on files.
+ * 所有不基于文件的 Rich 输入的通用基类。
+ * */
 @Public
 public abstract class GenericInputFormat<OT> extends RichInputFormat<OT, GenericInputSplit> {
 

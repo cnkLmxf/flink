@@ -20,10 +20,13 @@ package org.apache.flink.runtime.executiongraph;
 
 import org.apache.flink.runtime.jobgraph.JobVertexID;
 
-/** Mutability extension to the {@link VertexAttemptNumberStore}. */
+/** Mutability extension to the {@link VertexAttemptNumberStore}.
+ * {@link VertexAttemptNumberStore} 的可变性扩展。
+ * */
 public interface MutableVertexAttemptNumberStore extends VertexAttemptNumberStore {
     /**
      * Sets the attempt count for the given subtask of the given vertex.
+     * 设置给定顶点的给定子任务的尝试计数。
      *
      * @param jobVertexId vertex the subtask belongs to
      * @param subtaskIndex subtask to set the attempt number for

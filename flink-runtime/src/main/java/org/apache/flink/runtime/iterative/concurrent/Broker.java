@@ -23,13 +23,17 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/** A concurrent data structure that allows the hand-over of an object between a pair of threads. */
+/** A concurrent data structure that allows the hand-over of an object between a pair of threads.
+ * 允许在一对线程之间切换对象的并发数据结构。
+ * */
 public class Broker<V> {
 
     private final ConcurrentMap<String, BlockingQueue<V>> mediations =
             new ConcurrentHashMap<String, BlockingQueue<V>>();
 
-    /** Hand in the object to share. */
+    /** Hand in the object to share.
+     * 交出要分享的对象。
+     * */
     public void handIn(String key, V obj) {
         if (!retrieveSharedQueue(key).offer(obj)) {
             throw new RuntimeException(
@@ -37,7 +41,9 @@ public class Broker<V> {
         }
     }
 
-    /** Blocking retrieval and removal of the object to share. */
+    /** Blocking retrieval and removal of the object to share.
+     * 阻止检索和删除要共享的对象。
+     * */
     public V getAndRemove(String key) {
         try {
             V objToShare = retrieveSharedQueue(key).take();
@@ -48,12 +54,16 @@ public class Broker<V> {
         }
     }
 
-    /** Blocking retrieval and removal of the object to share. */
+    /** Blocking retrieval and removal of the object to share.
+     * 阻止检索和删除要共享的对象。
+     * */
     public void remove(String key) {
         mediations.remove(key);
     }
 
-    /** Blocking retrieval and removal of the object to share. */
+    /** Blocking retrieval and removal of the object to share.
+     * 阻止检索和删除要共享的对象。
+     * */
     public V get(String key) {
         try {
             BlockingQueue<V> queue = retrieveSharedQueue(key);
@@ -68,7 +78,9 @@ public class Broker<V> {
         }
     }
 
-    /** Thread-safe call to get a shared {@link BlockingQueue}. */
+    /** Thread-safe call to get a shared {@link BlockingQueue}.
+     * 线程安全调用以获取共享的 {@link BlockingQueue}。
+     * */
     private BlockingQueue<V> retrieveSharedQueue(String key) {
         BlockingQueue<V> queue = mediations.get(key);
         if (queue == null) {

@@ -59,12 +59,17 @@ import java.util.stream.Collectors;
  * <p>The implementation collects the current resource requirements and declares them at the
  * ResourceManager. Whenever new slots are offered, the slot pool compares the offered slots to the
  * set of available and required resources and only accepts those slots which are required.
+ * 该实现收集当前的资源需求并在 ResourceManager 中声明它们。
+ * 每当提供新的插槽时，插槽池都会将提供的插槽与可用和所需资源的集合进行比较，并且只接受那些需要的插槽。
  *
  * <p>Slots which are released won't be returned directly to their owners. Instead, the slot pool
  * implementation will only return them after the idleSlotTimeout has been exceeded by a free slot.
+ * 已释放的插槽不会直接归还给其所有者。 相反，槽池实现只会在空闲槽超过 idleSlotTimeout 后返回它们。
  *
  * <p>The slot pool will call {@link #newSlotsListener} whenever newly offered slots are accepted or
  * if an allocated slot should become free after it is being {@link #freeReservedSlot freed}.
+ * 每当接受新提供的插槽或分配的插槽在 {@link #freeReservedSlot 释放} 后应该空闲时，
+ * 插槽池将调用 {@link #newSlotsListener}。
  */
 public class DefaultDeclarativeSlotPool implements DeclarativeSlotPool {
 

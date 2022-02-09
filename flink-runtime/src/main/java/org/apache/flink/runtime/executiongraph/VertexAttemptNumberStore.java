@@ -19,10 +19,13 @@ package org.apache.flink.runtime.executiongraph;
 
 import org.apache.flink.runtime.jobgraph.JobVertexID;
 
-/** Contains the attempt numbers per vertex. */
+/** Contains the attempt numbers per vertex.
+ * 包含每个顶点的尝试次数。
+ * */
 public interface VertexAttemptNumberStore {
     /**
      * Returns the attempt numbers for the given vertex.
+     * 返回给定顶点的尝试次数。
      *
      * @param vertexId vertex for which the attempt numbers should be returned
      * @return attempt numbers for the given vertex

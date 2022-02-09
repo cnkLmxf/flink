@@ -24,6 +24,7 @@ import org.apache.flink.annotation.Internal;
  * Interface for a binary function that is used for push-down of state transformation into state
  * backends. The function takes as inputs the old state and an element. From those inputs, the
  * function computes the new state.
+ * 二元函数的接口，用于将状态转换下推到状态后端。 该函数将旧状态和元素作为输入。 根据这些输入，该函数计算新状态。
  *
  * @param <S> type of the previous state that is the bases for the computation of the new state.
  * @param <T> type of the element value that is used to compute the change of state.
@@ -33,6 +34,7 @@ public interface StateTransformationFunction<S, T> {
 
     /**
      * Binary function that applies a given value to the given old state to compute the new state.
+     * 将给定值应用于给定旧状态以计算新状态的二元函数。
      *
      * @param previousState the previous state that is the basis for the transformation.
      * @param value the value that the implementation applies to the old state to obtain the new

@@ -20,7 +20,9 @@ package org.apache.flink.runtime.scheduler.adaptive.allocator;
 
 import org.apache.flink.runtime.clusterframework.types.AllocationID;
 
-/** Functional interface for checking whether a slot is available and free. */
+/** Functional interface for checking whether a slot is available and free.
+ * 用于检查插槽是否可用和空闲的功能接口。
+ * */
 @FunctionalInterface
 public interface IsSlotAvailableAndFreeFunction {
 

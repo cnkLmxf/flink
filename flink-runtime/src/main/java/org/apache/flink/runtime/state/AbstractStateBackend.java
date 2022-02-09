@@ -36,9 +36,11 @@ import java.util.Collection;
 
 /**
  * An abstract base implementation of the {@link StateBackend} interface.
+ * {@link StateBackend} 接口的抽象基础实现。
  *
  * <p>This class has currently no contents and only kept to not break the prior class hierarchy for
  * users.
+ * 这个类目前没有内容，只是为了不破坏用户之前的类层次结构。
  */
 @PublicEvolving
 public abstract class AbstractStateBackend implements StateBackend, java.io.Serializable {

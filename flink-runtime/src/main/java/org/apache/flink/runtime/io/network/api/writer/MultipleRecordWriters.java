@@ -28,16 +28,21 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The specific delegate implementation for the multiple outputs case. */
+/** The specific delegate implementation for the multiple outputs case.
+ * 多输出情况的特定委托实现。
+ * */
 public class MultipleRecordWriters<T extends IOReadableWritable>
         implements RecordWriterDelegate<T> {
 
-    /** The real record writer instances for this delegate. */
+    /** The real record writer instances for this delegate.
+     * 此委托的真实记录编写器实例。
+     * */
     private final List<RecordWriter<T>> recordWriters;
 
     /**
      * Maintains the respective record writer futures to avoid allocating new arrays every time in
      * {@link #getAvailableFuture()}.
+     * 维护各自的记录写入器期货以避免每次在 {@link #getAvailableFuture()} 中分配新数组。
      */
     private final CompletableFuture<?>[] futures;
 

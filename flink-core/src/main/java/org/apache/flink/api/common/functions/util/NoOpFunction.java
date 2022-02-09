@@ -21,7 +21,9 @@ package org.apache.flink.api.common.functions.util;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.api.common.functions.AbstractRichFunction;
 
-/** An {@link AbstractRichFunction} that does nothing. */
+/** An {@link AbstractRichFunction} that does nothing.
+ * 一个 {@link AbstractRichFunction} 什么都不做。
+ * */
 @Internal
 public class NoOpFunction extends AbstractRichFunction {
     private static final long serialVersionUID = 1L;

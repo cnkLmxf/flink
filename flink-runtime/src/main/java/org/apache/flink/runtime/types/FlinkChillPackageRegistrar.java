@@ -35,12 +35,17 @@ import com.twitter.chill.java.UUIDSerializer;
 /*
 This code is copied as is from Twitter Chill 0.7.4 because we need to user a newer chill version
 but want to ensure that the serializers that are registered by default stay the same.
+这段代码是从 Twitter Chill 0.7.4 复制而来的，因为我们需要使用更新的 chill 版本
+但要确保默认注册的序列化程序保持不变。
 
 The only changes to the code are those that are required to make it compile and pass checkstyle
 checks in our code base.
+对代码的唯一更改是使其在我们的代码库中编译和通过检查样式检查所需的更改。
  */
 
-/** Creates a registrar for all the serializers in the chill.java package. */
+/** Creates a registrar for all the serializers in the chill.java package.
+ * 为 chill.java 包中的所有序列化程序创建一个注册器。
+ * */
 public class FlinkChillPackageRegistrar {
 
     public static IKryoRegistrar all() {

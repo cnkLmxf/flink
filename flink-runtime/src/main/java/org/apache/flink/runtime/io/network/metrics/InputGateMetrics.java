@@ -28,7 +28,9 @@ import java.util.Collection;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Collects metrics of an input gate. */
+/** Collects metrics of an input gate.
+ * 收集输入门的指标。
+ * */
 public class InputGateMetrics {
 
     private final SingleInputGate inputGate;
@@ -42,10 +44,12 @@ public class InputGateMetrics {
     // ------------------------------------------------------------------------
 
     // these methods are package private to make access from the nested classes faster
+    // 这些方法是包私有的，以便更快地访问嵌套类
 
     /**
      * Iterates over all input channels and collects the total number of queued buffers in a
      * best-effort way.
+     * 迭代所有输入通道并以尽力而为的方式收集排队缓冲区的总数。
      *
      * @return total number of queued buffers
      */
@@ -66,6 +70,7 @@ public class InputGateMetrics {
     /**
      * Iterates over all input channels and collects the minimum number of queued buffers in a
      * channel in a best-effort way.
+     * 迭代所有输入通道，并以尽力而为的方式收集通道中最小数量的排队缓冲区。
      *
      * @return minimum number of queued buffers per channel (<tt>0</tt> if no channels exist)
      */
@@ -93,6 +98,7 @@ public class InputGateMetrics {
     /**
      * Iterates over all input channels and collects the maximum number of queued buffers in a
      * channel in a best-effort way.
+     * 遍历所有输入通道，并尽最大努力收集通道中最大数量的排队缓冲区。
      *
      * @return maximum number of queued buffers per channel
      */
@@ -114,6 +120,7 @@ public class InputGateMetrics {
     /**
      * Iterates over all input channels and collects the average number of queued buffers in a
      * channel in a best-effort way.
+     * 迭代所有输入通道，并尽最大努力收集通道中排队缓冲区的平均数量。
      *
      * @return average number of queued buffers per channel
      */

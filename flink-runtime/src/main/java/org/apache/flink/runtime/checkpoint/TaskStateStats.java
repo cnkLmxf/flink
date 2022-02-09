@@ -30,6 +30,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Statistics for a single task/operator that gathers all statistics of its subtasks and provides
  * summary statistics about all subtasks.
+ * 单个任务/操作员的统计信息，它收集其子任务的所有统计信息并提供有关所有子任务的汇总统计信息。
  */
 public class TaskStateStats implements Serializable {
 
@@ -40,7 +41,9 @@ public class TaskStateStats implements Serializable {
 
     private final SubtaskStateStats[] subtaskStats;
 
-    /** A summary of the subtask stats. */
+    /** A summary of the subtask stats.
+     * 子任务统计信息的摘要。
+     * */
     private final TaskStateStatsSummary summaryStats = new TaskStateStatsSummary();
 
     private int numAcknowledgedSubtasks;
@@ -129,6 +132,8 @@ public class TaskStateStats implements Serializable {
      * Returns the duration of this checkpoint at the task/operator calculated as the time since
      * triggering until the latest acknowledged subtask or <code>-1</code> if no subtask was
      * acknowledged yet.
+     * 返回任务/操作员的此检查点的持续时间，计算为从触发到最近确认的子任务的时间，如果还没有确认子任务，
+     * 则返回 <code>-1</code>。
      *
      * @return Duration of this checkpoint at the task/operator or <code>-1</code> if no subtask was
      *     acknowledged yet.
@@ -144,11 +149,14 @@ public class TaskStateStats implements Serializable {
 
     /**
      * Returns the stats for all subtasks.
+     * 返回所有子任务的统计信息。
      *
      * <p>Elements of the returned array are <code>null</code> if no stats are available yet for the
      * respective subtask.
+     * 如果相应子任务还没有可用的统计信息，则返回数组的元素为 <code>null</code>。
      *
      * <p>Note: The returned array must not be modified.
+     * 注意：不得修改返回的数组。
      *
      * @return Array of subtask stats (elements are <code>null</code> if no stats available yet).
      */
@@ -161,7 +169,9 @@ public class TaskStateStats implements Serializable {
         return summaryStats;
     }
 
-    /** Summary of the subtask stats of a single task/operator. */
+    /** Summary of the subtask stats of a single task/operator.
+     * 单个任务/操作员的子任务统计信息摘要。
+     * */
     public static class TaskStateStatsSummary implements Serializable {
 
         private static final long serialVersionUID = 1009476026522091909L;

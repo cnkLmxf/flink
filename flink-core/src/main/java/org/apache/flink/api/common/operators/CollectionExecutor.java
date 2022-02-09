@@ -68,7 +68,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-/** Execution utility for serial, local, collection-based executions of Flink programs. */
+/** Execution utility for serial, local, collection-based executions of Flink programs.
+ * 用于 Flink 程序的串行、本地、基于集合的执行的执行实用程序。
+ * */
 @Internal
 public class CollectionExecutor {
 

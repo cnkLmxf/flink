@@ -48,6 +48,7 @@ import java.util.concurrent.CompletionException;
 /**
  * Handler that receives the coordination requests from the client and returns the response from the
  * coordinator.
+ * 接收来自客户端的协调请求并返回来自协调器的响应的处理程序。
  */
 public class ClientCoordinationHandler
         extends AbstractRestHandler<

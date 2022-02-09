@@ -35,6 +35,7 @@ import java.util.Iterator;
 /**
  * An implementation of the {@link org.apache.flink.runtime.operators.util.JoinTaskIterator} that
  * realizes the outer join through a sort-merge join strategy.
+ * {@link org.apache.flink.runtime.operators.util.JoinTaskIterator} 的实现，通过排序合并连接策略实现外连接。
  */
 public abstract class AbstractMergeOuterJoinIterator<T1, T2, O>
         extends AbstractMergeIterator<T1, T2, O> {
@@ -80,6 +81,9 @@ public abstract class AbstractMergeOuterJoinIterator<T1, T2, O>
      * same key and come from different inputs. Furthermore, depending on the outer join type (LEFT,
      * RIGHT, FULL), all key-value pairs where no matching partner from the other input exists are
      * joined with null. The output of the <code>join()</code> method is forwarded.
+     * 为共享相同键且来自不同输入的所有两个键值对调用 <code>JoinFunction#join()</code> 方法。
+     * 此外，根据外部连接类型（LEFT、RIGHT、FULL），不存在来自其他输入的匹配伙伴的所有键值对都使用 null 连接。
+     * <code>join()</code> 方法的输出被转发。
      *
      * @throws Exception Forwards all exceptions from the user code and the I/O system.
      * @see

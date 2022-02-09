@@ -42,7 +42,14 @@ import static org.apache.flink.runtime.checkpoint.channel.ChannelStateWriteReque
  * {@link ChannelStateWriter} implemented using {@link
  * CheckpointStreamFactory.CheckpointStateOutputStream CheckpointStateOutputStreams}. Internally, it
  * has by default
- *
+ * {@link ChannelStateWriter} 使用
+ * {@link CheckpointStreamFactory.CheckpointStateOutputStream CheckpointStateOutputStreams} 实现。
+ * 在内部，它默认具有
+ *<ul>
+ *     <li>每个检查点一个流； 拥有多个流意味着更多的文件被写入和更多
+ *         打开的连接（以及更多的恢复延迟）
+ *     <li>一个线程； 拥有多个线程意味着更多的连接，与实现相结合并增加了复杂性
+ *</ul>
  * <ul>
  *   <li>one stream per checkpoint; having multiple streams would mean more files written and more
  *       connections opened (and more latency on restore)
@@ -53,6 +60,8 @@ import static org.apache.flink.runtime.checkpoint.channel.ChannelStateWriteReque
  * <p>Thread-safety: this class is thread-safe when used with a thread-safe {@link
  * ChannelStateWriteRequestExecutor executor} (e.g. default {@link
  * ChannelStateWriteRequestExecutorImpl}.
+ * 线程安全：当与线程安全的 {@link ChannelStateWriteRequestExecutor 执行器}
+ * （例如默认的 {@link ChannelStateWriteRequestExecutorImpl}）一起使用时，此类是线程安全的。
  */
 @Internal
 @ThreadSafe

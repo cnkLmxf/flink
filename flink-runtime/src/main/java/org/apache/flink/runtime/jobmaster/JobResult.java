@@ -48,8 +48,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Similar to {@link org.apache.flink.api.common.JobExecutionResult} but with an optional {@link
  * SerializedThrowable} when the job failed.
+ * 类似于 {@link org.apache.flink.api.common.JobExecutionResult} 但在作业失败时带有可选的 {@link SerializedThrowable}。
  *
  * <p>This is used by the {@link JobMaster} to send the results to the {@link Dispatcher}.
+ * {@link JobMaster} 使用它来将结果发送到 {@link Dispatcher}。
  */
 public class JobResult implements Serializable {
 
@@ -63,7 +65,9 @@ public class JobResult implements Serializable {
 
     private final long netRuntime;
 
-    /** Stores the cause of the job failure, or {@code null} if the job finished successfully. */
+    /** Stores the cause of the job failure, or {@code null} if the job finished successfully.
+     * 存储作业失败的原因，如果作业成功完成，则存储 {@code null}。
+     * */
     @Nullable private final SerializedThrowable serializedThrowable;
 
     private JobResult(
@@ -82,7 +86,9 @@ public class JobResult implements Serializable {
         this.serializedThrowable = serializedThrowable;
     }
 
-    /** Returns {@code true} if the job finished successfully. */
+    /** Returns {@code true} if the job finished successfully.
+     * 如果作业成功完成，则返回 {@code true}。
+     * */
     public boolean isSuccess() {
         return applicationStatus == ApplicationStatus.SUCCEEDED
                 || (applicationStatus == ApplicationStatus.UNKNOWN && serializedThrowable == null);
@@ -107,6 +113,7 @@ public class JobResult implements Serializable {
     /**
      * Returns an empty {@code Optional} if the job finished successfully, otherwise the {@code
      * Optional} will carry the failure cause.
+     * 如果作业成功完成，则返回一个空的 {@code Optional}，否则 {@code Optional} 将携带失败原因。
      */
     public Optional<SerializedThrowable> getSerializedThrowable() {
         return Optional.ofNullable(serializedThrowable);
@@ -211,6 +218,7 @@ public class JobResult implements Serializable {
     /**
      * Creates the {@link JobResult} from the given {@link AccessExecutionGraph} which must be in a
      * globally terminal state.
+     * 从必须处于全局终端状态的给定 {@link AccessExecutionGraph} 创建 {@link JobResult}。
      *
      * @param accessExecutionGraph to create the JobResult from
      * @return JobResult of the given AccessExecutionGraph

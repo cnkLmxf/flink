@@ -25,11 +25,14 @@ import org.apache.flink.runtime.slots.ResourceRequirements;
 import java.util.Collection;
 import java.util.Map;
 
-/** Tracks for each job how many resource are required/acquired. */
+/** Tracks for each job how many resource are required/acquired.
+ * 跟踪每个作业需要/获取多少资源。
+ * */
 public interface ResourceTracker {
 
     /**
      * Notifies the tracker about a new or updated {@link ResourceRequirements}.
+     * 通知跟踪器有关新的或更新的 {@link ResourceRequirements}。
      *
      * @param jobId the job that that the resource requirements belongs to
      * @param resourceRequirements new resource requirements
@@ -40,6 +43,7 @@ public interface ResourceTracker {
     /**
      * Notifies the tracker about the acquisition of a resource with the given resource profile, for
      * the given job.
+     * 通知跟踪器有关给定作业获取具有给定资源配置文件的资源的信息。
      *
      * @param jobId the job that acquired the resource
      * @param resourceProfile profile of the resource
@@ -49,6 +53,7 @@ public interface ResourceTracker {
     /**
      * Notifies the tracker about the loss of a resource with the given resource profile, for the
      * given job.
+     * 通知跟踪器有关给定作业的具有给定资源配置文件的资源的丢失。
      *
      * @param jobId the job that lost the resource
      * @param resourceProfile profile of the resource
@@ -58,6 +63,7 @@ public interface ResourceTracker {
     /**
      * Returns a collection of {@link ResourceRequirements} that describe which resources the
      * corresponding job is missing.
+     * 返回描述相应作业缺少哪些资源的 {@link ResourceRequirements} 集合。
      *
      * @return missing resources for each jobs
      */
@@ -66,12 +72,15 @@ public interface ResourceTracker {
     /**
      * Returns a collection of {@link ResourceRequirement}s that describe which resources have been
      * assigned to a job.
+     * 返回描述已分配给作业的资源的 {@link ResourceRequirement} 集合。
      *
      * @param jobId job ID
      * @return required/exceeding resources for each jobs
      */
     Collection<ResourceRequirement> getAcquiredResources(JobID jobId);
 
-    /** Removes all state from the tracker. */
+    /** Removes all state from the tracker.
+     * 从跟踪器中删除所有状态。
+     * */
     void clear();
 }

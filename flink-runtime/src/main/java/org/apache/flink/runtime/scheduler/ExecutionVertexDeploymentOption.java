@@ -22,7 +22,9 @@ import org.apache.flink.runtime.scheduler.strategy.ExecutionVertexID;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Component that stores the task need to be scheduled and the option for deployment. */
+/** Component that stores the task need to be scheduled and the option for deployment.
+ * 存储任务的组件需要调度和部署选项。
+ * */
 public class ExecutionVertexDeploymentOption {
 
     private final ExecutionVertexID executionVertexId;

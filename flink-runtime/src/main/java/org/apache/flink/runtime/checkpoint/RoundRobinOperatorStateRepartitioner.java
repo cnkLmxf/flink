@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 /**
  * Current default implementation of {@link OperatorStateRepartitioner} that redistributes state in
  * round robin fashion.
+ * {@link OperatorStateRepartitioner} 的当前默认实现，以循环方式重新分配状态。
  */
 @Internal
 public class RoundRobinOperatorStateRepartitioner
@@ -102,6 +103,8 @@ public class RoundRobinOperatorStateRepartitioner
     /**
      * Init the the list of StreamStateHandle -> OperatorStateHandle map with given
      * parallelSubtaskStates when parallelism not changed.
+     * 当并行度没有改变时，
+     * 使用给定的 parallelSubtaskStates 初始化 StreamStateHandle -> OperatorStateHandle 映射的列表。
      */
     private List<Map<StreamStateHandle, OperatorStateHandle>> initMergeMapList(
             List<List<OperatorStateHandle>> parallelSubtaskStates) {
@@ -123,7 +126,9 @@ public class RoundRobinOperatorStateRepartitioner
         return mergeMapList;
     }
 
-    /** Collect union states from given parallelSubtaskStates. */
+    /** Collect union states from given parallelSubtaskStates.
+     * 从给定的 parallelSubtaskStates 中收集联合状态。
+     * */
     private Map<String, List<Tuple2<StreamStateHandle, OperatorStateHandle.StateMetaInfo>>>
             collectUnionStates(List<List<OperatorStateHandle>> parallelSubtaskStates) {
 
@@ -173,7 +178,9 @@ public class RoundRobinOperatorStateRepartitioner
         return unionStates;
     }
 
-    /** Group by the different named states. */
+    /** Group by the different named states.
+     * 按不同的命名状态分组。
+     * */
     @SuppressWarnings("unchecked, rawtype")
     private GroupByStateNameResults groupByStateMode(
             List<List<OperatorStateHandle>> previousParallelSubtaskStates) {
@@ -229,7 +236,9 @@ public class RoundRobinOperatorStateRepartitioner
         return new GroupByStateNameResults(nameToStateByMode);
     }
 
-    /** Repartition all named states. */
+    /** Repartition all named states.
+     * 重新分区所有命名状态。
+     * */
     private List<Map<StreamStateHandle, OperatorStateHandle>> repartition(
             GroupByStateNameResults nameToStateByMode, int newParallelism) {
 
@@ -266,7 +275,9 @@ public class RoundRobinOperatorStateRepartitioner
         return mergeMapList;
     }
 
-    /** Repartition SPLIT_DISTRIBUTE state. */
+    /** Repartition SPLIT_DISTRIBUTE state.
+     * 重新分区 SPLIT_DISTRIBUTE 状态。
+     * */
     private void repartitionSplitState(
             Map<String, List<Tuple2<StreamStateHandle, OperatorStateHandle.StateMetaInfo>>>
                     nameToDistributeState,

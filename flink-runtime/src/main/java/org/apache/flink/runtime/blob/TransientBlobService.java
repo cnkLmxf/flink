@@ -28,12 +28,15 @@ import java.io.InputStream;
 /**
  * A service to retrieve transient binary large objects (BLOBs) which are deleted on the {@link
  * BlobServer} when they are retrieved.
+ * 检索瞬态二进制大对象 (BLOB) 的服务，这些对象在检索时在 {@link BlobServer} 上被删除。
  *
  * <p>These may include per-job BLOBs like files in the {@link
  * org.apache.flink.api.common.cache.DistributedCache}, for example.
+ * 例如，这些可能包括每个作业的 BLOB，例如 {@link org.apache.flink.api.common.cache.DistributedCache} 中的文件。
  *
  * <p>Note: None of these BLOBs is highly available (HA). This case is covered by BLOBs in the
  * {@link PermanentBlobService}.
+ * 注意：这些 BLOB 都不是高可用 (HA)。 {@link PermanentBlobService} 中的 BLOB 涵盖了这种情况。
  *
  * <p>TODO: change API to not rely on local files but return {@link InputStream} objects
  */
@@ -46,6 +49,7 @@ public interface TransientBlobService extends Closeable {
     /**
      * Returns the path to a local copy of the (job-unrelated) file associated with the provided
      * blob key.
+     * 返回与提供的 blob 键关联的（与作业无关的）文件的本地副本的路径。
      *
      * @param key blob key associated with the requested file
      * @return The path to the file.
@@ -57,6 +61,7 @@ public interface TransientBlobService extends Closeable {
     /**
      * Returns the path to a local copy of the file associated with the provided job ID and blob
      * key.
+     * 返回与提供的作业 ID 和 blob 键关联的文件的本地副本的路径。
      *
      * @param jobId ID of the job this blob belongs to
      * @param key blob key associated with the requested file
@@ -72,6 +77,7 @@ public interface TransientBlobService extends Closeable {
 
     /**
      * Uploads the (job-unrelated) data of the given byte array to the BLOB server.
+     * 将给定字节数组的（与作业无关的）数据上传到 BLOB 服务器。
      *
      * @param value the buffer to upload
      * @return the computed BLOB key identifying the BLOB on the server
@@ -81,6 +87,7 @@ public interface TransientBlobService extends Closeable {
 
     /**
      * Uploads the data of the given byte array for the given job to the BLOB server.
+     * 将给定作业的给定字节数组的数据上传到 BLOB 服务器。
      *
      * @param jobId the ID of the job the BLOB belongs to
      * @param value the buffer to upload
@@ -91,6 +98,7 @@ public interface TransientBlobService extends Closeable {
 
     /**
      * Uploads the (job-unrelated) data from the given input stream to the BLOB server.
+     * 将（与作业无关的）数据从给定的输入流上传到 BLOB 服务器。
      *
      * @param inputStream the input stream to read the data from
      * @return the computed BLOB key identifying the BLOB on the server
@@ -101,6 +109,7 @@ public interface TransientBlobService extends Closeable {
 
     /**
      * Uploads the data from the given input stream for the given job to the BLOB server.
+     * 将给定作业的给定输入流中的数据上传到 BLOB 服务器。
      *
      * @param jobId ID of the job this blob belongs to
      * @param inputStream the input stream to read the data from
@@ -116,6 +125,7 @@ public interface TransientBlobService extends Closeable {
 
     /**
      * Deletes the (job-unrelated) file associated with the provided blob key from the local cache.
+     * 从本地缓存中删除与提供的 blob 键关联的（与作业无关的）文件。
      *
      * @param key associated with the file to be deleted
      * @return <tt>true</tt> if the given blob is successfully deleted or non-existing;
@@ -125,6 +135,7 @@ public interface TransientBlobService extends Closeable {
 
     /**
      * Deletes the file associated with the provided job ID and blob key from the local cache.
+     * 从本地缓存中删除与提供的作业 ID 和 blob 键关联的文件。
      *
      * @param jobId ID of the job this blob belongs to
      * @param key associated with the file to be deleted

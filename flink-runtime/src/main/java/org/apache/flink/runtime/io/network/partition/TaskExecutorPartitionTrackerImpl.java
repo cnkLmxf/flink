@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 /**
  * Utility for tracking partitions and issuing release calls to task executors and shuffle masters.
+ * 用于跟踪分区和向任务执行器和 shuffle master 发出发布调用的实用程序。
  */
 public class TaskExecutorPartitionTrackerImpl
         extends AbstractPartitionTracker<JobID, TaskExecutorPartitionInfo>

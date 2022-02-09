@@ -23,8 +23,10 @@ import org.apache.flink.runtime.state.StateBackend;
 
 /**
  * An interface to delegate state backend.
+ * 委托状态后端的接口。
  *
  * <p>As its name, it should include a state backend to delegate.
+ * 正如它的名字一样，它应该包括一个状态后端来委托。
  */
 @Internal
 public interface DelegatingStateBackend extends StateBackend {

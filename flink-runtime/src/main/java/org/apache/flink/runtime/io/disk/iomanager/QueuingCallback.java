@@ -21,7 +21,9 @@ package org.apache.flink.runtime.io.disk.iomanager;
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/** A {@link RequestDoneCallback} that adds the memory segments to a blocking queue. */
+/** A {@link RequestDoneCallback} that adds the memory segments to a blocking queue.
+ * 将内存段添加到阻塞队列的 {@link RequestDoneCallback}。
+ * */
 public class QueuingCallback<T> implements RequestDoneCallback<T> {
 
     private final LinkedBlockingQueue<T> queue;

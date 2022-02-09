@@ -40,6 +40,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Utility class which holds all auxiliary shared services used by the {@link JobMaster}.
  * Consequently, the {@link JobMaster} should never shut these services down.
+ * 包含 {@link JobMaster} 使用的所有辅助共享服务的实用程序类。
+ * 因此，{@link JobMaster} 永远不应该关闭这些服务。
  */
 public class JobManagerSharedServices {
 
@@ -78,6 +80,8 @@ public class JobManagerSharedServices {
      * <p>This method makes sure all services are closed or shut down, even when an exception
      * occurred in the shutdown of one component. The first encountered exception is thrown, with
      * successive exceptions added as suppressed exceptions.
+     * 此方法确保所有服务都关闭或关闭，即使在某个组件关闭时发生异常也是如此。
+     * 抛出第一个遇到的异常，并将连续的异常添加为抑制的异常。
      *
      * @throws Exception The first Exception encountered during shutdown.
      */

@@ -26,6 +26,8 @@ import java.io.Serializable;
 /**
  * Contains information where to find a partition. The partition is defined by the {@link
  * IntermediateDataSetID} and the partition is specified by {@link ShuffleDescriptor}.
+ * 包含在哪里可以找到分区的信息。 分区由 {@link IntermediateDataSetID} 定义，
+ * 分区由 {@link ShuffleDescriptor} 指定。
  */
 public class PartitionInfo implements Serializable {
 

@@ -22,7 +22,9 @@ import org.apache.flink.api.common.JobID;
 import org.apache.flink.runtime.clusterframework.types.AllocationID;
 import org.apache.flink.util.Preconditions;
 
-/** Exception which signals that a slot is already occupied by the given {@link AllocationID}. */
+/** Exception which signals that a slot is already occupied by the given {@link AllocationID}.
+ * 异常表示插槽已被给定的 {@link AllocationID} 占用。
+ * */
 public class SlotOccupiedException extends SlotAllocationException {
     private static final long serialVersionUID = -3986333914244338888L;
 

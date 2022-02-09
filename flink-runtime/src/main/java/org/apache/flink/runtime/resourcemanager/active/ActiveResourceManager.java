@@ -67,6 +67,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * <p>This resource manager actively requests and releases resources from/to the external resource
  * management frameworks. With different {@link ResourceManagerDriver} provided, this resource
  * manager can work with various frameworks.
+ * 该资源管理器主动向外部资源管理框架请求和释放资源。
+ * 通过提供不同的 {@link ResourceManagerDriver}，此资源管理器可以与各种框架一起使用。
  */
 public class ActiveResourceManager<WorkerType extends ResourceIDRetrievable>
         extends ResourceManager<WorkerType> implements ResourceEventHandler<WorkerType> {
@@ -80,13 +82,19 @@ public class ActiveResourceManager<WorkerType extends ResourceIDRetrievable>
     /** All workers maintained by {@link ActiveResourceManager}. */
     private final Map<ResourceID, WorkerType> workerNodeMap;
 
-    /** Number of requested and not registered workers per worker resource spec. */
+    /** Number of requested and not registered workers per worker resource spec.
+     * 每个工作人员资源规范的请求和未注册工作人员的数量。
+     * */
     private final PendingWorkerCounter pendingWorkerCounter;
 
-    /** Identifiers and worker resource spec of requested not registered workers. */
+    /** Identifiers and worker resource spec of requested not registered workers.
+     * 请求的未注册工作人员的标识符和工作人员资源规范。
+     * */
     private final Map<ResourceID, WorkerResourceSpec> currentAttemptUnregisteredWorkers;
 
-    /** Identifiers of recovered and not registered workers. */
+    /** Identifiers of recovered and not registered workers.
+     * 已康复且未注册工人的标识符。
+     * */
     private final Set<ResourceID> previousAttemptUnregisteredWorkers;
 
     private final ThresholdMeter startWorkerFailureRater;
@@ -97,6 +105,8 @@ public class ActiveResourceManager<WorkerType extends ResourceIDRetrievable>
      * Incompletion of this future indicates that the max failure rate of start worker is reached
      * and the resource manager should not retry starting new worker until the future become
      * completed again. It's guaranteed to be modified in main thread.
+     * 这个未来的不完成表明启动工人的最大失败率已经达到，资源管理器不应该重试启动新的工人，直到未来再次完成。
+     * 保证在主线程中进行修改。
      */
     private CompletableFuture<Void> startWorkerCoolDown;
 
@@ -356,6 +366,7 @@ public class ActiveResourceManager<WorkerType extends ResourceIDRetrievable>
 
     /**
      * Clear states for a terminated worker.
+     * 清除已终止工作人员的状态。
      *
      * @param resourceId Identifier of the worker
      * @return True if the worker is known and states are cleared; false if the worker is unknown
@@ -404,6 +415,7 @@ public class ActiveResourceManager<WorkerType extends ResourceIDRetrievable>
     /**
      * Record failure number of starting worker in ResourceManagers. Return whether maximum failure
      * rate is reached.
+     * 在 ResourceManagers 中记录启动 worker 的失败次数。 返回是否达到最大故障率。
      *
      * @return whether max failure rate is reached
      */

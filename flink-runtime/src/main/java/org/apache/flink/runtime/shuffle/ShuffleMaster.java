@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Intermediate result partition registry to use in {@link
  * org.apache.flink.runtime.jobmaster.JobMaster}.
+ * 要在 {@link org.apache.flink.runtime.jobmaster.JobMaster} 中使用的中间结果分区注册表。
  *
  * @param <T> partition shuffle descriptor used for producer/consumer deployment and their data
  *     exchange.

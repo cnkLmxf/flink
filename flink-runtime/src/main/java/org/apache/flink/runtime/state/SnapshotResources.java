@@ -23,11 +23,14 @@ import org.apache.flink.annotation.Internal;
 /**
  * A set of resources produced in the synchronous part of a snapshot required to finish the
  * snapshot.
+ * 完成快照所需的快照同步部分中产生的一组资源。
  *
  * @see SnapshotStrategy
  */
 @Internal
 public interface SnapshotResources {
-    /** Cleans up the resources after the asynchronous part is done. */
+    /** Cleans up the resources after the asynchronous part is done.
+     * 异步部分完成后清理资源。
+     * */
     void release();
 }

@@ -28,6 +28,7 @@ import java.util.Iterator;
 
 /**
  * {@link Iterator} over the build side entries of a {@link HashPartition}.
+ * {@link Iterator} 覆盖 {@link HashPartition} 的构建端条目。
  *
  * @param <BT>
  */
@@ -82,7 +83,9 @@ public class HashPartitionIterator<BT, PT> implements MutableObjectIterator<BT> 
         }
     }
 
-    /* jump to the next partition and continue reading from that */
+    /* jump to the next partition and continue reading from that
+    * 跳转到下一个分区并继续读取
+    * */
     private BT advanceAndRead(BT reuse) throws IOException {
         if (!partitions.hasNext()) {
             return null;
@@ -98,7 +101,9 @@ public class HashPartitionIterator<BT, PT> implements MutableObjectIterator<BT> 
         return reuse;
     }
 
-    /* jump to the next partition and continue reading from that */
+    /* jump to the next partition and continue reading from that
+    * 跳转到下一个分区并继续读取
+    * */
     private BT advanceAndRead() throws IOException {
         if (!partitions.hasNext()) {
             return null;

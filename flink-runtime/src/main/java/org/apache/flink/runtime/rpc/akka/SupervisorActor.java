@@ -52,6 +52,7 @@ import scala.collection.Iterable;
 /**
  * Supervisor actor which is responsible for starting {@link AkkaRpcActor} instances and monitoring
  * when the actors have terminated.
+ * 主管 Actor 负责启动 {@link AkkaRpcActor} 实例并监控 Actor 何时终止。
  */
 class SupervisorActor extends AbstractActor {
 

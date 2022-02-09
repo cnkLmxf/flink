@@ -37,6 +37,7 @@ import java.util.Map;
 /**
  * Static factory that gives out the write and readers for different versions of {@link
  * StateMetaInfoSnapshot}.
+ * 为不同版本的 {@link StateMetaInfoSnapshot} 提供写入和读取的静态工厂。
  */
 public class StateMetaInfoSnapshotReadersWriters {
 

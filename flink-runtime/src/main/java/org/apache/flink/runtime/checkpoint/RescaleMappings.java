@@ -32,10 +32,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Contains the fine-grain channel mappings that occur when a connected operator has been rescaled.
+ * 包含重新调整连接算子时发生的细粒度通道映射。
  *
  * <p>Usually the mapping is materialized from new->old channel/subtask indexes. Through {@link
  * #invert()}, the direction may change accordingly. To generalize, the left side is called source
  * and the right side is called target(s) in this class.
+ * 通常映射是从新->旧通道/子任务索引实现的。 通过{@link #invert()}，方向可能会相应改变。
+ * 概括地说，在这个类中，左侧称为源，右侧称为目标。
  *
  * <p>{@ImplNote This class omits trailing empty targets.}
  */
@@ -51,6 +54,7 @@ public class RescaleMappings implements Serializable {
     /**
      * The mapping from source to multiple targets. In most cases, the targets arrays are of
      * different sizes.
+     * 从源到多个目标的映射。 在大多数情况下，目标数组的大小不同。
      */
     private final int[][] mappings;
 

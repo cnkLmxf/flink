@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 /**
  * Class which contains the connection details of an established connection with the
  * ResourceManager.
+ * 包含与 ResourceManager 建立连接的连接详细信息的类。
  */
 class EstablishedResourceManagerConnection {
 

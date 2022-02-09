@@ -29,7 +29,9 @@ import java.util.stream.Collectors;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Default implementation of {@link LogicalVertex}. It is an adapter of {@link JobVertex}. */
+/** Default implementation of {@link LogicalVertex}. It is an adapter of {@link JobVertex}.
+ * {@link LogicalVertex} 的默认实现。 它是 {@link JobVertex} 的适配器。
+ * */
 public class DefaultLogicalVertex implements LogicalVertex {
 
     private final JobVertex jobVertex;

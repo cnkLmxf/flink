@@ -22,7 +22,9 @@ import org.apache.flink.runtime.io.network.buffer.Buffer;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Buffer and the corresponding channel index. */
+/** Buffer and the corresponding channel index.
+ * 缓冲区和相应的通道索引。
+ * */
 public class BufferWithChannel {
 
     private final Buffer buffer;

@@ -34,6 +34,8 @@ import java.util.concurrent.Executor;
  * Base class for fenced {@link RpcEndpoint}. A fenced rpc endpoint expects all rpc messages being
  * enriched with fencing tokens. Furthermore, the rpc endpoint has its own fencing token assigned.
  * The rpc is then only executed if the attached fencing token equals the endpoint's own token.
+ * 围栏 {@link RpcEndpoint} 的基类。 受防护的 rpc 端点期望所有 rpc 消息都使用防护令牌进行丰富。
+ * 此外，rpc 端点分配了自己的防护令牌。 仅当附加的防护令牌等于端点自己的令牌时，才会执行 rpc。
  *
  * @param <F> type of the fencing token
  */
@@ -89,6 +91,8 @@ public abstract class FencedRpcEndpoint<F extends Serializable> extends RpcEndpo
      * Returns a main thread executor which is bound to the currently valid fencing token. This
      * means that runnables which are executed with this executor fail after the fencing token has
      * changed. This allows to scope operations by the fencing token.
+     * 返回绑定到当前有效的防护令牌的主线程执行程序。
+     * 这意味着使用此执行程序执行的可运行对象在防护令牌更改后会失败。 这允许通过防护令牌来限定操作范围。
      *
      * @return MainThreadExecutor bound to the current fencing token
      */
@@ -100,6 +104,7 @@ public abstract class FencedRpcEndpoint<F extends Serializable> extends RpcEndpo
     /**
      * Returns a main thread executor which is not bound to the fencing token. This means that
      * {@link Runnable} which are executed with this executor will always be executed.
+     * 返回未绑定到围栏令牌的主线程执行程序。 这意味着使用此执行器执行的 {@link Runnable} 将始终被执行。
      *
      * @return MainThreadExecutor which is not bound to the fencing token
      */
@@ -110,6 +115,8 @@ public abstract class FencedRpcEndpoint<F extends Serializable> extends RpcEndpo
     /**
      * Run the given runnable in the main thread of the RpcEndpoint without checking the fencing
      * token. This allows to run operations outside of the fencing token scope.
+     * 在 RpcEndpoint 的主线程中运行给定的 runnable，而不检查 fencing 令牌。
+     * 这允许在防护令牌范围之外运行操作。
      *
      * @param runnable to execute in the main thread of the rpc endpoint without checking the
      *     fencing token.
@@ -126,6 +133,7 @@ public abstract class FencedRpcEndpoint<F extends Serializable> extends RpcEndpo
     /**
      * Run the given callable in the main thread of the RpcEndpoint without checking the fencing
      * token. This allows to run operations outside of the fencing token scope.
+     * 在 RpcEndpoint 的主线程中运行给定的可调用对象，而不检查防护令牌。 这允许在防护令牌范围之外运行操作。
      *
      * @param callable to run in the main thread of the rpc endpoint without checking the fencing
      *     token.
@@ -146,7 +154,12 @@ public abstract class FencedRpcEndpoint<F extends Serializable> extends RpcEndpo
     //  Utilities
     // ------------------------------------------------------------------------
 
-    /** Executor which executes {@link Runnable} in the main thread context without fencing. */
+    /** Executor which executes {@link Runnable} in the main thread context without fencing.
+     * 84 / 5,000
+     * keyboard
+     * 翻译结果
+     * 在主线程上下文中执行 {@link Runnable} 的 Executor 没有围栏。
+     * */
     private static class UnfencedMainThreadExecutor implements Executor {
 
         private final FencedMainThreadExecutable gateway;

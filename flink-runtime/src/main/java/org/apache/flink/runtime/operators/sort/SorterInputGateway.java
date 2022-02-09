@@ -29,13 +29,17 @@ import java.io.IOException;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A gateway for writing records into the sort/merge process. */
+/** A gateway for writing records into the sort/merge process.
+ * 用于将记录写入排序/合并过程的网关。
+ * */
 final class SorterInputGateway<E> {
     /** Logging. */
     private static final Logger LOG = LoggerFactory.getLogger(SorterInputGateway.class);
 
     private final LargeRecordHandler<E> largeRecords;
-    /** The object into which the thread reads the data from the input. */
+    /** The object into which the thread reads the data from the input.
+     * 线程从输入中读取数据的对象。
+     * */
     private final StageRunner.StageMessageDispatcher<E> dispatcher;
 
     private long bytesUntilSpilling;
@@ -43,6 +47,7 @@ final class SorterInputGateway<E> {
 
     /**
      * Creates a new gateway for pushing records into the sorter.
+     * 创建一个用于将记录推送到排序器的新网关。
      *
      * @param dispatcher The queues used to pass buffers between the threads.
      */
@@ -61,7 +66,9 @@ final class SorterInputGateway<E> {
         }
     }
 
-    /** Writes the given record for sorting. */
+    /** Writes the given record for sorting.
+     * 写入给定的记录进行排序。
+     * */
     public void writeRecord(E record) throws IOException, InterruptedException {
 
         if (currentBuffer == null) {
@@ -93,7 +100,9 @@ final class SorterInputGateway<E> {
         }
     }
 
-    /** Signals the end of input. Will flush all buffers and notify later stages. */
+    /** Signals the end of input. Will flush all buffers and notify later stages.
+     * 表示输入结束。 将刷新所有缓冲区并通知后续阶段。
+     * */
     public void finishReading() {
 
         if (currentBuffer != null && !currentBuffer.getBuffer().isEmpty()) {

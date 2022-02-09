@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.taskexecutor;
 
-/** A host binding address mechanism policy. */
+/** A host binding address mechanism policy.
+ * 主机绑定地址机制策略。
+ * */
 enum HostBindPolicy {
     NAME,
     IP;

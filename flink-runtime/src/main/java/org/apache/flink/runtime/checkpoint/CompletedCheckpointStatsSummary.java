@@ -22,7 +22,9 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Summary over <strong>all</strong> completed checkpoints. */
+/** Summary over <strong>all</strong> completed checkpoints.
+ * <strong>所有</strong>已完成检查点的摘要。
+ * */
 public class CompletedCheckpointStatsSummary implements Serializable {
 
     private static final long serialVersionUID = 5784360461635814038L;
@@ -30,7 +32,9 @@ public class CompletedCheckpointStatsSummary implements Serializable {
     /** State size statistics for all completed checkpoints. */
     private final MinMaxAvgStats stateSize;
 
-    /** Duration statistics for all completed checkpoints. */
+    /** Duration statistics for all completed checkpoints.
+     * 所有已完成检查点的持续时间统计。
+     * */
     private final MinMaxAvgStats duration;
 
     private final MinMaxAvgStats processedData;
@@ -59,6 +63,7 @@ public class CompletedCheckpointStatsSummary implements Serializable {
 
     /**
      * Updates the summary with the given completed checkpoint.
+     * 使用给定的已完成检查点更新摘要。
      *
      * @param completed Completed checkpoint to update the summary with.
      */
@@ -71,6 +76,7 @@ public class CompletedCheckpointStatsSummary implements Serializable {
 
     /**
      * Creates a snapshot of the current state.
+     * 创建当前状态的快照。
      *
      * @return A snapshot of the current state.
      */
@@ -84,6 +90,7 @@ public class CompletedCheckpointStatsSummary implements Serializable {
 
     /**
      * Returns the summary stats for the state size of completed checkpoints.
+     * 返回已完成检查点的状态大小的汇总统计信息。
      *
      * @return Summary stats for the state size.
      */
@@ -93,6 +100,7 @@ public class CompletedCheckpointStatsSummary implements Serializable {
 
     /**
      * Returns the summary stats for the duration of completed checkpoints.
+     * 返回已完成检查点持续时间的摘要统计信息。
      *
      * @return Summary stats for the duration.
      */

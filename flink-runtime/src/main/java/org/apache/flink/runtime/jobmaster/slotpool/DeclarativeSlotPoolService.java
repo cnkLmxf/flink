@@ -50,7 +50,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-/** {@link SlotPoolService} implementation for the {@link DeclarativeSlotPool}. */
+/** {@link SlotPoolService} implementation for the {@link DeclarativeSlotPool}.
+ * {@link DeclarativeSlotPool} 的 {@link SlotPoolService} 实现。
+ * */
 public class DeclarativeSlotPoolService implements SlotPoolService {
 
     private final JobID jobId;
@@ -160,6 +162,7 @@ public class DeclarativeSlotPoolService implements SlotPoolService {
     /**
      * This method is called when the slot pool service is closed. It can be overridden by
      * subclasses.
+     * 该方法在槽池服务关闭时调用。 它可以被子类覆盖。
      */
     protected void onClose() {}
 
@@ -208,6 +211,7 @@ public class DeclarativeSlotPoolService implements SlotPoolService {
 
     /**
      * This method is called when an allocation fails. It can be overridden by subclasses.
+     * 当分配失败时调用此方法。 它可以被子类覆盖。
      *
      * @param previouslyFulfilledRequirements previouslyFulfilledRequirements by the failed
      *     allocation
@@ -253,6 +257,7 @@ public class DeclarativeSlotPoolService implements SlotPoolService {
 
     /**
      * This method is called when a TaskManager is released. It can be overridden by subclasses.
+     * 该方法在 TaskManager 被释放时被调用。 它可以被子类覆盖。
      *
      * @param previouslyFulfilledRequirement previouslyFulfilledRequirement by the released
      *     TaskManager

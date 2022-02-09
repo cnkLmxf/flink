@@ -31,6 +31,7 @@ import java.util.Objects;
 /**
  * An actor messages describing details of various jobs. This message is sent for example in
  * response to the {@link RequestJobDetails} message.
+ * 描述各种工作细节的演员消息。 例如，此消息是为了响应 {@link RequestJobDetails} 消息而发送的。
  */
 public class MultipleJobsDetails implements ResponseBody, Serializable {
 

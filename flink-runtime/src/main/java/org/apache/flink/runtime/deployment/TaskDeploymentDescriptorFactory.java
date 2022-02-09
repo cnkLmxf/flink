@@ -55,6 +55,8 @@ import java.util.Optional;
 /**
  * Factory of {@link TaskDeploymentDescriptor} to deploy {@link
  * org.apache.flink.runtime.taskmanager.Task} from {@link Execution}.
+ * {@link TaskDeploymentDescriptor} 工厂从 {@link Execution}
+ * 部署 {@link org.apache.flink.runtime.taskmanager.Task}。
  */
 public class TaskDeploymentDescriptorFactory {
     private final ExecutionAttemptID executionId;
@@ -273,6 +275,7 @@ public class TaskDeploymentDescriptorFactory {
     /**
      * Defines whether the partition's location must be known at deployment time or can be unknown
      * and, therefore, updated later.
+     * 定义分区的位置是必须在部署时已知还是未知，因此稍后更新。
      */
     public enum PartitionLocationConstraint {
         MUST_BE_KNOWN,

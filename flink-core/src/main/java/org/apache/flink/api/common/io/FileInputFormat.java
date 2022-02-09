@@ -56,9 +56,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@link #nextRecord(Object)} and {@link #reachedEnd()} methods need to be implemented.
  * Additionally, one may override {@link #open(FileInputSplit)} and {@link #close()} to change the
  * life cycle behavior.
+ * 从文件读取的 {@link RichInputFormat} 的基类。
+ * 对于特定的输入类型，需要实现 {@link #nextRecord(Object)} 和 {@link #reachedEnd()} 方法。
+ * 此外，可以覆盖 {@link #open(FileInputSplit)} 和 {@link #close()} 以更改生命周期行为。
  *
  * <p>After the {@link #open(FileInputSplit)} method completed, the file input data is available
  * from the {@link #stream} field.
+ * 在 {@link #open(FileInputSplit)} 方法完成后，文件输入数据可从 {@link #stream} 字段获得。
  */
 @Public
 public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputSplit> {
@@ -69,20 +73,27 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     private static final long serialVersionUID = 1L;
 
-    /** The fraction that the last split may be larger than the others. */
+    /** The fraction that the last split may be larger than the others.
+     * 最后一次拆分的部分可能比其他部分大。
+     * */
     private static final float MAX_SPLIT_SIZE_DISCREPANCY = 1.1f;
 
-    /** The timeout (in milliseconds) to wait for a filesystem stream to respond. */
+    /** The timeout (in milliseconds) to wait for a filesystem stream to respond.
+     * 等待文件系统流响应的超时时间（以毫秒为单位）。
+     * */
     private static long DEFAULT_OPENING_TIMEOUT;
 
     /**
      * A mapping of file extensions to decompression algorithms based on DEFLATE. Such compressions
      * lead to unsplittable files.
+     * 基于 DEFLATE 的文件扩展名到解压缩算法的映射。 这种压缩会导致文件不可分割。
      */
     protected static final Map<String, InflaterInputStreamFactory<?>>
             INFLATER_INPUT_STREAM_FACTORIES = new HashMap<String, InflaterInputStreamFactory<?>>();
 
-    /** The splitLength is set to -1L for reading the whole split. */
+    /** The splitLength is set to -1L for reading the whole split.
+     * splitLength 设置为 -1L 以读取整个拆分。
+     * */
     protected static final long READ_WHOLE_SPLIT_FLAG = -1L;
 
     static {
@@ -93,6 +104,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Initialize defaults for input format. Needs to be a static method because it is configured
      * for local cluster execution.
+     * 初始化输入格式的默认值。 需要是静态方法，因为它是为本地集群执行而配置的。
      *
      * @param configuration The configuration to load defaults from
      */
@@ -134,6 +146,8 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
      * Registers a decompression algorithm through a {@link
      * org.apache.flink.api.common.io.compression.InflaterInputStreamFactory} with a file extension
      * for transparent decompression.
+     * 通过带有文件扩展名的 {@link org.apache.flink.api.common.io.compression.InflaterInputStreamFactory}
+     * 注册解压算法，用于透明解压。
      *
      * @param fileExtension of the compressed files
      * @param factory to create an {@link java.util.zip.InflaterInputStream} that handles the
@@ -159,6 +173,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Returns the extension of a file name (!= a path).
+     * 返回文件名的扩展名（！= 路径）。
      *
      * @return the extension of the file name or {@code null} if there is no extension.
      */
@@ -201,7 +216,9 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
      */
     @Deprecated protected Path filePath;
 
-    /** The list of paths to files and directories that contain the input. */
+    /** The list of paths to files and directories that contain the input.
+     * 包含输入的文件和目录的路径列表。
+     * */
     private Path[] filePaths;
 
     /** The minimal split size, set by the configure() method. */
@@ -216,15 +233,19 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Some file input formats are not splittable on a block level (deflate) Therefore, the
      * FileInputFormat can only read whole files.
+     * 某些文件输入格式不能在块级别上拆分（deflate）因此，FileInputFormat 只能读取整个文件。
      */
     protected boolean unsplittable = false;
 
     /**
      * The flag to specify whether recursive traversal of the input directory structure is enabled.
+     * 指定是否启用输入目录结构的递归遍历的标志。
      */
     protected boolean enumerateNestedFiles = false;
 
-    /** Files filter for determining what files/directories should be included. */
+    /** Files filter for determining what files/directories should be included.
+     * 用于确定应包含哪些文件/目录的文件过滤器。
+     * */
     private FilePathFilter filesFilter = new GlobFilePathFilter();
 
     // --------------------------------------------------------------------------------------------
@@ -266,6 +287,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Returns the paths of all files to be read by the FileInputFormat.
+     * 返回 FileInputFormat 读取的所有文件的路径。
      *
      * @return The list of all paths to read.
      */
@@ -311,6 +333,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Sets a single path of a file to be read.
+     * 设置要读取的文件的单个路径。
      *
      * @param filePath The path of the file to read.
      */
@@ -324,6 +347,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Sets multiple paths of files to be read.
+     * 设置要读取的文件的多个路径。
      *
      * @param filePaths The paths of the files to read.
      */
@@ -337,6 +361,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Sets multiple paths of files to be read.
+     * 设置要读取的文件的多个路径。
      *
      * @param filePaths The paths of the files to read.
      */
@@ -419,6 +444,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Gets the length or remaining length of the current split.
+     * 获取当前拆分的长度或剩余长度。
      *
      * @return The length or remaining length of the current split.
      */
@@ -437,6 +463,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Configures the file input format by reading the file path from the configuration.
+     * 通过从配置中读取文件路径来配置文件输入格式。
      *
      * @see
      *     org.apache.flink.api.common.io.InputFormat#configure(org.apache.flink.configuration.Configuration)
@@ -463,6 +490,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Obtains basic file statistics containing only file size. If the input is a directory, then
      * the size is the sum of all contained files.
+     * 获取仅包含文件大小的基本文件统计信息。 如果输入是目录，则大小是所有包含文件的总和。
      *
      * @see
      *     org.apache.flink.api.common.io.InputFormat#getStatistics(org.apache.flink.api.common.io.statistics.BaseStatistics)
@@ -575,6 +603,8 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
      * Computes the input splits for the file. By default, one file block is one split. If more
      * splits are requested than blocks are available, then a split may be a fraction of a block and
      * splits may cross block boundaries.
+     * 计算文件的输入拆分。 默认情况下，一个文件块是一个拆分。
+     * 如果请求的拆分多于可用的块，则拆分可能是块的一部分，并且拆分可能跨越块边界。
      *
      * @param minNumSplits The minimum desired number of file splits.
      * @return The computed file splits.
@@ -728,6 +758,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
     /**
      * Enumerate all files in the directory and recursive if enumerateNestedFiles is true.
+     * 如果 enumerateNestedFiles 为真，则枚举目录中的所有文件并递归。
      *
      * @return the total length of accepted files.
      */
@@ -787,6 +818,8 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * A simple hook to filter files and directories from the input. The method may be overridden.
      * Hadoop's FileInputFormat has a similar mechanism and applies the same filters by default.
+     * 一个简单的钩子，用于从输入中过滤文件和目录。 该方法可以被覆盖。
+     * Hadoop 的 FileInputFormat 具有类似的机制，并且默认应用相同的过滤器。
      *
      * @param fileStatus The file status to check.
      * @return true, if the given file or directory is accepted
@@ -801,6 +834,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Retrieves the index of the <tt>BlockLocation</tt> that contains the part of the file
      * described by the given offset.
+     * 检索 <tt>BlockLocation</tt> 的索引，该索引包含由给定偏移量描述的文件部分。
      *
      * @param blocks The different blocks of the file. Must be ordered by their offset.
      * @param offset The offset of the position in the file.
@@ -832,9 +866,11 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Opens an input stream to the file defined in the input format. The stream is positioned at
      * the beginning of the given split.
+     * 打开以输入格式定义的文件的输入流。 流位于给定拆分的开头。
      *
      * <p>The stream is actually opened in an asynchronous thread to make sure any interruptions to
      * the thread working on the input format do not reach the file system.
+     * 该流实际上是在异步线程中打开的，以确保处理输入格式的线程的任何中断都不会到达文件系统。
      */
     @Override
     public void open(FileInputSplit fileSplit) throws IOException {
@@ -885,6 +921,9 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
      * split, e.g., for decoding. When overriding this method, also consider adapting {@link
      * FileInputFormat#testForUnsplittable} if your stream decoration renders the input file
      * unsplittable. Also consider calling existing superclass implementations.
+     *此方法允许包装/装饰原始 {@link FSDataInputStream} 以用于某个文件拆分，例如，用于解码。
+     * 覆盖此方法时，如果您的流装饰使输入文件不可拆分，则还应考虑调整 {@link FileInputFormat#testForUnsplittable}。
+     * 还可以考虑调用现有的超类实现。
      *
      * @param inputStream is the input stream to decorated
      * @param fileSplit is the file split for which the input stream shall be decorated
@@ -905,7 +944,9 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
         return inputStream;
     }
 
-    /** Closes the file input stream of the input format. */
+    /** Closes the file input stream of the input format.
+     * 关闭输入格式的文件输入流。
+     * */
     @Override
     public void close() throws IOException {
         if (this.stream != null) {
@@ -918,6 +959,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Override this method to supports multiple paths. When this method will be removed, all
      * FileInputFormats have to support multiple paths.
+     * 覆盖此方法以支持多个路径。 当此方法将被删除时，所有 FileInputFormats 必须支持多个路径。
      *
      * @return True if the FileInputFormat supports multiple paths, false otherwise.
      * @deprecated Will be removed for Flink 2.0.
@@ -940,6 +982,8 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
      * size of the file and the average bytes of a single record. The statistics also have a
      * time-stamp that records the modification time of the file and indicates as such for which
      * time the statistics were valid.
+     * 封装优化器获得的关于文件的基本统计信息。 包含文件的大小和单个记录的平均字节数。
+     * 统计信息也有一个时间戳，记录文件的修改时间，并指示统计信息在哪个时间有效。
      */
     public static class FileBaseStatistics implements BaseStatistics {
 
@@ -951,6 +995,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
         /**
          * Creates a new statistics object.
+         * 创建一个新的统计对象。
          *
          * @param fileModTime The timestamp of the latest modification of any of the involved files.
          * @param fileSize The size of the file, in bytes. <code>-1</code>, if unknown.
@@ -965,6 +1010,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
         /**
          * Gets the timestamp of the last modification.
+         * 获取上次修改的时间戳。
          *
          * @return The timestamp of the last modification.
          */
@@ -986,6 +1032,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
         /**
          * Gets the estimates number of records in the file, computed as the file size divided by
          * the average record width, rounded up.
+         * 获取文件中的估计记录数，计算方式为文件大小除以平均记录宽度，四舍五入。
          *
          * @return The estimated number of records in the file.
          * @see org.apache.flink.api.common.io.statistics.BaseStatistics#getNumberOfRecords()
@@ -1000,6 +1047,7 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
 
         /**
          * Gets the estimated average number of bytes per record.
+         * 获取每条记录的估计平均字节数。
          *
          * @return The average number of bytes per record.
          * @see org.apache.flink.api.common.io.statistics.BaseStatistics#getAverageRecordWidth()
@@ -1025,6 +1073,8 @@ public abstract class FileInputFormat<OT> extends RichInputFormat<OT, FileInputS
     /**
      * Obtains a DataInputStream in an thread that is not interrupted. This is a necessary hack
      * around the problem that the HDFS client is very sensitive to InterruptedExceptions.
+     * 在未中断的线程中获取 DataInputStream。
+     * 这是解决 HDFS 客户端对 InterruptedExceptions 非常敏感的问题的必要技巧。
      */
     public static class InputSplitOpenThread extends Thread {
 

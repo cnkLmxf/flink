@@ -33,6 +33,7 @@ import java.util.List;
 
 /**
  * In-memory partition with overflow buckets for {@link CompactingHashTable}
+ * 带有 {@link CompactingHashTable} 溢出桶的内存分区
  *
  * @param <T> record type
  */
@@ -41,13 +42,16 @@ public class InMemoryPartition<T> {
     // --------------------------------- Table Structure Auxiliaries
     // ------------------------------------
 
+    // 存储表结构中的溢出桶的段
     protected MemorySegment[]
             overflowSegments; // segments in which overflow buckets from the table structure are
     // stored
 
+    // overflowSegments 数组中的实际段数
     protected int
             numOverflowSegments; // the number of actual segments in the overflowSegments array
 
+    // 当前溢出段中的下一个空闲桶
     protected int nextOverflowBucket; // the next free bucket in the current overflow segment
 
     // -------------------------------------  Type Accessors
@@ -66,6 +70,7 @@ public class InMemoryPartition<T> {
 
     private ReadView readView;
 
+    // 此分区中的记录数（包括垃圾）
     private long recordCounter; // number of records in this partition including garbage
 
     // ----------------------------------------- General
@@ -73,6 +78,7 @@ public class InMemoryPartition<T> {
 
     private int partitionNumber; // the number of the partition
 
+    // 自分配或上次完全压缩以来覆盖的记录
     private boolean compacted; // overwritten records since allocation or last full compaction
 
     private int pageSize; // segment size in bytes
@@ -153,12 +159,16 @@ public class InMemoryPartition<T> {
         return this.recordCounter;
     }
 
-    /** sets record counter to zero and should only be used on compaction partition */
+    /** sets record counter to zero and should only be used on compaction partition
+     * 将记录计数器设置为零，并且只能用于压缩分区
+     * */
     public void resetRecordCounter() {
         this.recordCounter = 0L;
     }
 
-    /** resets read and write views and should only be used on compaction partition */
+    /** resets read and write views and should only be used on compaction partition
+     * 重置读取和写入视图，仅应用于压缩分区
+     * */
     public void resetRWViews() {
         this.writeView.resetTo(0L);
         this.readView.setReadPosition(0L);
@@ -172,6 +182,7 @@ public class InMemoryPartition<T> {
 
     /**
      * resets overflow bucket counters and returns freed memory and should only be used for resizing
+     * 重置溢出桶计数器并返回释放的内存，仅用于调整大小
      *
      * @return freed memory segments
      */
@@ -198,6 +209,7 @@ public class InMemoryPartition<T> {
     /**
      * sets compaction status (should only be set <code>true</code> directly after compaction and
      * <code>false</code> when garbage was created)
+     * 设置压缩状态（应该只在压缩后直接设置<code>true</code>，在创建垃圾时设置<code>false</code>）
      *
      * @param compacted compaction status
      */
@@ -210,6 +222,7 @@ public class InMemoryPartition<T> {
     /**
      * Inserts the given object into the current buffer. This method returns a pointer that can be
      * used to address the written record in this partition.
+     * 将给定对象插入当前缓冲区。 该方法返回一个指针，该指针可用于寻址该分区中的写入记录。
      *
      * @param record The object to be written to the partition.
      * @return A pointer to the object in the partition.
@@ -247,6 +260,7 @@ public class InMemoryPartition<T> {
     /**
      * UNSAFE!! overwrites record causes inconsistency or data loss for overwriting everything but
      * records of the exact same size
+     * 不安全！！ 覆盖记录会导致不一致或数据丢失，因为覆盖除了完全相同大小的记录之外的所有内容
      *
      * @param pointer pointer to start of record
      * @param record record to overwrite old one with
@@ -264,6 +278,7 @@ public class InMemoryPartition<T> {
 
     /**
      * releases all of the partition's segments (pages and overflow buckets)
+     * 释放所有分区的段（页面和溢出桶）
      *
      * @param target memory pool to release segments to
      */
@@ -283,6 +298,7 @@ public class InMemoryPartition<T> {
      * attempts to allocate specified number of segments and should only be used by compaction
      * partition fails silently if not enough segments are available since next compaction could
      * still succeed
+     * 如果没有足够的段可用，尝试分配指定数量的段并且只应由压缩分区使用失败，因为下一次压缩仍然可以成功
      *
      * @param numberOfSegments allocation count
      */

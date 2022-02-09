@@ -20,13 +20,18 @@ package org.apache.flink.runtime.util;
 
 import java.io.IOException;
 
-/** The memory block iterator is an iterator that always buffers a block of elements in memory. */
+/** The memory block iterator is an iterator that always buffers a block of elements in memory.
+ * 内存块迭代器是一个总是在内存中缓冲一个元素块的迭代器。
+ * */
 public interface MemoryBlockIterator {
     /**
      * Move the iterator to the next memory block. The next memory block starts at the first element
      * that was not in the block before. A special case is when no record was in the block before,
      * which happens when this function is invoked two times directly in a sequence, without calling
      * hasNext() or next in between. Then the block moves one element.
+     * 将迭代器移动到下一个内存块。 下一个内存块从之前不在块中的第一个元素开始。
+     * 一种特殊情况是之前的块中没有记录，这种情况发生在此函数按顺序直接调用两次，而没有调用 hasNext() 或 next 之间。
+     * 然后该块移动一个元素。
      *
      * @return True if a new memory block was loaded, false if there were no further records and
      *     hence no further memory block.

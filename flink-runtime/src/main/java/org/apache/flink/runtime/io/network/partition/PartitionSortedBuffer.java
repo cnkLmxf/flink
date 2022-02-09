@@ -41,6 +41,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * A {@link SortBuffer} implementation which sorts all appended records only by subpartition index.
  * Records of the same subpartition keep the appended order.
+ * {@link SortBuffer} 实现仅按子分区索引对所有附加记录进行排序。 同一子分区的记录保持附加顺序。
  *
  * <p>It maintains a list of {@link MemorySegment}s as a joint buffer. Data will be appended to the
  * joint buffer sequentially. When writing a record, an index entry will be appended first. An index
@@ -49,6 +50,12 @@ import static org.apache.flink.util.Preconditions.checkState;
  * next record to read when coping data from this {@link SortBuffer}. For simplicity, no index entry
  * can span multiple segments. The corresponding record data is seated right after its index entry
  * and different from the index entry, records have variable length thus may span multiple segments.
+ * 它维护一个 {@link MemorySegment} 列表作为联合缓冲区。 数据将按顺序附加到关节缓冲区。
+ * 写入记录时，将首先附加一个索引条目。 一个索引条目由 4 个字段组成：4 个字节用于记录长度，
+ * 4 个字节用于 {@link DataType} 和 8 个字节用于指向同一通道的下一个索引条目的地址，
+ * 该索引条目将用于索引下一条记录以在应对时读取 来自此 {@link SortBuffer} 的数据。
+ * 为简单起见，没有索引条目可以跨越多个段。 相应的记录数据位于其索引条目之后，
+ * 并且与索引条目不同，记录具有可变长度，因此可能跨越多个段。
  */
 @NotThreadSafe
 public class PartitionSortedBuffer implements SortBuffer {
@@ -58,45 +65,68 @@ public class PartitionSortedBuffer implements SortBuffer {
     /**
      * Size of an index entry: 4 bytes for record length, 4 bytes for data type and 8 bytes for
      * pointer to next entry.
+     * 索引条目的大小：记录长度为 4 个字节，数据类型为 4 个字节，指向下一个条目的指针为 8 个字节。
      */
     private static final int INDEX_ENTRY_SIZE = 4 + 4 + 8;
 
-    /** A buffer pool to request memory segments from. */
+    /** A buffer pool to request memory segments from.
+     * 用于请求内存段的缓冲池。
+     * */
     private final BufferPool bufferPool;
 
-    /** A segment list as a joint buffer which stores all records and index entries. */
+    /** A segment list as a joint buffer which stores all records and index entries.
+     * 作为存储所有记录和索引条目的联合缓冲区的段列表。
+     * */
     @GuardedBy("lock")
     private final ArrayList<MemorySegment> segments = new ArrayList<>();
 
-    /** Addresses of the first record's index entry for each subpartition. */
+    /** Addresses of the first record's index entry for each subpartition.
+     * 每个子分区的第一条记录的索引条目的地址。
+     * */
     private final long[] firstIndexEntryAddresses;
 
-    /** Addresses of the last record's index entry for each subpartition. */
+    /** Addresses of the last record's index entry for each subpartition.
+     * 每个子分区的最后一条记录的索引条目的地址。
+     * */
     private final long[] lastIndexEntryAddresses;
 
-    /** Size of buffers requested from buffer pool. All buffers must be of the same size. */
+    /** Size of buffers requested from buffer pool. All buffers must be of the same size.
+     * 从缓冲池请求的缓冲区大小。 所有缓冲区的大小必须相同。
+     * */
     private final int bufferSize;
 
-    /** Number of guaranteed buffers can be allocated from the buffer pool for data sort. */
+    /** Number of guaranteed buffers can be allocated from the buffer pool for data sort.
+     * 可以从缓冲池中分配保证缓冲区的数量用于数据排序。
+     * */
     private final int numGuaranteedBuffers;
 
     // ---------------------------------------------------------------------------------------------
     // Statistics and states
     // ---------------------------------------------------------------------------------------------
 
-    /** Total number of bytes already appended to this sort buffer. */
+    /** Total number of bytes already appended to this sort buffer.
+     * 已附加到此排序缓冲区的字节总数。
+     * */
     private long numTotalBytes;
 
-    /** Total number of records already appended to this sort buffer. */
+    /** Total number of records already appended to this sort buffer.
+     * 已附加到此排序缓冲区的记录总数。
+     * */
     private long numTotalRecords;
 
-    /** Total number of bytes already read from this sort buffer. */
+    /** Total number of bytes already read from this sort buffer.
+     * 已从此排序缓冲区读取的字节总数。
+     * */
     private long numTotalBytesRead;
 
-    /** Whether this sort buffer is finished. One can only read a finished sort buffer. */
+    /** Whether this sort buffer is finished. One can only read a finished sort buffer.
+     * 此排序缓冲区是否已完成。 只能读取完成的排序缓冲区。
+     * */
     private boolean isFinished;
 
-    /** Whether this sort buffer is released. A released sort buffer can not be used. */
+    /** Whether this sort buffer is released. A released sort buffer can not be used.
+     * 是否释放此排序缓冲区。 无法使用已释放的排序缓冲区。
+     * */
     @GuardedBy("lock")
     private boolean isReleased;
 
@@ -104,26 +134,38 @@ public class PartitionSortedBuffer implements SortBuffer {
     // For writing
     // ---------------------------------------------------------------------------------------------
 
-    /** Array index in the segment list of the current available buffer for writing. */
+    /** Array index in the segment list of the current available buffer for writing.
+     * 当前可写入缓冲区的段列表中的数组索引。
+     * */
     private int writeSegmentIndex;
 
-    /** Next position in the current available buffer for writing. */
+    /** Next position in the current available buffer for writing.
+     * 当前可用缓冲区中用于写入的下一个位置。
+     * */
     private int writeSegmentOffset;
 
     // ---------------------------------------------------------------------------------------------
     // For reading
     // ---------------------------------------------------------------------------------------------
 
-    /** Data of different subpartitions in this sort buffer will be read in this order. */
+    /** Data of different subpartitions in this sort buffer will be read in this order.
+     * 此排序缓冲区中不同子分区的数据将按此顺序读取。
+     * */
     private final int[] subpartitionReadOrder;
 
-    /** Index entry address of the current record or event to be read. */
+    /** Index entry address of the current record or event to be read.
+     * 当前要读取的记录或事件的索引入口地址。
+     * */
     private long readIndexEntryAddress;
 
-    /** Record bytes remaining after last copy, which must be read first in next copy. */
+    /** Record bytes remaining after last copy, which must be read first in next copy.
+     * 记录上次复制后剩余的字节数，必须在下一次复制中首先读取。
+     * */
     private int recordRemainingBytes;
 
-    /** Used to index the current available channel to read data from. */
+    /** Used to index the current available channel to read data from.
+     * 用于索引当前可用通道以从中读取数据。
+     * */
     private int readOrderIndex = -1;
 
     public PartitionSortedBuffer(

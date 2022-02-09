@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 /**
  * This class is a keyed state handle based on a directory. It combines a {@link
  * DirectoryStateHandle} and a {@link KeyGroupRange}.
+ * 此类是基于目录的键控状态句柄。 它结合了 {@link DirectoryStateHandle} 和 {@link KeyGroupRange}。
  */
 public class DirectoryKeyedStateHandle implements KeyedStateHandle {
 

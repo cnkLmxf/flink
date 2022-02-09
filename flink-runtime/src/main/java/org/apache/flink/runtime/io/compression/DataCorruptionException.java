@@ -21,6 +21,7 @@ package org.apache.flink.runtime.io.compression;
 /**
  * A {@code DataCorruptionException} is thrown when the decompressed data is corrupted and cannot be
  * decompressed.
+ * 当解压后的数据损坏且无法解压时，会抛出 {@code DataCorruptionException}。
  */
 public class DataCorruptionException extends RuntimeException {
 

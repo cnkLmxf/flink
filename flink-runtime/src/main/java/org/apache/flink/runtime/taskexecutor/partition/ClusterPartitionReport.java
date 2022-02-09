@@ -30,6 +30,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A report about the current status of all cluster partitions of the TaskExecutor, describing which
  * partitions are available.
+ * 关于 TaskExecutor 的所有集群分区的当前状态的报告，描述了哪些分区可用。
  */
 public class ClusterPartitionReport implements Serializable {
 

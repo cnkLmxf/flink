@@ -29,6 +29,9 @@ import org.apache.flink.runtime.rpc.RpcService;
  * successfully establishing a connection, the job leader listener is notified about the new job
  * leader and its connection. In case that a job leader loses leadership, the job leader listener is
  * notified as well.
+ * 该服务负责监控所有已注册工作的工作领导者（作为给定工作领导者的工作经理）。
+ * 在获得工作领导权并被工作领导服务检测到后，该服务会尝试建立与工作领导的连接。
+ * 成功建立连接后，作业领导侦听器会收到有关新作业领导及其连接的通知。 如果工作领导失去领导权，也会通知工作领导侦听器。
  */
 public interface JobLeaderService {
 

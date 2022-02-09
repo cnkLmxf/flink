@@ -50,6 +50,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * A pipelined in-memory only subpartition, which can be consumed once.
+ * 仅在内存中流水线化的子分区，可以使用一次。
  *
  * <p>Whenever {@link ResultSubpartition#add(BufferConsumer)} adds a finished {@link BufferConsumer}
  * or a second {@link BufferConsumer} (in which case we will assume the first one finished), we will
@@ -60,10 +61,20 @@ import static org.apache.flink.util.Preconditions.checkState;
  * value shows no more buffers being available. This results in a buffer queue which is either empty
  * or has an unfinished {@link BufferConsumer} left from which the notifications will eventually
  * start again.
+ * 果
+ * 每当 {@link ResultSubpartition#add(BufferConsumer)} 添加一个已完成的 {@link BufferConsumer}
+ * 或第二个 {@link BufferConsumer} （在这种情况下，我们将假设第一个已完成），
+ * 我们将 {@link PipelinedSubpartitionView#notifyDataAvailable() notify} 通过
+ * {@link ResultSubpartition#createReadView(BufferAvailabilityListener)} 创建的新数据可用性的读取视图。
+ * 除了显式调用 {@link #flush()} 外，我们总是只在第一个完成的缓冲区出现时通知，
+ * 然后，阅读器必须通过 {@link #pollBuffer()} 排空缓冲区，直到它的返回值不再显示 缓冲区可用。
+ * 这会导致缓冲区队列为空或剩余未完成的 {@link BufferConsumer} 通知最终将重新开始。
  *
  * <p>Explicit calls to {@link #flush()} will force this {@link
  * PipelinedSubpartitionView#notifyDataAvailable() notification} for any {@link BufferConsumer}
  * present in the queue.
+ * 对 {@link #flush()} 的显式调用将针对队列中存在的任何 {@link BufferConsumer}
+ * 强制执行此 {@link PipelinedSubpartitionView#notifyDataAvailable() 通知}。
  */
 public class PipelinedSubpartition extends ResultSubpartition
         implements CheckpointedResultSubpartition, ChannelStateHolder {
@@ -72,30 +83,44 @@ public class PipelinedSubpartition extends ResultSubpartition
 
     // ------------------------------------------------------------------------
 
-    /** All buffers of this subpartition. Access to the buffers is synchronized on this object. */
+    /** All buffers of this subpartition. Access to the buffers is synchronized on this object.
+     * 此子分区的所有缓冲区。 对缓冲区的访问在此对象上同步。
+     * */
     final PrioritizedDeque<BufferConsumerWithPartialRecordLength> buffers =
             new PrioritizedDeque<>();
 
-    /** The number of non-event buffers currently in this subpartition. */
+    /** The number of non-event buffers currently in this subpartition.
+     * 当前在此子分区中的非事件缓冲区的数量。
+     * */
     @GuardedBy("buffers")
     private int buffersInBacklog;
 
-    /** The read view to consume this subpartition. */
+    /** The read view to consume this subpartition.
+     * 使用此子分区的读取视图。
+     * */
     PipelinedSubpartitionView readView;
 
-    /** Flag indicating whether the subpartition has been finished. */
+    /** Flag indicating whether the subpartition has been finished.
+     * 指示子分区是否已完成的标志。
+     * */
     private boolean isFinished;
 
     @GuardedBy("buffers")
     private boolean flushRequested;
 
-    /** Flag indicating whether the subpartition has been released. */
+    /** Flag indicating whether the subpartition has been released.
+     * 指示子分区是否已释放的标志。
+     * */
     volatile boolean isReleased;
 
-    /** The total number of buffers (both data and event buffers). */
+    /** The total number of buffers (both data and event buffers).
+     * 缓冲区的总数（数据和事件缓冲区）。
+     * */
     private long totalNumberOfBuffers;
 
-    /** The total number of bytes (both data and event buffers). */
+    /** The total number of bytes (both data and event buffers).
+     * 字节总数（数据和事件缓冲区）。
+     * */
     private long totalNumberOfBytes;
 
     /** Writes in-flight data. */
@@ -104,6 +129,7 @@ public class PipelinedSubpartition extends ResultSubpartition
     /**
      * Whether this subpartition is blocked (e.g. by exactly once checkpoint) and is waiting for
      * resumption.
+     * 此子分区是否被阻塞（例如，仅通过一次检查点）并等待恢复。
      */
     @GuardedBy("buffers")
     boolean isBlocked = false;
@@ -502,9 +528,11 @@ public class PipelinedSubpartition extends ResultSubpartition
 
     /**
      * Gets the number of non-event buffers in this subpartition.
+     * 获取此子分区中非事件缓冲区的数量。
      *
      * <p><strong>Beware:</strong> This method should only be used in tests in non-concurrent access
      * scenarios since it does not make any concurrency guarantees.
+     * <strong>注意：</strong>此方法只应在非并发访问场景中的测试中使用，因为它不保证任何并发性。
      */
     @SuppressWarnings("FieldAccessNotGuarded")
     @VisibleForTesting

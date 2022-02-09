@@ -21,9 +21,13 @@ package org.apache.flink.runtime.state;
 import java.io.IOException;
 import java.io.Serializable;
 
-/** Handle to state that can be read back again via {@link #retrieveState()}. */
+/** Handle to state that can be read back again via {@link #retrieveState()}.
+ * 可以通过 {@link #retrieveState()} 再次读回的状态句柄。
+ * */
 public interface RetrievableStateHandle<T extends Serializable> extends StateObject {
 
-    /** Retrieves the object that was previously written to state. */
+    /** Retrieves the object that was previously written to state.
+     * 检索先前写入状态的对象。
+     * */
     T retrieveState() throws IOException, ClassNotFoundException;
 }

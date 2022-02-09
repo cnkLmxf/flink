@@ -28,6 +28,7 @@ import java.util.Iterator;
 /**
  * This class combines a key-group range with offsets that correspond to the key-groups in the
  * range.
+ * 此类将键组范围与对应于范围中键组的偏移量组合在一起。
  */
 public class KeyGroupRangeOffsets implements Iterable<Tuple2<Integer, Long>>, Serializable {
 

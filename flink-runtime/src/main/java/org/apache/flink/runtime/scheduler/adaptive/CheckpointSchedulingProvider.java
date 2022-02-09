@@ -28,6 +28,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Provide {@link CheckpointCoordinator} related operations for the {@link StopWithSavepoint}
  * operation.
+ * 为 {@link StopWithSavepoint} 操作提供 {@link CheckpointCoordinator} 相关操作。
  */
 class CheckpointSchedulingProvider implements CheckpointScheduling {
     private final ExecutionGraph executionGraph;

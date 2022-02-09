@@ -32,6 +32,7 @@ public interface JobMasterServiceProcessFactory {
 
     /**
      * Create a new {@link JobMasterServiceProcess} for the given leaderSessionId.
+     * 为给定的 leaderSessionId 创建一个新的 {@link JobMasterServiceProcess}。
      *
      * @param leaderSessionId leaderSessionId for which to create a {@link JobMasterServiceProcess}
      * @return the newly created {@link JobMasterServiceProcess}
@@ -41,12 +42,15 @@ public interface JobMasterServiceProcessFactory {
     /**
      * Gets the {@link JobID} of the job for which this factory creates {@link
      * JobMasterServiceProcess}.
+     * 获取此工厂为其创建 {@link JobMasterServiceProcess} 的作业的 {@link JobID}。
      */
     JobID getJobId();
 
     /**
      * Creates an {@link ArchivedExecutionGraph} for the job for which this factory creates {@link
      * JobMasterServiceProcess} with the given jobStatus and failure cause.
+     * 为该工厂创建具有给定 jobStatus 和失败原因的 {@link JobMasterServiceProcess} 的作业创建一个
+     * {@link ArchivedExecutionGraph}。
      *
      * @param jobStatus jobStatus which the {@link ArchivedExecutionGraph} should have
      * @param cause cause which the {@link ArchivedExecutionGraph} should be initialized with; null

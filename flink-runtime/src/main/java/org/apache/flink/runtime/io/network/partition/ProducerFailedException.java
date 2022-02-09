@@ -21,13 +21,16 @@ package org.apache.flink.runtime.io.network.partition;
 import org.apache.flink.runtime.execution.CancelTaskException;
 import org.apache.flink.util.SerializedThrowable;
 
-/** Network-stack level Exception to notify remote receiver about a failed partition producer. */
+/** Network-stack level Exception to notify remote receiver about a failed partition producer.
+ * 网络堆栈级别异常通知远程接收器有关失败的分区生产者。
+ * */
 public class ProducerFailedException extends CancelTaskException {
 
     private static final long serialVersionUID = -1555492656299526395L;
 
     /**
      * The cause of the producer failure.
+     * 生产者失败的原因。
      *
      * <p>The cause will be stored as a {@link SerializedThrowable}, because it might be an instance
      * of a user level Exception, which may not be possible to deserialize by the remote receiver's

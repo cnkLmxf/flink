@@ -27,7 +27,9 @@ import java.io.File;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** An implementation of the resume and commit descriptor objects for local recoverable streams. */
+/** An implementation of the resume and commit descriptor objects for local recoverable streams.
+ * 本地可恢复流的恢复和提交描述符对象的实现。
+ * */
 @Internal
 class LocalRecoverable implements CommitRecoverable, ResumeRecoverable {
 
@@ -42,6 +44,7 @@ class LocalRecoverable implements CommitRecoverable, ResumeRecoverable {
 
     /**
      * Creates a resumable for the given file at the given position.
+     * 在给定位置为给定文件创建可恢复文件。
      *
      * @param targetFile The file to resume.
      * @param offset The position to resume from.

@@ -31,11 +31,14 @@ import java.util.concurrent.Executor;
 
 /**
  * All the logic related to taking checkpoints of the {@link OperatorCoordinator}s.
+ * 所有与获取 {@link OperatorCoordinator} 的检查点相关的逻辑。
  *
  * <p>NOTE: This class has a simplified error handling logic. If one of the several coordinator
  * checkpoints fail, no cleanup is triggered for the other concurrent ones. That is okay, since they
  * all produce just byte[] as the result. We have to change that once we allow then to create
  * external resources that actually need to be cleaned up.
+ * 注意：此类具有简化的错误处理逻辑。 如果几个协调器检查点之一失败，则不会为其他并发检查点触发清理。
+ * 没关系，因为它们都只产生 byte[] 作为结果。 一旦我们允许创建实际需要清理的外部资源，我们就必须改变这一点。
  */
 final class OperatorCoordinatorCheckpoints {
 

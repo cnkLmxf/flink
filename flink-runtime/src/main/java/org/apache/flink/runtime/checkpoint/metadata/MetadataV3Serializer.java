@@ -42,11 +42,14 @@ import java.util.Map;
 /**
  * (De)serializer for checkpoint metadata format version 3. This format was introduced with Apache
  * Flink 1.11.0.
+ * 检查点元数据格式版本 3 的（反）序列化程序。这种格式是在 Apache Flink 1.11.0 中引入的。
  *
  * <p>Compared to format version 2, this drops some unused fields and introduces operator
  * coordinator state.
+ * 与格式版本 2 相比，这会删除一些未使用的字段并引入操作员协调器状态。
  *
  * <p>See {@link MetadataV2V3SerializerBase} for a description of the format layout.
+ * 有关格式布局的说明，请参阅 {@link MetadataV2V3SerializerBase}。
  */
 @Internal
 public class MetadataV3Serializer extends MetadataV2V3SerializerBase implements MetadataSerializer {
@@ -199,7 +202,9 @@ public class MetadataV3Serializer extends MetadataV2V3SerializerBase implements 
 
     // ------------------------------------------------------------------------
     //  exposed static methods for test cases
-    //
+    //  测试用例的暴露静态方法
+    //  注意：某些测试直接调用这些较低级别的序列化方法是一个问题，因为这样测试绕过了版本控制方案。
+    //  如果我们破坏了这些低级状态类型的格式，尤其是测试跨版本兼容性的测试需要对自己进行版本控制。
     //  NOTE: The fact that certain tests directly call these lower level
     //        serialization methods is a problem, because that way the tests
     //        bypass the versioning scheme. Especially tests that test for

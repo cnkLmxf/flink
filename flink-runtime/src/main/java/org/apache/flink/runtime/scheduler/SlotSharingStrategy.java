@@ -25,7 +25,9 @@ import org.apache.flink.runtime.scheduler.strategy.SchedulingTopology;
 
 import java.util.Set;
 
-/** Strategy which determines {@link ExecutionSlotSharingGroup} for each execution vertex. */
+/** Strategy which determines {@link ExecutionSlotSharingGroup} for each execution vertex.
+ * 为每个执行顶点确定 {@link ExecutionSlotSharingGroup} 的策略。
+ * */
 interface SlotSharingStrategy {
 
     ExecutionSlotSharingGroup getExecutionSlotSharingGroup(ExecutionVertexID executionVertexId);

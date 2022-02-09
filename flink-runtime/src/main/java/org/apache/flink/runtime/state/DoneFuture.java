@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A {@link Future} that is always done and will just yield the object that was given at creation
  * time.
+ * 始终完成的 {@link Future} 只会产生在创建时给出的对象。
  *
  * @param <T> The type of object in this {@code Future}.
  */

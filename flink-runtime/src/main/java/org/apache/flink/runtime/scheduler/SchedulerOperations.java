@@ -22,7 +22,9 @@ import org.apache.flink.runtime.scheduler.strategy.SchedulingStrategy;
 
 import java.util.List;
 
-/** Component which is used by {@link SchedulingStrategy} to commit scheduling decisions. */
+/** Component which is used by {@link SchedulingStrategy} to commit scheduling decisions.
+ * {@link SchedulingStrategy} 用来提交调度决策的组件。
+ * */
 public interface SchedulerOperations {
 
     /**

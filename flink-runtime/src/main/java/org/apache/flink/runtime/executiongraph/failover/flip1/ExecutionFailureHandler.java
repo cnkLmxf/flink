@@ -36,6 +36,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * This handler deals with task failures to return a {@link FailureHandlingResult} which contains
  * tasks to restart to recover from failures.
+ * 此处理程序处理任务失败以返回一个 {@link FailureHandlingResult} ，其中包含要重新启动以从失败中恢复的任务。
  */
 public class ExecutionFailureHandler {
 
@@ -44,7 +45,9 @@ public class ExecutionFailureHandler {
     /** Strategy to judge which tasks should be restarted. */
     private final FailoverStrategy failoverStrategy;
 
-    /** Strategy to judge whether and when a restarting should be done. */
+    /** Strategy to judge whether and when a restarting should be done.
+     * 判断是否以及何时应该重新启动的策略。
+     * */
     private final RestartBackoffTimeStrategy restartBackoffTimeStrategy;
 
     /** Number of all restarts happened since this job is submitted. */
@@ -52,6 +55,7 @@ public class ExecutionFailureHandler {
 
     /**
      * Creates the handler to deal with task failures.
+     * 创建处理程序以处理任务失败。
      *
      * @param schedulingTopology contains the topology info for failover
      * @param failoverStrategy helps to decide tasks to restart on task failures
@@ -71,6 +75,7 @@ public class ExecutionFailureHandler {
     /**
      * Return result of failure handling. Can be a set of task vertices to restart and a delay of
      * the restarting. Or that the failure is not recoverable and the reason for it.
+     * 故障处理返回结果。 可以是一组任务顶点的重启和重启的延迟。 或者说失败是不可恢复的，以及失败的原因。
      *
      * @param failedTask is the ID of the failed task vertex
      * @param cause of the task failure
@@ -91,6 +96,8 @@ public class ExecutionFailureHandler {
      * Return result of failure handling on a global failure. Can be a set of task vertices to
      * restart and a delay of the restarting. Or that the failure is not recoverable and the reason
      * for it.
+     * 返回全局故障的故障处理结果。 可以是一组任务顶点的重启和重启的延迟。
+     * 或者说失败是不可恢复的，以及失败的原因。
      *
      * @param cause of the task failure
      * @param timestamp of the task failure

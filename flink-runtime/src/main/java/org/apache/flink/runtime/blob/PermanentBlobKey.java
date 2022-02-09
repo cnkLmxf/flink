@@ -20,7 +20,9 @@ package org.apache.flink.runtime.blob;
 
 import org.apache.flink.annotation.VisibleForTesting;
 
-/** BLOB key referencing permanent BLOB files. */
+/** BLOB key referencing permanent BLOB files.
+ * BLOB 键引用永久 BLOB 文件。
+ * */
 public final class PermanentBlobKey extends BlobKey {
 
     /** Constructs a new BLOB key. */

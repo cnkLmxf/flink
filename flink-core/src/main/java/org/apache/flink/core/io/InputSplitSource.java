@@ -25,6 +25,8 @@ import java.io.Serializable;
 /**
  * InputSplitSources create {@link InputSplit}s that define portions of data to be produced by
  * {@link org.apache.flink.api.common.io.InputFormat}s.
+ * InputSplitSources 创建 {@link InputSplit} 定义要由
+ * {@link org.apache.flink.api.common.io.InputFormat} 生成的数据部分。
  *
  * @param <T> The type of the input splits created by the source.
  */
@@ -34,6 +36,7 @@ public interface InputSplitSource<T extends InputSplit> extends Serializable {
     /**
      * Computes the input splits. The given minimum number of splits is a hint as to how many splits
      * are desired.
+     * 计算输入拆分。 给定的最小分割数是关于需要多少分割的提示。
      *
      * @param minNumSplits Number of minimal input splits, as a hint.
      * @return An array of input splits.
@@ -45,6 +48,7 @@ public interface InputSplitSource<T extends InputSplit> extends Serializable {
     /**
      * Returns the assigner for the input splits. Assigner determines which parallel instance of the
      * input format gets which input split.
+     * 返回输入拆分的分配者。 分配器确定输入格式的哪个并行实例获得哪个输入拆分。
      *
      * @return The input split assigner.
      */

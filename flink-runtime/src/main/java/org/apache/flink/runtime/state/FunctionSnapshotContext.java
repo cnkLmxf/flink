@@ -25,6 +25,8 @@ import org.apache.flink.annotation.PublicEvolving;
  * is managed by state backends) can participate in a snapshot. As snapshots of the backends
  * themselves are taken by the system, this interface mainly provides meta information about the
  * checkpoint.
+ * 此接口提供了一个上下文，在该上下文中，使用托管状态（即由状态后端管理的状态）的用户函数可以参与快照。
+ * 由于后端本身的快照是由系统拍摄的，因此该接口主要提供有关检查点的元信息。
  */
 @PublicEvolving
 public interface FunctionSnapshotContext extends ManagedSnapshotContext {}

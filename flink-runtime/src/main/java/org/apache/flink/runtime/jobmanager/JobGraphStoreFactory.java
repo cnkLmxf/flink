@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.jobmanager;
 
-/** Factory for {@link JobGraphStore}. */
+/** Factory for {@link JobGraphStore}.
+ * {@link JobGraphStore} 的工厂。
+ * */
 public interface JobGraphStoreFactory {
 
     /**

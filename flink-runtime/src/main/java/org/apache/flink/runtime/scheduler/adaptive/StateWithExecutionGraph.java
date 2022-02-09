@@ -65,6 +65,7 @@ import java.util.concurrent.Executor;
 /**
  * Abstract state class which contains an {@link ExecutionGraph} and the required handlers to
  * execute common operations.
+ * 包含 {@link ExecutionGraph} 和执行常见操作所需的处理程序的抽象状态类。
  */
 abstract class StateWithExecutionGraph implements State {
     private final Context context;

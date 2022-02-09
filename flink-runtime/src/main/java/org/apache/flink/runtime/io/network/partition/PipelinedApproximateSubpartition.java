@@ -34,6 +34,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * A pipelined in-memory only subpartition, which allows to reconnecting after failure. Only one
  * view is allowed at a time to read teh subpartition.
+ * 仅在内存中流水线化的子分区，允许在失败后重新连接。 一次只允许一个视图来读取子分区。
  */
 public class PipelinedApproximateSubpartition extends PipelinedSubpartition {
 
@@ -50,10 +51,13 @@ public class PipelinedApproximateSubpartition extends PipelinedSubpartition {
     /**
      * To simply the view releasing threading model, {@link
      * PipelinedApproximateSubpartition#releaseView()} is called only before creating a new view.
+     * 为了简化视图释放线程模型，仅在创建新视图之前调用 {@link PipelinedApproximateSubpartition#releaseView()}。
      *
      * <p>There is still one corner case when a downstream task fails continuously in a short period
      * of time then multiple netty worker threads can createReadView at the same time. TODO: This
      * problem will be solved in FLINK-19774
+     * 仍然有一种极端情况，即下游任务在短时间内连续失败，然后多个 netty 工作线程可以同时创建ReadView。
+     * TODO：这个问题将在 FLINK-19774 中解决
      */
     @Override
     public PipelinedSubpartitionView createReadView(

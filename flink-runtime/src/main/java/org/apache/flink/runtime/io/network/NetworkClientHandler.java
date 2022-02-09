@@ -27,7 +27,9 @@ import javax.annotation.Nullable;
 
 import java.io.IOException;
 
-/** Channel handler to read and write network messages on client side. */
+/** Channel handler to read and write network messages on client side.
+ * 在客户端读取和写入网络消息的通道处理程序。
+ * */
 public interface NetworkClientHandler extends ChannelHandler {
 
     void addInputChannel(RemoteInputChannel inputChannel) throws IOException;
@@ -43,6 +45,7 @@ public interface NetworkClientHandler extends ChannelHandler {
      * The credit begins to announce after receiving the sender's backlog from buffer response. Than
      * means it should only happen after some interactions with the channel to make sure the context
      * will not be null.
+     * 在从缓冲区响应中收到发送方的积压后，信用开始宣布。 这意味着它应该只在与通道进行一些交互后发生，以确保上下文不会为空。
      *
      * @param inputChannel The input channel with unannounced credits.
      */
@@ -50,6 +53,7 @@ public interface NetworkClientHandler extends ChannelHandler {
 
     /**
      * Resumes data consumption from the producer after an exactly once checkpoint.
+     * 在恰好一次检查点之后恢复生产者的数据消耗。
      *
      * @param inputChannel The input channel to resume data consumption.
      */

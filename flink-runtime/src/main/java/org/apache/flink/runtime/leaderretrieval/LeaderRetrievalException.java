@@ -23,6 +23,8 @@ import org.apache.flink.util.FlinkException;
 /**
  * This exception is thrown by the {@link org.apache.flink.runtime.util.LeaderRetrievalUtils} when
  * the method retrieveLeaderGateway fails to retrieve the current leader's gateway.
+ * 当方法 retrieveLeaderGateway 未能检索到当前领导者的网关时，
+ * {@link org.apache.flink.runtime.util.LeaderRetrievalUtils} 会抛出此异常。
  */
 public class LeaderRetrievalException extends FlinkException {
 

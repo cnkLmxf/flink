@@ -26,6 +26,7 @@ import java.util.Iterator;
 
 /**
  * Wraps an iterator to return deep copies of the original iterator's elements.
+ * 包装一个迭代器以返回原始迭代器元素的深层副本。
  *
  * @param <E> The type of the element returned by the iterator.
  */

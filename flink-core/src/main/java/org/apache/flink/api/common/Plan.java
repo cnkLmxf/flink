@@ -42,9 +42,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * This class represents Flink programs, in the form of dataflow plans.
+ * 此类以数据流计划的形式表示 Flink 程序。
  *
  * <p>The dataflow is referenced by the data sinks, from which all connected operators of the data
  * flow can be reached via backwards traversal.
+ * 数据流被数据接收器引用，数据流的所有连接算子都可以通过向后遍历到达。
  */
 @Internal
 public class Plan implements Visitable<Operator<?>>, Pipeline {
@@ -52,6 +54,7 @@ public class Plan implements Visitable<Operator<?>>, Pipeline {
     /**
      * A collection of all sinks in the plan. Since the plan is traversed from the sinks to the
      * sources, this collection must contain all the sinks.
+     * 计划中所有接收器的集合。 由于计划是从sink遍历到source的，因此该集合必须包含所有sink。
      */
     protected final List<GenericDataSinkBase<?>> sinks = new ArrayList<>(4);
 
@@ -61,7 +64,9 @@ public class Plan implements Visitable<Operator<?>>, Pipeline {
     /** The default parallelism to use for nodes that have no explicitly specified parallelism. */
     protected int defaultParallelism = ExecutionConfig.PARALLELISM_DEFAULT;
 
-    /** Hash map for files in the distributed cache: registered name to cache entry. */
+    /** Hash map for files in the distributed cache: registered name to cache entry.
+     * 分布式缓存中文件的哈希映射：缓存条目的注册名称。
+     * */
     protected HashMap<String, DistributedCacheEntry> cacheFile = new HashMap<>();
 
     /** Config object for runtime execution parameters. */
@@ -75,9 +80,11 @@ public class Plan implements Visitable<Operator<?>>, Pipeline {
     /**
      * Creates a new dataflow plan with the given name, describing the data flow that ends at the
      * given data sinks.
+     * 使用给定名称创建一个新的数据流计划，描述在给定数据接收器处结束的数据流。
      *
      * <p>If not all of the sinks of a data flow are given to the plan, the flow might not be
      * translated entirely.
+     * 如果没有将数据流的所有接收器都提供给计划，则可能不会完全转换该流。
      *
      * @param sinks The collection will the sinks of the job's data flow.
      * @param jobName The name to display for the job.
@@ -89,9 +96,11 @@ public class Plan implements Visitable<Operator<?>>, Pipeline {
     /**
      * Creates a new program plan with the given name and default parallelism, describing the data
      * flow that ends at the given data sinks.
+     * 创建具有给定名称和默认并行度的新程序计划，描述在给定数据接收器处结束的数据流。
      *
      * <p>If not all of the sinks of a data flow are given to the plan, the flow might not be
      * translated entirely.
+     * 如果没有将数据流的所有接收器都提供给计划，则可能不会完全转换该流。
      *
      * @param sinks The collection will the sinks of the job's data flow.
      * @param jobName The name to display for the job.
@@ -108,10 +117,12 @@ public class Plan implements Visitable<Operator<?>>, Pipeline {
 
     /**
      * Creates a new program plan with the given name, containing initially a single data sink.
+     * 创建具有给定名称的新程序计划，最初包含单个数据接收器。
      *
      * <p>If not all of the sinks of a data flow are given, the flow might not be translated
      * entirely, but only the parts of the flow reachable by traversing backwards from the given
      * data sinks.
+     * 如果没有给出数据流的所有接收器，则流可能不会被完全转换，而只有通过从给定数据接收器向后遍历可以到达的部分流。
      *
      * @param sink The data sink of the data flow.
      * @param jobName The name to display for the job.

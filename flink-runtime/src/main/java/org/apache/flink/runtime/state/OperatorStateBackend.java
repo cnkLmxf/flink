@@ -26,6 +26,7 @@ import java.io.Closeable;
 /**
  * Interface that combines both, the user facing {@link OperatorStateStore} interface and the system
  * interface {@link Snapshotable}
+ * 将面向用户的 {@link OperatorStateStore} 接口和系统接口 {@link Snapshotable} 结合起来的接口
  */
 public interface OperatorStateBackend
         extends OperatorStateStore,

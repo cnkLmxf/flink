@@ -23,11 +23,13 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Calculates the plan of the next checkpoint, including the tasks to trigger, wait or commit for
  * each checkpoint.
+ * 计算下一个检查点的计划，包括每个检查点要触发、等待或提交的任务。
  */
 public interface CheckpointPlanCalculator {
 
     /**
      * Calculates the plan of the next checkpoint.
+     * 计算下一个检查点的计划。
      *
      * @return The result plan.
      */

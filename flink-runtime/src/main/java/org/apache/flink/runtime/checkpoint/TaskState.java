@@ -32,9 +32,11 @@ import java.util.Objects;
 /**
  * Simple container class which contains the task state and key-group state handles for the sub
  * tasks of a {@link org.apache.flink.runtime.jobgraph.JobVertex}.
+ * 简单的容器类，其中包含 {@link org.apache.flink.runtime.jobgraph.JobVertex} 的子任务的任务状态和键组状态句柄。
  *
  * <p>This class basically groups all non-partitioned state and key-group state belonging to the
  * same job vertex together.
+ * 此类基本上将属于同一作业顶点的所有非分区状态和键组状态组合在一起。
  *
  * @deprecated Internal class for savepoint backwards compatibility. Don't use for other purposes.
  */
@@ -45,7 +47,9 @@ public class TaskState implements CompositeStateHandle {
 
     private final JobVertexID jobVertexID;
 
-    /** handles to non-partitioned states, subtaskindex -> subtaskstate. */
+    /** handles to non-partitioned states, subtaskindex -> subtaskstate.
+     * 处理非分区状态，subtaskindex -> subtaskstate。
+     * */
     private final Map<Integer, SubtaskState> subtaskStates;
 
     /** parallelism of the operator when it was checkpointed. */

@@ -28,6 +28,7 @@ import java.util.List;
 /**
  * Input, with just basic methods for blocking and resuming consumption. It can be for example an
  * {@link InputGate} or a chained source.
+ * 输入，只有基本的阻塞和恢复消费方法。 例如，它可以是 {@link InputGate} 或链接源。
  */
 @Internal
 public interface CheckpointableInput {

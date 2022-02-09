@@ -44,7 +44,9 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-/** Default implementation of {@link SlotStatusSyncer} for fine-grained slot management. */
+/** Default implementation of {@link SlotStatusSyncer} for fine-grained slot management.
+ * {@link SlotStatusSyncer} 的默认实现，用于细粒度的插槽管理。
+ * */
 public class DefaultSlotStatusSyncer implements SlotStatusSyncer {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSlotStatusSyncer.class);
 

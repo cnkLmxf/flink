@@ -31,17 +31,23 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * Encapsulates a container specification, including artifacts, environment variables, system
  * properties, and Flink configuration settings.
+ * 封装容器规范，包括工件、环境变量、系统属性和 Flink 配置设置。
  *
  * <p>The specification is mutable.
+ * 规范是可变的。
  *
  * <p>Note that the Flink configuration settings are considered dynamic overrides of whatever static
  * configuration file is present in the container. For example, a container might be based on a
  * Docker image with a normal Flink installation with customized settings, which these settings
  * would (partially) override.
+ * 请注意，Flink 配置设置被认为是容器中存在的任何静态配置文件的动态覆盖。
+ * 例如，一个容器可能基于一个 Docker 镜像，带有一个带有自定义设置的普通 Flink 安装，这些设置将（部分）覆盖。
  *
  * <p>Artifacts are copied into a sandbox directory within the container, which any Flink process
  * launched in the container is assumed to use as a working directory. This assumption allows for
  * relative paths to be used in certain environment variables.
+ * 工件被复制到容器内的沙箱目录中，容器中启动的任何 Flink 进程都假定将其用作工作目录。
+ * 这个假设允许在某些环境变量中使用相对路径。
  */
 public class ContainerSpecification implements java.io.Serializable {
 
@@ -181,7 +187,9 @@ public class ContainerSpecification implements java.io.Serializable {
         return containerSpecification;
     }
 
-    /** Format the system properties as a shell-compatible command-line argument. */
+    /** Format the system properties as a shell-compatible command-line argument.
+     * 将系统属性格式化为与 shell 兼容的命令行参数。
+     * */
     public static String formatSystemProperties(Configuration jvmArgs) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : jvmArgs.toMap().entrySet()) {
@@ -196,6 +204,7 @@ public class ContainerSpecification implements java.io.Serializable {
 
     /**
      * Create a dynamic property from the given key and value of the format {@code -Dkey=value}.
+     * 从 {@code -Dkey=value} 格式的给定键和值创建动态属性。
      *
      * @param key of the dynamic property
      * @param value of the dynamic property

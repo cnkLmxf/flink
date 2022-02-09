@@ -27,6 +27,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * {@link DispatcherLeaderProcess} implementation which is stopped. This class is useful as the
  * initial state of the {@link DefaultDispatcherRunner}.
+ * {@link DispatcherLeaderProcess} 实现已停止。
+ * 此类可用作 {@link DefaultDispatcherRunner} 的初始状态。
  */
 public enum StoppedDispatcherLeaderProcess implements DispatcherLeaderProcess {
     INSTANCE;

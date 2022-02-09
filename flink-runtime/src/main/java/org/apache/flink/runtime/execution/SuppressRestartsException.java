@@ -23,9 +23,12 @@ import org.apache.flink.runtime.throwable.ThrowableType;
 
 /**
  * Exception thrown in order to suppress job restarts.
+ * 为了抑制作业重新启动而引发异常。
  *
  * <p>This exception acts as a wrapper around the real cause and suppresses job restarts. The
  * JobManager will <strong>not</strong> restart a job, which fails with this Exception.
+ * 此异常充当真正原因的包装器并抑制作业重新启动。
+ * JobManager 将<strong>不会</strong>重新启动作业，该作业因此异常而失败。
  */
 @ThrowableAnnotation(ThrowableType.NonRecoverableError)
 public class SuppressRestartsException extends RuntimeException {

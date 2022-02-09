@@ -30,6 +30,7 @@ import java.io.File;
 /**
  * The class <code>LocalFileStatus</code> provides an implementation of the {@link FileStatus}
  * interface for the local file system.
+ * <code>LocalFileStatus</code> 类为本地文件系统提供了 {@link FileStatus} 接口的实现。
  */
 @Internal
 public class LocalFileStatus implements LocatedFileStatus {
@@ -37,14 +38,19 @@ public class LocalFileStatus implements LocatedFileStatus {
     /** The file this file status belongs to. */
     private final File file;
 
-    /** The path of this file this file status belongs to. */
+    /** The path of this file this file status belongs to.
+     * 此文件状态所属的此文件的路径。
+     * */
     private final Path path;
 
-    /** Cached length field, to avoid repeated native/syscalls. */
+    /** Cached length field, to avoid repeated native/syscalls.
+     * 缓存长度字段，以避免重复本机/系统调用。
+     * */
     private final long len;
 
     /**
      * Creates a <code>LocalFileStatus</code> object from a given {@link File} object.
+     * 从给定的 {@link File} 对象创建一个 <code>LocalFileStatus</code> 对象。
      *
      * @param f the {@link File} object this <code>LocalFileStatus</code> refers to
      * @param fs the file system the corresponding file has been read from

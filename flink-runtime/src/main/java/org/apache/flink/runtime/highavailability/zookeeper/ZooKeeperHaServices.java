@@ -48,6 +48,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * An implementation of the {@link AbstractHaServices} using Apache ZooKeeper. The services store
  * data in ZooKeeper's nodes as illustrated by the following tree structure:
+ * 使用 Apache ZooKeeper 实现 {@link AbstractHaServices}。 服务将数据存储在 ZooKeeper 的节点中，如以下树形结构所示：
  *
  * <pre>
  * /flink
@@ -71,17 +72,25 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * <p>The root path "/flink" is configurable via the option {@link
  * HighAvailabilityOptions#HA_ZOOKEEPER_ROOT}. This makes sure Flink stores its data under specific
  * subtrees in ZooKeeper, for example to accommodate specific permission.
+ * 根路径“/flink”可通过选项 {@link HighAvailabilityOptions#HA_ZOOKEEPER_ROOT} 进行配置。
+ * 这确保 Flink 将其数据存储在 ZooKeeper 中的特定子树下，例如以适应特定权限。
  *
  * <p>The "cluster_id" part identifies the data stored for a specific Flink "cluster". This
  * "cluster" can be either a standalone or containerized Flink cluster, or it can be job on a
  * framework like YARN or Mesos (in a "per-job-cluster" mode).
+ * “cluster_id”部分标识为特定 Flink “集群”存储的数据。
+ * 这个“集群”可以是独立的或容器化的 Flink 集群，也可以是 YARN 或 Mesos 等框架上的作业（在“每个作业集群”模式下）。
  *
  * <p>In case of a "per-job-cluster" on YARN or Mesos, the cluster-id is generated and configured
  * automatically by the client or dispatcher that submits the Job to YARN or Mesos.
+ * 在 YARN 或 Mesos 上的“per-job-cluster”的情况下，
+ * cluster-id 由将作业提交到 YARN 或 Mesos 的客户端或调度程序自动生成和配置。
  *
  * <p>In the case of a standalone cluster, that cluster-id needs to be configured via {@link
  * HighAvailabilityOptions#HA_CLUSTER_ID}. All nodes with the same cluster id will join the same
  * cluster and participate in the execution of the same set of jobs.
+ * 如果是独立集群，则需要通过 {@link HighAvailabilityOptions#HA_CLUSTER_ID} 配置该集群 ID。
+ * 所有具有相同集群 id 的节点都将加入同一个集群并参与执行同一组作业。
  */
 public class ZooKeeperHaServices extends AbstractHaServices {
 
@@ -181,7 +190,9 @@ public class ZooKeeperHaServices extends AbstractHaServices {
     //  Utilities
     // ------------------------------------------------------------------------
 
-    /** Cleans up leftover ZooKeeper paths. */
+    /** Cleans up leftover ZooKeeper paths.
+     * 清理剩余的 ZooKeeper 路径。
+     * */
     private void cleanupZooKeeperPaths() throws Exception {
         deleteOwnedZNode();
         tryDeleteEmptyParentZNodes();
@@ -218,9 +229,11 @@ public class ZooKeeperHaServices extends AbstractHaServices {
 
     /**
      * Tries to delete empty parent znodes.
+     * 尝试删除空的父 znode。
      *
      * <p>IMPORTANT: This method can be removed once all supported ZooKeeper versions support the
      * container {@link org.apache.zookeeper.CreateMode}.
+     * 重要提示：一旦所有受支持的 ZooKeeper 版本都支持容器 {@link org.apache.zookeeper.CreateMode}，就可以删除此方法。
      *
      * @throws Exception if the deletion fails for other reason than {@link
      *     KeeperException.NotEmptyException}

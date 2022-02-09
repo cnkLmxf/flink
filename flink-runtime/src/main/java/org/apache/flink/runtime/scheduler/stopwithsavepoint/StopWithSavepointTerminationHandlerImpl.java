@@ -45,9 +45,12 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * termination of the job, succeed. If the former step fails, the operation fails exceptionally
  * without any further actions. If the latter one fails, a global fail-over is triggered before
  * failing the operation.
+ * 只有当保存点创建和作业成功终止这两个步骤都成功时，操作才会成功。
+ * 如果前一步失败，则操作异常失败，无需任何进一步操作。 如果后者失败，则在操作失败之前触发全局故障转移。
  *
  * <p>The implementation expects the savepoint creation being completed before the executions
  * terminate.
+ * 该实现期望在执行终止之前完成保存点的创建。
  *
  * @see StopWithSavepointTerminationManager
  */

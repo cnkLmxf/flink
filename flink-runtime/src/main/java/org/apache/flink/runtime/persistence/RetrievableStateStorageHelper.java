@@ -26,6 +26,7 @@ import java.io.Serializable;
 /**
  * State storage helper which is used by {@link ZooKeeperStateHandleStore} to persist state before
  * the state handle is written to ZooKeeper.
+ * {@link ZooKeeperStateHandleStore} 使用状态存储助手在将状态句柄写入 ZooKeeper 之前保持状态。
  *
  * @param <T> The type of the data that can be stored by this storage helper.
  */
@@ -33,6 +34,7 @@ public interface RetrievableStateStorageHelper<T extends Serializable> {
 
     /**
      * Stores the given state and returns a state handle to it.
+     * 存储给定的状态并返回它的状态句柄。
      *
      * @param state State to be stored
      * @return State handle to the stored state

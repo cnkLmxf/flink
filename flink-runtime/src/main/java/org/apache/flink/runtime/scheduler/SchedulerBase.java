@@ -114,7 +114,9 @@ import java.util.stream.StreamSupport;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** Base class which can be used to implement {@link SchedulerNG}. */
+/** Base class which can be used to implement {@link SchedulerNG}.
+ * 可用于实现 {@link SchedulerNG} 的基类。
+ * */
 public abstract class SchedulerBase implements SchedulerNG, CheckpointScheduling {
 
     private final Logger log;

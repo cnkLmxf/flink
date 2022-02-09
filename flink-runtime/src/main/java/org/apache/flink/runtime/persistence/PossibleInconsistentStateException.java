@@ -24,6 +24,7 @@ import org.apache.flink.util.FlinkException;
 /**
  * {@code PossibleInconsistentStateException} represents errors that might have lead to an
  * inconsistent state within the HA resources.
+ * {@code PossibleInconsistentStateException} 表示可能导致 HA 资源状态不一致的错误。
  */
 public class PossibleInconsistentStateException extends FlinkException {
 

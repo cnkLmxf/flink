@@ -50,20 +50,29 @@ import java.util.function.Supplier;
 
 /**
  * Leadership runner for the {@link JobMasterServiceProcess}.
+ * {@link JobMasterServiceProcess} 的领导者。
  *
  * <p>The responsibility of this component is to manage the leadership of the {@link
  * JobMasterServiceProcess}. This means that the runner will create an instance of the process when
  * it obtains the leadership. The process is stopped once the leadership is revoked.
+ * 该组件的职责是管理 {@link JobMasterServiceProcess} 的领导。
+ * 这意味着跑步者在获得领导权时将创建流程的实例。 一旦领导被撤销，这个过程就会停止。
  *
  * <p>This component only accepts signals (job result completion, initialization failure) as long as
  * it is running and as long as the signals are coming from the current leader process. This ensures
  * that only the current leader can affect this component.
+ * 该组件只接受信号（作业结果完成、初始化失败），只要它正在运行并且信号来自当前的领导进程。 这确保只有当前领导者可以影响该组件。
  *
  * <p>All leadership operations are serialized. This means that granting the leadership has to
  * complete before the leadership can be revoked and vice versa.
+ * 所有的领导操作都是序列化的。 这意味着授予领导权必须先完成，然后才能撤销领导权，反之亦然。
  *
  * <p>The {@link #resultFuture} can be completed with the following values: * *
- *
+ * {@link #resultFuture} 可以使用以下值完成：* *
+ *<ul>
+ *     <li>{@link JobManagerRunnerResult} 表示 {@link JobMasterService} 初始化失败或作业完成
+ *     <li>{@link Exception} 表示意外失败
+ *</ul>
  * <ul>
  *   <li>{@link JobManagerRunnerResult} to signal an initialization failure of the {@link
  *       JobMasterService} or the completion of a job

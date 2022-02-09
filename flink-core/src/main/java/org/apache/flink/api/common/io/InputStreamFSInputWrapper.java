@@ -29,6 +29,8 @@ import java.io.InputStream;
  * This class wraps an {@link java.io.InputStream} and exposes it as {@link
  * org.apache.flink.core.fs.FSDataInputStream}. <br>
  * <i>NB: {@link #seek(long)} and {@link #getPos()} are currently not supported.</i>
+ * 此类包装了一个 {@link java.io.InputStream} 并将其公开为 {@link org.apache.flink.core.fs.FSDataInputStream}。 <br>
+ *   <i>注意：目前不支持 {@link #seek(long)} 和 {@link #getPos()}。</i>
  */
 @Public
 public class InputStreamFSInputWrapper extends FSDataInputStream {

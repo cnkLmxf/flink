@@ -59,6 +59,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * The BLOB client can communicate with the BLOB server and either upload (PUT), download (GET), or
  * delete (DELETE) BLOBs.
+ * BLOB 客户端可以与 BLOB 服务器通信并上传 (PUT)、下载 (GET) 或删除 (DELETE) BLOB。
  */
 public final class BlobClient implements Closeable {
 
@@ -107,9 +108,11 @@ public final class BlobClient implements Closeable {
 
     /**
      * Downloads the given BLOB from the given server and stores its contents to a (local) file.
+     * 从给定的服务器下载给定的 BLOB 并将其内容存储到（本地）文件中。
      *
      * <p>Transient BLOB files are deleted after a successful copy of the server's data into the
      * given <tt>localJarFile</tt>.
+     * 在将服务器数据成功复制到给定的 <tt>localJarFile</tt> 后，临时 BLOB 文件将被删除。
      *
      * @param jobId job ID the BLOB belongs to or <tt>null</tt> if job-unrelated
      * @param blobKey BLOB key
@@ -198,6 +201,7 @@ public final class BlobClient implements Closeable {
 
     /**
      * Downloads the BLOB identified by the given BLOB key from the BLOB server.
+     * 从 BLOB 服务器下载由给定 BLOB 密钥标识的 BLOB。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param blobKey blob key associated with the requested file
@@ -233,6 +237,7 @@ public final class BlobClient implements Closeable {
 
     /**
      * Constructs and writes the header data for a GET operation to the given output stream.
+     * 构造 GET 操作的header数据并将其写入给定的输出流。
      *
      * @param outputStream the output stream to write the header data to
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
@@ -285,6 +290,7 @@ public final class BlobClient implements Closeable {
 
     /**
      * Uploads data from the given byte buffer to the BLOB server.
+     * 将数据从给定的字节缓冲区上传到 BLOB 服务器。
      *
      * @param jobId the ID of the job the BLOB belongs to (or <tt>null</tt> if job-unrelated)
      * @param value the buffer to read the data from
@@ -326,6 +332,7 @@ public final class BlobClient implements Closeable {
 
     /**
      * Uploads data from the given input stream to the BLOB server.
+     * 将给定输入流中的数据上传到 BLOB 服务器。
      *
      * @param jobId the ID of the job the BLOB belongs to (or <tt>null</tt> if job-unrelated)
      * @param inputStream the input stream to read the data from
@@ -360,6 +367,7 @@ public final class BlobClient implements Closeable {
     /**
      * Uploads the JAR files to the {@link PermanentBlobService} of the {@link BlobServer} at the
      * given address with HA as configured.
+     * 将 JAR 文件上传到给定地址的 {@link BlobServer} 的 {@link PermanentBlobService}，并配置 HA。
      *
      * @param serverAddress Server address of the {@link BlobServer}
      * @param clientConfig Any additional configuration for the blob client
@@ -394,6 +402,7 @@ public final class BlobClient implements Closeable {
 
     /**
      * Uploads a single file to the {@link PermanentBlobService} of the given {@link BlobServer}.
+     * 将单个文件上传到给定 {@link BlobServer} 的 {@link PermanentBlobService}。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param file file to upload

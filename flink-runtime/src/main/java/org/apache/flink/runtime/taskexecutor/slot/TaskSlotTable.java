@@ -39,11 +39,14 @@ import java.util.UUID;
 /**
  * Container for multiple {@link TaskSlot} instances. Additionally, it maintains multiple indices
  * for faster access to tasks and sets of allocated slots.
+ * 多个 {@link TaskSlot} 实例的容器。 此外，它维护多个索引以更快地访问任务和分配的插槽集。
  *
  * <p>The task slot table automatically registers timeouts for allocated slots which cannot be
  * assigned to a job manager.
+ * 任务槽表自动为无法分配给作业管理器的已分配槽注册超时。
  *
  * <p>Before the task slot table can be used, it must be started via the {@link #start} method.
+ * 在使用任务槽表之前，它必须通过 {@link #start} 方法启动。
  */
 public interface TaskSlotTable<T extends TaskSlotPayload>
         extends TimeoutListener<AllocationID>, AutoCloseableAsync {

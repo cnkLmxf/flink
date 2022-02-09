@@ -44,6 +44,7 @@ import java.util.stream.StreamSupport;
 /**
  * Base class for state tables. Accesses to state are typically scoped by the currently active key,
  * as provided through the {@link InternalKeyContext}.
+ * 状态表的基类。 对状态的访问通常由当前活动的键限定，如通过 {@link InternalKeyContext} 提供的。
  *
  * @param <K> type of key
  * @param <N> type of namespace
@@ -55,10 +56,13 @@ public abstract class StateTable<K, N, S>
     /**
      * The key context view on the backend. This provides information, such as the currently active
      * key.
+     * 后端的关键上下文视图。 这提供了信息，例如当前活动的密钥。
      */
     protected final InternalKeyContext<K> keyContext;
 
-    /** Combined meta information such as name and serializers for this state. */
+    /** Combined meta information such as name and serializers for this state.
+     * 此状态的组合元信息，例如名称和序列化程序。
+     * */
     protected RegisteredKeyValueStateBackendMetaInfo<N, S> metaInfo;
 
     /** The serializer of the key. */
@@ -70,6 +74,7 @@ public abstract class StateTable<K, N, S>
     /**
      * Map for holding the actual state objects. The outer array represents the key-groups. All
      * array positions will be initialized with an empty state map.
+     * 用于保存实际状态对象的映射。 外部数组表示密钥组。 所有数组位置都将使用空状态映射进行初始化。
      */
     protected final StateMap<K, N, S>[] keyGroupedStateMaps;
 
@@ -108,6 +113,7 @@ public abstract class StateTable<K, N, S>
 
     /**
      * Returns whether this {@link StateTable} is empty.
+     * 返回此 {@link StateTable} 是否为空。
      *
      * @return {@code true} if this {@link StateTable} has no elements, {@code false} otherwise.
      * @see #size()
@@ -119,6 +125,7 @@ public abstract class StateTable<K, N, S>
     /**
      * Returns the total number of entries in this {@link StateTable}. This is the sum of both
      * sub-tables.
+     * 返回此 {@link StateTable} 中的条目总数。 这是两个子表的总和。
      *
      * @return the number of entries in this {@link StateTable}.
      */
@@ -132,6 +139,7 @@ public abstract class StateTable<K, N, S>
 
     /**
      * Returns the state of the mapping for the composite of active key and given namespace.
+     * 返回活动键和给定命名空间的组合的映射状态。
      *
      * @param namespace the namespace. Not null.
      * @return the states of the mapping with the specified key/namespace composite key, or {@code
@@ -144,6 +152,7 @@ public abstract class StateTable<K, N, S>
     /**
      * Returns whether this table contains a mapping for the composite of active key and given
      * namespace.
+     * 返回此表是否包含活动键和给定命名空间的组合的映射。
      *
      * @param namespace the namespace in the composite key to search for. Not null.
      * @return {@code true} if this map contains the specified key/namespace composite key, {@code
@@ -156,6 +165,7 @@ public abstract class StateTable<K, N, S>
 
     /**
      * Maps the composite of active key and given namespace to the specified state.
+     * 将活动键和给定命名空间的组合映射到指定状态。
      *
      * @param namespace the namespace. Not null.
      * @param state the state. Can be null.
@@ -168,6 +178,7 @@ public abstract class StateTable<K, N, S>
      * Removes the mapping for the composite of active key and given namespace. This method should
      * be preferred over {@link #removeAndGetOld(N)} when the caller is not interested in the old
      * state.
+     * 删除活动键和给定命名空间的组合的映射。 当调用者对旧状态不感兴趣时，此方法应优先于 {@link #removeAndGetOld(N)}。
      *
      * @param namespace the namespace of the mapping to remove. Not null.
      */
@@ -178,6 +189,7 @@ public abstract class StateTable<K, N, S>
     /**
      * Removes the mapping for the composite of active key and given namespace, returning the state
      * that was found under the entry.
+     * 删除活动键和给定命名空间的组合的映射，返回在条目下找到的状态。
      *
      * @param namespace the namespace of the mapping to remove. Not null.
      * @return the state of the removed mapping or {@code null} if no mapping for the specified key
@@ -193,6 +205,9 @@ public abstract class StateTable<K, N, S>
      * using the given value as second input argument. The result of {@link
      * StateTransformationFunction#apply(Object, Object)} is then stored as the new state. This
      * function is basically an optimization for get-update-put pattern.
+     * 将给定的 {@link StateTransformationFunction} 应用于状态（第一个输入参数），使用给定的值作为第二个输入参数。
+     * 然后将 {@link StateTransformationFunction#apply(Object, Object)} 的结果存储为新状态。
+     * 这个函数基本上是对 get-update-put 模式的优化。
      *
      * @param namespace the namespace. Not null.
      * @param value the value to use in transforming the state. Can be null.
@@ -215,11 +230,13 @@ public abstract class StateTable<K, N, S>
     /**
      * Returns the state for the composite of active key and given namespace. This is typically used
      * by queryable state.
+     * 返回活动键和给定命名空间的组合的状态。 这通常由可查询状态使用。
      *
      * @param key the key. Not null.
      * @param namespace the namespace. Not null.
      * @return the state of the mapping with the specified key/namespace composite key, or {@code
      *     null} if no mapping for the specified key is found.
+     *     与指定键/命名空间组合键的映射状态，如果未找到指定键的映射，则为 {@code null}。
      */
     public S get(K key, N namespace) {
         int keyGroup =

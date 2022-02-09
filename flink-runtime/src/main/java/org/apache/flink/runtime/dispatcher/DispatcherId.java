@@ -22,7 +22,9 @@ import org.apache.flink.util.AbstractID;
 
 import java.util.UUID;
 
-/** Fencing token of the {@link Dispatcher}. */
+/** Fencing token of the {@link Dispatcher}.
+ * {@link Dispatcher} 的屏蔽令牌。
+ * */
 public class DispatcherId extends AbstractID {
 
     private static final long serialVersionUID = -1654056277003743966L;

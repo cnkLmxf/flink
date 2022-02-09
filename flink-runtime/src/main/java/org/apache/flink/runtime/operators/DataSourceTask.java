@@ -60,6 +60,7 @@ import java.util.concurrent.Future;
 /**
  * DataSourceTask which is executed by a task manager. The task reads data and uses an {@link
  * InputFormat} to create records from the input.
+ * DataSourceTask 由任务管理器执行。 该任务读取数据并使用 {@link InputFormat} 从输入创建记录。
  *
  * @see org.apache.flink.api.common.io.InputFormat
  */
@@ -91,6 +92,7 @@ public class DataSourceTask<OT> extends AbstractInvokable {
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */
@@ -274,6 +276,7 @@ public class DataSourceTask<OT> extends AbstractInvokable {
 
     /**
      * Initializes the InputFormat implementation and configuration.
+     * 初始化 InputFormat 实现和配置。
      *
      * @throws RuntimeException Throws if instance of InputFormat implementation can not be
      *     obtained.
@@ -327,6 +330,7 @@ public class DataSourceTask<OT> extends AbstractInvokable {
     /**
      * Creates a writer for each output. Creates an OutputCollector which forwards its input to all
      * writers. The output collector applies the configured shipping strategy.
+     * 为每个输出创建一个 writer。 创建一个将其输入转发给所有写入器的 OutputCollector。 输出收集器应用配置的运输策略。
      */
     private void initOutputs(UserCodeClassLoader cl) throws Exception {
         this.chainedTasks = new ArrayList<ChainedDriver<?, ?>>();
@@ -351,6 +355,7 @@ public class DataSourceTask<OT> extends AbstractInvokable {
      * Utility function that composes a string for logging purposes. The string includes the given
      * message and the index of the task in its task group together with the number of tasks in the
      * task group.
+     * 为记录目的组成一个字符串的实用函数。 该字符串包括给定的消息和任务在其任务组中的索引以及任务组中的任务数。
      *
      * @param message The main message for the log.
      * @return The string ready for logging.
@@ -363,6 +368,7 @@ public class DataSourceTask<OT> extends AbstractInvokable {
      * Utility function that composes a string for logging purposes. The string includes the given
      * message and the index of the task in its task group together with the number of tasks in the
      * task group.
+     * 为记录目的组成一个字符串的实用函数。 该字符串包括给定的消息和任务在其任务组中的索引以及任务组中的任务数。
      *
      * @param message The main message for the log.
      * @param taskName The name of the task.

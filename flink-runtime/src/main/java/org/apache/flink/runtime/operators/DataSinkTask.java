@@ -59,6 +59,7 @@ import java.util.concurrent.Future;
 
 /**
  * DataSinkTask which is executed by a task manager. The task hands the data to an output format.
+ * DataSinkTask 由任务管理器执行。 该任务将数据传递给输出格式。
  *
  * @see OutputFormat
  */
@@ -70,6 +71,7 @@ public class DataSinkTask<IT> extends AbstractInvokable {
     // --------------------------------------------------------------------------------------------
 
     // OutputFormat instance. volatile, because the asynchronous canceller may access it
+    // 输出格式实例。 volatile，因为异步取消器可以访问它
     private volatile OutputFormat<IT> format;
 
     private MutableReader<?> inputReader;
@@ -331,6 +333,7 @@ public class DataSinkTask<IT> extends AbstractInvokable {
 
     /**
      * Initializes the OutputFormat implementation and configuration.
+     * 初始化 OutputFormat 实现和配置。
      *
      * @throws RuntimeException Throws if instance of OutputFormat implementation can not be
      *     obtained.
@@ -383,6 +386,7 @@ public class DataSinkTask<IT> extends AbstractInvokable {
 
     /**
      * Initializes the input readers of the DataSinkTask.
+     * 初始化 DataSinkTask 的输入读取器。
      *
      * @throws RuntimeException Thrown in case of invalid task input configuration.
      */
@@ -431,6 +435,7 @@ public class DataSinkTask<IT> extends AbstractInvokable {
      * Utility function that composes a string for logging purposes. The string includes the given
      * message and the index of the task in its task group together with the number of tasks in the
      * task group.
+     * 为记录目的组成一个字符串的实用函数。 该字符串包括给定的消息和任务在其任务组中的索引以及任务组中的任务数。
      *
      * @param message The main message for the log.
      * @return The string ready for logging.

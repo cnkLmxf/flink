@@ -25,7 +25,9 @@ import org.apache.flink.util.Preconditions;
 import java.io.IOException;
 import java.util.Optional;
 
-/** A state handle that contains stream state in a byte array. */
+/** A state handle that contains stream state in a byte array.
+ * 在字节数组中包含流状态的状态句柄。
+ * */
 public class ByteStreamStateHandle implements StreamStateHandle {
 
     private static final long serialVersionUID = -5280226231202517594L;

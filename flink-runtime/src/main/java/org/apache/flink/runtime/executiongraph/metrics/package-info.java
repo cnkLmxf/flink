@@ -19,5 +19,7 @@
 /**
  * This package contains classes implementing various metrics for the job execution, based on the
  * {@link org.apache.flink.runtime.executiongraph.ExecutionGraph Execution Graph}.
+ * 这个包包含基于 {@link org.apache.flink.runtime.executiongraph.ExecutionGraph Execution Graph}
+ * 实现作业执行的各种指标的类。
  */
 package org.apache.flink.runtime.executiongraph.metrics;

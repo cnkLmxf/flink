@@ -38,6 +38,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * This class encapsulates the connection information of a TaskManager. It describes the host where
  * the TaskManager operates and its server port for data exchange. This class also contains
  * utilities to work with the TaskManager's host name, which is used to localize work assignments.
+ * 该类封装了TaskManager的连接信息。 它描述了 TaskManager 运行所在的主机及其用于数据交换的服务器端口。
+ * 此类还包含使用 TaskManager 的主机名的实用程序，该主机名用于本地化工作分配。
  */
 public class TaskManagerLocation implements Comparable<TaskManagerLocation>, java.io.Serializable {
 
@@ -50,27 +52,36 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
     /**
      * The ID of the resource in which the TaskManager is started. This can be for example the YARN
      * container ID, Mesos container ID, or any other unique identifier.
+     * TaskManager 启动的资源ID。 例如，这可以是 YARN 容器 ID、Mesos 容器 ID 或任何其他唯一标识符。
      */
     private final ResourceID resourceID;
 
-    /** The network address that the TaskManager binds its sockets to. */
+    /** The network address that the TaskManager binds its sockets to.
+     * TaskManager 将其套接字绑定到的网络地址。
+     * */
     private final InetAddress inetAddress;
 
-    /** The supplier for fully qualified host name and pure hostname. */
+    /** The supplier for fully qualified host name and pure hostname.
+     * 完全限定主机名和纯主机名的供应商。
+     * */
     private final HostNameSupplier hostNameSupplier;
 
-    /** The port that the TaskManager receive data transport connection requests at. */
+    /** The port that the TaskManager receive data transport connection requests at.
+     * TaskManager 接收数据传输连接请求的端口。
+     * */
     private final int dataPort;
 
     /**
      * The toString representation, eagerly constructed and cached to avoid repeated string
      * building.
+     * toString 表示，急切地构造和缓存以避免重复的字符串构建。
      */
     private String stringRepresentation;
 
     /**
      * Constructs a new instance connection info object. The constructor will attempt to retrieve
      * the instance's host name and domain name through the operating system's lookup mechanisms.
+     * 构造一个新的实例连接信息对象。 构造函数将尝试通过操作系统的查找机制检索实例的主机名和域名。
      *
      * @param inetAddress the network address the instance's task manager binds its sockets to
      * @param dataPort the port instance's task manager expects to receive transfer envelopes on
@@ -95,6 +106,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
     /**
      * Constructs a new instance connection info object. The constructor will attempt to retrieve
      * the instance's host name and domain name through the operating system's lookup mechanisms.
+     * 构造一个新的实例连接信息对象。 构造函数将尝试通过操作系统的查找机制检索实例的主机名和域名。
      *
      * @param inetAddress the network address the instance's task manager binds its sockets to
      * @param dataPort the port instance's task manager expects to receive transfer envelopes on
@@ -136,7 +148,13 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
     /**
      * Gets the ID of the resource in which the TaskManager is started. The format of this depends
      * on how the TaskManager is started:
-     *
+     * 获取启动任务管理器的资源的 ID。 其格式取决于任务管理器的启动方式：
+     *<ul>
+     *     <li>如果 TaskManager 通过 YARN 启动，这是 YARN 容器 ID。
+     *    <li>如果 TaskManager 是通过 Mesos 启动的，则这是 Mesos 容器 ID。
+     *    <li>如果 TaskManager 以独立模式启动，或者通过 MiniCluster 启动，则这是一个随机 ID。
+     *    <li>其他部署方式可以通过其他方式设置资源ID。
+     * </ul>
      * <ul>
      *   <li>If the TaskManager is started via YARN, this is the YARN container ID.
      *   <li>If the TaskManager is started via Mesos, this is the Mesos container ID.
@@ -153,6 +171,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
     /**
      * Returns the port instance's task manager expects to receive transfer envelopes on.
+     * 返回端口实例的任务管理器期望接收传输信封。
      *
      * @return the port instance's task manager expects to receive transfer envelopes on
      */
@@ -162,6 +181,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
     /**
      * Returns the network address the instance's task manager binds its sockets to.
+     * 返回实例的任务管理器将其套接字绑定到的网络地址。
      *
      * @return the network address the instance's task manager binds its sockets to
      */
@@ -171,6 +191,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
     /**
      * Gets the IP address where the TaskManager operates.
+     * 获取TaskManager运行的IP地址。
      *
      * @return The IP address.
      */
@@ -181,6 +202,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
     /**
      * Returns the fully-qualified domain name of the TaskManager provided by {@link
      * #hostNameSupplier}.
+     * 返回由 {@link #hostNameSupplier} 提供的 TaskManager 的完全限定域名。
      *
      * @return The fully-qualified domain name of the TaskManager.
      */
@@ -190,6 +212,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
     /**
      * Gets the hostname of the TaskManager from {@link #hostNameSupplier}.
+     * 从 {@link #hostNameSupplier} 获取 TaskManager 的主机名。
      *
      * @return The hostname of the TaskManager.
      */
@@ -203,6 +226,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
     /**
      * Gets the fully qualified hostname of the TaskManager based on the network address.
+     * 根据网络地址获取 TaskManager 的完全限定主机名。
      *
      * @param inetAddress the network address that the TaskManager binds its sockets to
      * @return fully qualified hostname of the TaskManager
@@ -224,6 +248,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
     /**
      * Gets the hostname of the TaskManager based on the network address.
+     * 根据网络地址获取 TaskManager 的主机名。
      *
      * @param inetAddress the network address that the TaskManager binds its sockets to
      * @return hostname of the TaskManager
@@ -328,6 +353,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
     /**
      * This Supplier class could retrieve the FQDN host name of the given InetAddress on demand,
      * extract the pure host name and cache the results for later use.
+     * 这个 Supplier 类可以按需检索给定 InetAddress 的 FQDN 主机名，提取纯主机名并缓存结果以供以后使用。
      */
     @VisibleForTesting
     public static class DefaultHostNameSupplier implements HostNameSupplier {
@@ -342,7 +368,12 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
         /**
          * Gets the hostname of the TaskManager. The hostname derives from the fully qualified
          * domain name (FQDN, see {@link #getFQDNHostname()}):
-         *
+         * 获取 TaskManager 的主机名。 主机名源自完全限定域名（FQDN，请参阅 {@link #getFQDNHostname()}）：
+         *<ul>
+         *     <li>如果 FQDN 是文本 IP 地址，则主机名也是 IP 地址
+         *     <li>如果 FQDN 只有一个段（例如“localhost”或“host17”），则将其用作主机名。
+         *     <li>如果 FQDN 有多个分段（例如“worker3.subgroup.company.net”），则第一个分段（此处为“worker3”）将用作主机名。
+         * </ul>
          * <ul>
          *   <li>If the FQDN is the textual IP address, then the hostname is also the IP address
          *   <li>If the FQDN has only one segment (such as "localhost", or "host17"), then this is
@@ -365,6 +396,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
          * Returns the fully-qualified domain name the TaskManager. If the name could not be
          * determined, the return value will be a textual representation of the TaskManager's IP
          * address.
+         * 返回 TaskManager 的完全限定域名。 如果无法确定名称，则返回值将是 TaskManager 的 IP 地址的文本表示。
          *
          * @return The fully-qualified domain name of the TaskManager.
          */
@@ -380,6 +412,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
     /**
      * This Supplier class returns the IP address of the given InetAddress directly, therefore no
      * reverse DNS lookup is required.
+     * 此 Supplier 类直接返回给定 InetAddress 的 IP 地址，因此不需要反向 DNS 查找。
      */
     @VisibleForTesting
     public static class IpOnlyHostNameSupplier implements HostNameSupplier {
@@ -391,6 +424,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
         /**
          * Returns the textual representation of the TaskManager's IP address as host name.
+         * 返回 TaskManager 的 IP 地址的文本表示形式作为主机名。
          *
          * @return The textual representation of the TaskManager's IP address.
          */
@@ -401,6 +435,7 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
 
         /**
          * Returns the textual representation of the TaskManager's IP address as FQDN host name.
+         * 将 TaskManager 的 IP 地址的文本表示形式返回为 FQDN 主机名。
          *
          * @return The textual representation of the TaskManager's IP address.
          */
@@ -410,7 +445,9 @@ public class TaskManagerLocation implements Comparable<TaskManagerLocation>, jav
         }
     }
 
-    /** The DNS resolution mode for TaskManager's IP address. */
+    /** The DNS resolution mode for TaskManager's IP address.
+     * TaskManager 的 IP 地址的 DNS 解析模式。
+     * */
     public enum ResolutionMode {
         RETRIEVE_HOST_NAME,
         USE_IP_ONLY

@@ -23,11 +23,14 @@ import org.apache.flink.api.common.JobID;
 /**
  * JobGraphStore utility interfaces. For example, convert a name(e.g. ZooKeeper path, key name in
  * Kubernetes ConfigMap) to {@link JobID}, or vice versa.
+ * JobGraphStore 实用程序接口。
+ * 例如，将名称（例如 ZooKeeper 路径、Kubernetes ConfigMap 中的键名）转换为 {@link JobID}，反之亦然。
  */
 public interface JobGraphStoreUtil {
 
     /**
      * Get the name in external storage from job id.
+     * 从作业 id 获取外部存储中的名称。
      *
      * @param jobId job id
      * @return Key name in ConfigMap or child path name in ZooKeeper

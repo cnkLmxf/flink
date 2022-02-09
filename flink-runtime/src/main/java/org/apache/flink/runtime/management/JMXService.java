@@ -27,22 +27,29 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Optional;
 
-/** Provide a JVM-wide singleton JMX Service. */
+/** Provide a JVM-wide singleton JMX Service.
+ * 提供 JVM 范围的单例 JMX 服务。
+ * */
 public class JMXService {
     private static final Logger LOG = LoggerFactory.getLogger(JMXService.class);
     private static JMXServer jmxServer = null;
 
-    /** Acquire the global singleton JMXServer instance. */
+    /** Acquire the global singleton JMXServer instance.
+     * 获取全局单例 JMXServer 实例。
+     * */
     public static Optional<JMXServer> getInstance() {
         return Optional.ofNullable(jmxServer);
     }
 
     /**
      * Start the JMV-wide singleton JMX server.
+     * 启动 JMV 范围的单例 JMX 服务器。
      *
      * <p>If JMXServer static instance is already started, it will not be started again. Instead a
      * warning will be logged indicating which port the existing JMXServer static instance is
      * exposing.
+     * 如果 JMXServer 静态实例已经启动，则不会再次启动。
+     * 相反，将记录一个警告，指示现有 JMXServer 静态实例正在公开哪个端口。
      *
      * @param portsConfig port configuration of the JMX server.
      */

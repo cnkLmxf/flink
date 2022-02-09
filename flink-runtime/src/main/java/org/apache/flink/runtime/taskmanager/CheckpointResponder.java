@@ -25,7 +25,9 @@ import org.apache.flink.runtime.checkpoint.CheckpointMetrics;
 import org.apache.flink.runtime.checkpoint.TaskStateSnapshot;
 import org.apache.flink.runtime.executiongraph.ExecutionAttemptID;
 
-/** Responder for checkpoint acknowledge and decline messages in the {@link Task}. */
+/** Responder for checkpoint acknowledge and decline messages in the {@link Task}.
+ * {@link Task} 中检查点确认和拒绝消息的响应者。
+ * */
 @Internal
 public interface CheckpointResponder {
 

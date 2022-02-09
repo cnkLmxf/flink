@@ -24,7 +24,9 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Statistics for a restored checkpoint. */
+/** Statistics for a restored checkpoint.
+ * 已恢复检查点的统计信息。
+ * */
 public class RestoredCheckpointStats implements Serializable {
 
     private static final long serialVersionUID = 2305815319666360821L;

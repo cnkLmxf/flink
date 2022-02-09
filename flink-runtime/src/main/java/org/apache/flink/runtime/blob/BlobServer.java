@@ -68,6 +68,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * This class implements the BLOB server. The BLOB server is responsible for listening for incoming
  * requests and spawning threads to handle these requests. Furthermore, it takes care of creating
  * the directory structure to store the BLOBs or temporarily cache them.
+ * 此类实现 BLOB 服务器。 BLOB 服务器负责侦听传入的请求并生成线程来处理这些请求。
+ * 此外，它还负责创建目录结构以存储 BLOB 或临时缓存它们。
  */
 public class BlobServer extends Thread
         implements BlobService, BlobWriter, PermanentBlobService, TransientBlobService {
@@ -75,25 +77,37 @@ public class BlobServer extends Thread
     /** The log object used for debugging. */
     private static final Logger LOG = LoggerFactory.getLogger(BlobServer.class);
 
-    /** Counter to generate unique names for temporary files. */
+    /** Counter to generate unique names for temporary files.
+     * 为临时文件生成唯一名称的计数器。
+     * */
     private final AtomicLong tempFileCounter = new AtomicLong(0);
 
-    /** The server socket listening for incoming connections. */
+    /** The server socket listening for incoming connections.
+     * 服务器套接字侦听传入连接。
+     * */
     private final ServerSocket serverSocket;
 
     /** Blob Server configuration. */
     private final Configuration blobServiceConfiguration;
 
-    /** Indicates whether a shutdown of server component has been requested. */
+    /** Indicates whether a shutdown of server component has been requested.
+     * 指示是否已请求关闭服务器组件。
+     * */
     private final AtomicBoolean shutdownRequested = new AtomicBoolean();
 
-    /** Root directory for local file storage. */
+    /** Root directory for local file storage.
+     * 本地文件存储的根目录。
+     * */
     private final File storageDir;
 
-    /** Blob store for distributed file storage, e.g. in HA. */
+    /** Blob store for distributed file storage, e.g. in HA.
+     * 用于分布式文件存储的 Blob 存储，
+     * */
     private final BlobStore blobStore;
 
-    /** Set of currently running threads. */
+    /** Set of currently running threads.
+     * 当前运行的线程集。
+     * */
     private final Set<BlobServerConnection> activeConnections = new HashSet<>();
 
     /** The maximum number of concurrent connections. */
@@ -110,18 +124,24 @@ public class BlobServer extends Thread
     /**
      * Map to store the TTL of each element stored in the local storage, i.e. via one of the {@link
      * #getFile} methods.
+     * 映射以存储存储在本地存储中的每个元素的 TTL，即通过 {@link #getFile} 方法之一。
      */
     private final ConcurrentHashMap<Tuple2<JobID, TransientBlobKey>, Long> blobExpiryTimes =
             new ConcurrentHashMap<>();
 
-    /** Time interval (ms) to run the cleanup task; also used as the default TTL. */
+    /** Time interval (ms) to run the cleanup task; also used as the default TTL.
+     * 运行清理任务的时间间隔（毫秒）； 也用作默认 TTL。
+     * */
     private final long cleanupInterval;
 
-    /** Timer task to execute the cleanup at regular intervals. */
+    /** Timer task to execute the cleanup at regular intervals.
+     * 定时任务以定期执行清理。
+     * */
     private final Timer cleanupTimer;
 
     /**
      * Instantiates a new BLOB server and binds it to a free network port.
+     * 实例化一个新的 BLOB 服务器并将其绑定到一个空闲的网络端口。
      *
      * @param config Configuration to be used to instantiate the BlobServer
      * @param blobStore BlobStore to store blobs persistently
@@ -229,8 +249,10 @@ public class BlobServer extends Thread
 
     /**
      * Returns a file handle to the file associated with the given blob key on the blob server.
+     * 返回与 Blob 服务器上给定 Blob 键关联的文件的文件句柄。
      *
      * <p><strong>This is only called from {@link BlobServerConnection} or unit tests.</strong>
+     * <strong>这只能从 {@link BlobServerConnection} 或单元测试调用。</strong>
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param key identifying the file
@@ -244,6 +266,7 @@ public class BlobServer extends Thread
 
     /**
      * Returns a temporary file inside the BLOB server's incoming directory.
+     * 返回 BLOB 服务器的传入目录中的临时文件。
      *
      * @return a temporary file inside the BLOB server's incoming directory
      * @throws IOException if creating the directory fails
@@ -360,10 +383,13 @@ public class BlobServer extends Thread
 
     /**
      * Retrieves the local path of a (job-unrelated) file associated with a job and a blob key.
+     * 检索与作业和 blob 键关联的（与作业无关的）文件的本地路径。
      *
      * <p>The blob server looks the blob key up in its local storage. If the file exists, it is
      * returned. If the file does not exist, it is retrieved from the HA blob store (if available)
      * or a {@link FileNotFoundException} is thrown.
+     * blob 服务器在其本地存储中查找 blob 键。 如果文件存在，则返回。
+     * 如果文件不存在，则从 HA blob 存储（如果可用）中检索它或抛出 {@link FileNotFoundException}。
      *
      * @param key blob key associated with the requested file
      * @return file referring to the local storage location of the BLOB
@@ -376,10 +402,13 @@ public class BlobServer extends Thread
 
     /**
      * Retrieves the local path of a file associated with a job and a blob key.
+     * 检索与作业和 blob 键关联的文件的本地路径。
      *
      * <p>The blob server looks the blob key up in its local storage. If the file exists, it is
      * returned. If the file does not exist, it is retrieved from the HA blob store (if available)
      * or a {@link FileNotFoundException} is thrown.
+     * blob 服务器在其本地存储中查找 blob 键。 如果文件存在，则返回。
+     * 如果文件不存在，则从 HA blob 存储（如果可用）中检索它或抛出 {@link FileNotFoundException}。
      *
      * @param jobId ID of the job this blob belongs to
      * @param key blob key associated with the requested file
@@ -395,9 +424,11 @@ public class BlobServer extends Thread
     /**
      * Returns the path to a local copy of the file associated with the provided job ID and blob
      * key.
+     * 返回与提供的作业 ID 和 blob 键关联的文件的本地副本的路径。
      *
      * <p>We will first attempt to serve the BLOB from the local storage. If the BLOB is not in
      * there, we will try to download it from the HA store.
+     * 我们将首先尝试从本地存储提供 BLOB。 如果 BLOB 不在那里，我们将尝试从 HA 商店下载它。
      *
      * @param jobId ID of the job this blob belongs to
      * @param key blob key associated with the requested file
@@ -413,10 +444,13 @@ public class BlobServer extends Thread
 
     /**
      * Retrieves the local path of a file associated with a job and a blob key.
+     * 检索与作业和 blob 键关联的文件的本地路径。
      *
      * <p>The blob server looks the blob key up in its local storage. If the file exists, it is
      * returned. If the file does not exist, it is retrieved from the HA blob store (if available)
      * or a {@link FileNotFoundException} is thrown.
+     * blob 服务器在其本地存储中查找 blob 键。 如果文件存在，则返回。
+     * 如果文件不存在，则从 HA blob 存储（如果可用）中检索它或抛出 {@link FileNotFoundException}。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param blobKey blob key associated with the requested file
@@ -439,12 +473,16 @@ public class BlobServer extends Thread
 
     /**
      * Helper to retrieve the local path of a file associated with a job and a blob key.
+     * 检索与作业和 blob 键关联的文件的本地路径的助手。
      *
      * <p>The blob server looks the blob key up in its local storage. If the file exists, it is
      * returned. If the file does not exist, it is retrieved from the HA blob store (if available)
      * or a {@link FileNotFoundException} is thrown.
+     * blob 服务器在其本地存储中查找 blob 键。 如果文件存在，则返回。
+     * 如果文件不存在，则从 HA blob 存储（如果可用）中检索它或抛出 {@link FileNotFoundException}。
      *
      * <p><strong>Assumes the read lock has already been acquired.</strong>
+     * 假设已经获得了读锁。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param blobKey blob key associated with the requested file
@@ -544,6 +582,7 @@ public class BlobServer extends Thread
 
     /**
      * Uploads the data of the given byte array for the given job to the BLOB server.
+     * 将给定作业的给定字节数组的数据上传到 BLOB 服务器。
      *
      * @param jobId the ID of the job the BLOB belongs to
      * @param value the buffer to upload
@@ -592,6 +631,7 @@ public class BlobServer extends Thread
 
     /**
      * Uploads the data from the given input stream for the given job to the BLOB server.
+     * 将给定作业的给定输入流中的数据上传到 BLOB 服务器。
      *
      * @param jobId the ID of the job the BLOB belongs to
      * @param inputStream the input stream to read the data from
@@ -651,6 +691,7 @@ public class BlobServer extends Thread
     /**
      * Moves the temporary <tt>incomingFile</tt> to its permanent location where it is available for
      * use.
+     * 将临时 <tt>incomingFile</tt> 移动到可供使用的永久位置。
      *
      * @param incomingFile temporary file created during transfer
      * @param jobId ID of the job this blob belongs to or <tt>null</tt> if job-unrelated
@@ -721,6 +762,7 @@ public class BlobServer extends Thread
     /**
      * Deletes the (job-unrelated) file associated with the blob key in the local storage of the
      * blob server.
+     * 删除与 blob 服务器本地存储中的 blob 键关联的（与作业无关的）文件。
      *
      * @param key blob key associated with the file to be deleted
      * @return <tt>true</tt> if the given blob is successfully deleted or non-existing;
@@ -733,6 +775,7 @@ public class BlobServer extends Thread
 
     /**
      * Deletes the file associated with the blob key in the local storage of the blob server.
+     * 删除 Blob 服务器本地存储中与 Blob 键关联的文件。
      *
      * @param jobId ID of the job this blob belongs to
      * @param key blob key associated with the file to be deleted
@@ -747,6 +790,7 @@ public class BlobServer extends Thread
 
     /**
      * Deletes the file associated with the blob key in the local storage of the blob server.
+     * 删除 Blob 服务器本地存储中与 Blob 键关联的文件。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param key blob key associated with the file to be deleted
@@ -779,6 +823,7 @@ public class BlobServer extends Thread
 
     /**
      * Removes all BLOBs from local and HA store belonging to the given job ID.
+     * 从属于给定作业 ID 的本地和 HA 存储中删除所有 BLOB。
      *
      * @param jobId ID of the job this blob belongs to
      * @param cleanupBlobStoreFiles True if the corresponding blob store files shall be cleaned up
@@ -834,6 +879,7 @@ public class BlobServer extends Thread
 
     /**
      * Returns the configuration used by the BLOB server.
+     * 返回 BLOB 服务器使用的配置。
      *
      * @return configuration
      */
@@ -844,6 +890,7 @@ public class BlobServer extends Thread
 
     /**
      * Returns the port on which the server is listening.
+     * 返回服务器正在侦听的端口。
      *
      * @return port on which the server is listening
      */
@@ -854,6 +901,7 @@ public class BlobServer extends Thread
 
     /**
      * Returns the blob expiry times - for testing purposes only!
+     * 返回 blob 到期时间 - 仅用于测试目的！
      *
      * @return blob expiry times (internal state!)
      */
@@ -864,6 +912,7 @@ public class BlobServer extends Thread
 
     /**
      * Tests whether the BLOB server has been requested to shut down.
+     * 测试是否已请求关闭 BLOB 服务器。
      *
      * @return True, if the server has been requested to shut down, false otherwise.
      */
@@ -885,6 +934,7 @@ public class BlobServer extends Thread
 
     /**
      * Returns all the current active connections in the BlobServer.
+     * 返回 BlobServer 中的所有当前活动连接。
      *
      * @return the list of all the active in current BlobServer
      */

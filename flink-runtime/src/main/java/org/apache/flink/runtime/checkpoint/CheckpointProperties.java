@@ -27,7 +27,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * The configuration of a checkpoint. This describes whether
- *
+ * 检查点的配置。 这描述了是否
+ *<ul>
+ *     <li>检查点是常规检查点或保存点。
+ *     <li>何时应该对检查点进行垃圾收集。
+ * </ul>
  * <ul>
  *   <li>The checkpoint is s regular checkpoint or a savepoint.
  *   <li>When the checkpoint should be garbage collected.
@@ -44,6 +48,7 @@ public class CheckpointProperties implements Serializable {
      * This has a misleading name and actually means whether the snapshot must be triggered, or
      * whether it may be rejected by the checkpoint coordinator if too many checkpoints are
      * currently in progress.
+     * 这有一个误导性的名称，实际上意味着是否必须触发快照，或者如果当前正在进行的检查点过多，检查点协调器是否可能会拒绝它。
      */
     private final boolean forced;
 
@@ -76,10 +81,13 @@ public class CheckpointProperties implements Serializable {
 
     /**
      * Returns whether the checkpoint should be forced.
+     * 返回是否应该强制检查点。
      *
      * <p>Forced checkpoints ignore the configured maximum number of concurrent checkpoints and
      * minimum time between checkpoints. Furthermore, they are not subsumed by more recent
      * checkpoints as long as they are pending.
+     * 强制检查点忽略配置的最大并发检查点数和检查点之间的最小时间。
+     * 此外，只要它们处于未决状态，它们就不会被最近的检查点所包含。
      *
      * @return <code>true</code> if the checkpoint should be forced; <code>false</code> otherwise.
      * @see CheckpointCoordinator
@@ -95,9 +103,11 @@ public class CheckpointProperties implements Serializable {
 
     /**
      * Returns whether the checkpoint should be discarded when it is subsumed.
+     * 返回在包含检查点时是否应丢弃检查点。
      *
      * <p>A checkpoint is subsumed when the maximum number of retained checkpoints is reached and a
      * more recent checkpoint completes..
+     * 当达到最大保留检查点数并且更新的检查点完成时，将包含一个检查点。
      *
      * @return <code>true</code> if the checkpoint should be discarded when it is subsumed; <code>
      *     false</code> otherwise.
@@ -110,6 +120,7 @@ public class CheckpointProperties implements Serializable {
     /**
      * Returns whether the checkpoint should be discarded when the owning job reaches the {@link
      * JobStatus#FINISHED} state.
+     * 返回当拥有的作业达到 {@link JobStatus#FINISHED} 状态时是否应丢弃检查点。
      *
      * @return <code>true</code> if the checkpoint should be discarded when the owning job reaches
      *     the {@link JobStatus#FINISHED} state; <code>false</code> otherwise.
@@ -122,6 +133,7 @@ public class CheckpointProperties implements Serializable {
     /**
      * Returns whether the checkpoint should be discarded when the owning job reaches the {@link
      * JobStatus#CANCELED} state.
+     * 返回当拥有的作业达到 {@link JobStatus#CANCELED} 状态时是否应丢弃检查点。
      *
      * @return <code>true</code> if the checkpoint should be discarded when the owning job reaches
      *     the {@link JobStatus#CANCELED} state; <code>false</code> otherwise.
@@ -134,6 +146,7 @@ public class CheckpointProperties implements Serializable {
     /**
      * Returns whether the checkpoint should be discarded when the owning job reaches the {@link
      * JobStatus#FAILED} state.
+     * 返回当拥有的作业达到 {@link JobStatus#FAILED} 状态时是否应丢弃检查点。
      *
      * @return <code>true</code> if the checkpoint should be discarded when the owning job reaches
      *     the {@link JobStatus#FAILED} state; <code>false</code> otherwise.
@@ -146,6 +159,7 @@ public class CheckpointProperties implements Serializable {
     /**
      * Returns whether the checkpoint should be discarded when the owning job reaches the {@link
      * JobStatus#SUSPENDED} state.
+     * 返回当拥有的作业达到 {@link JobStatus#SUSPENDED} 状态时是否应丢弃检查点。
      *
      * @return <code>true</code> if the checkpoint should be discarded when the owning job reaches
      *     the {@link JobStatus#SUSPENDED} state; <code>false</code> otherwise.
@@ -155,7 +169,9 @@ public class CheckpointProperties implements Serializable {
         return discardSuspended;
     }
 
-    /** Gets the type of the checkpoint (checkpoint / savepoint). */
+    /** Gets the type of the checkpoint (checkpoint / savepoint).
+     * 获取检查点的类型（检查点/保存点）。
+     * */
     public CheckpointType getCheckpointType() {
         return checkpointType;
     }
@@ -278,9 +294,11 @@ public class CheckpointProperties implements Serializable {
 
     /**
      * Creates the checkpoint properties for a (manually triggered) savepoint.
+     * 为（手动触发的）保存点创建检查点属性。
      *
      * <p>Savepoints are not queued due to time trigger limits. They have to be garbage collected
      * manually.
+     * 由于时间触发限制，保存点未排队。 它们必须手动进行垃圾收集。
      *
      * @return Checkpoint properties for a (manually triggered) savepoint.
      */
@@ -301,11 +319,15 @@ public class CheckpointProperties implements Serializable {
 
     /**
      * Creates the checkpoint properties for a checkpoint.
+     * 为检查点创建检查点属性。
      *
      * <p>Checkpoints may be queued in case too many other checkpoints are currently happening. They
      * are garbage collected automatically, except when the owning job terminates in state {@link
      * JobStatus#FAILED}. The user is required to configure the clean up behaviour on job
      * cancellation.
+     * 如果当前发生的其他检查点过多，检查点可能会排队。
+     * 它们会自动被垃圾收集，除非拥有的作业以状态 {@link JobStatus#FAILED} 终止。
+     * 用户需要配置取消作业时的清理行为。
      *
      * @return Checkpoint properties for an external checkpoint.
      */

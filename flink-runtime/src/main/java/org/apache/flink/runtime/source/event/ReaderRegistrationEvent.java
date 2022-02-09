@@ -23,6 +23,8 @@ import org.apache.flink.runtime.operators.coordination.OperatorEvent;
 /**
  * An {@link OperatorEvent} that registers a {@link
  * org.apache.flink.api.connector.source.SourceReader SourceReader} to the SourceCoordinator.
+ * 将 {@link org.apache.flink.api.connector.source.SourceReader SourceReader}
+ * 注册到 SourceCoordinator 的 {@link OperatorEvent}。
  */
 public class ReaderRegistrationEvent implements OperatorEvent {
 

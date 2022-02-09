@@ -32,6 +32,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Default implementation of {@link LogicalResult}. It is an adapter of {@link IntermediateDataSet}.
+ * {@link LogicalResult} 的默认实现。 它是 {@link IntermediateDataSet} 的适配器。
  */
 public class DefaultLogicalResult implements LogicalResult {
 

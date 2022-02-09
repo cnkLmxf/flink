@@ -24,7 +24,9 @@ import org.apache.flink.util.InstantiationUtil;
 
 import static org.apache.flink.runtime.shuffle.ShuffleServiceOptions.SHUFFLE_SERVICE_FACTORY_CLASS;
 
-/** Utility to load the pluggable {@link ShuffleServiceFactory} implementations. */
+/** Utility to load the pluggable {@link ShuffleServiceFactory} implementations.
+ * 用于加载可插入 {@link ShuffleServiceFactory} 实现的实用程序。
+ * */
 public enum ShuffleServiceLoader {
     ;
 

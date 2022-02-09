@@ -25,7 +25,9 @@ import javax.annotation.Nullable;
 
 import static org.apache.flink.util.ExceptionUtils.tryEnrichOutOfMemoryError;
 
-/** Exception utils to handle and enrich exceptions occurring in the ClusterEntrypoint. */
+/** Exception utils to handle and enrich exceptions occurring in the ClusterEntrypoint.
+ * 用于处理和丰富 ClusterEntrypoint 中发生的异常的异常工具。
+ * */
 public class ClusterEntryPointExceptionUtils {
     @VisibleForTesting
     static final String JM_DIRECT_OOM_ERROR_MESSAGE =
@@ -64,6 +66,7 @@ public class ClusterEntryPointExceptionUtils {
 
     /**
      * Tries to enrich the passed exception or its causes with additional information.
+     * 尝试使用附加信息来丰富传递的异常或其原因。
      *
      * <p>This method improves error messages for direct and metaspace {@link OutOfMemoryError}. It
      * adds descriptions about possible causes and ways of resolution.

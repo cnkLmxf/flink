@@ -21,6 +21,7 @@ package org.apache.flink.runtime.broadcast;
 /**
  * Indicates that the {@link BroadcastVariableMaterialization} has materialized the broadcast
  * variable at some point but discarded it already.
+ * 表示 {@link BroadcastVariableMaterialization} 已在某个时刻具体化了广播变量，但已将其丢弃。
  */
 public class MaterializationExpiredException extends Exception {
     private static final long serialVersionUID = 7476456353634121934L;

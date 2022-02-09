@@ -27,6 +27,8 @@ import java.util.Objects;
 /**
  * {@link ResourceVersion} implementation with {@link String} value. The resource version in
  * Kubernetes is {@link String}. And they have same length, we could easily compare string.
+ * 具有 {@link String} 值的 {@link ResourceVersion} 实现。
+ * Kubernetes 中的资源版本是 {@link String}。 而且它们的长度相同，我们可以很容易地比较字符串。
  */
 public class StringResourceVersion implements ResourceVersion<StringResourceVersion> {
 

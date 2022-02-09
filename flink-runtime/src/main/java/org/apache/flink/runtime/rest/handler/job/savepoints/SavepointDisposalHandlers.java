@@ -43,7 +43,9 @@ import org.apache.flink.shaded.netty4.io.netty.handler.codec.http.HttpResponseSt
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** Handlers to trigger the disposal of a savepoint. */
+/** Handlers to trigger the disposal of a savepoint.
+ * 触发处理保存点的处理程序。
+ * */
 public class SavepointDisposalHandlers
         extends AbstractAsynchronousOperationHandlers<OperationKey, Acknowledge> {
 

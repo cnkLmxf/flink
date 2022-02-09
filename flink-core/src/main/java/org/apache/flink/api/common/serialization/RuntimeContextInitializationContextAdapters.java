@@ -29,6 +29,8 @@ import java.util.function.Function;
  * A set of adapters between {@link RuntimeContext} and {@link
  * DeserializationSchema.InitializationContext} or {@link
  * SerializationSchema.InitializationContext}.
+ * {@link RuntimeContext} 和 {@link DeserializationSchema.InitializationContext}
+ * 或 {@link SerializationSchema.InitializationContext} 之间的一组适配器。
  */
 @Internal
 public final class RuntimeContextInitializationContextAdapters {

@@ -48,6 +48,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * Fenced extension of the {@link AkkaInvocationHandler}. This invocation handler will be used in
  * combination with the {@link FencedRpcEndpoint}. The fencing is done by wrapping all messages in a
  * {@link FencedMessage}.
+ * {@link AkkaInvocationHandler} 的围栏扩展。 此调用处理程序将与 {@link FencedRpcEndpoint} 结合使用。
+ * 隔离是通过将所有消息包装在 {@link FencedMessage} 中来完成的。
  *
  * @param <F> type of the fencing token
  */

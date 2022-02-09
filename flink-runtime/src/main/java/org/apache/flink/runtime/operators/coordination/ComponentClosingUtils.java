@@ -26,10 +26,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-/** A util class to help with a clean component shutdown. */
+/** A util class to help with a clean component shutdown.
+ * 一个实用类，用于帮助干净的组件关闭。
+ * */
 public class ComponentClosingUtils {
 
-    /** Utility class, not meant to be instantiated. */
+    /** Utility class, not meant to be instantiated.
+     * 实用程序类，不打算实例化。
+     * */
     private ComponentClosingUtils() {}
 
     /**

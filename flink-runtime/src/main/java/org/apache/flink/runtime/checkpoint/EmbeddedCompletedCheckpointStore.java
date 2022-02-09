@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * An embedded in-memory checkpoint store, which supports shutdown and suspend. You can use this to
  * test HA as long as the factory always returns the same store instance.
+ * 嵌入式内存检查点存储，支持关闭和挂起。 只要工厂始终返回相同的商店实例，您就可以使用它来测试 HA。
  */
 public class EmbeddedCompletedCheckpointStore implements CompletedCheckpointStore {
 

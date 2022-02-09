@@ -44,9 +44,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Partition request client for remote partition requests.
+ * 用于远程分区请求的分区请求客户端。
  *
  * <p>This client is shared by all remote input channels, which request a partition from the same
  * {@link ConnectionID}.
+ * 此客户端由所有远程输入通道共享，这些通道从相同的 {@link ConnectionID} 请求一个分区。
  */
 public class NettyPartitionRequestClient implements PartitionRequestClient {
 
@@ -60,7 +62,9 @@ public class NettyPartitionRequestClient implements PartitionRequestClient {
 
     private final PartitionRequestClientFactory clientFactory;
 
-    /** If zero, the underlying TCP channel can be safely closed. */
+    /** If zero, the underlying TCP channel can be safely closed.
+     * 如果为零，则可以安全地关闭底层 TCP 通道。
+     * */
     private final AtomicDisposableReferenceCounter closeReferenceCounter =
             new AtomicDisposableReferenceCounter();
 
@@ -92,9 +96,11 @@ public class NettyPartitionRequestClient implements PartitionRequestClient {
 
     /**
      * Requests a remote intermediate result partition queue.
+     * 请求远程中间结果分区队列。
      *
      * <p>The request goes to the remote producer, for which this partition request client instance
      * has been created.
+     * 请求发送到远程生产者，已为其创建了此分区请求客户端实例。
      */
     @Override
     public void requestSubpartition(
@@ -161,10 +167,13 @@ public class NettyPartitionRequestClient implements PartitionRequestClient {
 
     /**
      * Sends a task event backwards to an intermediate result partition producer.
+     * 将任务事件向后发送到中间结果分区生产者。
      *
      * <p>Backwards task events flow between readers and writers and therefore will only work when
      * both are running at the same time, which is only guaranteed to be the case when both the
      * respective producer and consumer task run pipelined.
+     * 反向任务事件在读取器和写入器之间流动，因此只有在两者同时运行时才会起作用，
+     * 只有在各自的生产者和消费者任务都以流水线方式运行时才能保证这种情况。
      */
     @Override
     public void sendTaskEvent(

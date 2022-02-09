@@ -21,6 +21,7 @@ package org.apache.flink.runtime.scheduler;
 /**
  * Manages the parallelism properties for a vertex in the execution graph, as well as how they can
  * change during runtime.
+ * 管理执行图中顶点的并行属性，以及它们在运行时如何更改。
  */
 public interface VertexParallelismInformation {
     /**

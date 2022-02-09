@@ -30,6 +30,9 @@ import java.util.Arrays;
  * between serialization versions. Concrete subclasses should typically override the {@link
  * #write(DataOutputView)} and {@link #read(DataInputView)}, thereby calling super to ensure version
  * checking.
+ * 这是 {@link IOReadableWritable} 的抽象基类，它允许区分序列化版本。
+ * 具体的子类通常应该覆盖 {@link #write(DataOutputView)} 和 {@link #read(DataInputView)}，
+ * 从而调用 super 以确保版本检查。
  */
 @Internal
 public abstract class VersionedIOReadableWritable implements IOReadableWritable, Versioned {
@@ -50,6 +53,7 @@ public abstract class VersionedIOReadableWritable implements IOReadableWritable,
     /**
      * Returns the found serialization version. If this instance was not read from serialized bytes
      * but simply instantiated, then the current version is returned.
+     * 返回找到的序列化版本。 如果此实例不是从序列化字节中读取而是简单地实例化，则返回当前版本。
      *
      * @return the read serialization version, or the current version if the instance was not read
      *     from bytes.
@@ -60,10 +64,13 @@ public abstract class VersionedIOReadableWritable implements IOReadableWritable,
 
     /**
      * Returns the compatible version values.
+     * 返回兼容的版本值。
      *
      * <p>By default, the base implementation recognizes only the current version (identified by
      * {@link #getVersion()}) as compatible. This method can be used as a hook and may be overridden
      * to identify more compatible versions.
+     * 默认情况下，基本实现仅将当前版本（由 {@link #getVersion()} 标识）识别为兼容的。
+     * 此方法可以用作挂钩，并且可以被覆盖以识别更兼容的版本。
      *
      * @return an array of integers representing the compatible version values.
      */

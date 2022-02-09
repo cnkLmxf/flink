@@ -20,7 +20,9 @@ package org.apache.flink.runtime.client;
 
 import org.apache.flink.api.common.JobID;
 
-/** An exception indicating that the job has failed in the INITIALIZING job status. */
+/** An exception indicating that the job has failed in the INITIALIZING job status.
+ * 指示作业在 INITIALIZING 作业状态下失败的异常。
+ * */
 public class JobInitializationException extends JobExecutionException {
 
     private static final long serialVersionUID = 2818087325120827526L;

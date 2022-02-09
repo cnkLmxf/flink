@@ -36,10 +36,14 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * An implementation of the {@link HighAvailabilityServices} for the non-high-availability case
  * where all participants (ResourceManager, JobManagers, TaskManagers) run in the same process.
+ * {@link HighAvailabilityServices} 的实现，
+ * 用于所有参与者（ResourceManager、JobManagers、TaskManagers）在同一进程中运行的非高可用性情况。
  *
  * <p>This implementation has no dependencies on any external services. It returns a fix
  * pre-configured ResourceManager, and stores checkpoints and metadata simply on the heap or on a
  * local file system and therefore in a storage without guarantees.
+ * 此实现不依赖于任何外部服务。 它返回一个修复预配置的 ResourceManager，
+ * 并将检查点和元数据简单地存储在堆上或本地文件系统上，因此存储在没有保证的存储中。
  */
 public class EmbeddedHaServices extends AbstractNonHaServices {
 

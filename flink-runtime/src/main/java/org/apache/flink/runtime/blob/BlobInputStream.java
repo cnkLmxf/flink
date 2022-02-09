@@ -33,14 +33,18 @@ import static org.apache.flink.runtime.blob.BlobUtils.readLength;
 /**
  * The BLOB input stream is a special implementation of an {@link InputStream} to read the results
  * of a GET operation from the BLOB server.
+ * BLOB 输入流是 {@link InputStream} 的特殊实现，用于从 BLOB 服务器读取 GET 操作的结果。
  */
 final class BlobInputStream extends InputStream {
 
-    /** The wrapped input stream from the underlying TCP connection. */
+    /** The wrapped input stream from the underlying TCP connection.
+     * 来自底层 TCP 连接的包装输入流。
+     * */
     private final InputStream wrappedInputStream;
 
     /**
      * The wrapped output stream from the underlying TCP connection.
+     * 来自底层 TCP 连接的包装输出流。
      *
      * <p>This is used to signal the success or failure of the read operation after receiving the
      * whole BLOB and verifying the checksum.
@@ -50,26 +54,33 @@ final class BlobInputStream extends InputStream {
     /**
      * The BLOB key if the GET operation has been performed on a content-addressable BLOB, otherwise
      * <code>null</code>.
+     *
+     * 如果 GET 操作已在内容可寻址的 BLOB 上执行，则为 BLOB 键，否则为null
      */
     private final BlobKey blobKey;
 
     /**
      * The number of bytes to read from the underlying input stream before indicating an
      * end-of-stream.
+     * 在指示流结束之前从底层输入流读取的字节数。
      */
     private final int bytesToReceive;
 
     /**
      * The message digest to verify the integrity of the retrieved content-addressable BLOB. If the
      * BLOB is non-content-addressable, this is <code>null</code>.
+     * 用于验证检索到的内容可寻址 BLOB 完整性的消息摘要。 如果 BLOB 是不可内容寻址的，则为 <code>null</code>。
      */
     private final MessageDigest md;
 
-    /** The number of bytes already read from the underlying input stream. */
+    /** The number of bytes already read from the underlying input stream.
+     * 已经从底层输入流中读取的字节数。
+     * */
     private int bytesReceived;
 
     /**
      * Constructs a new BLOB input stream.
+     * 构造一个新的 BLOB 输入流。
      *
      * @param wrappedInputStream the underlying input stream to read from
      * @param blobKey the expected BLOB key for content-addressable BLOBs, <code>null</code> for
@@ -96,6 +107,7 @@ final class BlobInputStream extends InputStream {
 
     /**
      * Convenience method to throw an {@link EOFException}.
+     * 抛出 {@link EOFException} 的便捷方法。
      *
      * @throws EOFException thrown to indicate the underlying input stream did not provide as much
      *     data as expected

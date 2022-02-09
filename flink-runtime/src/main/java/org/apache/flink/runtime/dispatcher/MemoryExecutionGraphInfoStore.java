@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 /**
  * {@link ExecutionGraphInfoStore} implementation which stores the {@link ArchivedExecutionGraph} in
  * memory.
+ * {@link ExecutionGraphInfoStore} 实现将 {@link ArchivedExecutionGraph} 存储在内存中。
  */
 public class MemoryExecutionGraphInfoStore implements ExecutionGraphInfoStore {
 

@@ -21,6 +21,7 @@ package org.apache.flink.runtime.topology;
 /**
  * Represents a logical or execution task. Each vertex can consume data from multiple {@link
  * Result}. Each vertex can produce multiple {@link Result}.
+ * 表示逻辑或执行任务。 每个顶点可以使用来自多个 {@link Result} 的数据。 每个顶点可以产生多个{@link Result}。
  */
 public interface Vertex<
         VID extends VertexID,

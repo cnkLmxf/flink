@@ -40,6 +40,7 @@ import java.util.Map;
 /**
  * This class holds the deprecated implementations of readers for state meta infos. They can be
  * removed when we drop backwards compatibility.
+ * 此类包含状态元信息的阅读器已弃用的实现。 当我们放弃向后兼容性时，它们可以被删除。
  */
 public class LegacyStateMetaInfoReaders {
 

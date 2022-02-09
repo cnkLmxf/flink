@@ -27,6 +27,7 @@ import java.util.Arrays;
 /**
  * Checkpoint output stream that allows to write raw keyed state in a partitioned way, split into
  * key-groups.
+ * 检查点输出流，允许以分区方式写入原始键控状态，拆分为键组。
  */
 @PublicEvolving
 public final class KeyedStateCheckpointOutputStream

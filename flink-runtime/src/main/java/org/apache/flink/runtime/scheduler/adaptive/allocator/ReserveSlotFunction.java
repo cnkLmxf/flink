@@ -21,7 +21,9 @@ import org.apache.flink.runtime.clusterframework.types.AllocationID;
 import org.apache.flink.runtime.clusterframework.types.ResourceProfile;
 import org.apache.flink.runtime.jobmaster.slotpool.PhysicalSlot;
 
-/** A function for reserving slots. */
+/** A function for reserving slots.
+ * 预留槽的功能。
+ * */
 @FunctionalInterface
 public interface ReserveSlotFunction {
     /**

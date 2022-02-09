@@ -22,6 +22,7 @@ import org.apache.flink.annotation.PublicEvolving;
 
 /**
  * This constraint indicates when a task should be scheduled considering its inputs status.
+ * 此约束指示何时应考虑任务的输入状态来安排任务。
  *
  * @deprecated {@code InputDependencyConstraint} is not used anymore and will be deleted in one of
  *     the future versions. It was previously used in the scheduler implementations that were
@@ -31,9 +32,13 @@ import org.apache.flink.annotation.PublicEvolving;
 @Deprecated
 public enum InputDependencyConstraint {
 
-    /** Schedule the task if any input is consumable. */
+    /** Schedule the task if any input is consumable.
+     * 如果有任何输入是可消耗的，请安排任务。
+     * */
     ANY,
 
-    /** Schedule the task if all the inputs are consumable. */
+    /** Schedule the task if all the inputs are consumable.
+     * 如果所有输入都是可消耗的，则安排任务。
+     * */
     ALL
 }

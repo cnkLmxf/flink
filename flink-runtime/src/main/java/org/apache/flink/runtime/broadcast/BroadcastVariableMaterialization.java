@@ -40,6 +40,7 @@ import java.util.Set;
  * This class represents a single materialization of a broadcast variable and maintains a reference
  * count for it. If the reference count reaches zero the variable is no longer accessible and will
  * eventually be garbage-collected.
+ * 此类表示广播变量的单个具体化并为其维护一个引用计数。 如果引用计数达到零，则该变量将不再可访问，最终将被垃圾收集。
  *
  * @param <T> The type of the elements in the broadcast data set.
  */
@@ -83,6 +84,8 @@ public class BroadcastVariableMaterialization<T, C> {
         // materializer
         // that way, other tasks can de-register (in case of failure) while materialization is
         // happening
+        // 仅在我们跟踪引用并决定谁应该成为物化器时才持有引用锁
+        // 这样，其他任务可以在物化发生时取消注册（在失败的情况下）
         synchronized (references) {
             if (disposed) {
                 throw new MaterializationExpiredException();

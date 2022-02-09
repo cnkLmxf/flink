@@ -24,6 +24,7 @@ import org.apache.flink.runtime.clusterframework.types.ResourceProfile;
 /**
  * Exception denoting that a slot request can not be fulfilled by any slot in the cluster. This
  * usually indicates that the slot request should not be pended or retried.
+ * 异常表示集群中的任何插槽都无法满足插槽请求。 这通常表明槽请求不应被挂起或重试。
  */
 public class UnfulfillableSlotRequestException extends ResourceManagerException {
     private static final long serialVersionUID = 4453490263648758730L;

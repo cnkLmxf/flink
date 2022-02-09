@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The join driver implements the logic of a join operator at runtime. It instantiates either hash
  * or sort-merge based strategies to find joining pairs of records.
+ * 连接驱动程序在运行时实现连接运算符的逻辑。 它实例化基于散列或排序合并的策略以查找连接的记录对。
  *
  * @see org.apache.flink.api.common.functions.FlatJoinFunction
  */

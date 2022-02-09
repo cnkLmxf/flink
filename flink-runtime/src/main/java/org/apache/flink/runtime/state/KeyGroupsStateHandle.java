@@ -28,6 +28,8 @@ import java.util.Optional;
  * A handle to the partitioned stream operator state after it has been checkpointed. This state
  * consists of a range of key group snapshots. A key group is subset of the available key space. The
  * key groups are identified by their key group indices.
+ * 检查点后分区流运算符状态的句柄。 此状态由一系列密钥组快照组成。 密钥组是可用密钥空间的子集。
+ * 密钥组由它们的密钥组索引标识。
  */
 public class KeyGroupsStateHandle implements StreamStateHandle, KeyedStateHandle {
 

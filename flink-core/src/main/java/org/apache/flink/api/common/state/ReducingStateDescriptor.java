@@ -30,6 +30,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@link StateDescriptor} for {@link ReducingState}. This can be used to create partitioned
  * reducing state using {@link
  * org.apache.flink.api.common.functions.RuntimeContext#getReducingState(ReducingStateDescriptor)}.
+ * {@link ReducingState} 的 {@link StateDescriptor}。
+ * 这可用于使用 {@link org.apache.flink.api.common.functions.RuntimeContext#getReducingState(ReducingStateDescriptor)} 创建分区还原状态。
  *
  * @param <T> The type of the values that can be added to the list state.
  */
@@ -42,10 +44,13 @@ public class ReducingStateDescriptor<T> extends StateDescriptor<ReducingState<T>
 
     /**
      * Creates a new {@code ReducingStateDescriptor} with the given name, type, and default value.
+     * 使用给定的名称、类型和默认值创建一个新的 {@code ReducingStateDescriptor}。
      *
      * <p>If this constructor fails (because it is not possible to describe the type via a class),
      * consider using the {@link #ReducingStateDescriptor(String, ReduceFunction, TypeInformation)}
      * constructor.
+     * 如果此构造函数失败（因为无法通过类描述类型），
+     * 请考虑使用 {@link #ReducingStateDescriptor(String, ReduceFunction, TypeInformation)} 构造函数。
      *
      * @param name The (unique) name for the state.
      * @param reduceFunction The {@code ReduceFunction} used to aggregate the state.
@@ -64,6 +69,7 @@ public class ReducingStateDescriptor<T> extends StateDescriptor<ReducingState<T>
 
     /**
      * Creates a new {@code ReducingStateDescriptor} with the given name and default value.
+     * 使用给定的名称和默认值创建一个新的 {@code ReducingStateDescriptor}。
      *
      * @param name The (unique) name for the state.
      * @param reduceFunction The {@code ReduceFunction} used to aggregate the state.
@@ -77,6 +83,7 @@ public class ReducingStateDescriptor<T> extends StateDescriptor<ReducingState<T>
 
     /**
      * Creates a new {@code ValueStateDescriptor} with the given name and default value.
+     * 使用给定的名称和默认值创建一个新的 {@code ValueStateDescriptor}。
      *
      * @param name The (unique) name for the state.
      * @param reduceFunction The {@code ReduceFunction} used to aggregate the state.
@@ -88,7 +95,9 @@ public class ReducingStateDescriptor<T> extends StateDescriptor<ReducingState<T>
         this.reduceFunction = checkNotNull(reduceFunction);
     }
 
-    /** Returns the reduce function to be used for the reducing state. */
+    /** Returns the reduce function to be used for the reducing state.
+     * 返回要用于归约状态的归约函数。
+     * */
     public ReduceFunction<T> getReduceFunction() {
         return reduceFunction;
     }

@@ -109,7 +109,9 @@ import java.util.stream.Collectors;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** Default implementation of the {@link ExecutionGraph}. */
+/** Default implementation of the {@link ExecutionGraph}.
+ * {@link ExecutionGraph} 的默认实现。
+ * */
 public class DefaultExecutionGraph implements ExecutionGraph, InternalExecutionGraphAccessor {
 
     /** The log object used for debugging. */

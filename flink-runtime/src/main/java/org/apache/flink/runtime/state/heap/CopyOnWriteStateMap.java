@@ -48,17 +48,23 @@ import static org.apache.flink.util.CollectionUtil.MAX_ARRAY_SIZE;
 /**
  * Implementation of Flink's in-memory state maps with copy-on-write support. This map does not
  * support null values for key or namespace.
+ * 支持写时复制的 Flink 内存状态映射的实现。 此映射不支持键或命名空间的空值。
  *
  * <p>{@link CopyOnWriteStateMap} sacrifices some peak performance and memory efficiency for
  * features like incremental rehashing and asynchronous snapshots through copy-on-write.
  * Copy-on-write tries to minimize the amount of copying by maintaining version meta data for both,
  * the map structure and the state objects. However, we must often proactively copy state objects
  * when we hand them to the user.
+ * {@link CopyOnWriteStateMap} 通过写时复制为增量重新散列和异步快照等功能牺牲了一些峰值性能和内存效率。
+ * Copy-on-write 试图通过维护映射结构和状态对象的版本元数据来最小化复制量。
+ * 但是，当我们将状态对象交给用户时，我们经常必须主动复制它们。
  *
  * <p>As for any state backend, user should not keep references on state objects that they obtained
  * from state backends outside the scope of the user function calls.
+ * 对于任何状态后端，用户不应将他们从状态后端获得的状态对象的引用保留在用户函数调用范围之外。
  *
  * <p>Some brief maintenance notes:
+ * 一些简短的维护说明：
  *
  * <p>1) Flattening the underlying data structure from nested maps (namespace) -> (key) -> (state)
  * to one flat map (key, namespace) -> (state) brings certain performance trade-offs. In theory, the
@@ -68,31 +74,46 @@ import static org.apache.flink.util.CollectionUtil.MAX_ARRAY_SIZE;
  * introduce more cache misses because we need to follow the namespace object on all operations to
  * ensure entry identities. Obviously, copy-on-write can also add memory overhead. So does the meta
  * data to track copy-on-write requirement (state and entry versions on {@link StateMapEntry}).
+ * 1）将底层数据结构从嵌套映射（命名空间）->（键）->（状态）扁平化为一个扁平映射（键、命名空间）->（状态）带来一定的性能权衡。
+ * 理论上，与嵌套地图相比，平面地图的间接层级少了一层。 但是，嵌套映射自然会删除 #equals() 为 true 的命名空间对象。
+ * 这可能会导致扁平化版本出现大量冗余命名空间对象。
+ * 反过来，这些又会再次引入更多的缓存未命中，因为我们需要在所有操作上遵循命名空间对象以确保条目身份。
+ * 显然，写时复制也会增加内存开销。 跟踪写入时复制要求的元数据也是如此（{@link StateMapEntry} 上的状态和条目版本）。
  *
  * <p>2) A flat map structure is a lot easier when it comes to tracking copy-on-write of the map
  * structure.
+ * 2) 在跟踪映射结构的写入时复制时，平面映射结构要容易得多。
  *
  * <p>3) Nested structure had the (never used) advantage that we can easily drop and iterate whole
  * namespaces. This could give locality advantages for certain access pattern, e.g. iterating a
  * namespace.
+ * 3）嵌套结构具有（从未使用过的）优势，我们可以轻松地删除和迭代整个命名空间。 这可以为某些访问模式提供局部优势，例如 迭代命名空间。
  *
  * <p>4) Serialization format is changed from namespace-prefix compressed (as naturally provided
  * from the old nested structure) to making all entries self contained as (key, namespace, state).
+ * 4) 序列化格式从压缩命名空间前缀（从旧的嵌套结构自然提供）更改为使所有条目自包含为（键、命名空间、状态）。
  *
  * <p>5) Currently, a state map can only grow, but never shrinks on low load. We could easily add
  * this if required.
+ * 5）目前，状态图只能增长，但在低负载时永远不会缩小。 如果需要，我们可以轻松添加它。
  *
  * <p>6) Heap based state backends like this can easily cause a lot of GC activity. Besides using G1
  * as garbage collector, we should provide an additional state backend that operates on off-heap
  * memory. This would sacrifice peak performance (due to de/serialization of objects) for a lower,
  * but more constant throughput and potentially huge simplifications w.r.t. copy-on-write.
+ * 6）像这样的基于堆的状态后端很容易导致大量的 GC 活动。 除了使用 G1 作为垃圾收集器之外，
+ * 我们还应该提供一个额外的状态后端，它在堆外内存上运行。
+ * 这将牺牲峰值性能（由于对象的反序列化/序列化）以获得更低但更恒定的吞吐量和潜在的巨大简化 w.r.t. 写时复制。
  *
  * <p>7) We could try a hybrid of a serialized and object based backends, where key and namespace of
  * the entries are both serialized in one byte-array.
+ * 7) 我们可以尝试混合使用序列化和基于对象的后端，其中条目的键和命名空间都在一个字节数组中序列化。
  *
  * <p>9) We could consider smaller types (e.g. short) for the version counting and think about some
  * reset strategy before overflows, when there is no snapshot running. However, this would have to
  * touch all entries in the map.
+ * 9) 我们可以考虑较小的类型（例如short）用于版本计数，并在没有快照运行时考虑溢出前的一些重置策略。
+ * 但是，这将不得不触及地图中的所有条目。
  *
  * <p>This class was initially based on the {@link java.util.HashMap} implementation of the Android
  * JDK, but is now heavily customized towards the use case of map for state entries. IMPORTANT: the
@@ -100,6 +121,10 @@ import static org.apache.flink.util.CollectionUtil.MAX_ARRAY_SIZE;
  * map beyond the life cycle of per-element operations. Or phrased differently, all get-update-put
  * operations on a mapping should be within one call of processElement. Otherwise, the user must
  * take care of taking deep copies, e.g. for caching purposes.
+ * 此类最初基于 Android JDK 的 {@link java.util.HashMap} 实现，但现在针对状态条目映射的用例进行了大量定制。
+ * 重要提示：此类的合同依赖于用户在每个元素操作的生命周期之外不持有对此映射返回的对象的任何引用。
+ * 或者换一种说法，映射上的所有 get-update-put 操作都应该在 processElement 的一次调用中。
+ * 否则，用户必须注意进行深拷贝，例如 用于缓存目的。
  *
  * @param <K> type of key.
  * @param <N> type of namespace.

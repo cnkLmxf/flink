@@ -32,8 +32,10 @@ import java.util.UUID;
 
 /**
  * The handle to states of an incremental snapshot.
+ * 增量快照的状态句柄。
  *
  * <p>The states contained in an incremental snapshot include:
+ * 增量快照中包含的状态包括：
  *
  * <ul>
  *   <li>Created shared state which includes shared files produced since the last completed
@@ -47,14 +49,23 @@ import java.util.UUID;
  *       other checkpoints.
  *   <li>Backend meta state which includes the information of existing states.
  * </ul>
+ * <ul>
+ *     <li>已创建共享状态，其中包括自上次完成检查点以来生成的共享文件。 如果检查点成功完成，则可以通过后续检查点引用这些文件。
+ *     <li>引用的共享状态，包括在先前检查点中具体化的共享文件。 在我们将其注册到 {@link SharedStateRegistry} 之前，
+ *     所有引用的共享状态句柄都只是占位符，因此我们不会发送两次状态句柄，因为我们知道它们已经存在于检查点协调器上。
+ *     <li>私有状态，包括所有其他文件，通常是可变的，不能被其他检查点共享。 <li>包含现有状态信息的后端元状态。
+ *   </ul>
  *
  * When this should become a completed checkpoint on the checkpoint coordinator, it must first be
  * registered with a {@link SharedStateRegistry}, so that all placeholder state handles to
  * previously existing state are replaced with the originals.
+ * 当这应该成为检查点协调器上的已完成检查点时，它必须首先向 {@link SharedStateRegistry} 注册，
+ * 以便先前存在状态的所有占位符状态句柄都替换为原始状态。
  *
  * <p>IMPORTANT: This class currently overrides equals and hash code only for testing purposes. They
  * should not be called from production code. This means this class is also not suited to serve as a
  * key, e.g. in hash maps.
+ * 重要提示：此类当前仅出于测试目的覆盖等于和哈希码。 不应从生产代码中调用它们。 这意味着这个类也不适合用作键，例如 在哈希图中。
  */
 public class IncrementalRemoteKeyedStateHandle implements IncrementalKeyedStateHandle {
 

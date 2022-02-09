@@ -25,6 +25,10 @@ package org.apache.flink.runtime.state;
  * Object#equals(Object)}. The contract of this interface is: When two objects are equal, they
  * indicate the same priority, but indicating the same priority does not require that both objects
  * are equal.
+ * 此接口的工作原理类似于 {@link Comparable}，用于确定两个对象之间的优先级。
+ * 此接口与 {@link Comparable} 的主要区别在于不需要遵循 {@link Comparable#compareTo(Object)}
+ * 和 {@link Object#equals(Object)} 之间的通常约定。
+ * 这个接口的约定是：当两个对象相等时，它们表示相同的优先级，但表示相同的优先级并不要求两个对象相等。
  *
  * @param <T> type of the compared objects.
  */
@@ -37,6 +41,7 @@ public interface PriorityComparator<T> {
     /**
      * Compares two objects for priority. Returns a negative integer, zero, or a positive integer as
      * the first argument has lower, equal to, or higher priority than the second.
+     * 比较两个对象的优先级。 返回负整数、零或正整数，因为第一个参数的优先级低于、等于或高于第二个参数。
      *
      * @param left left operand in the comparison by priority.
      * @param right left operand in the comparison by priority.

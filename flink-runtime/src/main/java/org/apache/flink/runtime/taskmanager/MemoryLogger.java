@@ -37,7 +37,12 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * A thread the periodically logs statistics about:
- *
+ * 定期记录以下统计信息的线程：
+ *<ul>
+ *     <li>堆和非堆内存使用情况
+ *     <li>内存池和池使用情况
+ *     <li>垃圾收集时间和计数
+ *   </ul>
  * <ul>
  *   <li>Heap and non-heap memory usage
  *   <li>Memory pools and pool usage

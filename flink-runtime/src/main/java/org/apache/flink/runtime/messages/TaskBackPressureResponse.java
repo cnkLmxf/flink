@@ -23,7 +23,9 @@ import org.apache.flink.util.Preconditions;
 
 import java.io.Serializable;
 
-/** Response to the task back pressure request rpc call. */
+/** Response to the task back pressure request rpc call.
+ * 响应任务背压请求rpc调用。
+ * */
 public class TaskBackPressureResponse implements Serializable {
 
     private static final long serialVersionUID = -4786454630050578031L;

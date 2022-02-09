@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.taskmanager;
 
-/** Actions which can be performed on a {@link Task}. */
+/** Actions which can be performed on a {@link Task}.
+ * 可以在 {@link Task} 上执行的操作。
+ * */
 public interface TaskActions {
 
     /**

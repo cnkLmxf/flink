@@ -22,7 +22,9 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.TaskManagerOptions;
 import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 
-/** Interface to access {@link TaskExecutor} information. */
+/** Interface to access {@link TaskExecutor} information.
+ * 访问 {@link TaskExecutor} 信息的接口。
+ * */
 public interface TaskManagerRuntimeInfo {
 
     /**

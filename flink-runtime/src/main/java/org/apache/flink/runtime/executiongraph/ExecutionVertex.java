@@ -57,6 +57,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * The ExecutionVertex is a parallel subtask of the execution. It may be executed once, or several
  * times, each of which time it spawns an {@link Execution}.
+ * ExecutionVertex 是执行的并行子任务。 它可能会被执行一次或多次，每次都会产生一个 {@link Execution}。
  */
 public class ExecutionVertex
         implements AccessExecutionVertex, Archiveable<ArchivedExecutionVertex> {
@@ -79,10 +80,14 @@ public class ExecutionVertex
 
     private final Time timeout;
 
-    /** The name in the format "myTask (2/7)", cached to avoid frequent string concatenations. */
+    /** The name in the format "myTask (2/7)", cached to avoid frequent string concatenations.
+     * 名称格式为“myTask (2/7)”，缓存以避免频繁的字符串连接。
+     * */
     private final String taskNameWithSubtask;
 
-    /** The current or latest execution attempt of this vertex's task. */
+    /** The current or latest execution attempt of this vertex's task.
+     * 此顶点任务的当前或最新执行尝试。
+     * */
     private Execution currentExecution; // this field must never be null
 
     private final ArrayList<InputSplit> inputSplits;
@@ -174,6 +179,8 @@ public class ExecutionVertex
      * name as returned by {@link #getTaskName()}, 'x' is the parallel subtask index as returned by
      * {@link #getParallelSubtaskIndex()}{@code + 1}, and 'y' is the total number of tasks, as
      * returned by {@link #getTotalNumberOfParallelSubtasks()}.
+     * 以 'taskname (x/y)' 样式创建一个简单的名称表示，其中 'taskname' 是 {@link #getTaskName()} 返回的名称，
+     * 'x' 是 {@link  #getParallelSubtaskIndex()}{@code + 1}返回的并行子任务索引，'y' 是任务的总数，由 {@link #getTotalNumberOfParallelSubtasks()} 返回。
      *
      * @return A simple name representation in the form 'myTask (2/7)'
      */
@@ -297,6 +304,7 @@ public class ExecutionVertex
     /**
      * Gets the location where the latest completed/canceled/failed execution of the vertex's task
      * happened.
+     * 获取最近完成/取消/失败执行顶点任务的位置。
      *
      * @return The latest prior execution location, or null, if there is none, yet.
      */
@@ -340,6 +348,7 @@ public class ExecutionVertex
     /**
      * Gets the preferred location to execute the current task execution attempt, based on the state
      * that the execution attempt will resume.
+     * 根据执行尝试将恢复的状态，获取执行当前任务执行尝试的首选位置。
      */
     public Optional<TaskManagerLocation> getPreferredLocationBasedOnState() {
         if (currentExecution.getTaskRestore() != null) {
@@ -353,7 +362,9 @@ public class ExecutionVertex
     //   Actions
     // --------------------------------------------------------------------------------------------
 
-    /** Archives the current Execution and creates a new Execution for this vertex. */
+    /** Archives the current Execution and creates a new Execution for this vertex.
+     * 归档当前执行并为此顶点创建一个新的执行。
+     * */
     public void resetForNewExecution() {
         resetForNewExecutionInternal(System.currentTimeMillis());
     }
@@ -443,6 +454,7 @@ public class ExecutionVertex
 
     /**
      * Cancels this ExecutionVertex.
+     * 取消此 ExecutionVertex。
      *
      * @return A future that completes once the execution has reached its final state.
      */
@@ -465,6 +477,7 @@ public class ExecutionVertex
     /**
      * This method marks the task as failed, but will make no attempt to remove task execution from
      * the task manager. It is intended for cases where the task is known not to be deployed yet.
+     * 此方法将任务标记为失败，但不会尝试从任务管理器中删除任务执行。 它适用于已知尚未部署任务的情况。
      *
      * @param t The exception that caused the task to fail.
      */

@@ -40,9 +40,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A utility to wrap a {@link ResultPartitionWriter} for that sends a "consumable" notification on
  * the first record.
+ * 用于包装 {@link ResultPartitionWriter} 的实用程序，用于在第一条记录上发送“消耗”通知。
  *
  * <p>Note: This is only needed for lazy batch scheduling and thus an artifact that can be removed
  * once we drop lazy-from-sources scheduling.
+ * 注意：这仅在惰性批处理调度中需要，因此一旦我们放弃惰性从源调度，就可以删除该工件。
  */
 public class ConsumableNotifyingResultPartitionWriterDecorator {
 

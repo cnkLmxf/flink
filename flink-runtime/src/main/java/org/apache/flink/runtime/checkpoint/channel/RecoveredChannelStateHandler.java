@@ -62,6 +62,7 @@ interface RecoveredChannelStateHandler<Info, Context> extends AutoCloseable {
      * Recover the data from buffer. This method is taking over the ownership of the
      * bufferWithContext and is fully responsible for cleaning it up both on the happy path and in
      * case of an error.
+     * 从缓冲区中恢复数据。 此方法接管了 bufferWithContext 的所有权，并完全负责在快乐路径上和发生错误时清理它。
      */
     void recover(Info info, int oldSubtaskIndex, BufferWithContext<Context> bufferWithContext)
             throws IOException;
@@ -118,6 +119,7 @@ class InputChannelRecoveredStateHandler
     @Override
     public void close() throws IOException {
         // note that we need to finish all RecoveredInputChannels, not just those with state
+        // 请注意，我们需要完成所有 RecoveredInputChannels，而不仅仅是那些有状态的
         for (final InputGate inputGate : inputGates) {
             inputGate.finishReadRecoveredState();
         }

@@ -20,7 +20,9 @@ package org.apache.flink.runtime.state;
 
 import java.util.concurrent.Executor;
 
-/** Simple factory to produce {@link SharedStateRegistry} objects. */
+/** Simple factory to produce {@link SharedStateRegistry} objects.
+ * 生成 {@link SharedStateRegistry} 对象的简单工厂。
+ * */
 public interface SharedStateRegistryFactory {
 
     /**

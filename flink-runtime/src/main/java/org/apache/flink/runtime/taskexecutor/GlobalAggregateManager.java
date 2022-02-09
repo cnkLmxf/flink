@@ -27,6 +27,9 @@ import java.io.IOException;
  * state amongst parallel tasks in a job. It is not designed for high throughput updates and the
  * aggregates do NOT survive a job failure. Each call to the updateGlobalAggregate() method results
  * in serialized RPC communication with the JobMaster so use with care.
+ * 该接口允许访问临时的、命名的、全局聚合。 这可用于在作业中的并行任务之间共享状态。
+ * 它不是为高吞吐量更新而设计的，并且聚合不会在作业失败后幸存下来。
+ * 每次调用 updateGlobalAggregate() 方法都会导致与 JobMaster 的序列化 RPC 通信，因此请谨慎使用。
  */
 public interface GlobalAggregateManager {
     /**

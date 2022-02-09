@@ -25,6 +25,7 @@ import java.io.Serializable;
 /**
  * A filter function is a predicate applied individually to each record. The predicate decides
  * whether to keep the element, or to discard it.
+ * 过滤器函数是单独应用于每条记录的谓词。 谓词决定是保留元素还是丢弃它。
  *
  * <p>The basic syntax for using a FilterFunction is as follows:
  *
@@ -36,6 +37,7 @@ import java.io.Serializable;
  *
  * <p><strong>IMPORTANT:</strong> The system assumes that the function does not modify the elements
  * on which the predicate is applied. Violating this assumption can lead to incorrect results.
+ * <strong>重要提示</strong>：系统假定该函数不会修改应用谓词的元素。 违反此假设可能会导致不正确的结果。
  *
  * @param <T> The type of the filtered elements.
  */
@@ -45,10 +47,12 @@ public interface FilterFunction<T> extends Function, Serializable {
 
     /**
      * The filter function that evaluates the predicate.
+     * 评估谓词的过滤器函数。
      *
      * <p><strong>IMPORTANT:</strong> The system assumes that the function does not modify the
      * elements on which the predicate is applied. Violating this assumption can lead to incorrect
      * results.
+     * <strong>重要提示</strong>：系统假定该函数不会修改应用谓词的元素。 违反此假设可能会导致不正确的结果。
      *
      * @param value The value to be filtered.
      * @return True for values that should be retained, false for values to be filtered out.

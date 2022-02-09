@@ -35,7 +35,9 @@ import java.util.concurrent.TimeUnit;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Samples thread infos of tasks. */
+/** Samples thread infos of tasks.
+ * 采样任务的线程信息。
+ * */
 class ThreadInfoSampleService implements Closeable {
 
     private final ScheduledExecutorService scheduledExecutor;

@@ -48,6 +48,9 @@ import java.util.List;
  * The chained variant of the combine driver which is also implemented in GroupReduceCombineDriver.
  * In contrast to the GroupReduceCombineDriver, this driver's purpose is only to combine the values
  * received in the chain. It is used by the GroupReduce and the CombineGroup transformation.
+ * 组合驱动程序的链式变体，也在 GroupReduceCombineDriver 中实现。
+ * 与 GroupReduceCombineDriver 相比，此驱动程序的目的只是组合链中接收到的值。
+ * GroupReduce 和 CombineGroup 转换使用它。
  *
  * @see org.apache.flink.runtime.operators.GroupReduceCombineDriver
  * @param <IN> The data type consumed by the combiner.
@@ -60,6 +63,7 @@ public class SynchronousChainedCombineDriver<IN, OUT> extends ChainedDriver<IN, 
 
     /**
      * Fix length records with a length below this threshold will be in-place sorted, if possible.
+     * 如果可能，长度低于此阈值的固定长度记录将被就地排序。
      */
     private static final int THRESHOLD_FOR_IN_PLACE_SORTING = 32;
 

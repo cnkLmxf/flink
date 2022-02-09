@@ -32,6 +32,7 @@ import java.util.Iterator;
 /**
  * Implementation of an iterator that fetches a block of data into main memory and offers resettable
  * access to the data in that block.
+ * 一个迭代器的实现，它将一个数据块提取到主内存中，并提供对该块中数据的可重置访问。
  */
 public class ReusingBlockResettableIterator<T> extends NonReusingBlockResettableIterator<T> {
 

@@ -40,6 +40,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Default implementation of KeyedStateStore that currently forwards state registration to a {@link
  * RuntimeContext}.
+ * 当前将状态注册转发到 {@link RuntimeContext} 的 KeyedStateStore 的默认实现。
  */
 public class DefaultKeyedStateStore implements KeyedStateStore {
 

@@ -20,10 +20,13 @@ package org.apache.flink.runtime.state;
 
 /**
  * Interface for restore operation.
+ * 还原操作接口。
  *
  * @param <R> Generic type of the restore result.
  */
 public interface RestoreOperation<R> {
-    /** Restores state that was previously snapshot-ed from the provided state handles. */
+    /** Restores state that was previously snapshot-ed from the provided state handles.
+     * 从提供的状态句柄恢复先前快照的状态。
+     * */
     R restore() throws Exception;
 }

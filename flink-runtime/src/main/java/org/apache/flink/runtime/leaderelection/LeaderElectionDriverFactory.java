@@ -20,13 +20,17 @@ package org.apache.flink.runtime.leaderelection;
 
 import org.apache.flink.runtime.rpc.FatalErrorHandler;
 
-/** Factory for creating {@link LeaderElectionDriver} with different implementation. */
+/** Factory for creating {@link LeaderElectionDriver} with different implementation.
+ * 用于创建具有不同实现的 {@link LeaderElectionDriver} 的工厂。
+ * */
 public interface LeaderElectionDriverFactory {
 
     /**
      * Create a specific {@link LeaderElectionDriver} and start the necessary services. For example,
      * LeaderLatch and NodeCache in Zookeeper, KubernetesLeaderElector and ConfigMap watcher in
      * Kubernetes.
+     * 创建一个特定的 {@link LeaderElectionDriver} 并启动必要的服务。
+     * 例如 Zookeeper 中的 LeaderLatch 和 NodeCache，Kubernetes 中的 KubernetesLeaderElector 和 ConfigMap watcher。
      *
      * @param leaderEventHandler handler for the leader election driver to process leader events.
      * @param leaderContenderDescription leader contender description.

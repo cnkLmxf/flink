@@ -45,6 +45,7 @@ import java.util.List;
 /**
  * Combine operator for Reduce functions, standalone (not chained). Sorts and groups and reduces
  * data, but never spills the sort. May produce multiple partially aggregated groups.
+ * 合并运算符用于 Reduce 函数，独立（未链接）。 排序、分组和减少数据，但从不溢出排序。 可能会产生多个部分聚合的组。
  *
  * @param <T> The data type consumed and produced by the combiner.
  */
@@ -54,6 +55,7 @@ public class ReduceCombineDriver<T> implements Driver<ReduceFunction<T>, T> {
 
     /**
      * Fix length records with a length below this threshold will be in-place sorted, if possible.
+     * 如果可能，长度低于此阈值的固定长度记录将被就地排序。
      */
     private static final int THRESHOLD_FOR_IN_PLACE_SORTING = 32;
 

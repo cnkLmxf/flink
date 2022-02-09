@@ -32,23 +32,34 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A FineGrainedTaskManagerSlot represents a slot located in a TaskManager. It maintains states of
  * the slot needed in {@link FineGrainedSlotManager}.
+ * FineGrainedTaskManagerSlot 表示位于 TaskManager 中的插槽。
+ * 它维护 {@link FineGrainedSlotManager} 中所需的插槽状态。
  *
  * <p>Note that it should not in the state of {@link SlotState#FREE}.
+ * 请注意，它不应处于 {@link SlotState#FREE} 状态。
  */
 public class FineGrainedTaskManagerSlot implements TaskManagerSlotInformation {
     /** The resource profile of this slot. */
     private final ResourceProfile resourceProfile;
 
-    /** Gateway to the TaskExecutor which owns the slot. */
+    /** Gateway to the TaskExecutor which owns the slot.
+     * 拥有该插槽的 TaskExecutor 的网关。
+     * */
     private final TaskExecutorConnection taskManagerConnection;
 
-    /** Allocation id for which this slot has been allocated. */
+    /** Allocation id for which this slot has been allocated.
+     * 已分配此插槽的分配 ID。
+     * */
     private final AllocationID allocationId;
 
-    /** Job id for which this slot has been allocated. */
+    /** Job id for which this slot has been allocated.
+     * 已为其分配此插槽的作业 ID。
+     * */
     private final JobID jobId;
 
-    /** Current state of this slot. Should be either PENDING or ALLOCATED. */
+    /** Current state of this slot. Should be either PENDING or ALLOCATED.
+     * 此插槽的当前状态。 应该是 PENDING 或 ALLOCATED。
+     * */
     private SlotState state;
 
     public FineGrainedTaskManagerSlot(

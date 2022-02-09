@@ -38,6 +38,7 @@ import static org.apache.flink.runtime.operators.coordination.ComponentClosingUt
 
 /**
  * A class that will recreate a new {@link OperatorCoordinator} instance when reset to checkpoint.
+ * 重置为检查点时将创建新的 {@link Operation Coordinator} 实例的类。
  */
 public class RecreateOnResetOperatorCoordinator implements OperatorCoordinator {
     private static final Logger LOG =
@@ -162,7 +163,9 @@ public class RecreateOnResetOperatorCoordinator implements OperatorCoordinator {
 
     // ---------------------
 
-    /** The provider for a private RecreateOnResetOperatorCoordinator. */
+    /** The provider for a private RecreateOnResetOperatorCoordinator.
+     * 私有 RecreateOnResetOperatorCoordinator 的提供者。
+     * */
     public abstract static class Provider implements OperatorCoordinator.Provider {
         private static final long serialVersionUID = 3002837631612629071L;
         private final OperatorID operatorID;
@@ -199,6 +202,9 @@ public class RecreateOnResetOperatorCoordinator implements OperatorCoordinator {
      * it from making any further impact to the job master. This is done by quiesce the operator
      * coordinator context. After the quiescence, the "reading" methods will still work, but the
      * "writing" methods will become a no-op or fail immediately.
+     * 围绕操作员协调器上下文的包装类，以允许静止。
+     * 当创建新的操作员协调器时，我们需要静默旧的操作员协调器，以防止它对作业主机产生任何进一步的影响。
+     * 这是通过静默操作员协调器上下文来完成的。 静止后，“读取”方法仍然有效，但“写入”方法将变为无操作或立即失败。
      */
     @VisibleForTesting
     static class QuiesceableContext implements OperatorCoordinator.Context {
@@ -253,7 +259,17 @@ public class RecreateOnResetOperatorCoordinator implements OperatorCoordinator {
      * The class wraps an {@link OperatorCoordinator} instance. It is going to be accessed by two
      * different thread: the scheduler thread and the closing thread created in {@link
      * #closeAsync(long)}. A DeferrableCoordinator could be in three states:
-     *
+     * 一个有助于实现完全异步 {@link #resetToCheckpoint(long, byte[])} 行为的类。 该类包装了一个 {@link OperatorCoordinator} 实例。
+     * 它将被两个不同的线程访问：调度程序线程和在 {@link #closeAsync(long)} 中创建的关闭线程。
+     * DeferrableCoordinator 可以处于三种状态：
+     *<ul>
+     *     <li><b>延迟：deferred</b> 内部 {@link OperatorCoordinator} 尚未创建，
+     *     所有对 RecreateOnResetOperatorCoordinator 的方法调用都添加到队列中。
+     *     <li><b>赶上进度：catching up</b> 内部 {@link OperatorCoordinator} 已创建并正在处理排队的方法调用。
+     *   在这种状态下，所有对 RecreateOnResetOperatorCoordinator 的方法调用仍将被排入队列以确保正确的执行顺序。
+     *     <li><b>赶上：caught up</b> 内部 {@link OperatorCoordinator} 已完成处理所有排队的方法调用。
+     *     从此时起，对该协调器的方法调用将直接在调用者线程中执行，而不是放入队列中。
+     * </ul>
      * <ul>
      *   <li><b>deferred:</b> The internal {@link OperatorCoordinator} has not been created and all
      *       the method calls to the RecreateOnResetOperatorCoordinator are added to a Queue.

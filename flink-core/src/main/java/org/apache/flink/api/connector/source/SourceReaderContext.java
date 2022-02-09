@@ -23,7 +23,9 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.metrics.MetricGroup;
 import org.apache.flink.util.UserCodeClassLoader;
 
-/** The class that expose some context from runtime to the {@link SourceReader}. */
+/** The class that expose some context from runtime to the {@link SourceReader}.
+ * 将一些上下文从运行时暴露给 {@link SourceReader} 的类。
+ * */
 @PublicEvolving
 public interface SourceReaderContext {
 
@@ -46,11 +48,15 @@ public interface SourceReaderContext {
      * Sends a split request to the source's {@link SplitEnumerator}. This will result in a call to
      * the {@link SplitEnumerator#handleSplitRequest(int, String)} method, with this reader's
      * parallel subtask id and the hostname where this reader runs.
+     * 向源的 {@link SplitEnumerator} 发送拆分请求。
+     * 这将导致调用 {@link SplitEnumerator#handleSplitRequest(int, String)} 方法，
+     * 并使用此阅读器的并行子任务 ID 和此阅读器运行的主机名。
      */
     void sendSplitRequest();
 
     /**
      * Send a source event to the source coordinator.
+     * 向源协调器发送源事件。
      *
      * @param sourceEvent the source event to coordinator.
      */
@@ -59,6 +65,7 @@ public interface SourceReaderContext {
     /**
      * Gets the {@link UserCodeClassLoader} to load classes that are not in system's classpath, but
      * are part of the jar file of a user job.
+     * 获取 {@link UserCodeClassLoader} 以加载不在系统类路径中但属于用户作业的 jar 文件的类。
      *
      * @see UserCodeClassLoader
      */

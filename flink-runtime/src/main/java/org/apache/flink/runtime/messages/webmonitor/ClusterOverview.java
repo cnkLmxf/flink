@@ -26,6 +26,7 @@ import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonPro
 /**
  * Response to the {@link RequestStatusOverview} message, carrying a description of the Flink
  * cluster status.
+ * 对 {@link RequestStatusOverview} 消息的响应，带有 Flink 集群状态的描述。
  */
 public class ClusterOverview extends JobsOverview {
 

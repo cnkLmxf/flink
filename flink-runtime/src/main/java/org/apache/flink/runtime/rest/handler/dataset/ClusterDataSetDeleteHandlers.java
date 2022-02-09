@@ -45,7 +45,9 @@ import java.util.concurrent.CompletableFuture;
 public class ClusterDataSetDeleteHandlers
         extends AbstractAsynchronousOperationHandlers<OperationKey, Void> {
 
-    /** {@link TriggerHandler} implementation for the cluster data set delete operation. */
+    /** {@link TriggerHandler} implementation for the cluster data set delete operation.
+     * {@link TriggerHandler} 实现集群数据集删除操作。
+     * */
     public class ClusterDataSetDeleteTriggerHandler
             extends TriggerHandler<
                     RestfulGateway,

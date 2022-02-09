@@ -28,7 +28,9 @@ import org.apache.flink.runtime.memory.MemoryManager;
 
 import java.util.List;
 
-/** Common methods for all Hash Join Iterators. */
+/** Common methods for all Hash Join Iterators.
+ * 所有 Hash Join 迭代器的通用方法。
+ * */
 public class HashJoinIteratorBase {
 
     public <BT, PT> MutableHashTable<BT, PT> getHashJoin(

@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.dispatcher;
 
-/** Exception indicating that a Dispatcher operation is temporarily unavailable. */
+/** Exception indicating that a Dispatcher operation is temporarily unavailable.
+ * 指示 Dispatcher 操作暂时不可用的异常。
+ * */
 public class UnavailableDispatcherOperationException extends DispatcherException {
     private static final long serialVersionUID = -45499335133622792L;
 

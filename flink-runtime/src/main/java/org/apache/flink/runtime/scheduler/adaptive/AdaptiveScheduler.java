@@ -129,19 +129,26 @@ import java.util.function.Function;
  * A {@link SchedulerNG} implementation that uses the declarative resource management and
  * automatically adapts the parallelism in case not enough resource could be acquired to run at the
  * configured parallelism, as described in FLIP-160.
+ * {@link SchedulerNG} 实现使用声明性资源管理并自动调整并行度，以防没有足够的资源以配置的并行度运行，如 FLIP-160 中所述。
  *
  * <p>This scheduler only supports jobs with streaming semantics, i.e., all vertices are connected
  * via pipelined data-exchanges.
+ * 此调度程序仅支持具有流式语义的作业，即所有顶点都通过流水线数据交换连接。
  *
  * <p>The implementation is spread over multiple {@link State} classes that control which RPCs are
  * allowed in a given state and what state transitions are possible (see the FLIP for an overview).
  * This class can thus be roughly split into 2 parts:
+ * 该实现分布在多个 {@link State} 类中，
+ * 这些类控制在给定状态下允许哪些 RPC 以及哪些状态转换是可能的（请参阅 FLIP 以获得概述）。 因此，此类可以大致分为两部分：
  *
  * <p>1) RPCs, which must forward the call to the state via {@link State#tryRun(Class,
  * ThrowingConsumer, String)} or {@link State#tryCall(Class, FunctionWithException, String)}.
+ * 1) RPC，必须通过 {@link State#tryRun(Class, ThrowingConsumer, String)} 或
+ * {@link State#tryCall(Class, FunctionWithException, String)} 将调用转发到状态。
  *
  * <p>2) Context methods, which are called by states, to either transition into another state or
  * access functionality of some component in the scheduler.
+ * 2) 由状态调用的上下文方法，用于转换到另一个状态或访问调度程序中某些组件的功能。
  */
 public class AdaptiveScheduler
         implements SchedulerNG,

@@ -26,7 +26,9 @@ import org.apache.flink.runtime.dispatcher.DispatcherGateway;
 
 import java.util.concurrent.CompletableFuture;
 
-/** A facade over the {@link Dispatcher} that exposes specific functionality. */
+/** A facade over the {@link Dispatcher} that exposes specific functionality.
+ * {@link Dispatcher} 之上的外观，它公开了特定的功能。
+ * */
 @Internal
 public class DefaultDispatcherGatewayService
         implements AbstractDispatcherLeaderProcess.DispatcherGatewayService {

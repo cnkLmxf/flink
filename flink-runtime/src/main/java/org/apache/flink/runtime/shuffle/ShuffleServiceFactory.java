@@ -24,9 +24,11 @@ import org.apache.flink.runtime.io.network.partition.consumer.IndexedInputGate;
 
 /**
  * Interface for shuffle service factory implementations.
+ * shuffle 服务工厂实现的接口。
  *
  * <p>This component is a light-weight factory for {@link ShuffleMaster} and {@link
  * ShuffleEnvironment}.
+ * 该组件是 {@link ShuffleMaster} 和 {@link ShuffleEnvironment} 的轻量级工厂。
  *
  * @param <SD> partition shuffle descriptor used for producer/consumer deployment and their data
  *     exchange.
@@ -38,6 +40,7 @@ public interface ShuffleServiceFactory<
 
     /**
      * Factory method to create a specific {@link ShuffleMaster} implementation.
+     * 创建特定 {@link ShuffleMaster} 实现的工厂方法。
      *
      * @param configuration Flink configuration
      * @return shuffle manager implementation
@@ -46,6 +49,7 @@ public interface ShuffleServiceFactory<
 
     /**
      * Factory method to create a specific local {@link ShuffleEnvironment} implementation.
+     * 创建特定本地 {@link ShuffleEnvironment} 实现的工厂方法。
      *
      * @param shuffleEnvironmentContext local context
      * @return local shuffle service environment implementation

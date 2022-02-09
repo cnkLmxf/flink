@@ -34,6 +34,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
 /**
+ * 从接收到的 netty 缓冲区中解码消息。 此解码器假定消息具有以下格式
  * Decodes messages from the received netty buffers. This decoder assumes the messages have the
  * following format: +-----------------------------------+--------------------------------+ |
  * FRAME_HEADER || MESSAGE_HEADER | DATA BUFFER (Optional) |
@@ -43,6 +44,8 @@ import static org.apache.flink.util.Preconditions.checkState;
  * message decoders according to the message type. During this process The frame header and message
  * header are only accumulated if they span received multiple netty buffers, and the data buffer is
  * copied directly to the buffer of corresponding input channel to avoid more copying.
+ * 该解码器对帧头进行解码，并根据消息类型将以下工作委托给相应的消息解码器。
+ * 在这个过程中，帧头和报文头只有跨越接收到的多个netty缓冲区才会累加，数据缓冲区直接复制到对应输入通道的缓冲区中，避免更多的复制。
  *
  * <p>The format of the frame header is +------------------+------------------+--------+ | FRAME
  * LENGTH (4) | MAGIC NUMBER (4) | ID (1) | +------------------+------------------+--------+
@@ -56,10 +59,14 @@ public class NettyMessageClientDecoderDelegate extends ChannelInboundHandlerAdap
     /** The decoder for messages other than BufferResponse. */
     private final NettyMessageDecoder nonBufferResponseDecoder;
 
-    /** The accumulation buffer for the frame header. */
+    /** The accumulation buffer for the frame header.
+     * 帧头的累积缓冲区。
+     * */
     private ByteBuf frameHeaderBuffer;
 
-    /** The decoder for the current message. It is null if we are decoding the frame header. */
+    /** The decoder for the current message. It is null if we are decoding the frame header.
+     * 当前消息的解码器。 如果我们正在解码帧头，则为空。
+     * */
     private NettyMessageDecoder currentDecoder;
 
     NettyMessageClientDecoderDelegate(NetworkClientHandler networkClientHandler) {
@@ -83,6 +90,8 @@ public class NettyMessageClientDecoderDelegate extends ChannelInboundHandlerAdap
      * Releases resources when the channel is closed. When exceptions are thrown during processing
      * received netty buffers, {@link CreditBasedPartitionRequestClientHandler} is expected to catch
      * the exception and close the channel and trigger this notification.
+     * 通道关闭时释放资源。 当在处理接收到的 netty 缓冲区期间抛出异常时，
+     * {@link CreditBasedPartitionRequestClientHandler} 应捕获异常并关闭通道并触发此通知。
      *
      * @param ctx The context of the channel close notification.
      */

@@ -48,14 +48,18 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A data source that produces a sequence of numbers (longs). This source is useful for testing and
  * for cases that just need a stream of N events of any kind.
+ * 产生一系列数字（长整数）的数据源。 此源对于测试和只需要任何类型的 N 个事件流的情况很有用。
  *
  * <p>The source splits the sequence into as many parallel sub-sequences as there are parallel
  * source readers. Each sub-sequence will be produced in order. Consequently, if the parallelism is
  * limited to one, this will produce one sequence in order.
+ * 源将序列拆分为与并行源读取器一样多的并行子序列。 每个子序列将按顺序生成。 因此，如果并行度被限制为一个，这将按顺序产生一个序列。
  *
  * <p>This source is always bounded. For very long sequences (for example over the entire domain of
  * long integer values), user may want to consider executing the application in a streaming manner,
  * because, despite the fact that the produced stream is bounded, the end bound is pretty far away.
+ * 这个源总是有界的。 对于非常长的序列（例如在整个长整数值域上），
+ * 用户可能希望考虑以流式方式执行应用程序，因为尽管生成的流是有界的，但最终的边界还是很远的。
  */
 public class NumberSequenceSource
         implements Source<

@@ -31,6 +31,7 @@ import static org.apache.flink.runtime.io.compression.Lz4BlockCompressionFactory
 /**
  * Decode data written with {@link Lz4BlockCompressor}. It reads from and writes to byte arrays
  * provided from the outside, thus reducing copy time.
+ * 解码使用 {@link Lz4BlockCompressor} 写入的数据。 它读取和写入从外部提供的字节数组，从而减少复制时间。
  *
  * <p>This class is copied and modified from {@link net.jpountz.lz4.LZ4BlockInputStream}.
  */

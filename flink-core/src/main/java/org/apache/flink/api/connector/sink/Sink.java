@@ -36,6 +36,12 @@ import java.util.Optional;
  * GlobalCommitter} is responsible for committing an aggregated committable, which we call the
  * global committable. The {@link GlobalCommitter} is always executed with a parallelism of 1. Note:
  * Developers need to ensure the idempotence of {@link Committer} and {@link GlobalCommitter}.
+ * 这个接口让 sink 开发者可以构建一个简单的 sink 拓扑，如果有 {@link Committer} 或 {@link GlobalCommitter}，
+ * 它可以保证批处理和流执行模式下的恰好一次语义。 1. {@link SinkWriter} 负责生成可提交。
+ *   2. {@link Committer} 负责提交单个可提交。
+ *   3. {@link GlobalCommitter} 负责提交一个聚合的可提交表，我们称之为全局可提交表。
+ *   {@link GlobalCommitter} 总是以 1 的并行度执行。
+ *   注意：开发者需要保证 {@link Committer} 和 {@link GlobalCommitter} 的幂等性。
  *
  * @param <InputT> The type of the sink's input
  * @param <CommT> The type of information needed to commit data staged by the sink
@@ -81,12 +87,15 @@ public interface Sink<InputT, CommT, WriterStateT, GlobalCommT> extends Serializ
     /** Return the serializer of the writer's state type. */
     Optional<SimpleVersionedSerializer<WriterStateT>> getWriterStateSerializer();
 
-    /** The interface exposes some runtime info for creating a {@link SinkWriter}. */
+    /** The interface exposes some runtime info for creating a {@link SinkWriter}.
+     * 该接口公开了一些用于创建 {@link SinkWriter} 的运行时信息。
+     * */
     interface InitContext {
 
         /**
          * Returns a {@link ProcessingTimeService} that can be used to get the current time and
          * register timers.
+         * 返回可用于获取当前时间和注册计时器的 {@link ProcessingTimeService}。
          */
         ProcessingTimeService getProcessingTimeService();
 
@@ -100,6 +109,7 @@ public interface Sink<InputT, CommT, WriterStateT, GlobalCommT> extends Serializ
     /**
      * A service that allows to get the current processing time and register timers that will
      * execute the given {@link ProcessingTimeCallback} when firing.
+     * 允许获取当前处理时间并注册将在触发时执行给定 {@link ProcessingTimeCallback} 的计时器的服务。
      */
     interface ProcessingTimeService {
 
@@ -108,6 +118,7 @@ public interface Sink<InputT, CommT, WriterStateT, GlobalCommT> extends Serializ
 
         /**
          * Invokes the given callback at the given timestamp.
+         * 在给定的时间戳调用给定的回调。
          *
          * @param time Time when the callback is invoked at
          * @param processingTimerCallback The callback to be invoked.
@@ -117,11 +128,13 @@ public interface Sink<InputT, CommT, WriterStateT, GlobalCommT> extends Serializ
         /**
          * A callback that can be registered via {@link #registerProcessingTimer(long,
          * ProcessingTimeCallback)}.
+         * 可以通过 {@link #registerProcessingTimer(long, ProcessingTimeCallback)} 注册的回调。
          */
         interface ProcessingTimeCallback {
 
             /**
              * This method is invoked with the time which the callback register for.
+             * 使用回调注册的时间调用此方法。
              *
              * @param time The time this callback was registered for.
              */

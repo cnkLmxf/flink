@@ -34,38 +34,56 @@ import java.util.concurrent.CompletableFuture;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Subpartition data reader for {@link SortMergeResultPartition}. */
+/** Subpartition data reader for {@link SortMergeResultPartition}.
+ * @link SortMergeResultPartition} 的子分区数据读取器。
+ * */
 class SortMergeSubpartitionReader
         implements ResultSubpartitionView, Comparable<SortMergeSubpartitionReader> {
 
     private final Object lock = new Object();
 
-    /** A {@link CompletableFuture} to be completed when this subpartition reader is released. */
+    /** A {@link CompletableFuture} to be completed when this subpartition reader is released.
+     * 释放此子分区阅读器时要完成的 {@link CompletableFuture}。
+     * */
     private final CompletableFuture<?> releaseFuture = new CompletableFuture<>();
 
-    /** Listener to notify when data is available. */
+    /** Listener to notify when data is available.
+     * 数据可用时通知的侦听器。
+     * */
     private final BufferAvailabilityListener availabilityListener;
 
-    /** Buffers already read which can be consumed by netty thread. */
+    /** Buffers already read which can be consumed by netty thread.
+     * 已经读取的缓冲区可以被 netty 线程使用。
+     * */
     @GuardedBy("lock")
     private final Queue<Buffer> buffersRead = new ArrayDeque<>();
 
-    /** File reader used to read buffer from. */
+    /** File reader used to read buffer from.
+     * 用于读取缓冲区的文件读取器。
+     * */
     private final PartitionedFileReader fileReader;
 
-    /** Number of remaining non-event buffers in the buffer queue. */
+    /** Number of remaining non-event buffers in the buffer queue.
+     * 缓冲区队列中剩余的非事件缓冲区数。
+     * */
     @GuardedBy("lock")
     private int dataBufferBacklog;
 
-    /** Whether this reader is released or not. */
+    /** Whether this reader is released or not.
+     * 此阅读器是否已发布。
+     * */
     @GuardedBy("lock")
     private boolean isReleased;
 
-    /** Cause of failure which should be propagated to the consumer. */
+    /** Cause of failure which should be propagated to the consumer.
+     * 应该传播给消费者的失败原因。
+     * */
     @GuardedBy("lock")
     private Throwable failureCause;
 
-    /** Sequence number of the next buffer to be sent to the consumer. */
+    /** Sequence number of the next buffer to be sent to the consumer.
+     * 要发送给消费者的下一个缓冲区的序列号。
+     * */
     private int sequenceNumber;
 
     SortMergeSubpartitionReader(
@@ -117,7 +135,9 @@ class SortMergeSubpartitionReader
         }
     }
 
-    /** This method is called by the IO thread of {@link SortMergeResultPartitionReadScheduler}. */
+    /** This method is called by the IO thread of {@link SortMergeResultPartitionReadScheduler}.
+     * 该方法由 {@link SortMergeResultPartitionReadScheduler} 的 IO 线程调用。
+     * */
     boolean readBuffers(Queue<MemorySegment> buffers, BufferRecycler recycler) throws IOException {
         while (!buffers.isEmpty()) {
             MemorySegment segment = buffers.poll();

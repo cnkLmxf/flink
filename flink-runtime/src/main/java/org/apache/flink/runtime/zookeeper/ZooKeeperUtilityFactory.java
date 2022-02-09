@@ -33,8 +33,12 @@ import java.io.Serializable;
  * Creates ZooKeeper utility classes without exposing the {@link CuratorFramework} dependency. The
  * curator framework is cached in this instance and shared among all created ZooKeeper utility
  * instances. This requires that the utility classes DO NOT close the provided curator framework.
+ * 创建 ZooKeeper 实用程序类而不暴露 {@link CuratorFramework} 依赖项。
+ * curator 框架缓存在此实例中，并在所有创建的 ZooKeeper 实用程序实例之间共享。
+ * 这要求实用程序类不要关闭提供的 curator 框架。
  *
  * <p>The curator framework is closed by calling the {@link #close(boolean)} method.
+ * curator 框架通过调用 {@link #close(boolean)} 方法关闭。
  */
 public class ZooKeeperUtilityFactory {
 

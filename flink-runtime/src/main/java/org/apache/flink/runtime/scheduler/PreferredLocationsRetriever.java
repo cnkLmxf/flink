@@ -25,7 +25,9 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-/** Component to retrieve the preferred locations of an execution vertex. */
+/** Component to retrieve the preferred locations of an execution vertex.
+ * 检索执行顶点的首选位置的组件。
+ * */
 @FunctionalInterface
 public interface PreferredLocationsRetriever {
 

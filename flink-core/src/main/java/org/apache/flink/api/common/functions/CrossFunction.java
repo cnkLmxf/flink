@@ -25,11 +25,14 @@ import java.io.Serializable;
 /**
  * Interface for Cross functions. Cross functions are applied to the Cartesian product of their
  * inputs and are called for each pair of elements.
+ * 交叉功能的接口。 交叉函数应用于其输入的笛卡尔积，并为每对元素调用。
  *
  * <p>They are optional, a means of convenience that can be used to directly manipulate the pair of
  * elements instead of producing 2-tuples containing the pairs.
+ * 它们是可选的，一种方便的方式，可用于直接操作元素对，而不是生成包含元素对的 2 元组。
  *
  * <p>The basic syntax for using Cross on two data sets is as follows:
+ * 在两个数据集上使用 Cross 的基本语法如下：
  *
  * <pre>{@code
  * DataSet<X> set1 = ...;
@@ -39,6 +42,7 @@ import java.io.Serializable;
  * }</pre>
  *
  * <p>{@code set1} is here considered the first input, {@code set2} the second input.
+ * {@code set1} 在这里被视为第一个输入，{@code set2} 被视为第二个输入。
  *
  * @param <IN1> The type of the elements in the first input.
  * @param <IN2> The type of the elements in the second input.
@@ -50,6 +54,7 @@ public interface CrossFunction<IN1, IN2, OUT> extends Function, Serializable {
 
     /**
      * Cross UDF method. Called once per pair of elements in the Cartesian product of the inputs.
+     * 交叉UDF方法。 输入的笛卡尔积中的每对元素调用一次。
      *
      * @param val1 Element from first input.
      * @param val2 Element from the second input.

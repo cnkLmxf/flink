@@ -26,7 +26,9 @@ import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonPro
 
 import java.util.Collection;
 
-/** An overview of how many jobs are in which status. */
+/** An overview of how many jobs are in which status.
+ * 多少工作处于何种状态的概览。
+ * */
 public class JobsOverview implements InfoMessage {
 
     private static final long serialVersionUID = -3699051943490133183L;
@@ -127,6 +129,7 @@ public class JobsOverview implements InfoMessage {
 
     /**
      * Combines the given jobs overview with this.
+     * 将给定的作业概述与此相结合。
      *
      * @param jobsOverview to combine with this
      * @return Combined jobs overview

@@ -22,10 +22,13 @@ import org.apache.flink.runtime.executiongraph.ExecutionAttemptID;
 
 import java.util.Collection;
 
-/** Interface for triggering actions in case of state mismatches. */
+/** Interface for triggering actions in case of state mismatches.
+ * 在状态不匹配的情况下触发操作的接口。
+ * */
 public interface ExecutionDeploymentReconciliationHandler {
     /**
      * Called if some executions are expected to be hosted on a task executor, but aren't.
+     * 如果预计某些执行将托管在任务执行器上，但不是，则调用此方法。
      *
      * @param executionAttemptIds ids of the missing deployments
      * @param hostingTaskExecutor expected hosting task executor
@@ -35,6 +38,7 @@ public interface ExecutionDeploymentReconciliationHandler {
 
     /**
      * Called if some executions are hosted on a task executor, but we don't expect them.
+     * 如果某些执行托管在任务执行器上，则调用，但我们不希望它们。
      *
      * @param executionAttemptIds ids of the unknown executions
      * @param hostingTaskExecutor hosting task executor

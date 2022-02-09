@@ -29,7 +29,9 @@ import java.util.Map;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Base class for checkpoint statistics. */
+/** Base class for checkpoint statistics.
+ * 检查点统计信息的基类。
+ * */
 public abstract class AbstractCheckpointStats implements Serializable {
 
     private static final long serialVersionUID = 1041218202028265151L;
@@ -37,16 +39,24 @@ public abstract class AbstractCheckpointStats implements Serializable {
     /** ID of this checkpoint. */
     final long checkpointId;
 
-    /** Timestamp when the checkpoint was triggered at the coordinator. */
+    /** Timestamp when the checkpoint was triggered at the coordinator.
+     * 在协调器处触发检查点的时间戳。
+     * */
     final long triggerTimestamp;
 
-    /** {@link TaskStateStats} accessible by their ID. */
+    /** {@link TaskStateStats} accessible by their ID.
+     * {@link TaskStateStats} 可通过其 ID 访问。
+     * */
     final Map<JobVertexID, TaskStateStats> taskStats;
 
-    /** Total number of subtasks over all tasks. */
+    /** Total number of subtasks over all tasks.
+     * 所有任务的子任务总数。
+     * */
     final int numberOfSubtasks;
 
-    /** Properties of the checkpoint. */
+    /** Properties of the checkpoint.
+     * 检查点的属性。
+     * */
     final CheckpointProperties props;
 
     AbstractCheckpointStats(
@@ -81,22 +91,29 @@ public abstract class AbstractCheckpointStats implements Serializable {
 
     /**
      * Returns the total checkpoint state size over all subtasks.
+     * 返回所有子任务的总检查点状态大小。
      *
      * @return Total checkpoint state size over all subtasks.
      */
     public abstract long getStateSize();
 
-    /** @return the total number of processed bytes during the checkpoint. */
+    /** @return the total number of processed bytes during the checkpoint.
+     *  检查点期间处理的字节总数。
+     * */
     public abstract long getProcessedData();
 
-    /** @return the total number of persisted bytes during the checkpoint. */
+    /** @return the total number of persisted bytes during the checkpoint.
+     * 检查点期间的持久字节总数。
+     * */
     public abstract long getPersistedData();
 
     /**
      * Returns the latest acknowledged subtask stats or <code>null</code> if none was acknowledged
      * yet.
+     * 返回最新确认的子任务统计信息，如果尚未确认，则返回 <code>null</code>。
      *
      * @return Latest acknowledged subtask stats or <code>null</code>
+     * 最新确认的子任务统计信息或 <code>null</code>
      */
     @Nullable
     public abstract SubtaskStateStats getLatestAcknowledgedSubtaskStats();
@@ -175,6 +192,8 @@ public abstract class AbstractCheckpointStats implements Serializable {
     /**
      * Returns the duration of this checkpoint calculated as the time since triggering until the
      * latest acknowledged subtask or <code>-1</code> if no subtask was acknowledged yet.
+     * 返回此检查点的持续时间，计算为从触发到最近确认的子任务的时间，如果还没有确认子任务，
+     * 则返回 <code>-1</code>。
      *
      * @return Duration of this checkpoint or <code>-1</code> if no subtask was acknowledged yet.
      */

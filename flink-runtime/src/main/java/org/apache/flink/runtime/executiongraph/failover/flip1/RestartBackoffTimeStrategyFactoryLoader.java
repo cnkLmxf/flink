@@ -32,7 +32,9 @@ import java.util.Optional;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A utility class to load {@link RestartBackoffTimeStrategy.Factory} from the configuration. */
+/** A utility class to load {@link RestartBackoffTimeStrategy.Factory} from the configuration.
+ * 从配置中加载 {@link RestartBackoffTimeStrategy.Factory} 的实用程序类。
+ * */
 public final class RestartBackoffTimeStrategyFactoryLoader {
 
     static final int DEFAULT_RESTART_ATTEMPTS = Integer.MAX_VALUE;
@@ -43,9 +45,17 @@ public final class RestartBackoffTimeStrategyFactoryLoader {
 
     /**
      * Creates {@link RestartBackoffTimeStrategy.Factory} from the given configuration.
+     * 从给定的配置创建 {@link RestartBackoffTimeStrategy.Factory}。
      *
      * <p>The strategy factory is decided in order as follows:
-     *
+     * 策略工厂的顺序决定如下：
+     *<ol>
+     *     <li>在作业图中设置策略，即 {@link RestartStrategies.RestartStrategyConfiguration}，
+     *     除非配置是 {@link RestartStrategies.FallbackRestartStrategyConfiguration}。
+     *    <li>集群（服务器端）配置（flink-conf.yaml）中设置的策略，除非未指定策略
+     *    <li>{@link FixedDelayRestartBackoffTimeStrategy.FixedDelayRestartBackoffTimeStrategyFactory} 如果启用了检查点。
+     *    否则 {@link NoRestartBackoffTimeStrategy.NoRestartBackoffTimeStrategyFactory}
+     *   </ol>
      * <ol>
      *   <li>Strategy set within job graph, i.e. {@link
      *       RestartStrategies.RestartStrategyConfiguration}, unless the config is {@link

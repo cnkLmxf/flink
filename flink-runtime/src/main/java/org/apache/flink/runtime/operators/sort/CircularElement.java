@@ -22,7 +22,9 @@ import org.apache.flink.core.memory.MemorySegment;
 
 import java.util.List;
 
-/** Class representing buffers that circulate between the reading, sorting and spilling stages. */
+/** Class representing buffers that circulate between the reading, sorting and spilling stages.
+ * 表示在读取、排序和溢出阶段之间循环的缓冲区的类。
+ * */
 final class CircularElement<E> {
 
     private final int id;
@@ -53,14 +55,19 @@ final class CircularElement<E> {
         return memory;
     }
 
-    /** The element that is passed as marker for the end of data. */
+    /** The element that is passed as marker for the end of data.
+     * 作为数据结束标记传递的元素。
+     * */
     static final CircularElement<Object> EOF_MARKER = new CircularElement<>(-1);
 
-    /** The element that is passed as marker for signal beginning of spilling. */
+    /** The element that is passed as marker for signal beginning of spilling.
+     * 作为信号开始溢出的标记传递的元素。
+     * */
     static final CircularElement<Object> SPILLING_MARKER = new CircularElement<>(-2);
 
     /**
      * Gets the element that is passed as marker for the end of data.
+     * 获取作为数据结束标记传递的元素。
      *
      * @return The element that is passed as marker for the end of data.
      */
@@ -72,6 +79,7 @@ final class CircularElement<E> {
 
     /**
      * Gets the element that is passed as marker for signal beginning of spilling.
+     * 获取作为溢出信号开始的标记传递的元素。
      *
      * @return The element that is passed as marker for signal beginning of spilling.
      */

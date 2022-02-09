@@ -21,6 +21,8 @@ package org.apache.flink.runtime.checkpoint;
 /**
  * {@link CompletedCheckpointStore} utility interfaces. For example, convert a name(e.g. ZooKeeper
  * path, key name in Kubernetes ConfigMap) to checkpoint id in {@link Long} format, or vice versa.
+ * {@link CompletedCheckpointStore} 实用程序接口。
+ * 例如，将名称（例如 ZooKeeper 路径、Kubernetes ConfigMap 中的键名）转换为 {@link Long} 格式的检查点 id，反之亦然。
  */
 public interface CheckpointStoreUtil {
 
@@ -28,6 +30,7 @@ public interface CheckpointStoreUtil {
 
     /**
      * Get the name in external storage from checkpoint id.
+     * 从检查点 id 获取外部存储中的名称。
      *
      * @param checkpointId checkpoint id
      * @return Key name in ConfigMap or child path name in ZooKeeper
@@ -36,6 +39,7 @@ public interface CheckpointStoreUtil {
 
     /**
      * Get the checkpoint id from name.
+     * 从名称中获取检查点 ID。
      *
      * @param name Key name in ConfigMap or child path name in ZooKeeper
      * @return parsed checkpoint id. Or {@link #INVALID_CHECKPOINT_ID} when parsing failed.

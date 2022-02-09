@@ -52,9 +52,12 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * The thread that handles the spilling of intermediate results and sets up the merging. It also
  * merges the channels until sufficiently few channels remain to perform the final streamed merge.
+ * 处理中间结果溢出并设置合并的线程。 它还合并通道，直到剩下足够少的通道来执行最终的流式合并。
  */
 final class SpillingThread<E> extends ThreadBase<E> {
-    /** An interface for injecting custom behaviour for spilling and merging phases. */
+    /** An interface for injecting custom behaviour for spilling and merging phases.
+     * 用于为溢出和合并阶段注入自定义行为的接口。
+     * */
     interface SpillingBehaviour<E> {
         default void open() {}
 
@@ -63,6 +66,7 @@ final class SpillingThread<E> extends ThreadBase<E> {
         /**
          * A method that allows adjusting the spilling phase. We can inject e.g. combining the
          * elements while spilling.
+         * 一种允许调整溢出相位的方法。 我们可以注入例如 在溢出时结合元素。
          */
         void spillBuffer(
                 CircularElement<E> element,
@@ -73,6 +77,7 @@ final class SpillingThread<E> extends ThreadBase<E> {
         /**
          * A method that allows adjusting the merging phase. We can inject e.g. combining the
          * spilled elements.
+         * 一种允许调整合并阶段的方法。 我们可以注入例如 结合溢出的元素。
          */
         void mergeRecords(MergeIterator<E> mergeIterator, ChannelWriterOutputView output)
                 throws IOException;
@@ -138,7 +143,9 @@ final class SpillingThread<E> extends ThreadBase<E> {
         this.maxNumWriteBuffers = maxNumWriteBuffers;
     }
 
-    /** Entry point of the thread. */
+    /** Entry point of the thread.
+     * 线程的入口点。
+     * */
     @Override
     public void go() throws IOException, InterruptedException {
 
@@ -392,7 +399,9 @@ final class SpillingThread<E> extends ThreadBase<E> {
         }
     }
 
-    /** Releases the memory that is registered for in-memory sorted run generation. */
+    /** Releases the memory that is registered for in-memory sorted run generation.
+     * 释放为内存中排序运行生成注册的内存。
+     * */
     private void disposeSortBuffers(boolean releaseMemory) {
         CircularElement<E> element;
         while ((element = this.dispatcher.poll(SortStage.READ)) != null) {
@@ -409,6 +418,7 @@ final class SpillingThread<E> extends ThreadBase<E> {
 
     /**
      * Returns an iterator that iterates over the merged result from all given channels.
+     * 返回一个迭代器，该迭代器对来自所有给定通道的合并结果进行迭代。
      *
      * @param channelIDs The channels that are to be merged and returned.
      * @param inputSegments The buffers to be used for reading. The list contains for each channel
@@ -457,6 +467,7 @@ final class SpillingThread<E> extends ThreadBase<E> {
 
     /**
      * Merges the given sorted runs to a smaller number of sorted runs.
+     * 将给定的排序运行合并到较少数量的排序运行。
      *
      * @param channelIDs The IDs of the sorted runs that need to be merged.
      * @param allReadBuffers
@@ -515,6 +526,7 @@ final class SpillingThread<E> extends ThreadBase<E> {
     /**
      * Merges the sorted runs described by the given Channel IDs into a single sorted run. The
      * merging process uses the given read and write buffers.
+     * 将由给定通道 ID 描述的排序运行合并到单个排序运行中。 合并过程使用给定的读取和写入缓冲区。
      *
      * @param channelIDs The IDs of the runs' channels.
      * @param readBuffers The buffers for the readers that read the sorted runs.
@@ -561,6 +573,7 @@ final class SpillingThread<E> extends ThreadBase<E> {
 
     /**
      * Divides the given collection of memory buffers among {@code numChannels} sublists.
+     * 在 {@code numChannels} 子列表中划分给定的内存缓冲区集合。
      *
      * @param target The list into which the lists with buffers for the channels are put.
      * @param memory A list containing the memory buffers to be distributed. The buffers are not

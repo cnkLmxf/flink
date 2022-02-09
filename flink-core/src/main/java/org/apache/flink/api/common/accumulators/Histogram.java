@@ -26,9 +26,11 @@ import java.util.TreeMap;
 /**
  * Histogram accumulator, which builds a histogram in a distributed manner. Implemented as a
  * Integer-&gt;Integer TreeMap, so that the entries are sorted according to the values.
+ * 直方图累加器，以分布式方式构建直方图。 实现为 Integer->Integer TreeMap，以便根据值对条目进行排序。
  *
  * <p>This class does not extend to continuous values later, because it makes no attempt to put the
  * data in bins.
+ * 此类以后不会扩展到连续值，因为它不会尝试将数据放入箱中。
  */
 @Public
 public class Histogram implements Accumulator<Integer, TreeMap<Integer, Integer>> {

@@ -22,7 +22,9 @@ import org.apache.flink.shaded.netty4.io.netty.buffer.ByteBuf;
 
 import javax.annotation.Nullable;
 
-/** Utility routines to process {@link ByteBuf}. */
+/** Utility routines to process {@link ByteBuf}.
+ * 处理 {@link ByteBuf} 的实用程序。
+ * */
 public class ByteBufUtils {
 
     /**
@@ -31,6 +33,10 @@ public class ByteBufUtils {
      * data will be copied into <tt>target</tt>. If the size of data copied after this operation has
      * reached <tt>targetAccumulationSize</tt>, <tt>target</tt> will be returned, otherwise
      * <tt>null</tt> will be returned to indicate more data is required.
+     * 从 <tt>source</tt> 到 <tt>target</tt> 累积数据。 如果还没有数据积累，<tt>source</tt>有足够的数据，
+     * <tt>source</tt>会直接返回。 否则，数据将被复制到 <tt>target</tt>。
+     * 如果本次操作后复制的数据大小已达到<tt>targetAccumulationSize</tt>，则返回<tt>target</tt>，
+     * 否则返回<tt>null</tt>，表示需要更多数据 .
      *
      * @param target The target buffer.
      * @param source The source buffer.

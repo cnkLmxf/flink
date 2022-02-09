@@ -26,7 +26,9 @@ import java.util.UUID;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Information about leader including the confirmed leader session id and leader address. */
+/** Information about leader including the confirmed leader session id and leader address.
+ * 关于leader的信息，包括已确认的leader session id和leader地址。
+ * */
 public class LeaderInformation implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -27,6 +27,8 @@ import java.io.IOException;
  * Deserializer for checkpoints written in format {@code 1} (Flink 1.2.x format). This class is only
  * retained to give a better error message: Rather than getting a "unknown version", the user gets a
  * "version no longer supported".
+ * 以 {@code 1} 格式（Flink 1.2.x 格式）编写的检查点的反序列化器。
+ * 保留此类只是为了提供更好的错误消息：用户获得的不是“未知版本”，而是“不再支持的版本”。
  */
 @Internal
 public class MetadataV1Serializer implements MetadataSerializer {

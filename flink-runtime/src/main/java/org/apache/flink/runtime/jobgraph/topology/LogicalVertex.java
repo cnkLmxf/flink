@@ -22,6 +22,8 @@ import org.apache.flink.runtime.jobgraph.JobVertex;
 import org.apache.flink.runtime.jobgraph.JobVertexID;
 import org.apache.flink.runtime.topology.Vertex;
 
-/** Represents a vertex in {@link LogicalTopology}, i.e. {@link JobVertex}. */
+/** Represents a vertex in {@link LogicalTopology}, i.e. {@link JobVertex}.
+ * 表示 {@link LogicalTopology} 中的一个顶点，即 {@link JobVertex}。
+ * */
 public interface LogicalVertex
         extends Vertex<JobVertexID, IntermediateDataSetID, LogicalVertex, LogicalResult> {}

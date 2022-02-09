@@ -44,22 +44,33 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A {@link CheckpointStreamFactory} that produces streams that write to a {@link FileSystem}. The
  * streams from the factory put their data into files with a random name, within the given
  * directory.
+ * 一个 {@link CheckpointStreamFactory}，它产生写入 {@link FileSystem}的流。
+ * 工厂的流将它们的数据放入给定目录中具有随机名称的文件中。
  *
  * <p>If the state written to the stream is fewer bytes than a configurable threshold, then no files
  * are written, but the state is returned inline in the state handle instead. This reduces the
  * problem of many small files that have only few bytes.
+ * 如果写入流的状态的字节数少于可配置的阈值，则不会写入文件，而是在状态句柄中内联返回状态。
+ * 这减少了许多只有几个字节的小文件的问题。
  *
  * <h2>Note on directory creation</h2>
+ * 目录创建注意事项
  *
  * <p>The given target directory must already exist, this factory does not ensure that the directory
  * gets created. That is important, because if this factory checked for directory existence, there
  * would be many checks per checkpoint (from each TaskManager and operator) and such floods of
  * directory existence checks can be prohibitive on larger scale setups for some file systems.
+ * 给定的目标目录必须已经存在，这个工厂不确保该目录被创建。 这很重要，因为如果该工厂检查目录是否存在，
+ * 每个检查点（来自每个 TaskManager 和操作员）都会进行许多检查，并且在某些文件系统的大规模设置中，
+ * 这种大量的目录存在检查可能会令人望而却步。
  *
  * <p>For example many S3 file systems (like Hadoop's s3a) use HTTP HEAD requests to check for the
  * existence of a directory. S3 sometimes limits the number of HTTP HEAD requests to a few hundred
  * per second only. Those numbers are easily reached by moderately large setups. Surprisingly (and
  * fortunately), the actual state writing (POST) have much higher quotas.
+ * 例如，许多 S3 文件系统（如 Hadoop 的 s3a）使用 HTTP HEAD 请求来检查目录是否存在。
+ * S3 有时将 HTTP HEAD 请求的数量限制为每秒几百个。 中等规模的设置很容易达到这些数字。
+ * 令人惊讶的是（幸运的是），实际状态写入 (POST) 的配额要高得多。
  */
 public class FsCheckpointStreamFactory implements CheckpointStreamFactory {
 

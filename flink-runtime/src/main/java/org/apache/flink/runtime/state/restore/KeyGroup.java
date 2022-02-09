@@ -20,7 +20,9 @@ package org.apache.flink.runtime.state.restore;
 
 import org.apache.flink.annotation.Internal;
 
-/** Part of a savepoint representing data for a single key group. */
+/** Part of a savepoint representing data for a single key group.
+ * 表示单个键组数据的保存点的一部分。
+ * */
 @Internal
 public class KeyGroup {
     private final int keyGroupId;

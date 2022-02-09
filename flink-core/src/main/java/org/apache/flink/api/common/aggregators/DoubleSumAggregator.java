@@ -21,7 +21,9 @@ package org.apache.flink.api.common.aggregators;
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.types.DoubleValue;
 
-/** An {@link Aggregator} that sums up {@link DoubleValue} values. */
+/** An {@link Aggregator} that sums up {@link DoubleValue} values.
+ * sums up {@link DoubleValue} 值的 {@link Aggregator}。
+ * */
 @SuppressWarnings("serial")
 @PublicEvolving
 public class DoubleSumAggregator implements Aggregator<DoubleValue> {
@@ -42,6 +44,7 @@ public class DoubleSumAggregator implements Aggregator<DoubleValue> {
 
     /**
      * Adds the given value to the current aggregate.
+     * 将给定值添加到当前聚合中。
      *
      * @param value The value to add to the aggregate.
      */

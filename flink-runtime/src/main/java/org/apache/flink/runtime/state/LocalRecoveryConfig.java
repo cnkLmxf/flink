@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
  * This class encapsulates the completed configuration for local recovery, i.e. the root directories
  * into which all file-based snapshots can be written and the general mode for the local recover
  * feature.
+ * 该类封装了本地恢复的完整配置，即可以写入所有基于文件的快照的根目录以及本地恢复功能的一般模式。
  */
 public class LocalRecoveryConfig {
 

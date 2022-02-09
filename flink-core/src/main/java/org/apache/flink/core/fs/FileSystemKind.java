@@ -20,16 +20,21 @@ package org.apache.flink.core.fs;
 
 import org.apache.flink.annotation.PublicEvolving;
 
-/** An enumeration defining the kind and characteristics of a {@link FileSystem}. */
+/** An enumeration defining the kind and characteristics of a {@link FileSystem}.
+ * 定义 {@link FileSystem} 的种类和特征的枚举。
+ * */
 @PublicEvolving
 public enum FileSystemKind {
 
-    /** An actual file system, with files and directories. */
+    /** An actual file system, with files and directories.
+     * 一个实际的文件系统，包含文件和目录。
+     * */
     FILE_SYSTEM,
 
     /**
      * An Object store. Files correspond to objects. There are not really directories, but a
      * directory-like structure may be mimicked by hierarchical naming of files.
+     * 一个对象存储。 文件对应于对象。 没有真正的目录，但可以通过文件的分层命名来模仿类似目录的结构。
      */
     OBJECT_STORE
 }

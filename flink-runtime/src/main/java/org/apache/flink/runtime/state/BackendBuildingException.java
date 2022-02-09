@@ -20,7 +20,9 @@ package org.apache.flink.runtime.state;
 
 import java.io.IOException;
 
-/** Exceptions which indicate that a state backend building has failed. */
+/** Exceptions which indicate that a state backend building has failed.
+ * 表示状态后端构建失败的异常。
+ * */
 public class BackendBuildingException extends IOException {
     public BackendBuildingException(String message, Throwable cause) {
         super(message, cause);

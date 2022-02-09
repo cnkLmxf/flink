@@ -24,6 +24,8 @@ import org.apache.flink.configuration.Configuration;
  * Implementation of {@link WorkerResourceSpecFactory} that creates arbitrary {@link
  * WorkerResourceSpec}. Used for scenarios where the values in the default {@link
  * WorkerResourceSpec} does not matter.
+ * 创建任意 {@link WorkerResourceSpec} 的 {@link WorkerResourceSpecFactory} 的实现。
+ * 用于默认 {@link WorkerResourceSpec} 中的值无关紧要的场景。
  */
 public class ArbitraryWorkerResourceSpecFactory extends WorkerResourceSpecFactory {
 

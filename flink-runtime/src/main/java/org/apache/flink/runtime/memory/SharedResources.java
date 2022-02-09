@@ -30,7 +30,9 @@ import java.util.function.Consumer;
 
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** A map that keeps track of acquired shared resources and handles their allocation disposal. */
+/** A map that keeps track of acquired shared resources and handles their allocation disposal.
+ * 跟踪获取的共享资源并处理其分配处置的地图
+ * */
 final class SharedResources {
 
     private final ReentrantLock lock = new ReentrantLock();
@@ -41,9 +43,11 @@ final class SharedResources {
     /**
      * Gets the shared memory resource for the given owner and registers a lease. If the resource
      * does not yet exist, it will be created via the given initializer function.
+     * 获取给定所有者的共享内存资源并注册租约。 如果资源尚不存在，它将通过给定的初始化函数创建。
      *
      * <p>The resource must be released when no longer used. That releases the lease. When all
      * leases are released, the resource is disposed.
+     * 不再使用时必须释放资源。 这释放了租约。 当所有租约都被释放时，资源被释放。
      */
     <T extends AutoCloseable> ResourceAndSize<T> getOrAllocateSharedResource(
             String type,
@@ -56,6 +60,8 @@ final class SharedResources {
         // currently
         // happening and the initialization is expensive.
         // We lock interruptibly here to allow for faster exit in case of cancellation errors.
+        // 我们可能会在这个锁上卡住一段时间，以防当前正在发生另一个初始化并且初始化很昂贵。
+        // 我们在这里以中断方式锁定，以便在取消错误的情况下更快地退出。
         try {
             lock.lockInterruptibly();
         } catch (InterruptedException e) {
@@ -83,6 +89,7 @@ final class SharedResources {
     /**
      * Releases a lease (identified by the lease holder object) for the given type. If no further
      * leases exist, the resource is disposed.
+     * 释放给定类型的租约（由租约持有者对象标识）。 如果不存在进一步的租约，则处置资源。
      */
     void release(String type, Object leaseHolder) throws Exception {
         release(type, leaseHolder, (value) -> {});
@@ -91,8 +98,10 @@ final class SharedResources {
     /**
      * Releases a lease (identified by the lease holder object) for the given type. If no further
      * leases exist, the resource is disposed.
+     * 释放给定类型的租约（由租约持有者对象标识）。 如果不存在进一步的租约，则处置资源。
      *
      * <p>This method takes an additional hook that is called when the resource is disposed.
+     * 此方法采用一个额外的钩子，在释放资源时调用该钩子。
      */
     void release(String type, Object leaseHolder, Consumer<Long> releaser) throws Exception {
         lock.lock();

@@ -53,7 +53,9 @@ import static org.apache.flink.runtime.blob.BlobUtils.writeLength;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A BLOB connection handles a series of requests from a particular BLOB client. */
+/** A BLOB connection handles a series of requests from a particular BLOB client.
+ * BLOB 连接处理来自特定 BLOB 客户端的一系列请求。
+ * */
 class BlobServerConnection extends Thread {
 
     /** The log object used for debugging. */
@@ -90,7 +92,9 @@ class BlobServerConnection extends Thread {
     //  Connection / Thread methods
     // --------------------------------------------------------------------------------------------
 
-    /** Main connection work method. Accepts requests until the other side closes the connection. */
+    /** Main connection work method. Accepts requests until the other side closes the connection.
+     * 主要连接工作方法。 接受请求，直到对方关闭连接。
+     * */
     @Override
     public void run() {
         try {

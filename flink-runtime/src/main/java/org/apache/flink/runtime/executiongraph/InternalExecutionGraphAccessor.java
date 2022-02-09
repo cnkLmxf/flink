@@ -39,6 +39,7 @@ import java.util.concurrent.Executor;
 /**
  * This interface encapsulates all methods needed by ExecutionJobVertex / ExecutionVertices /
  * Execution from the DefaultExecutionGraph.
+ * 该接口封装了 DefaultExecutionGraph 中 ExecutionJobVertex / ExecutionVertices / Execution 所需的所有方法。
  */
 public interface InternalExecutionGraphAccessor {
 
@@ -54,6 +55,7 @@ public interface InternalExecutionGraphAccessor {
 
     /**
      * Returns the ExecutionContext associated with this ExecutionGraph.
+     * 返回与此 ExecutionGraph 关联的 ExecutionContext。
      *
      * @return ExecutionContext associated with this ExecutionGraph
      */
@@ -80,11 +82,14 @@ public interface InternalExecutionGraphAccessor {
 
     /**
      * Fails the execution graph globally.
+     * 全局使执行图失败。
      *
      * <p>This global failure is meant to be triggered in cases where the consistency of the
      * execution graph' state cannot be guaranteed any more (for example when catching unexpected
      * exceptions that indicate a bug or an unexpected call race), and where a full restart is the
      * safe way to get consistency back.
+     * 在无法再保证执行图状态的一致性的情况下（例如，当捕获指示错误或意外调用竞争的意外异常时）
+     * 以及完全重启是安全的情况下，将触发此全局故障 恢复一致性的方法。
      *
      * @param t The exception that caused the failure.
      */

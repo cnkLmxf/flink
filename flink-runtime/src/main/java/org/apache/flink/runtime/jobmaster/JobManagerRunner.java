@@ -28,7 +28,9 @@ import org.apache.flink.util.AutoCloseableAsync;
 
 import java.util.concurrent.CompletableFuture;
 
-/** Interface for a runner which executes a {@link JobMaster}. */
+/** Interface for a runner which executes a {@link JobMaster}.
+ * 执行 {@link JobMaster} 的跑步者的接口。
+ * */
 public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
@@ -41,6 +43,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
     /**
      * Get the {@link JobMasterGateway} of the {@link JobMaster}. The future is only completed if
      * the JobMaster becomes leader.
+     * 获取 {@link JobMaster} 的 {@link JobMaster Gateway}。 只有当 JobMaster 成为领导者时，future才会完成。
      *
      * @return Future with the JobMasterGateway once the underlying JobMaster becomes leader
      */
@@ -52,6 +55,9 @@ public interface JobManagerRunner extends AutoCloseableAsync {
      * result future is completed exceptionally via {@link JobNotFinishedException}, then this
      * signals that the job has not been completed successfully. All other exceptional completions
      * denote an unexpected exception which leads to a process restart.
+     * 得到这个赛跑者的结果未来。 一旦执行的作业达到全局终端状态或 {@link JobMaster} 的初始化失败，future 就完成了。
+     * 如果结果 future 通过 {@link JobNotFinishedException} 异常完成，则这表明作业尚未成功完成。
+     * 所有其他异常完成表示导致进程重新启动的意外异常。
      *
      * @return Future which is completed with the job result
      */
@@ -59,6 +65,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
      * Get the job id of the executed job.
+     * 获取已执行作业的作业 ID。
      *
      * @return job id of the executed job
      */
@@ -66,6 +73,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
      * Cancels the currently executed job.
+     * 取消当前执行的作业。
      *
      * @param timeout of this operation
      * @return Future acknowledge of the operation
@@ -74,6 +82,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
      * Requests the current job status.
+     * 请求当前作业状态。
      *
      * @param timeout for the rpc call
      * @return Future containing the current job status
@@ -82,6 +91,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
      * Request the details of the executed job.
+     * 请求执行作业的详细信息。
      *
      * @param timeout for the rpc call
      * @return Future details of the executed job
@@ -90,6 +100,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
      * Requests the {@link ExecutionGraphInfo} of the executed job.
+     * 请求已执行作业的 {@link ExecutionGraphInfo}。
      *
      * @param timeout for the rpc call
      * @return Future which is completed with the {@link ExecutionGraphInfo} of the executed job
@@ -98,6 +109,7 @@ public interface JobManagerRunner extends AutoCloseableAsync {
 
     /**
      * Flag indicating if the JobManagerRunner has been initialized.
+     * 指示 JobManagerRunner 是否已初始化的标志。
      *
      * @return true if the JobManagerRunner has been initialized.
      */

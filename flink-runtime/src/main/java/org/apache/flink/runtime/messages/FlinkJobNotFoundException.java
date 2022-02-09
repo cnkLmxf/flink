@@ -21,7 +21,9 @@ package org.apache.flink.runtime.messages;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.util.FlinkException;
 
-/** Exception indicating that we could not find a Flink job with the given job ID. */
+/** Exception indicating that we could not find a Flink job with the given job ID.
+ * 异常表明我们找不到具有给定作业 ID 的 Flink 作业。
+ * */
 public class FlinkJobNotFoundException extends FlinkException {
 
     private static final long serialVersionUID = 2294698055059659025L;

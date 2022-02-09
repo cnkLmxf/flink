@@ -25,9 +25,12 @@ import java.util.Map;
 /**
  * Core result of {@link SlotAllocator#determineParallelism(JobInformation, Collection)}, describing
  * the parallelism each vertex could be scheduled with.
+ * {@link SlotAllocator#determineParallelism(JobInformation, Collection)} 的核心结果，
+ * 描述了每个顶点可以被调度的并行度。
  *
  * <p>{@link SlotAllocator} implementations may encode additional information to be used in {@link
  * SlotAllocator#tryReserveResources(VertexParallelism)}.
+ * {@link SlotAllocator} 实现可以编码要在 {@link SlotAllocator#tryReserveResources(VertexParallelism)} 中使用的附加信息。
  */
 public interface VertexParallelism {
     Map<JobVertexID, Integer> getMaxParallelismForVertices();

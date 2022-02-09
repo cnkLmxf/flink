@@ -86,6 +86,8 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Akka based {@link RpcService} implementation. The RPC service starts an Akka actor to receive RPC
  * invocations from a {@link RpcGateway}.
+ * 基于 Akka 的 {@link RpcService} 实现。
+ * RPC 服务启动一个 Akka actor 以接收来自 {@link RpcGateway} 的 RPC 调用。
  */
 @ThreadSafe
 public class AkkaRpcService implements RpcService {
@@ -198,6 +200,7 @@ public class AkkaRpcService implements RpcService {
     }
 
     // this method does not mutate state and is thus thread-safe
+    // 这个方法不会改变状态，因此是线程安全的
     @Override
     public <F extends Serializable, C extends FencedRpcGateway<F>> CompletableFuture<C> connect(
             String address, F fencingToken, Class<C> clazz) {

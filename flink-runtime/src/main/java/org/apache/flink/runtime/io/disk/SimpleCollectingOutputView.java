@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * The list with the full segments contains at any point all completely full segments, plus the
  * segment that is currently filled.
+ * 具有完整段的列表在任何时候都包含所有完全完整的段，以及当前填充的段。
  */
 public class SimpleCollectingOutputView extends AbstractPagedOutputView {
 

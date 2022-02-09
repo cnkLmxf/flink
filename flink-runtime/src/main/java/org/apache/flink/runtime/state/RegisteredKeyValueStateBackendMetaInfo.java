@@ -37,6 +37,7 @@ import java.util.Objects;
 /**
  * Compound meta information for a registered state in a keyed state backend. This combines all
  * serializers and the state name.
+ * 键控状态后端中注册状态的复合元信息。 这结合了所有序列化程序和状态名称。
  *
  * @param <N> Type of namespace
  * @param <S> Type of state value

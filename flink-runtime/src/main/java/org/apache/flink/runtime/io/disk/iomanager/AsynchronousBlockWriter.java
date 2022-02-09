@@ -31,6 +31,7 @@ public class AsynchronousBlockWriter extends AsynchronousBlockWriterWithCallback
 
     /**
      * Creates a new block channel writer for the given channel.
+     * 为给定通道创建一个新的块通道写入器。
      *
      * @param channelID The ID of the channel to write to.
      * @param requestQueue The request queue of the asynchronous writer thread, to which the I/O
@@ -51,10 +52,12 @@ public class AsynchronousBlockWriter extends AsynchronousBlockWriterWithCallback
      * Gets the next memory segment that has been written and is available again. This method blocks
      * until such a segment is available, or until an error occurs in the writer, or the writer is
      * closed.
+     * 获取已写入且再次可用的下一个内存段。 此方法阻塞，直到这样的段可用，或者直到写入器中发生错误，或者写入器关闭。
      *
      * <p>NOTE: If this method is invoked without any segment ever returning (for example, because
      * the {@link #writeBlock(MemorySegment)} method has not been invoked accordingly), the method
      * may block forever.
+     * 注意：如果在没有任何段返回的情况下调用此方法（例如，因为没有相应地调用 {@link #writeBlock(MemorySegment)} 方法），则该方法可能会永远阻塞。
      *
      * @return The next memory segment from the writers's return queue.
      * @throws IOException Thrown, if an I/O error occurs in the writer while waiting for the
@@ -83,6 +86,7 @@ public class AsynchronousBlockWriter extends AsynchronousBlockWriterWithCallback
     /**
      * Gets the queue in which the memory segments are queued after the asynchronous write is
      * completed.
+     * 获取异步写入完成后内存段排队的队列。
      *
      * @return The queue with the written memory segments.
      */

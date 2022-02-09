@@ -34,13 +34,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-/** Helper functions for the interaction with {@link Accumulator}. */
+/** Helper functions for the interaction with {@link Accumulator}.
+ * 用于与 {@link Accumulator} 交互的辅助函数。
+ * */
 @Internal
 public class AccumulatorHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AccumulatorHelper.class);
 
     /**
      * Merge two collections of accumulators. The second will be merged into the first.
+     * 合并两个累加器集合。 第二个将合并到第一个中。
      *
      * @param target The collection of accumulators that will be updated
      * @param toMerge The collection of accumulators that will be merged into the other
@@ -75,7 +78,9 @@ public class AccumulatorHelper {
         }
     }
 
-    /** Workaround method for type safety. */
+    /** Workaround method for type safety.
+     * 类型安全的变通方法。
+     * */
     private static <V, R extends Serializable> Accumulator<V, R> mergeSingle(
             Accumulator<?, ?> target, Accumulator<?, ?> toMerge) {
         @SuppressWarnings("unchecked")
@@ -89,7 +94,9 @@ public class AccumulatorHelper {
         return typedTarget;
     }
 
-    /** Compare both classes and throw {@link UnsupportedOperationException} if they differ. */
+    /** Compare both classes and throw {@link UnsupportedOperationException} if they differ.
+     * 比较两个类并在它们不同时抛出 {@link UnsupportedOperationException}。
+     * */
     @SuppressWarnings("rawtypes")
     public static void compareAccumulatorTypes(
             Object name, Class<? extends Accumulator> first, Class<? extends Accumulator> second)
@@ -126,7 +133,9 @@ public class AccumulatorHelper {
         }
     }
 
-    /** Transform the Map with accumulators into a Map containing only the results. */
+    /** Transform the Map with accumulators into a Map containing only the results.
+     * 将带有累加器的 Map 转换为仅包含结果的 Map。
+     * */
     public static Map<String, OptionalFailure<Object>> toResultMap(
             Map<String, Accumulator<?, ?>> accumulators) {
         Map<String, OptionalFailure<Object>> resultMap = new HashMap<>();
@@ -183,6 +192,7 @@ public class AccumulatorHelper {
     /**
      * Takes the serialized accumulator results and tries to deserialize them using the provided
      * class loader.
+     * 获取序列化的累加器结果并尝试使用提供的类加载器反序列化它们。
      *
      * @param serializedAccumulators The serialized accumulator results.
      * @param loader The class loader to use.
@@ -217,6 +227,7 @@ public class AccumulatorHelper {
     /**
      * Takes the serialized accumulator results and tries to deserialize them using the provided
      * class loader, and then try to unwrap the value unchecked.
+     * 获取序列化的累加器结果并尝试使用提供的类加载器反序列化它们，然后尝试解包未检查的值。
      *
      * @param serializedAccumulators The serialized accumulator results.
      * @param loader The class loader to use.

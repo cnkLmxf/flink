@@ -43,6 +43,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * Operator for nodes that act as data sinks, storing the data they receive. The way the data is
  * stored is handled by the {@link org.apache.flink.api.common.io.OutputFormat}.
+ * 充当数据接收器的节点的运算符，存储它们接收到的数据。
+ * 数据的存储方式由 {@link org.apache.flink.api.common.io.OutputFormat} 处理。
  */
 @Internal
 public class GenericDataSinkBase<IN> extends Operator<Nothing> {
@@ -58,6 +60,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
     /**
      * Creates a GenericDataSink with the provided {@link
      * org.apache.flink.api.common.io.OutputFormat} implementation and the given name.
+     * 使用提供的 {@link org.apache.flink.api.common.io.OutputFormat} 实现和给定名称创建一个 GenericDataSink。
      *
      * @param f The {@link org.apache.flink.api.common.io.OutputFormat} implementation used to sink
      *     the data.
@@ -74,6 +77,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
     /**
      * Creates a GenericDataSink with the provided {@link
      * org.apache.flink.api.common.io.OutputFormat} implementation and the given name.
+     * 使用提供的 {@link org.apache.flink.api.common.io.OutputFormat} 实现和给定名称创建一个 GenericDataSink。
      *
      * @param f The {@link org.apache.flink.api.common.io.OutputFormat} implementation used to sink
      *     the data.
@@ -91,6 +95,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Returns this operator's input operator.
+     * 返回此运算符的输入运算符。
      *
      * @return This operator's input.
      */
@@ -100,6 +105,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Sets the given operator as the input to this operator.
+     * 将给定的运算符设置为此运算符的输入。
      *
      * @param input The operator to use as the input.
      */
@@ -109,6 +115,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Sets the input to the union of the given operators.
+     * 将输入设置为给定运算符的并集。
      *
      * @param inputs The operator(s) that form the input.
      * @deprecated This method will be removed in future versions. Use the {@link
@@ -122,6 +129,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Sets the input to the union of the given operators.
+     * 将输入设置为给定运算符的并集。
      *
      * @param inputs The operator(s) that form the input.
      * @deprecated This method will be removed in future versions. Use the {@link
@@ -135,6 +143,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Adds to the input the union of the given operators.
+     * 将输入设置为给定运算符的并集。
      *
      * @param inputs The operator(s) to be unioned with the input.
      * @deprecated This method will be removed in future versions. Use the {@link
@@ -148,6 +157,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Adds to the input the union of the given operators.
+     * 将输入设置为给定运算符的并集。
      *
      * @param inputs The operator(s) to be unioned with the input.
      * @deprecated This method will be removed in future versions. Use the {@link
@@ -168,6 +178,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
      * Gets the order, in which the data sink writes its data locally. Local order means that with
      * in each fragment of the file inside the distributed file system, the data is ordered, but not
      * across file fragments.
+     * 获取数据接收器在本地写入数据的顺序。 本地顺序是指在分布式文件系统内的文件的每个片段中，数据是有序的，但不是跨文件片段。
      *
      * @return NONE, if the sink writes data in any order, or ASCENDING (resp. DESCENDING), if the
      *     sink writes it data with a local ascending (resp. descending) order.
@@ -180,6 +191,8 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
      * Sets the order in which the sink must write its data within each fragment in the distributed
      * file system. For any value other then <tt>NONE</tt>, this will cause the system to perform a
      * local sort, or try to reuse an order from a previous operation.
+     * 设置接收器必须在分布式文件系统的每个片段中写入其数据的顺序。
+     * 对于除 <tt>NONE</tt> 之外的任何值，这将导致系统执行本地排序，或尝试重用来自先前操作的订单。
      *
      * @param localOrder The local order to write the data in.
      */
@@ -191,6 +204,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Gets the class describing this sinks output format.
+     * 获取描述此接收器输出格式的类。
      *
      * @return The output format class.
      */
@@ -200,6 +214,7 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
 
     /**
      * Gets the class describing the output format.
+     * 获取描述输出格式的类。
      *
      * <p>This method is basically identical to {@link #getFormatWrapper()}.
      *
@@ -218,6 +233,8 @@ public class GenericDataSinkBase<IN> extends Operator<Nothing> {
      * depth-first traversal. The visitors pre-visit method is called and, if returning
      * <tt>true</tt>, the visitor is recursively applied on the single input. After the recursion
      * returned, the post-visit method is called.
+     * 接受访问者并将其应用于此实例。 此方法将访问者应用于深度优先遍历。
+     * 调用访问者预访问方法，如果返回 <tt>true</tt>，则访问者将递归地应用于单个输入。 递归返回后，调用post-visit方法。
      *
      * @param visitor The visitor.
      * @see org.apache.flink.util.Visitable#accept(org.apache.flink.util.Visitor)

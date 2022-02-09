@@ -40,8 +40,10 @@ import java.util.stream.Collectors;
 
 /**
  * A record-oriented reader.
+ * 面向记录的阅读器。
  *
  * <p>This abstract base class is used by both the mutable and immutable record readers.
+ * 可变和不可变的记录读取器都使用这个抽象基类。
  *
  * @param <T> The type of the record that can be read with this record reader.
  */
@@ -63,6 +65,7 @@ abstract class AbstractRecordReader<T extends IOReadableWritable> extends Abstra
     /**
      * Creates a new AbstractRecordReader that de-serializes records from the given input gate and
      * can spill partial records to disk, if they grow large.
+     * 创建一个新的 AbstractRecordReader，它对来自给定输入门的记录进行反序列化，如果部分记录变大，则可以将其溢出到磁盘。
      *
      * @param inputGate The input gate to read from.
      * @param tmpDirectories The temp directories. USed for spilling if the reader concurrently

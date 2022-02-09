@@ -47,7 +47,17 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * A config to define the behavior of the program execution. It allows to define (among other
  * options) the following settings:
- *
+ * 用于定义程序执行行为的配置。 它允许定义（以及其他选项）以下设置：
+ *<ul>
+ *     <li>程序的默认并行度，即为所有未直接定义特定值的函数使用多少并行任务。
+ *     <li>执行失败时的重试次数。
+ *     <li>执行重试之间的延迟。
+ *     <li>程序的{@link ExecutionMode}：批处理或流水线。 默认执行模式是 {@link ExecutionMode#PIPELINED}
+ *     <li>启用或禁用“关闭清洁器”。 闭包清理器预处理函数的实现。
+ *     如果它们是（匿名）内部类，它会删除对封闭类的未使用引用，以修复某些与序列化相关的问题并减小闭包的大小。
+ *     <li>该配置允许注册类型和序列化程序以提高处理效率
+ *         <i>通用类型</i>和<i>POJOs</i>。 这通常仅在函数不仅返回其签名中声明的类型，而且还返回这些类型的子类时才需要。
+ * </ul>
  * <ul>
  *   <li>The default parallelism of the program, i.e., how many parallel tasks to use for all
  *       functions that do not define a specific value directly.
@@ -126,6 +136,7 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
 
     /**
      * Interval in milliseconds for sending latency tracking marks from the sources to the sinks.
+     * 将延迟跟踪标记从源发送到接收器的时间间隔（以毫秒为单位）。
      */
     private long latencyTrackingInterval = MetricOptions.LATENCY_INTERVAL.defaultValue();
 
@@ -144,11 +155,13 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
     /**
      * Timeout after which an ongoing task cancellation will lead to a fatal TaskManager error,
      * usually killing the JVM.
+     * 超时后正在进行的任务取消将导致致命的 TaskManager 错误，通常会杀死 JVM。
      */
     private long taskCancellationTimeoutMillis = -1;
 
     /**
      * This flag defines if we use compression for the state snapshot data or not. Default: false
+     * 这个标志定义了我们是否对状态快照数据使用压缩。 默认值：假
      */
     private boolean useSnapshotCompression = false;
 
@@ -159,6 +172,8 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
     // Serializers and types registered with Kryo and the PojoSerializer
     // we store them in linked maps/sets to ensure they are registered in order in all kryo
     // instances.
+    // 使用 Kryo 和 PojoSerializer 注册的序列化器和类型
+    // 我们将它们存储在链接的地图/集合中，以确保它们在所有 kryo 实例中按顺序注册。
 
     private LinkedHashMap<Class<?>, SerializableSerializer<?>> registeredTypesWithKryoSerializers =
             new LinkedHashMap<>();
@@ -183,6 +198,9 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * are not used. This will in most cases make closures or anonymous inner classes serializable
      * that where not serializable due to some Scala or Java implementation artifact. User code must
      * be serializable because it needs to be sent to worker nodes.
+     * 启用 ClosureCleaner。 这会分析用户代码函数并将未使用的字段设置为 null。
+     * 在大多数情况下，这将使闭包或匿名内部类可序列化，而由于某些 Scala 或 Java 实现工件而无法序列化。
+     * 用户代码必须是可序列化的，因为它需要发送到工作节点。
      */
     public ExecutionConfig enableClosureCleaner() {
         this.closureCleanerLevel = ClosureCleanerLevel.RECURSIVE;
@@ -226,8 +244,10 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * Sets the interval of the automatic watermark emission. Watermarks are used throughout the
      * streaming system to keep track of the progress of time. They are used, for example, for time
      * based windowing.
+     * 设置自动水印发射的时间间隔。 整个流媒体系统都使用水印来跟踪时间进度。 例如，它们用于基于时间的窗口。
      *
      * <p>Setting an interval of {@code 0} will disable periodic watermark emission.
+     * 设置间隔 {@code 0} 将禁用周期性水印发射。
      *
      * @param interval The interval between watermarks in milliseconds.
      */
@@ -281,10 +301,13 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
     /**
      * Gets the parallelism with which operation are executed by default. Operations can
      * individually override this value to use a specific parallelism.
+     * 获取默认执行操作的并行度。 操作可以单独覆盖此值以使用特定的并行度。
      *
      * <p>Other operations may need to run with a different parallelism - for example calling a
      * reduce operation over the entire data set will involve an operation that runs with a
      * parallelism of one (the final reduce to the single result value).
+     * 其他操作可能需要以不同的并行度运行
+     * - 例如，对整个数据集调用 reduce 操作将涉及以 1 并行度运行的操作（最终归约到单个结果值）。
      *
      * @return The parallelism used by operations, unless they override that value. This method
      *     returns {@link #PARALLELISM_DEFAULT} if the environment's default parallelism should be
@@ -298,11 +321,15 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * Sets the parallelism for operations executed through this environment. Setting a parallelism
      * of x here will cause all operators (such as join, map, reduce) to run with x parallel
      * instances.
+     * 设置通过此环境执行的操作的并行度。
+     * 在此处设置 x 的并行度将导致所有运算符（例如 join、map、reduce）与 x 个并行实例一起运行。
      *
      * <p>This method overrides the default parallelism for this environment. The local execution
      * environment uses by default a value equal to the number of hardware contexts (CPU cores /
      * threads). When executing the program via the command line client from a JAR file, the default
      * parallelism is the one configured for that setup.
+     * 此方法会覆盖此环境的默认并行度。 默认情况下，本地执行环境使用的值等于硬件上下文（CPU 内核/线程）的数量。
+     * 当通过命令行客户端从 JAR 文件执行程序时，默认并行度是为该设置配置的并行度。
      *
      * @param parallelism The parallelism to use
      */
@@ -322,6 +349,7 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      *
      * <p>The maximum degree of parallelism specifies the upper limit for dynamic scaling. It also
      * defines the number of key groups used for partitioned state.
+     * 最大并行度指定动态缩放的上限。 它还定义了用于分区状态的键组的数量。
      *
      * @return Maximum degree of parallelism
      */
@@ -335,6 +363,7 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      *
      * <p>The maximum degree of parallelism specifies the upper limit for dynamic scaling. It also
      * defines the number of key groups used for partitioned state.
+     * 最大并行度指定动态缩放的上限。 它还定义了用于分区状态的键组的数量。
      *
      * @param maxParallelism Maximum degree of parallelism to be used for the program.
      */
@@ -440,6 +469,7 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
     /**
      * Gets the number of times the system will try to re-execute failed tasks. A value of {@code
      * -1} indicates that the system default value (as defined in the configuration) should be used.
+     * 获取系统尝试重新执行失败任务的次数。 {@code -1} 的值表示应使用系统默认值（在配置中定义）。
      *
      * @return The number of times the system will try to re-execute failed tasks.
      * @deprecated Should no longer be used because it is subsumed by RestartStrategyConfiguration
@@ -464,6 +494,7 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * Sets the number of times that failed tasks are re-executed. A value of zero effectively
      * disables fault tolerance. A value of {@code -1} indicates that the system default value (as
      * defined in the configuration) should be used.
+     * 设置重新执行失败任务的次数。 零值有效地禁用容错。 {@code -1} 的值表示应使用系统默认值（在配置中定义）。
      *
      * @param numberOfExecutionRetries The number of times the system will try to re-execute failed
      *     tasks.
@@ -554,6 +585,8 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * Force TypeExtractor to use Kryo serializer for POJOS even though we could analyze as POJO. In
      * some cases this might be preferable. For example, when using interfaces with subclasses that
      * cannot be analyzed as POJO.
+     * 强制 TypeExtractor 为 POJO 使用 Kryo 序列化程序，即使我们可以分析为 POJO。
+     * 在某些情况下，这可能更可取。 例如，当使用带有不能被分析为 POJO 的子类的接口时。
      */
     public void enableForceKryo() {
         forceKryo = true;
@@ -583,15 +616,21 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * Disables the use of generic types (types that would be serialized via Kryo). If this option
      * is used, Flink will throw an {@code UnsupportedOperationException} whenever it encounters a
      * data type that would go through Kryo for serialization.
+     * 禁用泛型类型（将通过 Kryo 序列化的类型）。
+     * 如果使用此选项，Flink 将在遇到将通过 Kryo 进行序列化的数据类型时抛出 {@code UnsupportedOperationException}。
      *
      * <p>Disabling generic types can be helpful to eagerly find and eliminate the use of types that
      * would go through Kryo serialization during runtime. Rather than checking types individually,
      * using this option will throw exceptions eagerly in the places where generic types are used.
+     * 禁用泛型类型有助于急切地查找和消除在运行时会通过 Kryo 序列化的类型的使用。
+     * 而不是单独检查类型，使用此选项将在使用泛型类型的地方急切地抛出异常。
      *
      * <p><b>Important:</b> We recommend to use this option only during development and
      * pre-production phases, not during actual production use. The application program and/or the
      * input data may be such that new, previously unseen, types occur at some point. In that case,
      * setting this option would cause the program to fail.
+     * <b>重要提示：</b>我们建议仅在开发和预生产阶段使用此选项，而不是在实际生产使用期间。
+     * 应用程序和/或输入数据可以使得新的、以前未见过的类型在某个点出现。 在这种情况下，设置此选项会导致程序失败。
      *
      * @see #enableGenericTypes()
      */
@@ -624,11 +663,14 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
     /**
      * Disables auto-generated UIDs. Forces users to manually specify UIDs on DataStream
      * applications.
+     * 禁用自动生成的 UID。 强制用户在 DataStream 应用程序上手动指定 UID。
      *
      * <p>It is highly recommended that users specify UIDs before deploying to production since they
      * are used to match state in savepoints to operators in a job. Because auto-generated ID's are
      * likely to change when modifying a job, specifying custom IDs allow an application to evolve
      * overtime without discarding state.
+     * 强烈建议用户在部署到生产环境之前指定 UID，因为它们用于将保存点中的状态与作业中的操作员匹配。
+     * 因为在修改作业时自动生成的 ID 可能会发生变化，所以指定自定义 ID 允许应用程序随着时间的推移而演变而不会丢弃状态。
      */
     public void disableAutoGeneratedUIDs() {
         enableAutoGeneratedUids = false;
@@ -669,6 +711,8 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * Enables reusing objects that Flink internally uses for deserialization and passing data to
      * user-code functions. Keep in mind that this can lead to bugs when the user-code function of
      * an operation is not aware of this behaviour.
+     * 启用重用 Flink 内部用于反序列化和将数据传递给用户代码函数的对象。
+     * 请记住，当操作的用户代码功能不知道此行为时，这可能会导致错误。
      */
     public ExecutionConfig enableObjectReuse() {
         objectReuse = true;
@@ -713,6 +757,8 @@ public class ExecutionConfig implements Serializable, Archiveable<ArchivedExecut
      * <p>Note that the serializer instance must be serializable (as defined by
      * java.io.Serializable), because it may be distributed to the worker nodes by java
      * serialization.
+     * 请注意，序列化程序实例必须是可序列化的（由 java.io.Serializable 定义），
+     * 因为它可能通过 java 序列化分发到工作节点。
      *
      * @param type The class of the types serialized with the given serializer.
      * @param serializer The serializer to use.

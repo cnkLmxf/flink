@@ -40,7 +40,9 @@ import java.util.Optional;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Helper class for persisting channel state via {@link ChannelStateWriter}. */
+/** Helper class for persisting channel state via {@link ChannelStateWriter}.
+ * 通过 {@link ChannelStateWriter} 持久化通道状态的辅助类。
+ * */
 @NotThreadSafe
 public final class ChannelStatePersister {
     private static final Logger LOG = LoggerFactory.getLogger(ChannelStatePersister.class);
@@ -60,6 +62,7 @@ public final class ChannelStatePersister {
     /**
      * Writer must be initialized before usage. {@link #startPersisting(long, List)} enforces this
      * invariant.
+     * Writer 必须在使用前进行初始化。 {@link #startPersisting(long, List)} 强制执行此不变量。
      */
     private final ChannelStateWriter channelStateWriter;
 
@@ -160,6 +163,7 @@ public final class ChannelStatePersister {
     /**
      * Parses the buffer as an event and returns the {@link CheckpointBarrier} if the event is
      * indeed a barrier or returns null in all other cases.
+     * 将缓冲区解析为事件，如果事件确实是障碍，则返回 {@link CheckpointBarrier} 或在所有其他情况下返回 null。
      */
     @Nullable
     protected AbstractEvent parseEvent(Buffer buffer) throws IOException {

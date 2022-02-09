@@ -30,7 +30,9 @@ import java.lang.reflect.Modifier;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** This holds an actual object containing user defined code. */
+/** This holds an actual object containing user defined code.
+ * 这包含一个包含用户定义代码的实际对象。
+ * */
 @Internal
 public class UserCodeObjectWrapper<T> implements UserCodeWrapper<T> {
     private static final long serialVersionUID = 1L;

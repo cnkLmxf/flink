@@ -21,7 +21,9 @@ package org.apache.flink.runtime.resourcemanager.exceptions;
 import org.apache.flink.runtime.clusterframework.types.ResourceID;
 import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 
-/** Exception denoting that a requested {@link TaskExecutor} could not be found. */
+/** Exception denoting that a requested {@link TaskExecutor} could not be found.
+ * 表示找不到请求的 {@link TaskExecutor} 的异常。
+ * */
 public class UnknownTaskExecutorException extends ResourceManagerException {
     private static final long serialVersionUID = -950571714195353733L;
 

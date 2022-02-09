@@ -26,12 +26,14 @@ import scala.concurrent.ExecutionContext;
 /**
  * Collection of {@link Executor}, {@link ExecutorService} and {@link ExecutionContext}
  * implementations.
+ * {@link Executor}、{@link ExecutorService} 和 {@link ExecutionContext} 实现的集合。
  */
 public class Executors {
 
     /**
      * Return a direct executor. The direct executor directly executes the runnable in the calling
      * thread.
+     * 返回直接执行人。 直接执行器直接执行调用线程中的runnable。
      *
      * @return Direct executor
      */
@@ -41,9 +43,11 @@ public class Executors {
 
     /**
      * Return a new direct executor service.
+     * 返回一个新的直接执行器服务。
      *
      * <p>The direct executor service directly executes the runnables and the callables in the
      * calling thread.
+     * 直接执行器服务直接执行调用线程中的可运行对象和可调用对象。
      *
      * @return New direct executor service
      */
@@ -54,6 +58,7 @@ public class Executors {
     /**
      * Return a direct execution context. The direct execution context executes the runnable
      * directly in the calling thread.
+     * 返回直接执行上下文。 直接执行上下文直接在调用线程中执行runnable。
      *
      * @return Direct execution context.
      */

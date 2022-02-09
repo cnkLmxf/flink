@@ -31,13 +31,16 @@ import java.util.Optional;
 /**
  * Provides a mapping from {@link ExecutionAttemptID} to {@link ExecutionVertex} for currently
  * running execution attempts.
+ * 为当前正在运行的执行尝试提供从 {@link ExecutionAttemptID} 到 {@link ExecutionVertex} 的映射。
  */
 public class ExecutionAttemptMappingProvider {
 
     /** A full list of tasks. */
     private final List<ExecutionVertex> tasks;
 
-    /** The cached mapping, which would only be updated on miss. */
+    /** The cached mapping, which would only be updated on miss.
+     * 缓存的映射，仅在未命中时更新。
+     * */
     private final LinkedHashMap<ExecutionAttemptID, ExecutionVertex> cachedTasksById;
 
     public ExecutionAttemptMappingProvider(Iterable<ExecutionVertex> tasksIterable) {

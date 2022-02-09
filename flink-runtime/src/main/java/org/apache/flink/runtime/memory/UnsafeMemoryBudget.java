@@ -22,7 +22,9 @@ import javax.annotation.Nonnegative;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-/** Tracker of memory reservation and release within a custom limit. */
+/** Tracker of memory reservation and release within a custom limit.
+ * 自定义限制内的内存预留和释放跟踪器。
+ * */
 class UnsafeMemoryBudget {
 
     private final long totalMemorySize;
@@ -54,8 +56,10 @@ class UnsafeMemoryBudget {
 
     /**
      * Reserve memory of certain size if it is available.
+     * 如果可用，请保留一定大小的内存。
      *
      * <p>Adjusted version of {@link java.nio.Bits#reserveMemory(long, int)} taken from Java 11.
+     * 取自 Java 11 的 {@link java.nio.Bits#reserveMemory(long, int)} 的调整版本。
      */
     @SuppressWarnings({"OverlyComplexMethod", "JavadocReference", "NestedTryStatement"})
     void reserveMemory(long size) throws MemoryReservationException {

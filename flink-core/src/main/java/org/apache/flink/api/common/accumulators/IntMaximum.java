@@ -20,7 +20,9 @@ package org.apache.flink.api.common.accumulators;
 
 import org.apache.flink.annotation.PublicEvolving;
 
-/** An accumulator that finds the maximum {@code integer} value. */
+/** An accumulator that finds the maximum {@code integer} value.
+ * 找到最大 {@code integer} 值的累加器。
+ * */
 @PublicEvolving
 public class IntMaximum implements SimpleAccumulator<Integer> {
 

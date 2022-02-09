@@ -40,35 +40,52 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Abstract base class for permanent and transient BLOB files. */
+/** Abstract base class for permanent and transient BLOB files.
+ * 永久和临时 BLOB 文件的抽象基类。
+ * */
 public abstract class AbstractBlobCache implements Closeable {
 
-    /** The log object used for debugging. */
+        /** The log object used for debugging.
+         * 用于调试的日志对象。
+         * */
     protected final Logger log;
 
-    /** Counter to generate unique names for temporary files. */
+    /** Counter to generate unique names for temporary files.
+     * 为临时文件生成唯一名称的计数器。
+     * */
     protected final AtomicLong tempFileCounter = new AtomicLong(0);
 
-    /** Root directory for local file storage. */
+    /** Root directory for local file storage.
+     * 本地文件存储的根目录。
+     * */
     protected final File storageDir;
 
-    /** Blob store for distributed file storage, e.g. in HA. */
+    /** Blob store for distributed file storage, e.g. in HA.
+     * 用于分布式文件存储的 Blob 存储，例如 在HA中。
+     * */
     protected final BlobView blobView;
 
     protected final AtomicBoolean shutdownRequested = new AtomicBoolean();
 
-    /** Shutdown hook thread to ensure deletion of the local storage directory. */
+    /** Shutdown hook thread to ensure deletion of the local storage directory.
+     * 关闭钩子线程以确保删除本地存储目录。
+     * */
     protected final Thread shutdownHook;
 
-    /** The number of retries when the transfer fails. */
+    /** The number of retries when the transfer fails.
+     * 传输失败时的重试次数。
+     * */
     protected final int numFetchRetries;
 
     /**
      * Configuration for the blob client like ssl parameters required to connect to the blob server.
+     * blob 客户端的配置，如连接到 blob 服务器所需的 ssl 参数。
      */
     protected final Configuration blobClientConfig;
 
-    /** Lock guarding concurrent file accesses. */
+    /** Lock guarding concurrent file accesses.
+     * 锁保护并发文件访问。
+     * */
     protected final ReadWriteLock readWriteLock;
 
     @Nullable protected volatile InetSocketAddress serverAddress;
@@ -112,10 +129,13 @@ public abstract class AbstractBlobCache implements Closeable {
 
     /**
      * Returns local copy of the file for the BLOB with the given key.
+     * 返回具有给定键的 BLOB 文件的本地副本。
      *
      * <p>The method will first attempt to serve the BLOB from its local cache. If the BLOB is not
      * in the cache, the method will try to download it from this cache's BLOB server via a
      * distributed BLOB store (if available) or direct end-to-end download.
+     * 该方法将首先尝试从其本地缓存中提供 BLOB。
+     * 如果 BLOB 不在缓存中，该方法将尝试通过分布式 BLOB 存储（如果可用）或直接端到端下载从该缓存的 BLOB 服务器下载它。
      *
      * @param jobId ID of the job this blob belongs to (or <tt>null</tt> if job-unrelated)
      * @param blobKey The key of the desired BLOB.
@@ -139,6 +159,8 @@ public abstract class AbstractBlobCache implements Closeable {
 
         // first try the distributed blob store (if available)
         // use a temporary file (thread-safe without locking)
+        // 首先尝试分布式 blob 存储（如果可用）
+        // 使用临时文件（线程安全无锁）
         File incomingFile = createTemporaryFilename();
         try {
             try {
@@ -222,6 +244,7 @@ public abstract class AbstractBlobCache implements Closeable {
 
     /**
      * Returns a temporary file inside the BLOB server's incoming directory.
+     * 返回 BLOB 服务器的传入目录中的临时文件。
      *
      * @return a temporary file inside the BLOB server's incoming directory
      * @throws IOException if creating the directory fails
@@ -251,6 +274,7 @@ public abstract class AbstractBlobCache implements Closeable {
 
     /**
      * Cancels any cleanup task that subclasses may be executing.
+     * 取消子类可能正在执行的任何清理任务。
      *
      * <p>This is called during {@link #close()}.
      */

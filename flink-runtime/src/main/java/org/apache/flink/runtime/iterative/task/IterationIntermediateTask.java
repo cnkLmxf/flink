@@ -37,14 +37,19 @@ import java.io.IOException;
 /**
  * An intermediate iteration task, which runs a {@link org.apache.flink.runtime.operators.Driver}
  * inside.
+ * 一个中间迭代任务，它在内部运行一个 {@link org.apache.flink.runtime.operators.Driver}。
  *
  * <p>It will propagate {@link EndOfSuperstepEvent}s and {@link TerminationEvent}s to its connected
  * tasks. Furthermore intermediate tasks can also update the iteration state, either the workset or
  * the solution set.
+ * 它将传播 {@link EndOfSuperstepEvent} 和 {@link TerminationEvent} 到其连接的任务。
+ * 此外，中间任务还可以更新迭代状态，无论是工作集还是解决方案集。
  *
  * <p>If the iteration state is updated, the output of this task will be send back to the {@link
  * IterationHeadTask} via a {@link BlockingBackChannel} for the workset -XOR- a HashTable for the
  * solution set. In this case this task must be scheduled on the same instance as the head.
+ * 如果迭代状态已更新，则此任务的输出将通过工作集的 {@link BlockingBackChannel} -XOR-解决方案集的 HashTable
+ * 发送回 {@link IterationHeadTask}。 在这种情况下，这个任务必须安排在与头部相同的实例上。
  */
 public class IterationIntermediateTask<S extends Function, OT>
         extends AbstractIterativeTask<S, OT> {
@@ -57,6 +62,7 @@ public class IterationIntermediateTask<S extends Function, OT>
 
     /**
      * Create an Invokable task and set its environment.
+     * 创建一个 Invokable 任务并设置它的环境。
      *
      * @param environment The environment assigned to this invokable.
      */
@@ -72,6 +78,7 @@ public class IterationIntermediateTask<S extends Function, OT>
 
         // set the last output collector of this task to reflect the iteration intermediate state
         // update
+        // 设置此任务的最后一个输出收集器，以反映迭代中间状态更新
         // a) workset update
         // b) solution set update
         // c) none

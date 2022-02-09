@@ -21,7 +21,9 @@ package org.apache.flink.runtime.taskexecutor;
 import org.apache.flink.runtime.registration.RegistrationResponse;
 import org.apache.flink.runtime.resourcemanager.ResourceManager;
 
-/** Rejection response from the {@link ResourceManager} for the {@link TaskExecutor}. */
+/** Rejection response from the {@link ResourceManager} for the {@link TaskExecutor}.
+ * {@link ResourceManager} 对 {@link TaskExecutor} 的拒绝响应。
+ * */
 public class TaskExecutorRegistrationRejection extends RegistrationResponse.Rejection {
     private static final long serialVersionUID = -7447810107639038319L;
 

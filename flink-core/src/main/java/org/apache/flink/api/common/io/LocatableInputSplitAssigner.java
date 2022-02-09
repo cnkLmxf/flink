@@ -38,6 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * The locatable input split assigner assigns to each host splits that are local, before assigning
  * splits that are not local.
+ * 在分配非本地拆分之前，可定位输入拆分分配器分配给每个主机本地拆分。
  */
 @Public
 public final class LocatableInputSplitAssigner implements InputSplitAssigner {
@@ -272,11 +273,15 @@ public final class LocatableInputSplitAssigner implements InputSplitAssigner {
      * Holds a list of LocatableInputSplits and returns the split with the lowest local count. The
      * rational is that splits which are local on few hosts should be preferred over others which
      * have more degrees of freedom for local assignment.
+     * 保存 LocatableInputSplits 列表并返回具有最低本地计数的拆分。
+     * 合理的是，应该优先于少数主机上的本地拆分，而不是具有更多本地分配自由度的拆分。
      *
      * <p>Internally, the splits are stored in a linked list. Sorting the list is not a good
      * solution, as local counts are updated whenever a previously unseen host requests a split.
      * Instead, we track the minimum local count and iteratively look for splits with that minimum
      * count.
+     * 在内部，拆分存储在链表中。 对列表进行排序不是一个好的解决方案，因为每当以前未见过的主机请求拆分时，都会更新本地计数。
+     * 相反，我们跟踪最小局部计数并迭代地寻找具有该最小计数的分割。
      */
     private static class LocatableInputSplitChooser {
 
@@ -336,6 +341,8 @@ public final class LocatableInputSplitAssigner implements InputSplitAssigner {
          * Retrieves a LocatableInputSplit with minimum local count. InputSplits which have already
          * been assigned (i.e., which are not contained in the provided set) are filtered out. The
          * returned input split is NOT removed from the provided set.
+         * 检索具有最小本地计数的 LocatableInputSplit。
+         * 已经分配的 InputSplits（即不包含在提供的集合中）被过滤掉。 返回的输入拆分不会从提供的集合中删除。
          *
          * @param unassignedSplits Set of unassigned input splits.
          * @return An input split with minimum local count or null if all splits have been assigned.

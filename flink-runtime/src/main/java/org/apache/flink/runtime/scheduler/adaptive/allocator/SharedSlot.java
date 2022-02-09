@@ -37,17 +37,24 @@ import java.util.Map;
 
 /**
  * Shared slot implementation for the {@link AdaptiveScheduler}.
+ * {@link AdaptiveScheduler} 的共享槽实现。
  *
  * <p>The release process of a shared slot follows one of 2 code paths:
+ * 共享槽的释放过程遵循以下两种代码路径之一：
  *
  * <p>1) During normal execution all allocated logical slots will be returned, with the last return
  * triggering the {@code externalReleaseCallback} which must eventually result in a {@link
  * #release(Throwable)} call.
+ * 1) 在正常执行期间，所有分配的逻辑槽都将被返回，
+ * 最后一次返回触发 {@code externalReleaseCallback} 最终必须导致 {@link #release(Throwable)} 调用。
  *
  * <p>2) If the backing physical is lost (e.g., because the providing TaskManager crashed) then
  * {@link #release(Throwable)} is called without all logical slots having been returned. The runtime
  * relies on this also triggering the release of all logical slots. This will not trigger the {@code
  * externalReleaseCallback}.
+ * 2）如果后备物理丢失（例如，因为提供的 TaskManager 崩溃），
+ * 则调用 {@link #release(Throwable)} 而没有返回所有逻辑插槽。
+ * 运行时依赖于此也触发所有逻辑槽的释放。 这不会触发 {@code externalReleaseCallback}。
  */
 class SharedSlot implements SlotOwner, PhysicalSlot.Payload {
     private static final Logger LOG = LoggerFactory.getLogger(SharedSlot.class);

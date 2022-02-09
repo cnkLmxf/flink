@@ -28,6 +28,7 @@ import java.util.Map;
 /**
  * The {@link JobExecutionResult} returned by a context environment when executing a job in detached
  * mode.
+ * 在分离模式下执行作业时，上下文环境返回的 {@link JobExecutionResult}。
  */
 @Internal
 public final class DetachedJobExecutionResult extends JobExecutionResult {

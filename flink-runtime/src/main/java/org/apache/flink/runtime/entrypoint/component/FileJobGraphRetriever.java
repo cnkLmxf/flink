@@ -41,6 +41,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * {@link JobGraphRetriever} implementation which retrieves the {@link JobGraph} from a file on
  * disk.
+ * {@link JobGraphRetriever} 实现，它从磁盘上的文件中检索 {@link JobGraph}。
  */
 public class FileJobGraphRetriever extends AbstractUserClassPathJobGraphRetriever {
 

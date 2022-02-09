@@ -36,7 +36,9 @@ import java.util.concurrent.Executor;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The connection between a TaskExecutor and the ResourceManager. */
+/** The connection between a TaskExecutor and the ResourceManager.
+ * TaskExecutor 和 ResourceManager 之间的连接。
+ * */
 public class TaskExecutorToResourceManagerConnection
         extends RegisteredRpcConnection<
                 ResourceManagerId,

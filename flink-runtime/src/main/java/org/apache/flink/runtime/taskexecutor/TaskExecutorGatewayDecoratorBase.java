@@ -50,9 +50,11 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * A class that decorates/forwards calls to a {@link TaskExecutorGateway}.
+ * 装饰/转发对 {@link TaskExecutor Gateway} 的调用的类。
  *
  * <p>This class is meant as a base for custom decorators, to avoid having to maintain all the
  * method overrides in each decorator.
+ * 此类旨在作为自定义装饰器的基础，以避免必须维护每个装饰器中的所有方法覆盖。
  */
 public class TaskExecutorGatewayDecoratorBase implements TaskExecutorGateway {
 

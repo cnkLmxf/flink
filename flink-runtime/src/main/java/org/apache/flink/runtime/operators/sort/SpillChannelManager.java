@@ -24,13 +24,19 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
 
-/** Channel manager to manage the life cycle of spill channels. */
+/** Channel manager to manage the life cycle of spill channels.
+ * 通道管理器管理溢出通道的生命周期。
+ * */
 final class SpillChannelManager implements AutoCloseable {
 
-    /** Collection of all currently open channels, to be closed and deleted during cleanup. */
+    /** Collection of all currently open channels, to be closed and deleted during cleanup.
+     * 所有当前打开的频道的集合，在清理期间将被关闭和删除。
+     * */
     private final HashSet<FileIOChannel> openChannels;
 
-    /** Collection of all temporary files created and to be removed when closing the sorter. */
+    /** Collection of all temporary files created and to be removed when closing the sorter.
+     * 关闭分拣机时创建和删除的所有临时文件的集合。
+     * */
     private final HashSet<FileIOChannel.ID> channelsToDeleteAtShutdown;
 
     private volatile boolean closed;
@@ -42,6 +48,7 @@ final class SpillChannelManager implements AutoCloseable {
 
     /**
      * Adds a channel to the list of channels that are to be removed at shutdown.
+     * 将频道添加到要在关闭时删除的频道列表中。
      *
      * @param channel The channel id.
      */
@@ -51,6 +58,7 @@ final class SpillChannelManager implements AutoCloseable {
 
     /**
      * Removes a channel from the list of channels that are to be removed at shutdown.
+     * 从要在关闭时删除的频道列表中删除频道。
      *
      * @param channel The channel id.
      */
@@ -60,6 +68,7 @@ final class SpillChannelManager implements AutoCloseable {
 
     /**
      * Adds a channel reader/writer to the list of channels that are to be removed at shutdown.
+     * 将通道读取器/写入器添加到要在关闭时删除的通道列表中。
      *
      * @param channel The channel reader/writer.
      */
@@ -69,6 +78,7 @@ final class SpillChannelManager implements AutoCloseable {
 
     /**
      * Removes a channel reader/writer from the list of channels that are to be removed at shutdown.
+     * 从要在关闭时删除的通道列表中删除通道读取器/写入器。
      *
      * @param channel The channel reader/writer.
      */

@@ -28,6 +28,8 @@ import java.util.Optional;
 /**
  * State handle for partitionable operator state. Besides being a {@link StreamStateHandle}, this
  * also provides a map that contains the offsets to the partitions of named states in the stream.
+ * 可分区运算符状态的状态句柄。 除了作为 {@link StreamStateHandle} 之外，
+ * 它还提供了一个映射，其中包含流中命名状态分区的偏移量。
  */
 public class OperatorStreamStateHandle implements OperatorStateHandle {
 

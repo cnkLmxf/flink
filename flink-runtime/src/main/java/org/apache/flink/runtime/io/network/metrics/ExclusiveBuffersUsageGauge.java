@@ -24,7 +24,9 @@ import org.apache.flink.runtime.io.network.partition.consumer.SingleInputGate;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Gauge metric measuring the exclusive buffers usage gauge for {@link SingleInputGate}s. */
+/** Gauge metric measuring the exclusive buffers usage gauge for {@link SingleInputGate}s.
+ * Gauge metric 测量 {@link SingleInputGate} 的专用缓冲区使用量表。
+ * */
 public class ExclusiveBuffersUsageGauge extends AbstractBuffersUsageGauge {
 
     public ExclusiveBuffersUsageGauge(SingleInputGate[] inputGates) {

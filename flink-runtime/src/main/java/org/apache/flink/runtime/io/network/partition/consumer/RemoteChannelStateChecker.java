@@ -30,6 +30,7 @@ import java.util.concurrent.TimeoutException;
  *
  * <p>The method {@code isProducerReadyOrAbortConsumption} determines whether the partition producer
  * is in a producing state, ready for consumption. Otherwise it aborts the consumption.
+ * {@code isProducerReadyOrAbortConsumption} 方法确定分区生产者是否处于生产状态，准备好消费。 否则它会中止消费。
  */
 public class RemoteChannelStateChecker {
     private static final Logger LOG = LoggerFactory.getLogger(RemoteChannelStateChecker.class);

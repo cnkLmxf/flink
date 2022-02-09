@@ -26,7 +26,9 @@ import java.nio.channels.FileChannel;
 
 import static org.apache.flink.util.Preconditions.checkArgument;
 
-/** Helper class to read {@link Buffer}s from files into objects. */
+/** Helper class to read {@link Buffer}s from files into objects.
+ * 帮助类将 {@link Buffer} 从文件中读取到对象中。
+ * */
 public class BufferFileChannelReader {
     private final ByteBuffer header = ByteBuffer.allocateDirect(8);
     private final FileChannel fileChannel;
@@ -37,6 +39,7 @@ public class BufferFileChannelReader {
 
     /**
      * Reads data from the object's file channel into the given buffer.
+     * 从对象的文件通道读取数据到给定的缓冲区。
      *
      * @param buffer the buffer to read into
      * @return whether the end of the file has been reached (<tt>true</tt>) or not (<tt>false</tt>)

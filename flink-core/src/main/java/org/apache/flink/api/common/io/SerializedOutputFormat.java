@@ -27,6 +27,7 @@ import java.io.IOException;
 /**
  * Stores elements by serializing them with their regular serialization/deserialization
  * functionality.
+ * 通过使用常规序列化/反序列化功能对元素进行序列化来存储元素。
  *
  * @see SerializedInputFormat
  */

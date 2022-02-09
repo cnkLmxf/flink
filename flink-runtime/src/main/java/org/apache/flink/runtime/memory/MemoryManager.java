@@ -52,26 +52,39 @@ import static org.apache.flink.core.memory.MemorySegmentFactory.allocateOffHeapU
  * size or in reserved chunks of certain size. Operators allocate the memory either by requesting a
  * number of memory segments or by reserving chunks. Any allocated memory has to be released to be
  * reused later.
+ * 内存管理器管理 Flink 用于排序、散列、缓存或堆外状态后端（例如 RocksDB）的内存。
+ * 内存以相同大小的 {@link MemorySegment} 或特定大小的保留块表示。
+ * 运算符通过请求多个内存段或保留块来分配内存。 任何分配的内存都必须释放以供以后重用。
  *
  * <p>The memory segments are represented as off-heap unsafe memory regions (both via {@link
  * MemorySegment}). Releasing a memory segment will make it re-claimable by the garbage collector,
  * but does not necessarily immediately releases the underlying memory.
+ * 内存段表示为堆外不安全内存区域（均通过 {@link MemorySegment}）。
+ * 释放内存段将使其可被垃圾收集器回收，但不一定立即释放底层内存。
  */
 public class MemoryManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(MemoryManager.class);
-    /** The default memory page size. Currently set to 32 KiBytes. */
+    /** The default memory page size. Currently set to 32 KiBytes.
+     * 默认内存页面大小。 当前设置为 32 KiBytes。
+     * */
     public static final int DEFAULT_PAGE_SIZE = 32 * 1024;
 
-    /** The minimal memory page size. Currently set to 4 KiBytes. */
+    /** The minimal memory page size. Currently set to 4 KiBytes.
+     * 最小内存页面大小。 当前设置为 4 KiBytes。
+     * */
     public static final int MIN_PAGE_SIZE = 4 * 1024;
 
     // ------------------------------------------------------------------------
 
-    /** Memory segments allocated per memory owner. */
+    /** Memory segments allocated per memory owner.
+     * 每个内存所有者分配的内存段。
+     * */
     private final Map<Object, Set<MemorySegment>> allocatedSegments;
 
-    /** Reserved memory per memory owner. */
+    /** Reserved memory per memory owner.
+     * 每个内存所有者的保留内存。
+     * */
     private final Map<Object, Long> reservedMemory;
 
     private final long pageSize;
@@ -82,11 +95,14 @@ public class MemoryManager {
 
     private final SharedResources sharedResources;
 
-    /** Flag whether the close() has already been invoked. */
+    /** Flag whether the close() has already been invoked.
+     * 标记 close() 是否已经被调用。
+     * */
     private volatile boolean isShutDown;
 
     /**
      * Creates a memory manager with the given capacity and given page size.
+     * 创建具有给定容量和给定页面大小的内存管理器。
      *
      * @param memorySize The total size of the off-heap memory to be managed by this memory manager.
      * @param pageSize The size of the pages handed out by the memory manager.
@@ -136,6 +152,8 @@ public class MemoryManager {
      * implementation details, the memory does not necessarily become reclaimable by the garbage
      * collector, because there might still be references to allocated segments in the code that
      * allocated them from the memory manager.
+     * 关闭内存管理器，尝试释放它管理的所有内存。
+     * 根据实现细节，内存不一定可以被垃圾收集器回收，因为在从内存管理器分配它们的代码中可能仍然存在对已分配段的引用。
      */
     public void shutdown() {
         if (!isShutDown) {
@@ -156,6 +174,7 @@ public class MemoryManager {
 
     /**
      * Checks whether the MemoryManager has been shut down.
+     * 检查 MemoryManager 是否已关闭。
      *
      * @return True, if the memory manager is shut down, false otherwise.
      */
@@ -167,6 +186,7 @@ public class MemoryManager {
     /**
      * Checks if the memory manager's memory is completely available (nothing allocated at the
      * moment).
+     * 检查内存管理器的内存是否完全可用（目前没有分配）。
      *
      * @return True, if the memory manager is empty and valid, false if it is not empty or
      *     corrupted.
@@ -181,8 +201,10 @@ public class MemoryManager {
 
     /**
      * Allocates a set of memory segments from this memory manager.
+     * 从此内存管理器分配一组内存段。
      *
      * <p>The total allocated memory will not exceed its size limit, announced in the constructor.
+     * 分配的总内存不会超过其在构造函数中宣布的大小限制。
      *
      * @param owner The owner to associate with the memory segment, for the fallback release.
      * @param numPages The number of pages to allocate.
@@ -199,8 +221,10 @@ public class MemoryManager {
 
     /**
      * Allocates a set of memory segments from this memory manager.
+     * 从此内存管理器分配一组内存段。
      *
      * <p>The total allocated memory will not exceed its size limit, announced in the constructor.
+     * 分配的总内存不会超过其在构造函数中宣布的大小限制。
      *
      * @param owner The owner to associate with the memory segment, for the fallback release.
      * @param target The list into which to put the allocated memory pages.
@@ -258,11 +282,14 @@ public class MemoryManager {
 
     /**
      * Tries to release the memory for the specified segment.
+     * 尝试释放指定段的内存。
      *
      * <p>If the segment has already been released, it is only freed. If it is null or has no owner,
      * the request is simply ignored. The segment is only freed and made eligible for reclamation by
      * the GC. The segment will be returned to the memory pool, increasing its available limit for
      * the later allocations.
+     * 如果段已被释放，则仅被释放。 如果它为 null 或没有所有者，则简单地忽略该请求。
+     * 该段仅被释放并有资格被 GC 回收。 该段将返回到内存池，从而增加其对以后分配的可用限制。
      *
      * @param segment The segment to be released.
      */
@@ -290,9 +317,11 @@ public class MemoryManager {
 
     /**
      * Tries to release many memory segments together.
+     * 尝试一起释放许多内存段。
      *
      * <p>The segment is only freed and made eligible for reclamation by the GC. Each segment will
      * be returned to the memory pool, increasing its available limit for the later allocations.
+     * 该段仅被释放并有资格被 GC 回收。 每个段都将返回到内存池，从而增加其对以后分配的可用限制。
      *
      * @param segments The segments to be released.
      */
@@ -375,6 +404,7 @@ public class MemoryManager {
 
     /**
      * Releases all memory segments for the given owner.
+     * 释放给定所有者的所有内存段。
      *
      * @param owner The owner memory segments are to be released.
      */
@@ -403,6 +433,7 @@ public class MemoryManager {
 
     /**
      * Reserves a memory chunk of a certain size for an owner from this memory manager.
+     * 从此内存管理器中为所有者保留一定大小的内存块。
      *
      * @param owner The owner to associate with the memory reservation, for the fallback release.
      * @param size size of memory to reserve.
@@ -427,6 +458,7 @@ public class MemoryManager {
 
     /**
      * Releases a memory chunk of a certain size from an owner to this memory manager.
+     * 将一定大小的内存块从所有者释放到此内存管理器。
      *
      * @param owner The owner to associate with the memory reservation, for the fallback release.
      * @param size size of memory to release.
@@ -474,6 +506,7 @@ public class MemoryManager {
 
     /**
      * Releases all reserved memory chunks from an owner to this memory manager.
+     * 将所有保留的内存块从所有者释放到此内存管理器。
      *
      * @param owner The owner to associate with the memory reservation, for the fallback release.
      */
@@ -493,13 +526,18 @@ public class MemoryManager {
      * Acquires a shared memory resource, identified by a type string. If the resource already
      * exists, this returns a descriptor to the resource. If the resource does not yet exist, the
      * given memory fraction is reserved and the resource is initialized with that size.
+     * 获取由类型字符串标识的共享内存资源。 如果资源已经存在，则返回资源的描述符。
+     * 如果资源尚不存在，则保留给定的内存部分，并使用该大小初始化资源。
      *
      * <p>The memory for the resource is reserved from the memory budget of this memory manager
      * (thus determining the size of the resource), but resource itself is opaque, meaning the
      * memory manager does not understand its structure.
+     * 资源的内存是从这个内存管理器的内存预算中保留的（从而决定了资源的大小），
+     * 但是资源本身是不透明的，这意味着内存管理器不了解它的结构。
      *
      * <p>The OpaqueMemoryResource object returned from this method must be closed once not used any
      * further. Once all acquisitions have closed the object, the resource itself is closed.
+     * 从此方法返回的 OpaqueMemoryResource 对象一旦不再使用就必须关闭。 一旦所有获取都关闭了对象，资源本身就关闭了。
      *
      * <p><b>Important:</b> The failure semantics are as follows: If the memory manager fails to
      * reserve the memory, the external resource initializer will not be called. If an exception is
@@ -508,6 +546,10 @@ public class MemoryManager {
      * to be handled by the caller of {@link OpaqueMemoryResource#close()}. For example, if this
      * indicates that native memory was not released and the process might thus have a memory leak,
      * the caller can decide to kill the process as a result.
+     * <b>重要提示：</b>失败语义如下：如果内存管理器保留内存失败，则不会调用外部资源初始化器。
+     * 如果在关闭不透明资源（释放最后一个租约）时抛出异常，内存管理器仍将取消保留内存以确保其自己的记帐是干净的。
+     * 异常需要由 {@link OpaqueMemoryResource#close()} 的调用者处理。
+     * 例如，如果这表明本机内存没有被释放并且进程因此可能存在内存泄漏，那么调用者可以决定终止进程作为结果。
      */
     public <T extends AutoCloseable>
             OpaqueMemoryResource<T> getSharedMemoryResourceForManagedMemory(
@@ -571,11 +613,15 @@ public class MemoryManager {
      * Acquires a shared resource, identified by a type string. If the resource already exists, this
      * returns a descriptor to the resource. If the resource does not yet exist, the method
      * initializes a new resource using the initializer function and given size.
+     * 获取由类型字符串标识的共享资源。 如果资源已经存在，则返回资源的描述符。
+     * 如果资源尚不存在，则该方法使用初始化函数和给定大小初始化新资源。
      *
      * <p>The resource opaque, meaning the memory manager does not understand its structure.
+     * 资源不透明，意味着内存管理器不了解其结构。
      *
      * <p>The OpaqueMemoryResource object returned from this method must be closed once not used any
      * further. Once all acquisitions have closed the object, the resource itself is closed.
+     * 从此方法返回的 OpaqueMemoryResource 对象一旦不再使用就必须关闭。 一旦所有获取都关闭了对象，资源本身就关闭了。
      */
     public <T extends AutoCloseable> OpaqueMemoryResource<T> getExternalSharedMemoryResource(
             String type, LongFunctionWithException<T, Exception> initializer, long numBytes)
@@ -603,6 +649,7 @@ public class MemoryManager {
 
     /**
      * Gets the size of the pages handled by the memory manager.
+     * 获取内存管理器处理的页面大小。
      *
      * @return The size of the pages handled by the memory manager.
      */
@@ -612,6 +659,7 @@ public class MemoryManager {
 
     /**
      * Returns the total size of memory handled by this memory manager.
+     * 返回此内存管理器处理的内存总大小。
      *
      * @return The total size of memory.
      */
@@ -621,6 +669,7 @@ public class MemoryManager {
 
     /**
      * Returns the available amount of memory handled by this memory manager.
+     * 返回此内存管理器处理的可用内存量。
      *
      * @return The available amount of memory.
      */
@@ -632,6 +681,8 @@ public class MemoryManager {
      * Computes to how many pages the given number of bytes corresponds. If the given number of
      * bytes is not an exact multiple of a page size, the result is rounded down, such that a
      * portion of the memory (smaller than the page size) is not included.
+     * 计算给定字节数对应的页数。 如果给定的字节数不是页面大小的精确倍数，
+     * 则将结果向下舍入，从而不包括内存的一部分（小于页面大小）。
      *
      * @param fraction the fraction of the total memory per slot
      * @return The number of pages to which
@@ -645,6 +696,7 @@ public class MemoryManager {
     /**
      * Computes the memory size corresponding to the fraction of all memory governed by this
      * MemoryManager.
+     * 计算与此 MemoryManager 管理的所有内存的一部分相对应的内存大小。
      *
      * @param fraction The fraction of all memory governed by this MemoryManager
      * @return The memory size corresponding to the memory fraction
@@ -657,9 +709,11 @@ public class MemoryManager {
 
     /**
      * Creates a memory manager with the given capacity and given page size.
+     * 创建具有给定容量和给定页面大小的内存管理器。
      *
      * <p>This is a production version of MemoryManager which checks for memory leaks ({@link
      * #verifyEmpty()}) once the owner of the MemoryManager is ready to dispose.
+     * 这是 MemoryManager 的生产版本，它会在 MemoryManager 的所有者准备好处置时检查内存泄漏 ({@link #verifyEmpty()})。
      *
      * @param memorySize The total size of the off-heap memory to be managed by this memory manager.
      * @param pageSize The size of the pages handed out by the memory manager.

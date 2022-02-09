@@ -25,11 +25,14 @@ import org.apache.flink.runtime.resourcemanager.registration.TaskExecutorConnect
 
 import java.util.Map;
 
-/** Information of a TaskManager needed in {@link SlotManager}. */
+/** Information of a TaskManager needed in {@link SlotManager}.
+ * {@link SlotManager} 中需要的 TaskManager 的信息。
+ * */
 public interface TaskManagerInfo {
 
     /**
      * Get the instanceId of this task manager.
+     * 获取此任务管理器的 instanceId。
      *
      * @return the instanceId
      */

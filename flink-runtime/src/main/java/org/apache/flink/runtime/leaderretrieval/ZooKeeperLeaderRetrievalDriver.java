@@ -46,15 +46,21 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * implementation for Zookeeper. It retrieves the current leader which has been elected by the
  * {@link ZooKeeperLeaderElectionDriver}. The leader address as well as the current leader session
  * ID is retrieved from ZooKeeper.
+ * {@link ZooKeeperLeaderElectionDriver} 的对应物。 Zookeeper 的 {@link LeaderRetrievalService} 实现。
+ * 它检索由 {@link ZooKeeperLeaderElectionDriver} 选出的当前领导者。 从 ZooKeeper 检索领导者地址和当前领导者会话 ID。
  */
 public class ZooKeeperLeaderRetrievalDriver
         implements LeaderRetrievalDriver, NodeCacheListener, UnhandledErrorListener {
     private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperLeaderRetrievalDriver.class);
 
-    /** Connection to the used ZooKeeper quorum. */
+    /** Connection to the used ZooKeeper quorum.
+     * 连接到使用的 ZooKeeper 仲裁。
+     * */
     private final CuratorFramework client;
 
-    /** Curator recipe to watch changes of a specific ZooKeeper node. */
+    /** Curator recipe to watch changes of a specific ZooKeeper node.
+     * Curator recipe 用于观察特定 ZooKeeper 节点的变化。
+     * */
     private final NodeCache cache;
 
     private final String retrievalPath;
@@ -70,6 +76,7 @@ public class ZooKeeperLeaderRetrievalDriver
 
     /**
      * Creates a leader retrieval service which uses ZooKeeper to retrieve the leader information.
+     * 创建一个领导者检索服务，该服务使用 ZooKeeper 来检索领导者信息。
      *
      * @param client Client which constitutes the connection to the ZooKeeper quorum
      * @param retrievalPath Path of the ZooKeeper node which contains the leader information

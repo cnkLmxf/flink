@@ -29,29 +29,40 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Statistics for a successfully completed checkpoint.
+ * 成功完成的检查点的统计信息。
  *
  * <p>The reported statistics are immutable except for the discarded flag, which is updated via the
  * {@link DiscardCallback} and the {@link CompletedCheckpoint} after an instance of this class has
  * been created.
+ * 报告的统计信息是不可变的，除了丢弃标志，
+ * 在创建此类实例后通过 {@link DiscardCallback} 和 {@link CompletedCheckpoint} 更新。
  */
 public class CompletedCheckpointStats extends AbstractCheckpointStats {
 
     private static final long serialVersionUID = 138833868551861344L;
 
-    /** Total checkpoint state size over all subtasks. */
+    /** Total checkpoint state size over all subtasks.
+     * 所有子任务的总检查点状态大小。
+     * */
     private final long stateSize;
 
     private final long processedData;
 
     private final long persistedData;
 
-    /** The latest acknowledged subtask stats. */
+    /** The latest acknowledged subtask stats.
+     * 最新确认的子任务统计信息。
+     * */
     private final SubtaskStateStats latestAcknowledgedSubtask;
 
-    /** The external pointer of the checkpoint. */
+    /** The external pointer of the checkpoint.
+     * 检查点的外部指针。
+     * */
     private final String externalPointer;
 
-    /** Flag indicating whether the checkpoint was discarded. */
+    /** Flag indicating whether the checkpoint was discarded.
+     * 指示检查点是否被丢弃的标志。
+     * */
     private volatile boolean discarded;
 
     /**
@@ -128,13 +139,16 @@ public class CompletedCheckpointStats extends AbstractCheckpointStats {
     // Completed checkpoint specific methods
     // ------------------------------------------------------------------------
 
-    /** Returns the external pointer of this checkpoint. */
+    /** Returns the external pointer of this checkpoint.
+     * 返回此检查点的外部指针。
+     * */
     public String getExternalPath() {
         return externalPointer;
     }
 
     /**
      * Returns whether the checkpoint has been discarded.
+     * 返回检查点是否已被丢弃。
      *
      * @return <code>true</code> if the checkpoint has been discarded, <code>false</code> otherwise.
      */
@@ -144,6 +158,7 @@ public class CompletedCheckpointStats extends AbstractCheckpointStats {
 
     /**
      * Returns the callback for the {@link CompletedCheckpoint}.
+     * 返回 {@link CompletedCheckpoint} 的回调。
      *
      * @return Callback for the {@link CompletedCheckpoint}.
      */
@@ -154,13 +169,16 @@ public class CompletedCheckpointStats extends AbstractCheckpointStats {
     /**
      * Callback for the {@link CompletedCheckpoint} instance to notify about disposal of the
      * checkpoint (most commonly when the checkpoint has been subsumed by a newer one).
+     * {@link CompletedCheckpoint} 实例的回调以通知检查点的处置（最常见的是当检查点已被较新的检查点包含时）。
      */
     class DiscardCallback {
 
         /**
          * Updates the discarded flag of the checkpoint stats.
+         * 更新检查点统计信息的废弃标志。
          *
          * <p>After this notification, {@link #isDiscarded()} will return <code>true</code>.
+         * 收到此通知后，{@link #isDiscarded()} 将返回 <code>true</code>。
          */
         void notifyDiscardedCheckpoint() {
             discarded = true;

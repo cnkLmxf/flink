@@ -24,7 +24,9 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A snapshot of the checkpoint stats. */
+/** A snapshot of the checkpoint stats.
+ * 检查点统计信息的快照。
+ * */
 public class CheckpointStatsSnapshot implements Serializable {
 
     private static final long serialVersionUID = 8914278419087217964L;

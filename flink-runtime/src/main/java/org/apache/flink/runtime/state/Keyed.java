@@ -20,6 +20,7 @@ package org.apache.flink.runtime.state;
 
 /**
  * Interface for objects that have a key attribute.
+ * 具有键属性的对象的接口。
  *
  * @param <K> type of the key.
  */

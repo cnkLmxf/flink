@@ -25,6 +25,7 @@ import java.io.IOException;
 
 /**
  * Implementation of the record-oriented reader for mutable record types.
+ * 为可变记录类型实现面向记录的阅读器。
  *
  * @param <T> The type of the record that is read.
  */
@@ -34,6 +35,7 @@ public class MutableRecordReader<T extends IOReadableWritable> extends AbstractR
     /**
      * Creates a new MutableRecordReader that de-serializes records from the given input gate and
      * can spill partial records to disk, if they grow large.
+     * 创建一个新的 MutableRecordReader，它将来自给定输入门的记录反序列化，如果部分记录变大，则可以将其溢出到磁盘。
      *
      * @param inputGate The input gate to read from.
      * @param tmpDirectories The temp directories. USed for spilling if the reader concurrently

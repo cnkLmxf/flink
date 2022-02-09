@@ -23,11 +23,13 @@ import org.apache.flink.runtime.concurrent.ScheduledExecutor;
 /**
  * Provides the context for {@link DefaultCheckpointPlanCalculator} to compute the plan of
  * checkpoints.
+ * 为 {@link DefaultCheckpointPlanCalculator} 提供上下文以计算检查点计划。
  */
 public interface CheckpointPlanCalculatorContext {
 
     /**
      * Acquires the main thread executor for this job.
+     * 获取此作业的主线程执行器。
      *
      * @return The main thread executor.
      */
@@ -35,6 +37,7 @@ public interface CheckpointPlanCalculatorContext {
 
     /**
      * Detects whether there are already some tasks finished.
+     * 检测是否已经有一些任务完成。
      *
      * @return Whether there are finished tasks.
      */

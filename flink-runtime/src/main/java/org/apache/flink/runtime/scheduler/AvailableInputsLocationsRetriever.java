@@ -25,7 +25,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-/** {@link InputsLocationsRetriever} which filters out only already available input locations. */
+/** {@link InputsLocationsRetriever} which filters out only already available input locations.
+ * {@link InputsLocationsRetriever} 仅过滤掉已经可用的输入位置。
+ * */
 class AvailableInputsLocationsRetriever implements InputsLocationsRetriever {
     private final InputsLocationsRetriever inputsLocationsRetriever;
 

@@ -25,7 +25,9 @@ import org.apache.flink.util.Preconditions;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonCreator;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonProperty;
 
-/** Response to the triggering of an asynchronous operation. */
+/** Response to the triggering of an asynchronous operation.
+ * 响应异步操作的触发。
+ * */
 public class TriggerResponse implements ResponseBody {
     private static final String FIELD_NAME_REQUEST_ID = "request-id";
 

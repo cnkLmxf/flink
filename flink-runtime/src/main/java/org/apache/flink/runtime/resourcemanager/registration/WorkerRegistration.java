@@ -25,7 +25,9 @@ import org.apache.flink.runtime.taskexecutor.TaskExecutorGateway;
 import org.apache.flink.runtime.taskexecutor.TaskExecutorMemoryConfiguration;
 import org.apache.flink.util.Preconditions;
 
-/** This class extends the {@link TaskExecutorConnection}, adding the worker information. */
+/** This class extends the {@link TaskExecutorConnection}, adding the worker information.
+ * 此类扩展了 {@link TaskExecutorConnection}，添加了工作人员信息。
+ * */
 public class WorkerRegistration<WorkerType extends ResourceIDRetrievable>
         extends TaskExecutorConnection {
 

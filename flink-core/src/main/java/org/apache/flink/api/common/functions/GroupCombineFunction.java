@@ -27,12 +27,16 @@ import java.io.Serializable;
  * Generic interface used for combine functions ("combiners"). Combiners act as auxiliaries to a
  * {@link GroupReduceFunction} and "pre-reduce" the data. The combine functions typically do not see
  * the entire group of elements, but only a sub-group.
+ * 用于组合函数（“组合器”）的通用接口。 组合器充当 {@link GroupReduceFunction} 的辅助工具并“预减少”数据。
+ * combine 函数通常不会看到整个元素组，而只会看到一个子组。
  *
  * <p>Combine functions are frequently helpful in increasing the program efficiency, because they
  * allow the system to reduce the data volume earlier, before the entire groups have been collected.
+ * 合并功能通常有助于提高程序效率，因为它们允许系统在收集整个组之前更早地减少数据量。
  *
  * <p>This special variant of the combine function supports to return more than one element per
  * group. It is frequently less efficient to use than the {@link CombineFunction}.
+ * 这个 combine 函数的特殊变体支持每组返回一个以上的元素。 它的使用效率通常低于 {@link CombineFunction}。
  *
  * @param <IN> The data type processed by the combine function.
  * @param <OUT> The data type emitted by the combine function.
@@ -43,6 +47,7 @@ public interface GroupCombineFunction<IN, OUT> extends Function, Serializable {
 
     /**
      * The combine method, called (potentially multiple timed) with subgroups of elements.
+     * 使用子组元素调用（可能是多次定时的）组合方法。
      *
      * @param values The elements to be combined.
      * @param out The collector to use to return values from the function.

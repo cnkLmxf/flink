@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * Simple wrapper list state that exposes empty state properly as an empty list.
+ * 将空状态正确公开为空列表的简单包装器列表状态。
  *
  * @param <T> The type of elements in the list state.
  */

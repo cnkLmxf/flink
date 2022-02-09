@@ -36,7 +36,9 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** Handler which serves the cluster's configuration. */
+/** Handler which serves the cluster's configuration.
+ * 处理集群配置的处理程序。
+ * */
 public class ClusterConfigHandler
         extends AbstractRestHandler<
                 RestfulGateway,

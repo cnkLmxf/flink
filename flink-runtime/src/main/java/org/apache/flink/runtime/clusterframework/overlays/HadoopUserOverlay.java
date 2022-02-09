@@ -31,13 +31,18 @@ import java.io.IOException;
 
 /**
  * Overlays a Hadoop user context into a container.
+ * 将 Hadoop 用户上下文覆盖到容器中。
  *
  * <p>The overlay essentially configures Hadoop's {@link UserGroupInformation} class, establishing
  * the effective username for filesystem calls to HDFS in non-secure clusters.
+ * 覆盖层本质上配置了 Hadoop 的 {@link UserGroupInformation} 类，
+ * 为非安全集群中的文件系统调用 HDFS 建立有效的用户名。
  *
  * <p>In secure clusters, the configured keytab establishes the effective user.
+ * 在安全集群中，配置的 keytab 建立有效用户。
  *
  * <p>The following environment variables are set in the container: - HADOOP_USER_NAME
+ * 在容器中设置了以下环境变量： - HADOOP_USER_NAME
  */
 public class HadoopUserOverlay implements ContainerOverlay {
 
@@ -69,6 +74,7 @@ public class HadoopUserOverlay implements ContainerOverlay {
         /**
          * Configures the overlay using the current Hadoop user information (from {@link
          * UserGroupInformation}).
+         * 使用当前 Hadoop 用户信息（来自 {@link UserGroupInformation}）配置覆盖。
          */
         public Builder fromEnvironment(Configuration globalConfiguration) throws IOException {
             ugi = UserGroupInformation.getCurrentUser();

@@ -56,6 +56,8 @@ public final class MiniClusterJobClient implements JobClient, CoordinationReques
      * Creates a {@link MiniClusterJobClient} for the given {@link JobID} and {@link MiniCluster}.
      * This will shut down the {@code MiniCluster} after job result retrieval if {@code
      * shutdownCluster} is {@code true}.
+     * 为给定的 {@link JobID} 和 {@link MiniCluster} 创建一个 {@link MiniClusterJobClient}。
+     * 如果 {@code shutdownCluster} 为 {@code true}，这将在作业结果检索后关闭 {@code MiniCluster}。
      */
     public MiniClusterJobClient(
             JobID jobID,
@@ -165,12 +167,18 @@ public final class MiniClusterJobClient implements JobClient, CoordinationReques
                         });
     }
 
-    /** Determines the behavior of the {@link MiniClusterJobClient} when the job finishes. */
+    /** Determines the behavior of the {@link MiniClusterJobClient} when the job finishes.
+     * 确定作业完成时 {@link MiniClusterJobClient} 的行为。
+     * */
     public enum JobFinalizationBehavior {
-        /** Shut down the {@link MiniCluster} when the job finishes. */
+        /** Shut down the {@link MiniCluster} when the job finishes.
+         * 作业完成后关闭 {@link MiniCluster}。
+         * */
         SHUTDOWN_CLUSTER,
 
-        /** Don't do anything when the job finishes. */
+        /** Don't do anything when the job finishes.
+         * 工作完成后不要做任何事情。
+         * */
         NOTHING
     }
 }

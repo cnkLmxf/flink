@@ -36,6 +36,7 @@ public class AsynchronousBufferFileWriter extends AsynchronousFileIOChannel<Buff
 
     /**
      * Writes the given block asynchronously.
+     * 异步写入给定的块。
      *
      * @param buffer the buffer to be written (will be recycled when done)
      * @throws IOException thrown if adding the write operation fails
@@ -63,7 +64,9 @@ public class AsynchronousBufferFileWriter extends AsynchronousFileIOChannel<Buff
         return super.registerAllRequestsProcessedListener(listener);
     }
 
-    /** Recycles the buffer after the I/O request. */
+    /** Recycles the buffer after the I/O request.
+     * 在 I/O 请求后回收缓冲区。
+     * */
     private static class RecyclingCallback implements RequestDoneCallback<Buffer> {
 
         @Override

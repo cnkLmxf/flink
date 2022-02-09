@@ -115,10 +115,14 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * JobMaster implementation. The job master is responsible for the execution of a single {@link
  * JobGraph}.
+ * JobMaster 实施。 作业主机负责执行单个 {@link JobGraph}。
  *
  * <p>It offers the following methods as part of its rpc interface to interact with the JobMaster
  * remotely:
- *
+ * 它提供以下方法作为其 rpc 接口的一部分来与 JobMaster 远程交互：
+ *<ul>
+ *     <li>{@link #updateTaskExecutionState} 更新给定任务的任务执行状态
+ *</ul>
  * <ul>
  *   <li>{@link #updateTaskExecutionState} updates the task execution state for given task
  * </ul>
@@ -389,7 +393,9 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
         }
     }
 
-    /** Suspend the job and shutdown all other services including rpc. */
+    /** Suspend the job and shutdown all other services including rpc.
+     * 暂停作业并关闭所有其他服务，包括 rpc。
+     * */
     @Override
     public CompletableFuture<Void> onStop() {
         log.info("Stopping the JobMaster for job {}({}).", jobGraph.getName(), jobGraph.getJobID());
@@ -421,6 +427,7 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
 
     /**
      * Updates the task execution state for a given task.
+     * 更新给定任务的任务执行状态。
      *
      * @param taskExecutionState New task execution state for a given task
      * @return Acknowledge the task execution state update

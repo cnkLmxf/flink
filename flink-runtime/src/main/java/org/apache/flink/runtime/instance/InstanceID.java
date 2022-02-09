@@ -20,7 +20,9 @@ package org.apache.flink.runtime.instance;
 
 import org.apache.flink.util.AbstractID;
 
-/** Class for statistically unique instance IDs. */
+/** Class for statistically unique instance IDs.
+ * 统计上唯一的实例 ID 的类。
+ * */
 public class InstanceID extends AbstractID {
     private static final long serialVersionUID = 1L;
 

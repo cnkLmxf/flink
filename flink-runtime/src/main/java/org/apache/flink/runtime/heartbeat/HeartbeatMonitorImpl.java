@@ -41,10 +41,14 @@ public class HeartbeatMonitorImpl<O> implements HeartbeatMonitor<O>, Runnable {
 
     private final ScheduledExecutor scheduledExecutor;
 
-    /** Listener which is notified about heartbeat timeouts. */
+    /** Listener which is notified about heartbeat timeouts.
+     * 通知心跳超时的侦听器。
+     * */
     private final HeartbeatListener<?, ?> heartbeatListener;
 
-    /** Maximum heartbeat timeout interval. */
+    /** Maximum heartbeat timeout interval.
+     * 最大心跳超时间隔。
+     * */
     private final long heartbeatTimeoutIntervalMs;
 
     private volatile ScheduledFuture<?> futureTimeout;
@@ -107,6 +111,7 @@ public class HeartbeatMonitorImpl<O> implements HeartbeatMonitor<O>, Runnable {
     @Override
     public void run() {
         // The heartbeat has timed out if we're in state running
+        // 如果我们处于运行状态，则心跳超时
         if (state.compareAndSet(State.RUNNING, State.TIMEOUT)) {
             heartbeatListener.notifyHeartbeatTimeout(resourceID);
         }
@@ -144,6 +149,7 @@ public class HeartbeatMonitorImpl<O> implements HeartbeatMonitor<O>, Runnable {
 
     /**
      * The factory that instantiates {@link HeartbeatMonitorImpl}.
+     * 实例化 {@link HeartbeatMonitorImpl} 的工厂。
      *
      * @param <O> Type of the outgoing heartbeat payload
      */

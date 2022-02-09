@@ -48,10 +48,13 @@ import static org.apache.flink.util.Preconditions.checkState;
 
 /**
  * Cache to manage ongoing operations.
+ * 缓存以管理正在进行的操作。
  *
  * <p>The cache allows to register ongoing operations by calling {@link #registerOngoingOperation(K,
  * CompletableFuture)}, where the {@code CompletableFuture} contains the operation result. Completed
  * operations will be removed from the cache automatically after a fixed timeout.
+ * 缓存允许通过调用 {@link #registerOngoingOperation(K, CompletableFuture)} 来注册正在进行的操作，
+ * 其中 {@code CompletableFuture} 包含操作结果。 完成的操作将在固定超时后自动从缓存中删除。
  */
 @ThreadSafe
 class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseableAsync {
@@ -60,11 +63,15 @@ class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseabl
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompletedOperationCache.class);
 
-    /** In-progress asynchronous operations. */
+    /** In-progress asynchronous operations.
+     * 正在进行的异步操作。
+     * */
     private final Map<K, ResultAccessTracker<R>> registeredOperationTriggers =
             new ConcurrentHashMap<>();
 
-    /** Caches the result of completed operations. */
+    /** Caches the result of completed operations.
+     * 缓存已完成操作的结果。
+     * */
     private final Cache<K, ResultAccessTracker<R>> completedOperations;
 
     private final Object lock = new Object();
@@ -112,6 +119,7 @@ class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseabl
 
     /**
      * Registers an ongoing operation with the cache.
+     * 向缓存注册正在进行的操作。
      *
      * @param operationResultFuture A future containing the operation result.
      * @throw IllegalStateException if the cache is already shutting down
@@ -146,6 +154,7 @@ class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseabl
     /**
      * Returns the operation result or a {@code Throwable} if the {@code CompletableFuture}
      * finished, otherwise {@code null}.
+     * 如果 {@code CompletableFuture} 完成，则返回操作结果或 {@code Throwable}，否则返回 {@code null}。
      *
      * @throws UnknownOperationKeyException If the operation is not found, and there is no ongoing
      *     operation under the provided key.
@@ -190,13 +199,19 @@ class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseabl
         completedOperations.cleanUp();
     }
 
-    /** Stores the result of an asynchronous operation, and tracks accesses to it. */
+    /** Stores the result of an asynchronous operation, and tracks accesses to it.
+     * 存储异步操作的结果，并跟踪对其的访问。
+     * */
     private static class ResultAccessTracker<R> {
 
-        /** Result of an asynchronous operation. Null if operation is in progress. */
+        /** Result of an asynchronous operation. Null if operation is in progress.
+         * 异步操作的结果。 如果操作正在进行，则为 Null。
+         * */
         @Nullable private final Either<Throwable, R> operationResultOrError;
 
-        /** Future that completes if a non-null {@link #operationResultOrError} is accessed. */
+        /** Future that completes if a non-null {@link #operationResultOrError} is accessed.
+         * 如果访问非空 {@link #operationResultOrError} 则完成的未来。
+         * */
         private final CompletableFuture<Void> accessed;
 
         private static <R> ResultAccessTracker<R> inProgress() {
@@ -217,6 +232,7 @@ class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseabl
 
         /**
          * Creates a new instance of the tracker with the result of the asynchronous operation set.
+         * 使用异步操作集的结果创建跟踪器的新实例。
          */
         public ResultAccessTracker<R> finishOperation(
                 final Either<Throwable, R> operationResultOrError) {
@@ -228,6 +244,7 @@ class CompletedOperationCache<K extends OperationKey, R> implements AutoCloseabl
         /**
          * If present, returns the result of the asynchronous operation, and marks the result as
          * accessed. If the result is not present, this method returns null.
+         * 如果存在，则返回异步操作的结果，并将结果标记为已访问。 如果结果不存在，则此方法返回 null。
          */
         @Nullable
         public Either<Throwable, R> accessOperationResultOrError() {

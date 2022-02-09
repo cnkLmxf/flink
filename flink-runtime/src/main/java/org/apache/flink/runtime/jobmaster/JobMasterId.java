@@ -24,27 +24,37 @@ import javax.annotation.Nullable;
 
 import java.util.UUID;
 
-/** The {@link JobMaster} fencing token. */
+/** The {@link JobMaster} fencing token.
+ * {@link JobMaster} 防护令牌。
+ * */
 public class JobMasterId extends AbstractID {
 
     private static final long serialVersionUID = -933276753644003754L;
 
-    /** Creates a JobMasterId that takes the bits from the given UUID. */
+    /** Creates a JobMasterId that takes the bits from the given UUID.
+     * 创建一个 JobMasterId，它从给定的 UUID 中获取位。
+     * */
     public JobMasterId(UUID uuid) {
         super(uuid.getLeastSignificantBits(), uuid.getMostSignificantBits());
     }
 
-    /** Generates a new random JobMasterId. */
+    /** Generates a new random JobMasterId.
+     * 生成一个新的随机 JobMasterId。
+     * */
     private JobMasterId() {
         super();
     }
 
-    /** Creates a UUID with the bits from this JobMasterId. */
+    /** Creates a UUID with the bits from this JobMasterId.
+     * 使用来自此 JobMasterId 的位创建一个 UUID。
+     * */
     public UUID toUUID() {
         return new UUID(getUpperPart(), getLowerPart());
     }
 
-    /** Generates a new random JobMasterId. */
+    /** Generates a new random JobMasterId.
+     * 生成一个新的随机 JobMasterId。
+     * */
     public static JobMasterId generate() {
         return new JobMasterId();
     }
@@ -52,6 +62,7 @@ public class JobMasterId extends AbstractID {
     /**
      * If the given uuid is null, this returns null, otherwise a JobMasterId that corresponds to the
      * UUID, via {@link #JobMasterId(UUID)}.
+     * 如果给定的 uuid 为 null，则返回 null，否则返回对应于 UUID 的 JobMasterId，通过 {@link #JobMasterId(UUID)}。
      */
     public static JobMasterId fromUuidOrNull(@Nullable UUID uuid) {
         return uuid == null ? null : new JobMasterId(uuid);

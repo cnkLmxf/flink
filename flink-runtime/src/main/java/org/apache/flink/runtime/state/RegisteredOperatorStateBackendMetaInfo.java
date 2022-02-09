@@ -33,6 +33,7 @@ import java.util.Map;
 /**
  * Compound meta information for a registered state in an operator state backend. This contains the
  * state name, assignment mode, and state partition serializer.
+ * 操作员状态后端中注册状态的复合元信息。 这包含状态名称、分配模式和状态分区序列化程序。
  *
  * @param <S> Type of the state.
  */

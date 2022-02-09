@@ -48,6 +48,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A {@link org.apache.flink.runtime.state.KeyValueStateIterator} over Heap backend snapshot
  * resources.
+ * 堆后端快照资源上的 {@link org.apache.flink.runtime.state.KeyValueStateIterator}。
  */
 @Internal
 @NotThreadSafe

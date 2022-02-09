@@ -21,6 +21,7 @@ package org.apache.flink.runtime.execution;
 /**
  * Thrown to trigger a canceling of the executing task. Intended to cause a cancelled status, rather
  * than a failed status.
+ * 抛出以触发取消正在执行的任务。 旨在导致取消状态，而不是失败状态。
  */
 public class CancelTaskException extends RuntimeException {
 

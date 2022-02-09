@@ -22,11 +22,14 @@ import org.apache.flink.util.Preconditions;
 
 /**
  * Budget manager for {@link ResourceProfile}.
+ * {@link ResourceProfile} 的预算经理。
  *
  * <p>For a given total resource budget, this class handles reserving and releasing resources from
  * the budget, and rejects reservations if they cannot be satisfied by the remaining budget.
+ * 对于给定的总资源预算，此类处理从预算中保留和释放资源，如果剩余预算不能满足保留，则拒绝保留。
  *
  * <p>Both the total budget and the reservations are in the form of {@link ResourceProfile}.
+ * 总预算和预留都采用 {@link ResourceProfile} 的形式。
  */
 public class ResourceBudgetManager {
 

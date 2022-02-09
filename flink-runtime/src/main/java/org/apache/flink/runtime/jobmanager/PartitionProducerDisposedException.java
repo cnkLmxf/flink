@@ -23,6 +23,7 @@ import org.apache.flink.runtime.io.network.partition.ResultPartitionID;
 /**
  * Exception returned to a TaskManager on JobMaster requesting partition state, if the producer of a
  * partition has been disposed.
+ * 如果分区的生产者已被释放，则异常返回给 JobMaster 请求分区状态的 TaskManager。
  */
 public class PartitionProducerDisposedException extends Exception {
 

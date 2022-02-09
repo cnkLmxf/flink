@@ -24,12 +24,16 @@ import org.apache.flink.configuration.ResourceManagerOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-/** This class describes the basic parameters for launching a TaskManager process. */
+/** This class describes the basic parameters for launching a TaskManager process.
+ * 此类描述启动 TaskManager 进程的基本参数。
+ * */
 public class ContaineredTaskManagerParameters implements java.io.Serializable {
 
     private static final long serialVersionUID = -3096987654278064670L;
 
-    /** Environment variables to add to the Java process. */
+    /** Environment variables to add to the Java process.
+     * 要添加到 Java 进程的环境变量。
+     * */
     private final HashMap<String, String> taskManagerEnv;
 
     private final TaskExecutorProcessSpec taskExecutorProcessSpec;
@@ -70,6 +74,7 @@ public class ContaineredTaskManagerParameters implements java.io.Serializable {
 
     /**
      * Computes the parameters to be used to start a TaskManager Java process.
+     * 计算用于启动 TaskManager Java 进程的参数。
      *
      * @param config The Flink configuration.
      * @param taskExecutorProcessSpec The resource specifics of the task executor.

@@ -25,6 +25,7 @@ import java.io.IOException;
 
 /**
  * A handle to saved {@link StateChange state changes}.
+ * 保存的 {@link StateChange 状态更改} 的句柄。
  *
  * @param <ReaderContext> type of context used while reading (on TM).
  */

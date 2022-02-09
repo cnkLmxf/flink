@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * Assigns each InputSplit to each requesting parallel instance. This causes the input to be fully
  * replicated, i.e., each parallel instance consumes the full input.
+ * 将每个 InputSplit 分配给每个请求的并行实例。 这会导致输入被完全复制，即每个并行实例都消耗完整的输入。
  */
 @Internal
 public class ReplicatingInputSplitAssigner implements InputSplitAssigner {

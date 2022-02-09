@@ -23,7 +23,9 @@ import akka.actor.SupervisorStrategy;
 import akka.actor.SupervisorStrategyConfigurator;
 import akka.japi.pf.PFBuilder;
 
-/** Escalating supervisor strategy. */
+/** Escalating supervisor strategy.
+ * 升级主管策略。
+ * */
 public class EscalatingSupervisorStrategy implements SupervisorStrategyConfigurator {
 
     @Override

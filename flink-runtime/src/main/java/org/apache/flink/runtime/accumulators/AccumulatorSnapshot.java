@@ -30,6 +30,7 @@ import java.util.Map;
 /**
  * This class encapsulates a map of accumulators for a single task. It is used for the transfer from
  * TaskManagers to the JobManager and from the JobManager to the Client.
+ * 此类封装了单个任务的累加器映射。 它用于从TaskManagers 到JobManager 以及从JobManager 到Client 的传输。
  */
 public class AccumulatorSnapshot implements Serializable {
 
@@ -38,7 +39,9 @@ public class AccumulatorSnapshot implements Serializable {
     private final JobID jobID;
     private final ExecutionAttemptID executionAttemptID;
 
-    /** Serialized user accumulators which may require the custom user class loader. */
+    /** Serialized user accumulators which may require the custom user class loader.
+     * 可能需要自定义用户类加载器的序列化用户累加器。
+     * */
     private final SerializedValue<Map<String, Accumulator<?, ?>>> userAccumulators;
 
     public AccumulatorSnapshot(
@@ -61,6 +64,7 @@ public class AccumulatorSnapshot implements Serializable {
 
     /**
      * Gets the user-defined accumulators values.
+     * 获取用户定义的累加器值。
      *
      * @return the serialized map
      */

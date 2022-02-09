@@ -23,7 +23,9 @@ import org.apache.flink.annotation.PublicEvolving;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** A container class hosting the information of a {@link SourceReader}. */
+/** A container class hosting the information of a {@link SourceReader}.
+ * 承载 {@link SourceReader} 信息的容器类。
+ * */
 @PublicEvolving
 public final class ReaderInfo implements Serializable {
 

@@ -24,7 +24,9 @@ import org.apache.flink.runtime.event.AbstractEvent;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-/** The specific delegate implementation for the non output case like sink task. */
+/** The specific delegate implementation for the non output case like sink task.
+ * 非输出情况的特定委托实现，如接收器任务。
+ * */
 public class NonRecordWriter<T extends IOReadableWritable> implements RecordWriterDelegate<T> {
 
     public NonRecordWriter() {}

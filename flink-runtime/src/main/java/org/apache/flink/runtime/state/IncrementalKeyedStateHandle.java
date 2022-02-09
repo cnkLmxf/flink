@@ -23,19 +23,26 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 import java.util.UUID;
 
-/** Common interface to all incremental {@link KeyedStateHandle}. */
+/** Common interface to all incremental {@link KeyedStateHandle}.
+ * 所有增量 {@link KeyedStateHandle} 的通用接口。
+ * */
 public interface IncrementalKeyedStateHandle extends KeyedStateHandle {
 
-    /** Returns the ID of the checkpoint for which the handle was created. */
+    /** Returns the ID of the checkpoint for which the handle was created.
+     * 返回为其创建句柄的检查点的 ID。
+     * */
     long getCheckpointId();
 
-    /** Returns the identifier of the state backend from which this handle was created. */
+    /** Returns the identifier of the state backend from which this handle was created.
+     * 返回创建此句柄的状态后端的标识符。
+     * */
     @Nonnull
     UUID getBackendIdentifier();
 
     /**
      * Returns a set of ids of all registered shared states in the backend at the time this was
      * created.
+     * 返回创建时后端中所有已注册共享状态的一组 id。
      */
     @Nonnull
     Set<StateHandleID> getSharedStateHandleIDs();

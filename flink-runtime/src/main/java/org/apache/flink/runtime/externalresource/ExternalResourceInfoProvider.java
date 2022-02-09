@@ -23,13 +23,16 @@ import org.apache.flink.api.common.externalresource.ExternalResourceInfo;
 import java.util.Collections;
 import java.util.Set;
 
-/** Provide the information of external resources. */
+/** Provide the information of external resources.
+ * 提供外部资源的信息。
+ * */
 public interface ExternalResourceInfoProvider {
 
     ExternalResourceInfoProvider NO_EXTERNAL_RESOURCES = resourceName -> Collections.emptySet();
 
     /**
      * Get the specific external resource information by the resourceName.
+     * 通过resourceName获取具体的外部资源信息。
      *
      * @param resourceName of the required external resource
      * @return information set of the external resource identified by the resourceName

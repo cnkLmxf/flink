@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.jobmanager;
 
-/** Singleton {@link JobGraphStoreWatcher} empty implementation. */
+/** Singleton {@link JobGraphStoreWatcher} empty implementation.
+ * 单例 {@link JobGraphStoreWatcher} 空实现。
+ * */
 public enum NoOpJobGraphStoreWatcher implements JobGraphStoreWatcher {
     INSTANCE;
 

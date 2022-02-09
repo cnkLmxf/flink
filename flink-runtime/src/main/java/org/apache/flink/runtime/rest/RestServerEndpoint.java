@@ -74,7 +74,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-/** An abstract class for netty-based REST server endpoints. */
+/** An abstract class for netty-based REST server endpoints.
+ * 基于网络的 REST 服务器端点的抽象类。
+ * */
 public abstract class RestServerEndpoint implements AutoCloseableAsync {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -119,6 +121,7 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
     /**
      * This method is called at the beginning of {@link #start()} to setup all handlers that the
      * REST server endpoint implementation requires.
+     * 此方法在 {@link #start()} 的开头调用以设置 REST 服务器端点实现所需的所有处理程序。
      *
      * @param localAddressFuture future rest address of the RestServerEndpoint
      * @return Collection of AbstractRestHandler which are added to the server endpoint
@@ -128,6 +131,7 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
 
     /**
      * Starts this REST server endpoint.
+     * 启动此 REST 服务器端点。
      *
      * @throws Exception if we cannot start the RestServerEndpoint
      */
@@ -261,6 +265,7 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
 
     /**
      * Hook to start sub class specific services.
+     * 挂钩以启动子类特定服务。
      *
      * @throws Exception if an error occurred
      */
@@ -268,6 +273,7 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
 
     /**
      * Returns the address on which this endpoint is accepting requests.
+     * 返回此端点接受请求的地址。
      *
      * @return address on which this endpoint is accepting requests or null if none
      */
@@ -292,6 +298,7 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
 
     /**
      * Returns the base URL of the REST server endpoint.
+     * 返回 REST 服务器端点的基本 URL。
      *
      * @return REST base URL of this endpoint
      */
@@ -525,6 +532,7 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
     /**
      * Checks whether the given directory exists and is writable. If it doesn't exist, this method
      * will attempt to create it.
+     * 检查给定目录是否存在并且是否可写。 如果它不存在，此方法将尝试创建它。
      *
      * @param uploadDir directory to check
      * @param log logger used for logging output
@@ -589,12 +597,16 @@ public abstract class RestServerEndpoint implements AutoCloseableAsync {
 
     /**
      * Comparator for Rest URLs.
+     * Rest URL 的比较器。
      *
      * <p>The comparator orders the Rest URLs such that URLs with path parameters are ordered behind
      * those without parameters. E.g.: /jobs /jobs/overview /jobs/:jobid /jobs/:jobid/config /:*
+     * 比较器对 Rest URL 进行排序，使得具有路径参数的 URL 排在没有参数的 URL 之后。
+     * 例如：/jobs /jobs/overview /jobs/:jobid /jobs/:jobid/config /:*
      *
      * <p>IMPORTANT: This comparator is highly specific to how Netty path parameters are encoded.
      * Namely with a preceding ':' character.
+     * 重要提示：此比较器高度特定于 Netty 路径参数的编码方式。 即带有前面的“：”字符。
      */
     public static final class RestHandlerUrlComparator
             implements Comparator<Tuple2<RestHandlerSpecification, ChannelInboundHandler>>,

@@ -24,7 +24,9 @@ import org.apache.flink.runtime.taskmanager.TaskManagerLocation;
 
 import java.util.Optional;
 
-/** Common interface for the runtime {@link Execution} and {@link ArchivedExecution}. */
+/** Common interface for the runtime {@link Execution} and {@link ArchivedExecution}.
+ * 运行时 {@link Execution} 和 {@link ArchivedExecution} 的通用接口。
+ * */
 public interface AccessExecution {
     /**
      * Returns the {@link ExecutionAttemptID} for this Execution.
@@ -64,6 +66,7 @@ public interface AccessExecution {
     /**
      * Returns the exception that caused the job to fail. This is the first root exception that was
      * not recoverable and triggered job failure.
+     * 返回导致作业失败的异常。 这是第一个不可恢复并触发作业失败的根异常。
      *
      * @return an {@code Optional} of {@link ErrorInfo} containing the {@code Throwable} and the
      *     time it was registered if an error occurred. If no error occurred an empty {@code
@@ -81,6 +84,7 @@ public interface AccessExecution {
 
     /**
      * Returns the user-defined accumulators as strings.
+     * 将用户定义的累加器作为字符串返回。
      *
      * @return user-defined accumulators as strings.
      */

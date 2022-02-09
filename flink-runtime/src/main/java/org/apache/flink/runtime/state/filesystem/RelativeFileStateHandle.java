@@ -25,6 +25,8 @@ import org.apache.flink.runtime.state.StreamStateHandle;
  * A {@link StreamStateHandle} for state that was written to a file stream. The differences between
  * {@link FileStateHandle} and {@link RelativeFileStateHandle} is that {@link
  * RelativeFileStateHandle} contains relativePath for the given handle.
+ * 写入文件流的状态的 {@link StreamStateHandle}。 {@link FileStateHandle} 和 {@link RelativeFileStateHandle}
+ * 之间的区别在于 {@link RelativeFileStateHandle} 包含给定句柄的 relativePath。
  */
 public class RelativeFileStateHandle extends FileStateHandle {
     private static final long serialVersionUID = 1L;

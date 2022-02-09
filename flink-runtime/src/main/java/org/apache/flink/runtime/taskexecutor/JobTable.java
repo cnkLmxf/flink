@@ -34,18 +34,27 @@ import java.util.Optional;
 /**
  * A {@link JobTable JobTable's} task is to manage the lifecycle of a job on the {@link
  * TaskExecutor}.
+ * {@link JobTable JobTable's} 任务是管理 {@link TaskExecutor} 上作业的生命周期。
  *
  * <p>There can always only be at most one job per {@link JobID}. In order to create a {@link Job}
  * one needs to provide a {@link JobTable.JobServices} instance which is owned by the job.
+ * 每个 {@link JobID} 始终最多只能有一个作业。
+ * 为了创建 {@link Job}，需要提供一个 {@link JobTable.JobServices} 实例，该实例属于该作业。
  *
  * <p>A job can be connected to a leading JobManager or can be disconnected. In order to establish a
  * connection, one needs to call {@link Job#connect}. Once a job is connected, the respective {@link
  * Connection} can be retrieved via its {@link JobID} or via the {@link ResourceID} of the leader. A
  * connection can be disconnected via {@link Connection#disconnect}.
+ * 作业可以连接到领先的 JobManager，也可以断开连接。 为了建立连接，需要调用 {@link Job#connect}。
+ * 连接作业后，可以通过其 {@link JobID} 或通过领导者的 {@link ResourceID} 检索相应的 {@link Connection}。
+ * 可以通过 {@link Connection#disconnect} 断开连接。
  *
  * <p>In order to clean up a {@link Job} one first needs to disconnect from the leading JobManager.
  * In order to completely remove the {@link Job} from the {@link JobTable}, one needs to call {@link
  * Job#close} which also closes the associated {@link JobTable.JobServices} instance.
+ * 为了清理 {@link Job}，首先需要断开与领先的 JobManager 的连接。
+ * 为了从 {@link JobTable} 中完全删除 {@link Job}，
+ * 需要调用 {@link Job#close} 来关闭关联的 {@link JobTable.JobServices} 实例。
  */
 public interface JobTable extends AutoCloseable {
 

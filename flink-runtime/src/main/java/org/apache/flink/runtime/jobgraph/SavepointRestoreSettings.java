@@ -25,23 +25,32 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Savepoint restore settings. */
+/** Savepoint restore settings.
+ * 保存点恢复设置。
+ * */
 public class SavepointRestoreSettings implements Serializable {
 
     private static final long serialVersionUID = 87377506900849777L;
 
-    /** No restore should happen. */
+    /** No restore should happen.
+     * 不应该发生恢复。
+     * */
     private static final SavepointRestoreSettings NONE = new SavepointRestoreSettings(null, false);
 
-    /** By default, be strict when restoring from a savepoint. */
+    /** By default, be strict when restoring from a savepoint.
+     * 默认情况下，从保存点恢复时要严格。
+     * */
     private static final boolean DEFAULT_ALLOW_NON_RESTORED_STATE = false;
 
-    /** Savepoint restore path. */
+    /** Savepoint restore path.
+     * 保存点还原路径。
+     * */
     private final String restorePath;
 
     /**
      * Flag indicating whether non restored state is allowed if the savepoint contains state for an
      * operator that is not part of the job.
+     * 如果保存点包含不属于作业的操作员的状态，则指示是否允许未恢复状态的标志。
      */
     private final boolean allowNonRestoredState;
 
@@ -58,6 +67,7 @@ public class SavepointRestoreSettings implements Serializable {
 
     /**
      * Returns whether to restore from savepoint.
+     * 返回是否从保存点恢复。
      *
      * @return <code>true</code> if should restore from savepoint.
      */
@@ -67,6 +77,7 @@ public class SavepointRestoreSettings implements Serializable {
 
     /**
      * Returns the path to the savepoint to restore from.
+     * 返回要从中恢复的保存点的路径。
      *
      * @return Path to the savepoint to restore from or <code>null</code> if should not restore.
      */
@@ -77,6 +88,7 @@ public class SavepointRestoreSettings implements Serializable {
     /**
      * Returns whether non restored state is allowed if the savepoint contains state that cannot be
      * mapped back to the job.
+     * 如果保存点包含无法映射回作业的状态，则返回是否允许未恢复状态。
      *
      * @return <code>true</code> if non restored state is allowed if the savepoint contains state
      *     that cannot be mapped back to the job.

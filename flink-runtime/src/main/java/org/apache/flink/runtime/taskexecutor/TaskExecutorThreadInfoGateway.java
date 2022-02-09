@@ -25,7 +25,9 @@ import org.apache.flink.runtime.webmonitor.threadinfo.ThreadInfoSamplesRequest;
 
 import java.util.concurrent.CompletableFuture;
 
-/** RPC gateway for requesting {@link org.apache.flink.runtime.messages.ThreadInfoSample}. */
+/** RPC gateway for requesting {@link org.apache.flink.runtime.messages.ThreadInfoSample}.
+ * 用于请求 {@link org.apache.flink.runtime.messages.ThreadInfoSample} 的 RPC 网关。
+ * */
 public interface TaskExecutorThreadInfoGateway {
     /**
      * Request a thread info sample from the given task.

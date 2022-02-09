@@ -54,7 +54,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
-/** REST handler which serves checkpoint statistics for subtasks. */
+/** REST handler which serves checkpoint statistics for subtasks.
+ * 为子任务提供检查点统计信息的 REST 处理程序。
+ * */
 public class TaskCheckpointStatisticDetailsHandler
         extends AbstractCheckpointHandler<
                 TaskCheckpointStatisticsWithSubtaskDetails, TaskCheckpointMessageParameters>

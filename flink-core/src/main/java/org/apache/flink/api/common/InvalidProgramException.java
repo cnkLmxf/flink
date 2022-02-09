@@ -24,19 +24,23 @@ import org.apache.flink.annotation.Public;
  * An exception thrown to indicate that the composed program is invalid. Examples of invalid
  * programs are operations where crucial parameters are omitted, or functions where the input type
  * and the type signature do not match.
+ * 抛出异常，表示组合程序无效。 无效程序的示例是省略关键参数的操作，或者输入类型和类型签名不匹配的函数。
  */
 @Public
 public class InvalidProgramException extends RuntimeException {
 
     private static final long serialVersionUID = 3119881934024032887L;
 
-    /** Creates a new exception with no message. */
+    /** Creates a new exception with no message.
+     * 创建一个没有消息的新异常。
+     * */
     public InvalidProgramException() {
         super();
     }
 
     /**
      * Creates a new exception with the given message.
+     * 使用给定消息创建一个新异常。
      *
      * @param message The exception message.
      */
@@ -46,6 +50,7 @@ public class InvalidProgramException extends RuntimeException {
 
     /**
      * Creates a new exception with the given message and cause.
+     * 使用给定的消息和原因创建一个新异常。
      *
      * @param message The exception message.
      * @param e The exception cause.

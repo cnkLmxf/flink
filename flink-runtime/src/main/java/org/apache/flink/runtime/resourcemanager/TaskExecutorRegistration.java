@@ -27,32 +27,48 @@ import java.io.Serializable;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Information provided by the TaskExecutor when it registers to the ResourceManager. */
+/** Information provided by the TaskExecutor when it registers to the ResourceManager.
+ * TaskExecutor 在注册到 ResourceManager 时提供的信息。
+ * */
 public class TaskExecutorRegistration implements Serializable {
     private static final long serialVersionUID = -5727832919954047964L;
 
-    /** The address of the TaskExecutor that registers. */
+    /** The address of the TaskExecutor that registers.
+     * 注册的 TaskExecutor 的地址。
+     * */
     private final String taskExecutorAddress;
 
-    /** The resource ID of the TaskExecutor that registers. */
+    /** The resource ID of the TaskExecutor that registers.
+     * 注册的 TaskExecutor 的资源 ID。
+     * */
     private final ResourceID resourceId;
 
-    /** Port used for data communication between TaskExecutors. */
+    /** Port used for data communication between TaskExecutors.
+     * 用于任务执行器之间数据通信的端口。
+     * */
     private final int dataPort;
 
     /** Port used for JMX RMI. */
     private final int jmxPort;
 
-    /** HardwareDescription of the registering TaskExecutor. */
+    /** HardwareDescription of the registering TaskExecutor.
+     * 注册 TaskExecutor 的硬件描述。
+     * */
     private final HardwareDescription hardwareDescription;
 
-    /** Memory configuration of the registering TaskExecutor. */
+    /** Memory configuration of the registering TaskExecutor.
+     * 注册TaskExecutor的内存配置。
+     * */
     private final TaskExecutorMemoryConfiguration memoryConfiguration;
 
-    /** The default resource profile for slots requested with unknown resource requirements. */
+    /** The default resource profile for slots requested with unknown resource requirements.
+     * 具有未知资源要求的插槽的默认资源配置文件。
+     * */
     private final ResourceProfile defaultSlotResourceProfile;
 
-    /** The task executor total resource profile. */
+    /** The task executor total resource profile.
+     * 任务执行者总资源配置文件。
+     * */
     private final ResourceProfile totalResourceProfile;
 
     public TaskExecutorRegistration(

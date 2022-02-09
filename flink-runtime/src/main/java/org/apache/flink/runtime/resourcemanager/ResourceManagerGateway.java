@@ -59,6 +59,7 @@ public interface ResourceManagerGateway
 
     /**
      * Register a {@link JobMaster} at the resource manager.
+     * 在资源管理器中注册一个 {@link JobMaster}。
      *
      * @param jobMasterId The fencing token for the JobMaster leader
      * @param jobMasterResourceId The resource ID of the JobMaster that registers
@@ -86,6 +87,7 @@ public interface ResourceManagerGateway
 
     /**
      * Declares the absolute resource requirements for a job.
+     * 声明作业的绝对资源需求。
      *
      * @param jobMasterId id of the JobMaster
      * @param resourceRequirements resource requirements
@@ -105,6 +107,7 @@ public interface ResourceManagerGateway
 
     /**
      * Register a {@link TaskExecutor} at the resource manager.
+     * 在资源管理器中注册一个 {@link TaskExecutor}。
      *
      * @param taskExecutorRegistration the task executor registration.
      * @param timeout The timeout for the response.
@@ -115,6 +118,7 @@ public interface ResourceManagerGateway
 
     /**
      * Sends the given {@link SlotReport} to the ResourceManager.
+     * 将给定的 {@link SlotReport} 发送到 ResourceManager。
      *
      * @param taskManagerRegistrationId id identifying the sending TaskManager
      * @param slotReport which is sent to the ResourceManager
@@ -130,6 +134,7 @@ public interface ResourceManagerGateway
 
     /**
      * Sent by the TaskExecutor to notify the ResourceManager that a slot has become available.
+     * 由 TaskExecutor 发送以通知 ResourceManager 插槽已可用。
      *
      * @param instanceId TaskExecutor's instance id
      * @param slotID The SlotID of the freed slot
@@ -139,6 +144,7 @@ public interface ResourceManagerGateway
 
     /**
      * Deregister Flink from the underlying resource management system.
+     * 从底层资源管理系统中注销 Flink。
      *
      * @param finalStatus final status with which to deregister the Flink application
      * @param diagnostics additional information for the resource management system, can be {@code
@@ -149,6 +155,7 @@ public interface ResourceManagerGateway
 
     /**
      * Gets the currently registered number of TaskManagers.
+     * 获取当前注册的 TaskManager 数量。
      *
      * @return The future to the number of registered TaskManagers.
      */
@@ -156,6 +163,7 @@ public interface ResourceManagerGateway
 
     /**
      * Sends the heartbeat to resource manager from task manager
+     * 从任务管理器向资源管理器发送心跳
      *
      * @param heartbeatOrigin unique id of the task manager
      * @param heartbeatPayload payload from the originating TaskManager
@@ -165,6 +173,7 @@ public interface ResourceManagerGateway
 
     /**
      * Sends the heartbeat to resource manager from job manager
+     * 从作业管理器向资源管理器发送心跳
      *
      * @param heartbeatOrigin unique id of the job manager
      */
@@ -172,6 +181,7 @@ public interface ResourceManagerGateway
 
     /**
      * Disconnects a TaskManager specified by the given resourceID from the {@link ResourceManager}.
+     * 断开由给定 resourceID 指定的 TaskManager 与 {@link ResourceManager} 的连接。
      *
      * @param resourceID identifying the TaskManager to disconnect
      * @param cause for the disconnection of the TaskManager
@@ -180,6 +190,7 @@ public interface ResourceManagerGateway
 
     /**
      * Disconnects a JobManager specified by the given resourceID from the {@link ResourceManager}.
+     * 断开由给定 resourceID 指定的 JobManager 与 {@link ResourceManager} 的连接。
      *
      * @param jobId JobID for which the JobManager was the leader
      * @param jobStatus status of the job at the time of disconnection
@@ -189,6 +200,7 @@ public interface ResourceManagerGateway
 
     /**
      * Requests information about the registered {@link TaskExecutor}.
+     * 请求有关已注册 {@link TaskExecutor} 的信息。
      *
      * @param timeout of the request
      * @return Future collection of TaskManager information
@@ -197,6 +209,7 @@ public interface ResourceManagerGateway
 
     /**
      * Requests detail information about the given {@link TaskExecutor}.
+     * 请求有关给定 {@link TaskExecutor} 的详细信息。
      *
      * @param taskManagerId identifying the TaskExecutor for which to return information
      * @param timeout of the request
@@ -208,6 +221,7 @@ public interface ResourceManagerGateway
     /**
      * Requests the resource overview. The resource overview provides information about the
      * connected TaskManagers, the total number of slots and the number of available slots.
+     * 请求资源概览。 资源概览提供有关已连接的 TaskManager、插槽总数和可用插槽数的信息。
      *
      * @param timeout of the request
      * @return Future containing the resource overview
@@ -216,6 +230,7 @@ public interface ResourceManagerGateway
 
     /**
      * Requests the paths for the TaskManager's {@link MetricQueryService} to query.
+     * 请求 TaskManager 的 {@link MetricQueryService} 查询的路径。
      *
      * @param timeout for the asynchronous operation
      * @return Future containing the collection of resource ids and the corresponding metric query
@@ -227,6 +242,8 @@ public interface ResourceManagerGateway
     /**
      * Request the file upload from the given {@link TaskExecutor} to the cluster's {@link
      * BlobServer}. The corresponding {@link TransientBlobKey} is returned.
+     * 请求将文件从给定的 {@link TaskExecutor} 上传到集群的 {@link BlobServer}。
+     * 返回相应的 {@link TransientBlobKey}。
      *
      * @param taskManagerId identifying the {@link TaskExecutor} to upload the specified file
      * @param fileType type of the file to upload
@@ -240,6 +257,8 @@ public interface ResourceManagerGateway
     /**
      * Request the file upload from the given {@link TaskExecutor} to the cluster's {@link
      * BlobServer}. The corresponding {@link TransientBlobKey} is returned.
+     * 请求将文件从给定的 {@link TaskExecutor} 上传到集群的 {@link BlobServer}。
+     * 返回相应的 {@link TransientBlobKey}。
      *
      * @param taskManagerId identifying the {@link TaskExecutor} to upload the specified file
      * @param fileName name of the file to upload
@@ -252,6 +271,7 @@ public interface ResourceManagerGateway
 
     /**
      * Request log list from the given {@link TaskExecutor}.
+     * 从给定的 {@link TaskExecutor} 请求日志列表。
      *
      * @param taskManagerId identifying the {@link TaskExecutor} to get log list from
      * @param timeout for the asynchronous operation
@@ -262,6 +282,7 @@ public interface ResourceManagerGateway
 
     /**
      * Requests the thread dump from the given {@link TaskExecutor}.
+     * 从给定的 {@link TaskExecutor} 请求线程转储。
      *
      * @param taskManagerId taskManagerId identifying the {@link TaskExecutor} to get the thread
      *     dump from
@@ -273,6 +294,7 @@ public interface ResourceManagerGateway
 
     /**
      * Requests the {@link TaskExecutorGateway}.
+     * 请求 {@link TaskExecutorGateway}。
      *
      * @param taskManagerId identifying the {@link TaskExecutor}.
      * @return Future containing the task executor gateway.

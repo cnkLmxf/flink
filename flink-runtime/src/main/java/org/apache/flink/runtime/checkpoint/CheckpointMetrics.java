@@ -25,7 +25,9 @@ import java.util.Objects;
 
 import static org.apache.flink.util.Preconditions.checkArgument;
 
-/** A collection of simple metrics, around the triggering of a checkpoint. */
+/** A collection of simple metrics, around the triggering of a checkpoint.
+ * 围绕触发检查点的一组简单指标。
+ * */
 public class CheckpointMetrics implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,13 +37,19 @@ public class CheckpointMetrics implements Serializable {
 
     private final long bytesPersistedDuringAlignment;
 
-    /** The duration (in nanoseconds) that the stream alignment for the checkpoint took. */
+    /** The duration (in nanoseconds) that the stream alignment for the checkpoint took.
+     * 检查点的流对齐所花费的持续时间（以纳秒为单位）。
+     * */
     private final long alignmentDurationNanos;
 
-    /** The duration (in milliseconds) of the synchronous part of the operator checkpoint. */
+    /** The duration (in milliseconds) of the synchronous part of the operator checkpoint.
+     * 操作员检查点的同步部分的持续时间（以毫秒为单位）。
+     * */
     private final long syncDurationMillis;
 
-    /** The duration (in milliseconds) of the asynchronous part of the operator checkpoint. */
+    /** The duration (in milliseconds) of the asynchronous part of the operator checkpoint.
+     * 操作员检查点的异步部分的持续时间（以毫秒为单位）。
+     * */
     private final long asyncDurationMillis;
 
     private final long checkpointStartDelayNanos;

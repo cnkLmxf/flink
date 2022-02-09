@@ -36,6 +36,7 @@ import java.io.IOException;
 /**
  * A {@link SpillingThread.SpillingBehaviour} which spills & merges results of applying a {@link
  * GroupCombineFunction}.
+ * 一个 {@link SpillingThread.SpillingBehaviour} 溢出并合并应用 {@link GroupCombineFunction} 的结果。
  */
 final class CombiningSpillingBehaviour<R> implements SpillingThread.SpillingBehaviour<R> {
     private static final Logger LOG = LoggerFactory.getLogger(CombiningSpillingBehaviour.class);

@@ -23,9 +23,13 @@ import org.apache.flink.runtime.io.network.api.CheckpointBarrier;
 
 import java.io.IOException;
 
-/** An {@link InputGate} with a specific index. */
+/** An {@link InputGate} with a specific index.
+ * 具有特定索引的 {@link InputGate}。
+ * */
 public abstract class IndexedInputGate extends InputGate implements CheckpointableInput {
-    /** Returns the index of this input gate. Only supported on */
+    /** Returns the index of this input gate. Only supported on
+     * 返回此输入门的索引。 仅支持
+     * */
     public abstract int getGateIndex();
 
     @Override

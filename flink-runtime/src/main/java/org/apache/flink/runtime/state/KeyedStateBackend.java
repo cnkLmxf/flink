@@ -29,6 +29,7 @@ import java.util.stream.Stream;
 
 /**
  * A keyed state backend provides methods for managing keyed state.
+ * 键控状态后端提供管理键控状态的方法。
  *
  * @param <K> The key by which state is keyed.
  */
@@ -37,6 +38,7 @@ public interface KeyedStateBackend<K>
 
     /**
      * Sets the current key that is used for partitioned state.
+     * 设置用于分区状态的当前键。
      *
      * @param newKey The new current key.
      */
@@ -51,6 +53,7 @@ public interface KeyedStateBackend<K>
     /**
      * Applies the provided {@link KeyedStateFunction} to the state with the provided {@link
      * StateDescriptor} of all the currently active keys.
+     * 将提供的 {@link KeyedStateFunction} 应用到具有所有当前active key的提供 {@link StateDescriptor} 的状态。
      *
      * @param namespace the namespace of the state.
      * @param namespaceSerializer the serializer for the namespace.
@@ -70,6 +73,7 @@ public interface KeyedStateBackend<K>
     /**
      * @return A stream of all keys for the given state and namespace. Modifications to the state
      *     during iterating over it keys are not supported.
+     *     给定状态和命名空间的所有键的流。 不支持在迭代 it 键期间修改状态。
      * @param state State variable for which existing keys will be returned.
      * @param namespace Namespace for which existing keys will be returned.
      */
@@ -80,16 +84,20 @@ public interface KeyedStateBackend<K>
      *     during iterating over it keys are not supported. Implementations go not make any ordering
      *     guarantees about the returned tupes. Two records with the same key or namespace may not
      *     be returned near each other in the stream.
+     *     给定状态和命名空间的所有键的流。 不支持在迭代 it 键期间修改状态。
+     *     实现不会对返回的 tupes 做出任何排序保证。 具有相同键或命名空间的两条记录可能不会在流中彼此靠近返回。
      * @param state State variable for which existing keys will be returned.
      */
     <N> Stream<Tuple2<K, N>> getKeysAndNamespaces(String state);
 
     /**
      * Creates or retrieves a keyed state backed by this state backend.
+     * 创建或检索由该状态后端支持的键控状态。
      *
      * @param namespaceSerializer The serializer used for the namespace type of the state
      * @param stateDescriptor The identifier for the state. This contains name and can create a
      *     default state value.
+     *     状态的标识符。 这包含名称并且可以创建默认状态值。
      * @param <N> The type of the namespace.
      * @param <S> The type of the state.
      * @return A new key/value state backed by this backend.
@@ -102,10 +110,13 @@ public interface KeyedStateBackend<K>
 
     /**
      * Creates or retrieves a partitioned state backed by this state backend.
+     * 创建或检索由该状态后端支持的分区状态。
      *
      * <p>TODO: NOTE: This method does a lot of work caching / retrieving states just to update the
      * namespace. This method should be removed for the sake of namespaces being lazily fetched from
      * the keyed state backend, or being set on the state directly.
+     * TODO：注意：这个方法做了很多工作缓存/检索状态只是为了更新命名空间。
+     * 为了从键控状态后端延迟获取namespce或直接在状态上设置名称空间，应删除此方法。
      *
      * @param stateDescriptor The identifier for the state. This contains name and can create a
      *     default state value.
@@ -127,11 +138,13 @@ public interface KeyedStateBackend<K>
     /**
      * State backend will call {@link KeySelectionListener#keySelected} when key context is switched
      * if supported.
+     * 如果支持，状态后端将在切换键上下文时调用 {@link KeySelectionListener#keySelected}。
      */
     void registerKeySelectionListener(KeySelectionListener<K> listener);
 
     /**
      * Stop calling listener registered in {@link #registerKeySelectionListener}.
+     * 停止调用在 {@link #registerKeySelectionListener} 中注册的监听器。
      *
      * @return returns true iff listener was registered before.
      */
@@ -141,10 +154,14 @@ public interface KeyedStateBackend<K>
         return false;
     }
 
-    /** Listener is given a callback when {@link #setCurrentKey} is called (key context changes). */
+    /** Listener is given a callback when {@link #setCurrentKey} is called (key context changes).
+     * 当 {@link #setCurrentKey} 被调用（键上下文改变）时，监听器会得到一个回调。
+     * */
     @FunctionalInterface
     interface KeySelectionListener<K> {
-        /** Callback when key context is switched. */
+        /** Callback when key context is switched.
+         * 键上下文切换时的回调。
+         * */
         void keySelected(K newKey);
     }
 }

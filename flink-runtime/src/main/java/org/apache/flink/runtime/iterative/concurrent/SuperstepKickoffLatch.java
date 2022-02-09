@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.iterative.concurrent;
 
-/** Latch used to wait for the previous superstep to complete. */
+/** Latch used to wait for the previous superstep to complete.
+ * Latch 用于等待上一个超级步完成。
+ * */
 public class SuperstepKickoffLatch {
 
     private final Object monitor = new Object();

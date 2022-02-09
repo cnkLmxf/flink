@@ -22,8 +22,10 @@ import org.apache.flink.api.common.state.AggregatingState;
 
 /**
  * The peer to the {@link AggregatingState} in the internal state type hierarchy.
+ * 内部状态类型层次结构中 {@link AggregatingState} 的对等体。
  *
  * <p>See {@link InternalKvState} for a description of the internal state hierarchy.
+ * 有关内部状态层次结构的描述，请参阅 {@link InternalKvState}。
  *
  * @param <K> The type of key the state is associated to
  * @param <N> The type of the namespace

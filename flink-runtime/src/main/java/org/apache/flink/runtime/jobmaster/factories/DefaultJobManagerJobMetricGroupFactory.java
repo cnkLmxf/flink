@@ -27,6 +27,8 @@ import javax.annotation.Nonnull;
 /**
  * Default implementation of {@link JobManagerJobMetricGroupFactory} which creates for a given
  * {@link JobGraph} a {@link JobManagerJobMetricGroup}.
+ * {@link JobManagerJobMetricGroupFactory} 的默认实现，
+ * 它为给定的 {@link JobGraph} 创建一个 {@link JobManagerJobMetricGroup}。
  */
 public class DefaultJobManagerJobMetricGroupFactory implements JobManagerJobMetricGroupFactory {
 

@@ -31,17 +31,21 @@ import java.nio.channels.FileChannel;
 /**
  * The <code>LocalDataInputStream</code> class is a wrapper class for a data input stream to the
  * local file system.
+ * <code>LocalDataInputStream</code> 类是本地文件系统的数据输入流的包装类。
  */
 @Internal
 public class LocalDataInputStream extends FSDataInputStream {
 
-    /** The file input stream used to read data from. */
+    /** The file input stream used to read data from.
+     * 用于从中读取数据的文件输入流。
+     * */
     private final FileInputStream fis;
 
     private final FileChannel fileChannel;
 
     /**
      * Constructs a new <code>LocalDataInputStream</code> object from a given {@link File} object.
+     * 从给定的 {@link File} 对象构造一个新的 <code>LocalDataInputStream</code> 对象。
      *
      * @param file The File the data stream is read from
      * @throws IOException Thrown if the data input stream cannot be created.

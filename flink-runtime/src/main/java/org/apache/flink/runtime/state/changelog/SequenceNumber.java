@@ -28,6 +28,8 @@ import static org.apache.flink.util.Preconditions.checkState;
  * A logical timestamp to draw a boundary between the materialized and non-materialized changes.
  * Maintained by the state backend but implementations may choose to move its generation to {@link
  * StateChangelogWriterFactory} as an optimization.
+ * 用于在物化和非物化更改之间划界的逻辑时间戳。
+ * 由状态后端维护，但实现可以选择将其生成移动到 {@link StateChangelogWriterFactory} 作为优化。
  */
 @Internal
 public interface SequenceNumber extends Comparable<SequenceNumber> {

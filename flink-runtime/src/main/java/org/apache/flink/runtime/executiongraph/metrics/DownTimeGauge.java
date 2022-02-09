@@ -27,10 +27,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A gauge that returns (in milliseconds) how long a job has not been not running any more, in case
  * it is in a failing/recovering situation. Running jobs return naturally a value of zero.
+ * 一个仪表，它返回（以毫秒为单位）作业不再运行多长时间，以防它处于失败/恢复情况。 正在运行的作业自然会返回零值。
  *
  * <p>For jobs that have never run (new not yet scheduled jobs) or jobs that have run again after
  * failing, this gauge returns {@value NOT_FAILING}, and for jobs that are not running any more, it
  * returns {@value NO_LONGER_RUNNING}.
+ * 对于从未运行的作业（新的尚未计划的作业）或在失败后再次运行的作业，此仪表返回 {@value NOT_FAILING}，
+ * 对于不再运行的作业，它返回 {@value NO_LONGER_RUNNING}。
  */
 public class DownTimeGauge implements Gauge<Long> {
 

@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 /**
  * The result of a job execution. Gives access to the execution time of the job, and to all
  * accumulators created by this job.
+ * 作业执行的结果。 允许访问作业的执行时间，以及此作业创建的所有累加器。
  */
 @Public
 public class JobExecutionResult extends JobSubmissionResult {
@@ -72,6 +73,7 @@ public class JobExecutionResult extends JobSubmissionResult {
     /**
      * Gets the net execution time of the job, i.e., the execution time in the parallel system,
      * without the pre-flight steps like the optimizer.
+     * 获取作业的净执行时间，即在并行系统中的执行时间，无需像优化器这样的飞行前步骤。
      *
      * @return The net execution time in milliseconds.
      */
@@ -82,6 +84,7 @@ public class JobExecutionResult extends JobSubmissionResult {
     /**
      * Gets the net execution time of the job, i.e., the execution time in the parallel system,
      * without the pre-flight steps like the optimizer in a desired time unit.
+     * 获取作业的净执行时间，即在并行系统中的执行时间，而无需像优化器这样的飞行前步骤在所需的时间单位内。
      *
      * @param desiredUnit the unit of the <tt>NetRuntime</tt>
      * @return The net execution time in the desired unit.
@@ -165,6 +168,7 @@ public class JobExecutionResult extends JobSubmissionResult {
 
     /**
      * Returns a dummy object for wrapping a JobSubmissionResult.
+     * 返回一个用于包装 JobSubmissionResult 的虚拟对象。
      *
      * @param result The SubmissionResult
      * @return a JobExecutionResult

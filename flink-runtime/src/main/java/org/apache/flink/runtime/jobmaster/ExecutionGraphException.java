@@ -20,7 +20,9 @@ package org.apache.flink.runtime.jobmaster;
 
 import org.apache.flink.runtime.executiongraph.ExecutionGraph;
 
-/** Exceptions thrown by operations on the {@link ExecutionGraph} by the {@link JobMaster}. */
+/** Exceptions thrown by operations on the {@link ExecutionGraph} by the {@link JobMaster}.
+ * {@link JobMaster} 对 {@link ExecutionGraph} 的操作引发的异常。
+ * */
 public class ExecutionGraphException extends JobManagerException {
 
     private static final long serialVersionUID = -5439002256464886357L;

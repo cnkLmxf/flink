@@ -29,7 +29,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 
-/** BlobWriter is used to upload data to the BLOB store. */
+/** BlobWriter is used to upload data to the BLOB store.
+ * BlobWriter 用于将数据上传到 BLOB 存储。
+ * */
 public interface BlobWriter {
 
     Logger LOG = LoggerFactory.getLogger(BlobWriter.class);
@@ -37,6 +39,7 @@ public interface BlobWriter {
     /**
      * Uploads the data of the given byte array for the given job to the BLOB server and makes it a
      * permanent BLOB.
+     * 将给定作业的给定字节数组的数据上传到 BLOB 服务器并使其成为永久 BLOB。
      *
      * @param jobId the ID of the job the BLOB belongs to
      * @param value the buffer to upload
@@ -49,6 +52,7 @@ public interface BlobWriter {
     /**
      * Uploads the data from the given input stream for the given job to the BLOB server and makes
      * it a permanent BLOB.
+     * 将给定作业的给定输入流中的数据上传到 BLOB 服务器并使其成为永久 BLOB。
      *
      * @param jobId ID of the job this blob belongs to
      * @param inputStream the input stream to read the data from
@@ -60,6 +64,7 @@ public interface BlobWriter {
 
     /**
      * Returns the min size before data will be offloaded to the BLOB store.
+     * 返回将数据卸载到 BLOB 存储之前的最小大小。
      *
      * @return minimum offloading size
      */
@@ -68,6 +73,7 @@ public interface BlobWriter {
     /**
      * Serializes the given value and offloads it to the BlobServer if its size exceeds the minimum
      * offloading size of the BlobServer.
+     * 如果给定值的大小超过 BlobServer 的最小卸载大小，则序列化给定值并将其卸载到 BlobServer。
      *
      * @param value to serialize
      * @param jobId to which the value belongs.

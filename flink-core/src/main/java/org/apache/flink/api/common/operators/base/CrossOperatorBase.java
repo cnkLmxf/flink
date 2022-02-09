@@ -39,7 +39,9 @@ import java.util.List;
 public class CrossOperatorBase<IN1, IN2, OUT, FT extends CrossFunction<IN1, IN2, OUT>>
         extends DualInputOperator<IN1, IN2, OUT, FT> {
 
-    /** The cross hint tells the system which sizes to expect from the data sets */
+    /** The cross hint tells the system which sizes to expect from the data sets
+     * 交叉提示告诉系统期望数据集的大小
+     * */
     @Public
     public static enum CrossHint {
         OPTIMIZER_CHOOSES,
@@ -124,9 +126,13 @@ public class CrossOperatorBase<IN1, IN2, OUT, FT extends CrossFunction<IN1, IN2,
 
     // --------------------------------------------------------------------------------------------
 
-    /** Marker interface to declare the second input as the smaller one. */
+    /** Marker interface to declare the second input as the smaller one.
+     * 用于将第二个输入声明为较小输入的标记接口。
+     * */
     public static interface CrossWithSmall {}
 
-    /** Marker interface to declare the second input as the larger one. */
+    /** Marker interface to declare the second input as the larger one.
+     * 用于将第二个输入声明为较大输入的标记接口。
+     * */
     public static interface CrossWithLarge {}
 }

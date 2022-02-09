@@ -27,10 +27,12 @@ import java.util.concurrent.TimeoutException;
 /**
  * Interface to execute {@link Runnable} and {@link Callable} in the main thread of the underlying
  * RPC endpoint.
+ * 在底层 RPC 端点的主线程中执行 {@link Runnable} 和 {@link Callable} 的接口。
  *
  * <p>This interface is intended to be implemented by the self gateway in a {@link RpcEndpoint}
  * implementation which allows to dispatch local procedures to the main thread of the underlying RPC
  * endpoint.
+ * 此接口旨在由自网关在 {@link RpcEndpoint} 实现中实现，该实现允许将本地过程分派到底层 RPC 端点的主线程。
  */
 public interface MainThreadExecutable {
 

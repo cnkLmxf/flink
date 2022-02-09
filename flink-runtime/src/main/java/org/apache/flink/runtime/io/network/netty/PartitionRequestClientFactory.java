@@ -41,6 +41,7 @@ import java.util.concurrent.ExecutionException;
  *
  * <p>Instances of partition requests clients are shared among several {@link RemoteInputChannel}
  * instances.
+ * 分区请求客户端的实例在多个 {@link RemoteInputChannel} 实例之间共享。
  */
 class PartitionRequestClientFactory {
     private static final Logger LOG = LoggerFactory.getLogger(PartitionRequestClientFactory.class);
@@ -64,6 +65,7 @@ class PartitionRequestClientFactory {
     /**
      * Atomically establishes a TCP connection to the given remote address and creates a {@link
      * NettyPartitionRequestClient} instance for this connection.
+     * 以原子方式建立到给定远程地址的 TCP 连接并为此连接创建 {@link NettyPartitionRequestClient} 实例。
      */
     NettyPartitionRequestClient createPartitionRequestClient(ConnectionID connectionId)
             throws IOException, InterruptedException {
@@ -164,7 +166,9 @@ class PartitionRequestClientFactory {
         return clients.size();
     }
 
-    /** Removes the client for the given {@link ConnectionID}. */
+    /** Removes the client for the given {@link ConnectionID}.
+     * 删除给定 {@link ConnectionID} 的客户端。
+     * */
     void destroyPartitionRequestClient(ConnectionID connectionId, PartitionRequestClient client) {
         final CompletableFuture<NettyPartitionRequestClient> future = clients.get(connectionId);
         if (future != null && future.isDone()) {

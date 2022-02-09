@@ -24,17 +24,21 @@ import java.util.Set;
 
 /**
  * Driver which takes the responsibility to manage and provide the information of external resource.
+ * 负责管理和提供外部资源信息的驱动程序。
  *
  * <p>Drivers that should be instantiated via a {@link ExternalResourceDriverFactory}.
+ * 应通过 {@link ExternalResourceDriverFactory} 实例化的驱动程序。
  *
  * <p>TaskExecutor will retrieve the {@link ExternalResourceInfo} set of the external resource from
  * the drivers.
+ * TaskExecutor 将从驱动程序中检索外部资源的 {@link ExternalResourceInfo} 集。
  */
 @PublicEvolving
 public interface ExternalResourceDriver {
 
     /**
      * Retrieve the information of the external resources according to the amount.
+     * 根据数量检索外部资源的信息。
      *
      * @param amount of the required external resources
      * @return information set of the required external resources

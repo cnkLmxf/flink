@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 
 /**
  * Resource specification of a worker, mainly used by SlotManager requesting from ResourceManager.
+ * Worker 的资源规范，主要用于 SlotManager 向 ResourceManager 请求。
  */
 public final class WorkerResourceSpec implements Serializable {
 
@@ -246,6 +247,7 @@ public final class WorkerResourceSpec implements Serializable {
         /**
          * Add the given extended resources. This will discard all the previous added extended
          * resources.
+         * 添加给定的扩展资源。 这将丢弃所有先前添加的扩展资源。
          */
         public Builder setExtendedResources(Collection<ExternalResource> extendedResources) {
             this.extendedResources =

@@ -27,11 +27,13 @@ import org.apache.flink.runtime.state.KeyGroupRange;
  * A listener for a {@link KvStateRegistry}.
  *
  * <p>The registry calls these methods when KvState instances are registered and unregistered.
+ * 注册和注销 KvState 实例时，注册中心会调用这些方法。
  */
 public interface KvStateRegistryListener {
 
     /**
      * Notifies the listener about a registered KvState instance.
+     * 通知侦听器有关已注册的 KvState 实例。
      *
      * @param jobId Job ID the KvState instance belongs to
      * @param jobVertexId JobVertexID the KvState instance belongs to
@@ -48,6 +50,7 @@ public interface KvStateRegistryListener {
 
     /**
      * Notifies the listener about an unregistered KvState instance.
+     * 通知监听器一个未注册的 KvState 实例。
      *
      * @param jobId Job ID the KvState instance belongs to
      * @param jobVertexId JobVertexID the KvState instance belongs to

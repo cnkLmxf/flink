@@ -27,6 +27,7 @@ import java.nio.charset.Charset;
 /**
  * A simple {@link Encoder} that uses {@code toString()} on the input elements and writes them to
  * the output bucket file separated by newline.
+ * 一个简单的 {@link Encoder}，它在输入元素上使用 {@code toString()} 并将它们写入由换行符分隔的输出存储桶文件。
  *
  * @param <IN> The type of the elements that are being written by the sink.
  */
@@ -42,6 +43,7 @@ public class SimpleStringEncoder<IN> implements Encoder<IN> {
     /**
      * Creates a new {@code StringWriter} that uses {@code "UTF-8"} charset to convert strings to
      * bytes.
+     * 创建一个新的 {@code StringWriter} ，它使用 {@code "UTF-8"} 字符集将字符串转换为字节。
      */
     public SimpleStringEncoder() {
         this("UTF-8");
@@ -49,6 +51,7 @@ public class SimpleStringEncoder<IN> implements Encoder<IN> {
 
     /**
      * Creates a new {@code StringWriter} that uses the given charset to convert strings to bytes.
+     *创建一个使用给定字符集将字符串转换为字节的新 {@code StringWriter}。
      *
      * @param charsetName Name of the charset to be used, must be valid input for {@code
      *     Charset.forName(charsetName)}

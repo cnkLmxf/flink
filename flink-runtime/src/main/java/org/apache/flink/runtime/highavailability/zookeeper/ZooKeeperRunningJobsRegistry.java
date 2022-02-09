@@ -36,7 +36,9 @@ import java.util.Arrays;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A zookeeper based registry for running jobs, highly available. */
+/** A zookeeper based registry for running jobs, highly available.
+ * 用于运行作业的基于 zookeeper 的注册表，高度可用。
+ * */
 public class ZooKeeperRunningJobsRegistry implements RunningJobsRegistry {
 
     private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperRunningJobsRegistry.class);

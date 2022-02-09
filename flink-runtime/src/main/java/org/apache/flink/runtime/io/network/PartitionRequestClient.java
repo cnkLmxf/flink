@@ -24,11 +24,14 @@ import org.apache.flink.runtime.io.network.partition.consumer.RemoteInputChannel
 
 import java.io.IOException;
 
-/** Client to send messages or task events via network for {@link RemoteInputChannel}. */
+/** Client to send messages or task events via network for {@link RemoteInputChannel}.
+ * 客户端通过网络为 {@link RemoteInputChannel} 发送消息或任务事件。
+ * */
 public interface PartitionRequestClient {
 
     /**
      * Requests a remote sub partition.
+     * 请求远程子分区。
      *
      * @param partitionId The identifier of result partition to be requested.
      * @param subpartitionIndex The sub partition index in the requested result partition.
@@ -44,6 +47,7 @@ public interface PartitionRequestClient {
 
     /**
      * Notifies available credits from one remote input channel.
+     * 通知来自一个远程输入通道的可用积分。
      *
      * @param inputChannel The remote input channel who announces the available credits.
      */
@@ -51,6 +55,7 @@ public interface PartitionRequestClient {
 
     /**
      * Requests to resume data consumption from one remote input channel.
+     * 从一个远程输入通道恢复数据消耗的请求。
      *
      * @param inputChannel The remote input channel who is ready to resume data consumption.
      */
@@ -58,6 +63,7 @@ public interface PartitionRequestClient {
 
     /**
      * Sends a task event backwards to an intermediate result partition.
+     * 将任务事件向后发送到中间结果分区。
      *
      * @param partitionId The identifier of result partition.
      * @param event The task event to be sent.
@@ -70,6 +76,7 @@ public interface PartitionRequestClient {
     /**
      * Cancels the partition request for the given remote input channel and removes this client from
      * factory if it is not referenced by any other input channels.
+     * 取消给定远程输入通道的分区请求，如果任何其他输入通道未引用此客户端，则将其从工厂中删除。
      *
      * @param inputChannel The remote input channel for canceling partition and to be removed from
      *     network stack.

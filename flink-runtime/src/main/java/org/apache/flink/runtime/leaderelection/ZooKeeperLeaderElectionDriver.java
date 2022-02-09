@@ -49,6 +49,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * {@link LeaderElectionDriver} implementation for Zookeeper. The leading JobManager is elected
  * using ZooKeeper. The current leader's address as well as its leader session ID is published via
  * ZooKeeper.
+ * Zookeeper 的 {@link LeaderElectionDriver} 实现。
+ * 领先的 JobManager 是使用 ZooKeeper 选出的。 当前领导者的地址及其领导者会话 ID 通过 ZooKeeper 发布。
  */
 public class ZooKeeperLeaderElectionDriver
         implements LeaderElectionDriver,
@@ -58,16 +60,24 @@ public class ZooKeeperLeaderElectionDriver
 
     private static final Logger LOG = LoggerFactory.getLogger(ZooKeeperLeaderElectionDriver.class);
 
-    /** Client to the ZooKeeper quorum. */
+    /** Client to the ZooKeeper quorum.
+     * ZooKeeper 仲裁的客户端。
+     * */
     private final CuratorFramework client;
 
-    /** Curator recipe for leader election. */
+    /** Curator recipe for leader election.
+     * 领导者选举的策展人配方。
+     * */
     private final LeaderLatch leaderLatch;
 
-    /** Curator recipe to watch a given ZooKeeper node for changes. */
+    /** Curator recipe to watch a given ZooKeeper node for changes.
+     * Curator recipe 用于监视给定 ZooKeeper 节点的更改。
+     * */
     private final NodeCache cache;
 
-    /** ZooKeeper path of the node which stores the current leader information. */
+    /** ZooKeeper path of the node which stores the current leader information.
+     * 存储当前领导者信息的节点的 ZooKeeper 路径。
+     * */
     private final String leaderPath;
 
     private final ConnectionStateListener listener =
@@ -193,7 +203,9 @@ public class ZooKeeperLeaderElectionDriver
         }
     }
 
-    /** Writes the current leader's address as well the given leader session ID to ZooKeeper. */
+    /** Writes the current leader's address as well the given leader session ID to ZooKeeper.
+     * 将当前领导者的地址以及给定的领导者会话 ID 写入 ZooKeeper。
+     * */
     @Override
     public void writeLeaderInformation(LeaderInformation leaderInformation) {
         assert (running);

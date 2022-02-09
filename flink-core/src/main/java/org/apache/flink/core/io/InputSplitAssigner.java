@@ -25,6 +25,7 @@ import java.util.List;
 /**
  * An input split assigner distributes the {@link InputSplit}s among the instances on which a data
  * source exists.
+ * 输入拆分分配器在数据源所在的实例之间分配 {@link InputSplit}。
  */
 @PublicEvolving
 public interface InputSplitAssigner {
@@ -32,6 +33,7 @@ public interface InputSplitAssigner {
     /**
      * Returns the next input split that shall be consumed. The consumer's host is passed as a
      * parameter to allow localized assignments.
+     * 返回应使用的下一个输入拆分。 消费者的主机作为参数传递以允许本地化分配。
      *
      * @param host The host address of split requesting task.
      * @param taskId The id of the split requesting task.
@@ -41,6 +43,7 @@ public interface InputSplitAssigner {
 
     /**
      * Return the splits to assigner if the task failed to process it.
+     * 如果任务处理失败，则将拆分返回给分配者。
      *
      * @param splits The list of input splits to be returned.
      * @param taskId The id of the task that failed to process the input splits.

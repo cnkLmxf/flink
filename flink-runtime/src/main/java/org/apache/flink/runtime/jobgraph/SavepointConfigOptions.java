@@ -23,11 +23,15 @@ import org.apache.flink.configuration.ConfigOption;
 
 import static org.apache.flink.configuration.ConfigOptions.key;
 
-/** The {@link ConfigOption configuration options} used when restoring from a savepoint. */
+/** The {@link ConfigOption configuration options} used when restoring from a savepoint.
+ * 从保存点恢复时使用的 {@link ConfigOption 配置选项}。
+ * */
 @PublicEvolving
 public class SavepointConfigOptions {
 
-    /** The path to a savepoint that will be used to bootstrap the pipeline's state. */
+    /** The path to a savepoint that will be used to bootstrap the pipeline's state.
+     * 将用于引导管道状态的保存点的路径。
+     * */
     public static final ConfigOption<String> SAVEPOINT_PATH =
             key("execution.savepoint.path")
                     .stringType()
@@ -38,6 +42,7 @@ public class SavepointConfigOptions {
     /**
      * A flag indicating if we allow Flink to skip savepoint state that cannot be restored, e.g.
      * because the corresponding operator has been removed.
+     * 指示我们是否允许 Flink 跳过无法恢复的保存点状态的标志，例如 因为相应的运算符已被删除。
      */
     public static final ConfigOption<Boolean> SAVEPOINT_IGNORE_UNCLAIMED_STATE =
             key("execution.savepoint.ignore-unclaimed-state")

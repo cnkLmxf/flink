@@ -24,6 +24,7 @@ import static org.apache.flink.configuration.JobManagerOptions.MIN_PARALLELISM_I
 /**
  * Simple scaling policy for a reactive mode. The user can configure a minimum cumulative
  * parallelism increase to allow a scale up.
+ * 反应模式的简单扩展策略。 用户可以配置最小累积并行度增加以允许向上扩展。
  */
 public class ReactiveScaleUpController implements ScaleUpController {
 

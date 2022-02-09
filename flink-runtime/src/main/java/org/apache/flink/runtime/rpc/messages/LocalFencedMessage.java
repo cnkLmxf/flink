@@ -27,6 +27,7 @@ import java.io.Serializable;
 /**
  * Local {@link FencedMessage} implementation. This message is used when the communication is local
  * and thus does not require its payload to be serializable.
+ * 本地 {@link FencedMessage} 实现。 当通信是本地通信时使用此消息，因此不需要其有效负载可序列化。
  *
  * @param <F> type of the fencing token
  * @param <P> type of the payload

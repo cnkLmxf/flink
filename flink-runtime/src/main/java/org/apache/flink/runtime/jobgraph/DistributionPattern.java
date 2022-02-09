@@ -25,15 +25,22 @@ import org.apache.flink.runtime.executiongraph.IntermediateResultPartition;
 /**
  * A distribution pattern determines, which sub tasks of a producing task are connected to which
  * consuming sub tasks.
+ * 分配模式确定生产任务的哪些子任务连接到哪些消费子任务。
  *
  * <p>It affects how {@link ExecutionVertex} and {@link IntermediateResultPartition} are connected
  * in {@link EdgeManagerBuildUtil}
+ * <p>它会影响 {@link ExecutionVertex} 和 {@link IntermediateResultPartition}
+ * 在 {@link EdgeManagerBuildUtil} 中的连接方式
  */
 public enum DistributionPattern {
 
-    /** Each producing sub task is connected to each sub task of the consuming task. */
+    /** Each producing sub task is connected to each sub task of the consuming task.
+     * 每个生产子任务都连接到消费任务的每个子任务。
+     * */
     ALL_TO_ALL,
 
-    /** Each producing sub task is connected to one or more subtask(s) of the consuming task. */
+    /** Each producing sub task is connected to one or more subtask(s) of the consuming task.
+     * 每个生产子任务都连接到消费任务的一个或多个子任务。
+     * */
     POINTWISE
 }

@@ -31,6 +31,8 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * Maintains a set of {@link ChannelStateCheckpointWriter writers} per checkpoint and translates
  * incoming {@link ChannelStateWriteRequest requests} to their corresponding methods.
+ * 每个检查点维护一组 {@link ChannelStateCheckpointWriter writers}
+ * 并将传入的 {@link ChannelStateWriteRequest requests} 转换为相应的方法。
  */
 final class ChannelStateWriteRequestDispatcherImpl implements ChannelStateWriteRequestDispatcher {
     private static final Logger LOG =

@@ -30,7 +30,9 @@ import javax.annotation.Nullable;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-/** Utility for accessing the system page size. */
+/** Utility for accessing the system page size.
+ * 用于访问系统页面大小的实用程序。
+ * */
 public final class PageSizeUtil {
 
     /** Value indicating an unknown page size. */
@@ -42,14 +44,17 @@ public final class PageSizeUtil {
     /**
      * A conservative fallback value (64 KiBytes) that should be a multiple of the page size even in
      * some uncommon cases of servers installations with larger-than-usual page sizes.
+     * 一个保守的备用值 (64 KiBytes)，即使在某些不常见的服务器安装的页面大小大于通常的情况下，它也应该是页面大小的倍数。
      */
     public static final int CONSERVATIVE_PAGE_SIZE_MULTIPLE = 64 * 1024;
 
     /**
      * Tries to get the system page size. If the page size cannot be determined, this returns -1.
+     * 尝试获取系统页面大小。 如果无法确定页面大小，则返回 -1。
      *
      * <p>This internally relies on the presence of "unsafe" and the resolution via some Netty
      * utilities.
+     * 这在内部依赖于“不安全”的存在以及通过一些 Netty 实用程序的解决方案。
      */
     public static int getSystemPageSize() {
         try {
@@ -63,6 +68,7 @@ public final class PageSizeUtil {
     /**
      * Tries to get the system page size. If the page size cannot be determined, this returns the
      * {@link #DEFAULT_PAGE_SIZE}.
+     * 尝试获取系统页面大小。 如果无法确定页面大小，则返回 {@link #DEFAULT_PAGE_SIZE}。
      */
     public static int getSystemPageSizeOrDefault() {
         final int pageSize = getSystemPageSize();
@@ -72,6 +78,7 @@ public final class PageSizeUtil {
     /**
      * Tries to get the system page size. If the page size cannot be determined, this returns the
      * {@link #CONSERVATIVE_PAGE_SIZE_MULTIPLE}.
+     * 尝试获取系统页面大小。 如果无法确定页面大小，则返回 {@link #CONSERVATIVE_PAGE_SIZE_MULTIPLE}。
      */
     public static int getSystemPageSizeOrConservativeMultiple() {
         final int pageSize = getSystemPageSize();
@@ -88,6 +95,7 @@ public final class PageSizeUtil {
     /**
      * All unsafe related code must be in a separate class, so that loading the outer class does not
      * implicitly try to resolve the unsafe class.
+     * 所有与不安全相关的代码都必须在一个单独的类中，以便加载外部类不会隐式尝试解析不安全类。
      */
     @SuppressWarnings("all")
     private static final class PageSizeUtilInternal {

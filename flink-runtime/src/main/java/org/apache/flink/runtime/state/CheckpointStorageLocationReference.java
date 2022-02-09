@@ -33,14 +33,21 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * an optimization by state backends, when no extra information is needed to determine where the
  * checkpoints should be stored (all information can be derived from the configuration and the
  * checkpoint id).
+ * 对存储位置的引用。 这是一个字节数组的包装器，这些字节数组受状态后端存储位置的解释（类似于序列化程序需要解释字节流）。
+ * “默认位置”有特殊处理，当不需要额外的信息来确定检查点应该存储在哪里时（所有信息都可以从配置和检查点 id 派生），
+ * 它可以被状态后端用作优化 .
  *
  * <h3>Why is this simply a byte array?</h3>
+ * 为什么这只是一个字节数组？
  *
  * <p>The reference is represented via raw bytes, which are subject to interpretation by the state
  * backends. We did not add any more typing and serialization abstraction in between, because these
  * types need to serialize/deserialize fast in between network streams (byte buffers) and barriers.
  * We may ultimately add some more typing if we simply keep the byte buffers for the checkpoint
  * barriers and forward them, thus saving decoding and re-encoding these references repeatedly.
+ * 引用通过原始字节表示，这些字节受状态后端的解释。 我们没有在两者之间添加任何类型和序列化抽象，
+ * 因为这些类型需要在网络流（字节缓冲区）和屏障之间快速序列化/反序列化。
+ * 如果我们简单地保留检查点屏障的字节缓冲区并转发它们，我们最终可能会添加更多类型，从而避免重复解码和重新编码这些引用。
  */
 public class CheckpointStorageLocationReference implements java.io.Serializable {
 

@@ -47,6 +47,8 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A builder for an {@link ExternalSorter}. It can construct either a pull-based sorter if provided
  * with an input iterator via {@link #build(MutableObjectIterator)} or a push-based one via {@link
  * #build()}.
+ * {@link ExternalSorter} 的构建器。 如果通过 {@link #build(MutableObjectIterator)} 提供输入迭代器，
+ * 它可以构建基于拉的排序器，或者通过 {@link #build()} 提供基于推的排序器。
  */
 public final class ExternalSorterBuilder<T> {
 
@@ -55,6 +57,7 @@ public final class ExternalSorterBuilder<T> {
 
     /**
      * Fix length records with a length below this threshold will be in-place sorted, if possible.
+     * 如果可能，长度低于此阈值的固定长度记录将被就地排序。
      */
     private static final int THRESHOLD_FOR_IN_PLACE_SORTING = 32;
 
@@ -64,7 +67,9 @@ public final class ExternalSorterBuilder<T> {
     /** The maximal number of buffers to use by the writers. */
     private static final int MAX_NUM_WRITE_BUFFERS = 4;
 
-    /** The minimum number of segments that are required for the sort to operate. */
+    /** The minimum number of segments that are required for the sort to operate.
+     * 排序操作所需的最小段数。
+     * */
     private static final int MIN_NUM_SORT_MEM_SEGMENTS = 10;
 
     private final MemoryManager memoryManager;
@@ -182,6 +187,9 @@ public final class ExternalSorterBuilder<T> {
     /**
      * Creates a push-based {@link PushSorter}. The {@link PushSorter#getIterator()} will return
      * when the {@link PushSorter#finishReading()} is called. Will spawn two threads: sort, spill.
+     * 创建一个基于推送的 {@link PushSorter}。
+     * {@link PushSorter#getIterator()} 将在 {@link PushSorter#finishReading()} 被调用时返回。
+     * 将产生两个线程：排序，溢出。
      */
     public PushSorter<T> build() throws MemoryAllocationException {
         PushFactory<T> pushFactory = new PushFactory<>();

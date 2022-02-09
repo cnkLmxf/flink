@@ -24,12 +24,16 @@ import org.apache.flink.core.io.IOReadableWritable;
  * This is the default implementation of the {@link ChannelSelector} interface. It represents a
  * simple round-robin strategy, i.e. regardless of the record every attached exactly one output
  * channel is selected at a time.
+ * 这是 {@link ChannelSelector} 接口的默认实现。
+ * 它代表了一种简单的循环策略，即不管记录如何，每次都选择每个附加的输出通道。
  *
  * @param <T> the type of record which is sent through the attached output gate
  */
 public class RoundRobinChannelSelector<T extends IOReadableWritable> implements ChannelSelector<T> {
 
-    /** Stores the index of the channel to send the next record to. */
+    /** Stores the index of the channel to send the next record to.
+     * 存储要发送下一条记录的通道的索引。
+     * */
     private int nextChannelToSendTo = -1;
 
     private int numberOfChannels;

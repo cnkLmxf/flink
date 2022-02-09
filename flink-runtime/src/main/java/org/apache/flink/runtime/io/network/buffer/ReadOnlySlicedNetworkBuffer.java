@@ -34,9 +34,12 @@ import static org.apache.flink.util.Preconditions.checkState;
  * Minimal best-effort read-only sliced {@link Buffer} implementation wrapping a {@link
  * NetworkBuffer}'s sub-region based on <tt>io.netty.buffer.SlicedByteBuf</tt> and
  * <tt>io.netty.buffer.ReadOnlyByteBuf</tt>.
+ * 基于 <tt>io.netty.buffer.SlicedByteBuf</tt> 和 <tt>io.netty 的最小尽力而为的只读切片 {@link Buffer}
+ * 实现包装了 {@link NetworkBuffer} 的子区域。 buffer.ReadOnlyByteBuf</tt>。
  *
  * <p><strong>BEWARE:</strong> We do not guarantee to block every operation that is able to write
  * data but all returned data structures should be handled as if it was!.
+ * <strong>注意：</strong>我们不保证会阻止所有能够写入数据的操作，但所有返回的数据结构都应按原样处理！
  */
 public final class ReadOnlySlicedNetworkBuffer extends ReadOnlyByteBuf implements Buffer {
 
@@ -47,9 +50,11 @@ public final class ReadOnlySlicedNetworkBuffer extends ReadOnlyByteBuf implement
     /**
      * Creates a buffer which shares the memory segment of the given buffer and exposed the given
      * sub-region only.
+     * 创建一个共享给定缓冲区的内存段并仅公开给定子区域的缓冲区。
      *
      * <p>Reader and writer indices as well as markers are not shared. Reference counters are shared
      * but the slice is not {@link #retainBuffer() retained} automatically.
+     * 读取器和写入器索引以及标记不共享。 引用计数器是共享的，但切片不是 {@link #retainBuffer() 自动保留}。
      *
      * @param buffer the buffer to derive from
      * @param index the index to start from
@@ -63,9 +68,11 @@ public final class ReadOnlySlicedNetworkBuffer extends ReadOnlyByteBuf implement
     /**
      * Creates a buffer which shares the memory segment of the given buffer and exposed the given
      * sub-region only.
+     * 创建一个共享给定缓冲区的内存段并仅公开给定子区域的缓冲区。
      *
      * <p>Reader and writer indices as well as markers are not shared. Reference counters are shared
      * but the slice is not {@link #retainBuffer() retained} automatically.
+     * 读取器和写入器索引以及标记不共享。 引用计数器是共享的，但切片不是 {@link #retainBuffer() 自动保留}。
      *
      * @param buffer the buffer to derive from
      * @param index the index to start from
@@ -93,9 +100,11 @@ public final class ReadOnlySlicedNetworkBuffer extends ReadOnlyByteBuf implement
 
     /**
      * Returns the underlying memory segment.
+     * 返回底层内存段。
      *
      * <p><strong>BEWARE:</strong> Although we cannot set the memory segment read-only it should be
      * handled as if it was!.
+     * <strong>注意：</strong>虽然我们不能将内存段设置为只读，但应该像处理它一样处理！
      *
      * @return the memory segment backing this buffer
      */

@@ -24,7 +24,9 @@ import org.apache.flink.configuration.JobManagerOptions;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** A utility class to load NG failover strategy factories from the configuration. */
+/** A utility class to load NG failover strategy factories from the configuration.
+ * 从配置中加载 NG 故障转移策略工厂的实用程序类。
+ * */
 public final class FailoverStrategyFactoryLoader {
 
     /** Config name for the {@link RestartAllFailoverStrategy}. */
@@ -37,6 +39,7 @@ public final class FailoverStrategyFactoryLoader {
 
     /**
      * Loads a {@link FailoverStrategy.Factory} from the given configuration.
+     * 从给定的配置加载一个 {@link FailoverStrategy.Factory}。
      *
      * @param config which specifies the failover strategy factory to load
      * @return failover strategy factory loaded

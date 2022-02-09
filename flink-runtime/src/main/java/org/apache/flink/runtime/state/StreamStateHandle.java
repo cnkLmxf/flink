@@ -26,15 +26,19 @@ import java.util.Optional;
 /**
  * A {@link StateObject} that represents state that was written to a stream. The data can be read
  * back via {@link #openInputStream()}.
+ * 表示写入流的状态的 {@link StateObject}。 数据可以通过 {@link #openInputStream()} 读回。
  */
 public interface StreamStateHandle extends StateObject {
 
     /**
      * Returns an {@link FSDataInputStream} that can be used to read back the data that was
      * previously written to the stream.
+     * 返回一个 {@link FSDataInputStream}，可用于读回之前写入流的数据。
      */
     FSDataInputStream openInputStream() throws IOException;
 
-    /** @return Content of this handle as bytes array if it is already in memory. */
+    /** @return Content of this handle as bytes array if it is already in memory.
+     * 如果它已经在内存中，则此句柄的内容为字节数组。
+     * */
     Optional<byte[]> asBytesIfInMemory();
 }

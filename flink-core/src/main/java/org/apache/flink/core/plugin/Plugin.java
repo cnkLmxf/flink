@@ -25,6 +25,7 @@ import org.apache.flink.util.Preconditions;
 /**
  * Interface for plugins. Plugins typically extend this interface in their SPI and the concrete
  * implementations of a service then implement the SPI contract.
+ * 插件接口。 插件通常在其 SPI 中扩展此接口，服务的具体实现然后实现 SPI 契约。
  */
 @PublicEvolving
 public interface Plugin {

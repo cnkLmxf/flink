@@ -25,10 +25,13 @@ import javax.annotation.Nullable;
 
 import java.util.Optional;
 
-/** Common interface for the runtime {@link ExecutionVertex} and {@link ArchivedExecutionVertex}. */
+/** Common interface for the runtime {@link ExecutionVertex} and {@link ArchivedExecutionVertex}.
+ * 运行时 {@link ExecutionVertex} 和 {@link ArchivedExecutionVertex} 的通用接口。
+ * */
 public interface AccessExecutionVertex {
     /**
      * Returns the name of this execution vertex in the format "myTask (2/7)".
+     * 以“myTask (2/7)”格式返回此执行顶点的名称。
      *
      * @return name of this execution vertex
      */

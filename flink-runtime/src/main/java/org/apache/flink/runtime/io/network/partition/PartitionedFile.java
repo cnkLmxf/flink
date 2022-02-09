@@ -38,6 +38,10 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * contains index entries of all subpartitions. Each index entry is a (long, integer) value tuple of
  * which the long value represents the file offset of the target subpartition and the integer value
  * is the number of buffers.
+ * {@link PartitionedFile} 是基于排序合并的阻塞洗牌的持久文件类型。
+ * 每个 {@link PartitionedFile} 包含两个物理文件：一个是数据文件，另一个是索引文件。
+ * 数据文件和索引文件都有多个区域。 属于同一子分区的数据一起存储在每个数据区域中，对应的索引区域包含所有子分区的索引条目。
+ * 每个索引条目是一个（long，integer）值元组，其中long值表示目标子分区的文件偏移量，整数值是缓冲区的数量。
  */
 public class PartitionedFile {
 
@@ -48,19 +52,28 @@ public class PartitionedFile {
     /**
      * Size of each index entry in the index file: 8 bytes for file offset and 4 bytes for number of
      * buffers.
+     * 索引文件中每个索引条目的大小：文件偏移量为 8 个字节，缓冲区数量为 4 个字节。
      */
     public static final int INDEX_ENTRY_SIZE = 8 + 4;
 
-    /** Number of data regions in this {@link PartitionedFile}. */
+    /** Number of data regions in this {@link PartitionedFile}.
+     * 此 {@link PartitionedFile} 中的数据区域数。
+     * */
     private final int numRegions;
 
-    /** Number of subpartitions of this {@link PartitionedFile}. */
+    /** Number of subpartitions of this {@link PartitionedFile}.
+     * 此 {@link PartitionedFile} 的子分区数。
+     * */
     private final int numSubpartitions;
 
-    /** Path of the data file which stores all data in this {@link PartitionedFile}. */
+    /** Path of the data file which stores all data in this {@link PartitionedFile}.
+     * 将所有数据存储在此 {@link PartitionedFile} 中的数据文件的路径。
+     * */
     private final Path dataFilePath;
 
-    /** Path of the index file which stores all index entries in this {@link PartitionedFile}. */
+    /** Path of the index file which stores all index entries in this {@link PartitionedFile}.
+     * 存储此 {@link PartitionedFile} 中所有索引条目的索引文件的路径。
+     * */
     private final Path indexFilePath;
 
     /** Size of the data file. */
@@ -69,10 +82,14 @@ public class PartitionedFile {
     /** Size of the index file. */
     private final long indexFileSize;
 
-    /** Total number of buffers in the data file. */
+    /** Total number of buffers in the data file.
+     * 数据文件中的缓冲区总数。
+     * */
     private final long numBuffers;
 
-    /** Used to accelerate index data access. */
+    /** Used to accelerate index data access.
+     * 用于加速索引数据访问。
+     * */
     @Nullable private final ByteBuffer indexEntryCache;
 
     public PartitionedFile(
@@ -112,6 +129,7 @@ public class PartitionedFile {
     /**
      * Returns the index entry offset of the target region and subpartition in the index file. Both
      * region index and subpartition index start from 0.
+     * 返回索引文件中目标区域和子分区的索引条目偏移量。 区域索引和子分区索引都从 0 开始。
      */
     private long getIndexEntryOffset(int region, int subpartition) {
         checkArgument(region >= 0 && region < getNumRegions(), "Illegal target region.");
@@ -125,6 +143,7 @@ public class PartitionedFile {
     /**
      * Gets the index entry of the target region and subpartition either from the index data cache
      * or the index data file.
+     * 从索引数据缓存或索引数据文件中获取目标区域和子分区的索引条目。
      */
     void getIndexEntry(FileChannel indexFile, ByteBuffer target, int region, int subpartition)
             throws IOException {

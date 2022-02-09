@@ -32,7 +32,9 @@ import javax.annotation.Nullable;
 import java.time.Duration;
 import java.util.concurrent.ScheduledFuture;
 
-/** State which describes a job which is currently being restarted. */
+/** State which describes a job which is currently being restarted.
+ * 描述当前正在重新启动的作业的状态。
+ * */
 class Restarting extends StateWithExecutionGraph {
 
     private final Context context;

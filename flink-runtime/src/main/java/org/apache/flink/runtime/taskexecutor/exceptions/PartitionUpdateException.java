@@ -20,7 +20,9 @@ package org.apache.flink.runtime.taskexecutor.exceptions;
 
 import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 
-/** Exception indicating a problem with the result partitions on the {@link TaskExecutor} side. */
+/** Exception indicating a problem with the result partitions on the {@link TaskExecutor} side.
+ * 异常表示 {@link TaskExecutor} 端的结果分区存在问题。
+ * */
 public class PartitionUpdateException extends TaskManagerException {
 
     private static final long serialVersionUID = 6248696963418276618L;

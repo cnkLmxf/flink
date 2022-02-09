@@ -28,7 +28,9 @@ import org.apache.flink.util.Preconditions;
 
 import org.slf4j.Logger;
 
-/** State which describes a failing job which is currently being canceled. */
+/** State which describes a failing job which is currently being canceled.
+ * 描述当前正在取消的失败作业的状态。
+ * */
 class Failing extends StateWithExecutionGraph {
     private final Context context;
 

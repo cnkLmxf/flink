@@ -33,6 +33,7 @@ import java.util.Map;
 /**
  * Generalized snapshot for meta information about one state in a state backend (e.g. {@link
  * RegisteredKeyValueStateBackendMetaInfo}).
+ * 有关状态后端中一种状态的元信息的通用快照（例如 {@link RegisteredKeyValueStateBackendMetaInfo}）。
  */
 public class StateMetaInfoSnapshot {
 

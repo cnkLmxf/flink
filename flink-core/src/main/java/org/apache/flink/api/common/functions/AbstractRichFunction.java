@@ -27,6 +27,8 @@ import java.io.Serializable;
  * An abstract stub implementation for rich user-defined functions. Rich functions have additional
  * methods for initialization ({@link #open(Configuration)}) and teardown ({@link #close()}), as
  * well as access to their runtime execution context via {@link #getRuntimeContext()}.
+ * 丰富的用户定义函数的抽象存根实现。 丰富的函数有额外的初始化方法 ({@link #open(Configuration)}) 和拆卸方法 ({@link #close()})，
+ * 以及通过 {@link #getRuntimeContext()} 访问它们的运行时执行上下文。
  */
 @Public
 public abstract class AbstractRichFunction implements RichFunction, Serializable {

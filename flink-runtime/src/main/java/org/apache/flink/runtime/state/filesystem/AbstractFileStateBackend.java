@@ -38,38 +38,53 @@ import java.net.URI;
  * inherit from this are the {@link FsStateBackend}, the {@link
  * org.apache.flink.runtime.state.memory.MemoryStateBackend MemoryStateBackend}, or the {@code
  * RocksDBStateBackend}.
+ * 将元数据（和数据）存储在文件中的所有状态后端的基类。
+ * 继承自此的示例是 {@link FsStateBackend}、{@link org.apache.flink.runtime.state.memory.MemoryStateBackend MemoryStateBackend} 或 {@code RocksDBStateBackend}。
  *
  * <p>This class takes the base checkpoint- and savepoint directory paths, but also accepts null for
  * both of then, in which case creating externalized checkpoint is not possible, and it is not
  * possible to create a savepoint with a default path. Null is accepted to enable implementations
  * that only optionally support default savepoints and externalized checkpoints.
+ * 此类采用基本检查点和保存点目录路径，但也接受两者的 null，在这种情况下，创建外部检查点是不可能的，
+ * 并且不可能创建具有默认路径的保存点。 接受 Null 以启用仅可选支持默认保存点和外部化检查点的实现。
  *
  * <h1>Checkpoint Layout</h1>
+ * 检查点布局
  *
  * <p>The state backend is configured with a base directory and persists the checkpoint data of
  * specific checkpoints in specific subdirectories. For example, if the base directory was set to
  * {@code hdfs://namenode:port/flink-checkpoints/}, the state backend will create a subdirectory
  * with the job's ID that will contain the actual checkpoints: ({@code
  * hdfs://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b})
+ * 状态后端配置了一个基本目录，并将特定检查点的检查点数据持久化在特定子目录中。
+ * 例如，如果基本目录设置为 {@code hdfs://namenode:port/flink-checkpoints/}，
+ * 状态后端将使用作业 ID 创建一个包含实际检查点的子目录：({@code hdfs ://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b}）
  *
  * <p>Each checkpoint individually will store all its files in a subdirectory that includes the
  * checkpoint number, such as {@code
  * hdfs://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b/chk-17/}.
+ * 每个检查点将单独将其所有文件存储在包含检查点编号的子目录中，例如 {@code hdfs://namenode:port/flink-checkpoints/1b080b6e710aabbef8993ab18c6de98b/chk-17/}。
  *
  * <h1>Savepoint Layout</h1>
  *
  * <p>A savepoint that is set to be stored in path {@code hdfs://namenode:port/flink-savepoints/},
  * will create a subdirectory {@code savepoint-jobId(0, 6)-randomDigits} in which it stores all
  * savepoint data. The random digits are added as "entropy" to avoid directory collisions.
+ * 设置为存储在路径 {@code hdfs://namenode:port/flink-savepoints/}
+ * 中的保存点将创建一个子目录 {@code savepoint-jobId(0, 6)-randomDigits}，其中存储所有 保存点数据。
+ * 随机数字被添加为“熵”以避免目录冲突。
  *
  * <h1>Metadata File</h1>
  *
  * <p>A completed checkpoint writes its metadata into a file '{@value
  * AbstractFsCheckpointStorageAccess#METADATA_FILE_NAME}'.
+ * 完成的检查点将其元数据写入文件“{@value AbstractFsCheckpointStorageAccess#METADATA_FILE_NAME}”。
  *
  * @deprecated State backends should no longer implement {@link CheckpointStorage} functionality.
  *     Please inherit {@link AbstractStateBackend} instead. Custom checkpoint storage can be
  *     additionally implemented as a separate class.
+ *     状态后端不应再实现 {@link CheckpointStorage} 功能。 请改为继承 {@link AbstractStateBackend}。
+ *     自定义检查点存储可以另外实现为单独的类。
  */
 @Deprecated
 @PublicEvolving

@@ -24,7 +24,9 @@ import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ROUND_HALF_UP;
 
-/** Represents CPU resource. */
+/** Represents CPU resource.
+ * 表示 CPU 资源。
+ * */
 @Internal
 public class CPUResource extends Resource<CPUResource> {
 

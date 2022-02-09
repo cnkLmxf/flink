@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 
-/** A self-contained serialized value to decouple from user values and transfer on wire. */
+/** A self-contained serialized value to decouple from user values and transfer on wire.
+ * 一个自包含的序列化值，用于与用户值分离并在线传输。
+ * */
 final class AkkaRpcSerializedValue implements Serializable {
     private static final long serialVersionUID = -4388571068440835689L;
 
@@ -57,6 +59,7 @@ final class AkkaRpcSerializedValue implements Serializable {
 
     /**
      * Construct a serialized value to transfer on wire.
+     * 构造一个序列化的值以在线传输。
      *
      * @param value nullable value
      * @return serialized value to transfer on wire

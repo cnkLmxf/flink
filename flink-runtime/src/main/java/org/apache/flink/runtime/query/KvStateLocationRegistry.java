@@ -34,18 +34,24 @@ import java.util.Map;
 /**
  * Simple registry, which maps {@link InternalKvState} registration notifications to {@link
  * KvStateLocation} instances.
+ * 简单的注册表，将 {@link InternalKvState} 注册通知映射到 {@link KvStateLocation} 实例。
  */
 public class KvStateLocationRegistry {
 
-    /** JobID this coordinator belongs to. */
+    /** JobID this coordinator belongs to.
+     * 此协调器所属的 JobID。
+     * */
     private final JobID jobId;
 
-    /** Job vertices for determining parallelism per key. */
+    /** Job vertices for determining parallelism per key.
+     * 用于确定每个键的并行度的作业顶点。
+     * */
     private final Map<JobVertexID, ExecutionJobVertex> jobVertices;
 
     /**
      * Location info keyed by registration name. The name needs to be unique per JobID, i.e. two
      * operators cannot register KvState with the same name.
+     * 由注册名称键入的位置信息。 每个 JobID 的名称必须是唯一的，即两个操作员不能使用相同的名称注册 KvState。
      */
     private final Map<String, KvStateLocation> lookupTable = new HashMap<>();
 
@@ -63,6 +69,7 @@ public class KvStateLocationRegistry {
     /**
      * Returns the {@link KvStateLocation} for the registered KvState instance or <code>null</code>
      * if no location information is available.
+     * 返回已注册 KvState 实例的 {@link KvStateLocation}，如果没有可用的位置信息，则返回 <code>null</code>。
      *
      * @param registrationName Name under which the KvState instance is registered.
      * @return Location information or <code>null</code>.
@@ -73,6 +80,7 @@ public class KvStateLocationRegistry {
 
     /**
      * Notifies the registry about a registered KvState instance.
+     * 通知注册表有关已注册的 KvState 实例。
      *
      * @param jobVertexId JobVertexID the KvState instance belongs to
      * @param keyGroupRange Key group range the KvState instance belongs to

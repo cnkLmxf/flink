@@ -24,6 +24,7 @@ import org.apache.flink.runtime.operators.chaining.ExceptionInChainedStubExcepti
 
 /**
  * A chained driver that just passes on the input as the output
+ * 仅将输入作为输出传递的链式驱动程序
  *
  * @param <IT> The type of the input
  */

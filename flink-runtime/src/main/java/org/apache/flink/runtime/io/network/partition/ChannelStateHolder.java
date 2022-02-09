@@ -22,8 +22,11 @@ import org.apache.flink.runtime.checkpoint.channel.ChannelStateWriter;
 /**
  * Implemented by entities that hold any kind of channel state and need a reference to the {@link
  * ChannelStateWriter}.
+ * 由持有任何类型的通道状态并需要对 {@link ChannelStateWriter} 的引用的实体实现。
  */
 public interface ChannelStateHolder {
-    /** Injects the {@link ChannelStateWriter}. Must only be called once. */
+    /** Injects the {@link ChannelStateWriter}. Must only be called once.
+     * 注入 {@link ChannelStateWriter}。 只能调用一次。
+     * */
     void setChannelStateWriter(ChannelStateWriter channelStateWriter);
 }

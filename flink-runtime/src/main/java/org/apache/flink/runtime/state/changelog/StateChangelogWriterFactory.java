@@ -25,6 +25,8 @@ import org.apache.flink.runtime.state.KeyGroupRange;
 /**
  * {@link StateChangelogWriter} factory. Scoped to a single entity (e.g. a SubTask or
  * OperatorCoordinator). Please use {@link StateChangelogWriterFactoryLoader} to obtain an instance.
+ * {@link StateChangelogWriter} 工厂。 作用于单个实体（例如 SubTask 或 OperatorCoordinator）。
+ * 请使用 {@link StateChangelogWriterFactoryLoader} 获取实例。
  */
 @Internal
 public interface StateChangelogWriterFactory<Handle extends StateChangelogHandle<?>>

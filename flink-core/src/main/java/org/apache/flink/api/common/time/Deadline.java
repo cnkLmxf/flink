@@ -26,7 +26,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeoutException;
 
-/** This class stores a deadline, as obtained via {@link #now()} or from {@link #plus(Duration)}. */
+/** This class stores a deadline, as obtained via {@link #now()} or from {@link #plus(Duration)}.
+ * 此类存储截止日期，通过 {@link #now()} 或 {@link #plus(Duration)} 获得。
+ * */
 @Internal
 public class Deadline {
 

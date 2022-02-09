@@ -32,6 +32,7 @@ import java.io.IOException;
 
 /**
  * Heap-backed partitioned {@link AggregatingState} that is snapshotted into files.
+ * 快照到文件中的堆支持分区 {@link AggregatingState}。
  *
  * @param <K> The type of the key.
  * @param <N> The type of the namespace.

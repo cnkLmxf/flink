@@ -49,10 +49,17 @@ import java.util.stream.Collectors;
  * physical slot. The shared slot is created by the {@link SlotSharingExecutionSlotAllocator} from
  * the physical slot request. Afterwards, {@link SlotSharingExecutionSlotAllocator} requests logical
  * slots from the underlying physical slot for {@link Execution executions} which share it.
+ * 共享槽由 {@link SlotSharingExecutionSlotAllocator} 拥有和跟踪。
+ * 共享槽表示共享一个物理槽的 {@link SingleLogicalSlot} 请求的集合。
+ * 共享槽由物理槽请求中的 {@link SlotSharingExecutionSlotAllocator} 创建。
+ * 之后，{@link SlotSharingExecutionSlotAllocator} 从底层物理槽请求逻辑槽，
+ * 用于共享它的{@link Execution executions}。
  *
  * <p>The shared slot becomes a {@link PhysicalSlot.Payload} of its underlying physical slot once
  * the physical slot is obtained. If the allcoated physical slot gets released then it calls back
  * the shared slot to release the logical slots which fail their execution payloads.
+ * 一旦获得物理槽，共享槽就成为其底层物理槽的{@link PhysicalSlot.Payload}。
+ * 如果所有涂层的物理插槽被释放，那么它会回调共享插槽以释放无法执行有效负载的逻辑插槽。
  *
  * <p>A logical slot request can be cancelled if it is not completed yet or returned by the
  * execution if it has been completed and given to the execution by {@link
@@ -61,6 +68,10 @@ import java.util.stream.Collectors;
  * shared slot. Once the shared slot has no registered logical slot requests, it calls back its
  * {@link SlotSharingExecutionSlotAllocator} to remove it from the allocator and cancel its
  * underlying physical slot request if the request is not fulfilled yet.
+ * 如果逻辑槽请求尚未完成，则可以取消它；如果它已完成并由 {@link SlotSharingExecutionSlotAllocator} 提供给执行，
+ * 则可以由执行返回。 如果底层物理槽失败，它会失败所有逻辑槽请求。 从共享槽中删除失败、取消或返回的逻辑槽请求。
+ * 一旦共享槽没有注册的逻辑槽请求，它会回调其 {@link SlotSharingExecutionSlotAllocator} 以将其从分配器中删除，
+ * 如果请求尚未完成，则取消其底层物理槽请求。
  */
 class SharedSlot implements SlotOwner, PhysicalSlot.Payload {
     private static final Logger LOG = LoggerFactory.getLogger(SharedSlot.class);

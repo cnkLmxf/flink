@@ -21,6 +21,8 @@ package org.apache.flink.runtime.messages.webmonitor;
 /**
  * This message requests an overview of how many jobs are in which status. The response to this
  * message is a {@link org.apache.flink.runtime.messages.webmonitor.JobsOverview} message.
+ * 此消息要求概览有多少作业处于哪种状态。
+ * 对此消息的响应是 {@link org.apache.flink.runtime.messages.webmonitor.JobsOverview} 消息。
  */
 public class RequestJobsWithIDsOverview implements InfoMessage {
 
@@ -56,7 +58,9 @@ public class RequestJobsWithIDsOverview implements InfoMessage {
     /** No external instantiation */
     private RequestJobsWithIDsOverview() {}
 
-    /** Preserve the singleton property by returning the singleton instance */
+    /** Preserve the singleton property by returning the singleton instance
+     * 通过返回单例实例来保留单例属性
+     * */
     private Object readResolve() {
         return INSTANCE;
     }

@@ -37,7 +37,9 @@ import java.util.concurrent.CompletableFuture;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** An implementation of {@link InputsLocationsRetriever} based on the {@link ExecutionGraph}. */
+/** An implementation of {@link InputsLocationsRetriever} based on the {@link ExecutionGraph}.
+ * 基于 {@link ExecutionGraph} 的 {@link InputsLocationsRetriever} 实现。
+ * */
 public class ExecutionGraphToInputsLocationsRetrieverAdapter implements InputsLocationsRetriever {
 
     private final ExecutionGraph executionGraph;

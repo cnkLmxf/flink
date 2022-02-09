@@ -22,7 +22,9 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.util.FlinkException;
 
-/** Interface which allows to retrieve the {@link JobGraph}. */
+/** Interface which allows to retrieve the {@link JobGraph}.
+ * 允许检索 {@link JobGraph} 的接口。
+ * */
 public interface JobGraphRetriever {
 
     /**

@@ -25,7 +25,9 @@ public class IterationAggregatorBroker extends Broker<RuntimeAggregatorRegistry>
 
     private static final IterationAggregatorBroker INSTANCE = new IterationAggregatorBroker();
 
-    /** Retrieve singleton instance. */
+    /** Retrieve singleton instance.
+     * 检索单例实例。
+     * */
     public static IterationAggregatorBroker instance() {
         return INSTANCE;
     }

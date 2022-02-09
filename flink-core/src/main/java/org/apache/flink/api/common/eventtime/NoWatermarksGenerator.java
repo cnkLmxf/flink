@@ -20,7 +20,9 @@ package org.apache.flink.api.common.eventtime;
 
 import org.apache.flink.annotation.Public;
 
-/** An implementation of a {@link WatermarkGenerator} that generates no Watermarks. */
+/** An implementation of a {@link WatermarkGenerator} that generates no Watermarks.
+ * 不生成水印的 {@link WatermarkGenerator} 的实现。
+ * */
 @Public
 public final class NoWatermarksGenerator<E> implements WatermarkGenerator<E> {
 

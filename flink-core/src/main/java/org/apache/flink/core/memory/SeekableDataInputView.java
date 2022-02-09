@@ -23,12 +23,14 @@ import org.apache.flink.annotation.PublicEvolving;
 /**
  * Interface marking a {@link DataInputView} as seekable. Seekable views can set the position where
  * they read from.
+ * 将 {@link DataInputView} 标记为可搜索的接口。 可搜索的视图可以设置它们读取的位置。
  */
 @PublicEvolving
 public interface SeekableDataInputView extends DataInputView {
 
     /**
      * Sets the read pointer to the given position.
+     * 将读取指针设置到给定位置。
      *
      * @param position The new read position.
      */

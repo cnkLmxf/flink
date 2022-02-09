@@ -25,11 +25,14 @@ import java.util.Optional;
 
 /**
  * Unknown {@link ShuffleDescriptor} for which the producer has not been deployed yet.
+ * 尚未为其部署生产者的未知 {@link ShuffleDescriptor}。
  *
  * <p>When a partition consumer is being scheduled, it can happen that the producer of the partition
  * (consumer input channel) has not been scheduled and its location and other relevant data is yet
  * to be defined. To proceed with the consumer deployment, currently unknown input channels have to
  * be marked with placeholders which are this special implementation of {@link ShuffleDescriptor}.
+ * 当分区消费者被调度时，可能会发生分区的生产者（消费者输入通道）尚未被调度并且其位置和其他相关数据尚未定义的情况。
+ * 要继续消费者部署，当前未知的输入通道必须用占位符标记，这是 {@link ShuffleDescriptor} 的特殊实现。
  */
 public final class UnknownShuffleDescriptor implements ShuffleDescriptor {
 

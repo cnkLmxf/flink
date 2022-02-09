@@ -31,8 +31,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Utility for computing strongly connected components.
+ * 用于计算强连接组件的实用程序。
  *
  * <p>The computation is an implementation of Tarjan's algorithm.
+ * 计算是 Tarjan 算法的实现。
  *
  * <p>Ref: https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm.
  */

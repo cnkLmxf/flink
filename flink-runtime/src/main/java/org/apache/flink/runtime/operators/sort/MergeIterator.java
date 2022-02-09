@@ -34,6 +34,11 @@ import java.util.List;
  * the methods from the {@link TypeComparator} class, specifically {@link
  * TypeComparator#setReference(Object)} and {@link
  * TypeComparator#compareToReference(TypeComparator)}.
+ * 一个迭代器，它返回一组迭代器中元素序列的排序合并，假设这些序列本身是有序的。
+ * 要合并的迭代器在内部保留为堆，使得每次访问下一个最小元素的复杂度与要合并的流的数量成对数。
+ * 元素之间的顺序是使用 {@link TypeComparator} 类中的方法建立的，
+ * 特别是 {@link TypeComparator#setReference(Object)} 和
+ * {@link TypeComparator#compareToReference(TypeComparator)}。
  */
 public class MergeIterator<E> implements MutableObjectIterator<E> {
 
@@ -59,6 +64,7 @@ public class MergeIterator<E> implements MutableObjectIterator<E> {
     /**
      * Gets the next smallest element, with respect to the definition of order implied by the {@link
      * TypeSerializer} provided to this iterator.
+     * 根据提供给此迭代器的 {@link TypeSerializer} 隐含的顺序定义，获取下一个最小元素。
      *
      * @param reuse Object that may be reused.
      * @return The next element if the iterator has another element, null otherwise.
@@ -98,6 +104,7 @@ public class MergeIterator<E> implements MutableObjectIterator<E> {
     /**
      * Gets the next smallest element, with respect to the definition of order implied by the {@link
      * TypeSerializer} provided to this iterator.
+     * 根据提供给此迭代器的 {@link TypeSerializer} 隐含的顺序定义，获取下一个最小元素。
      *
      * @return The next element if the iterator has another element, null otherwise.
      * @see org.apache.flink.util.MutableObjectIterator#next()

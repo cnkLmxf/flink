@@ -27,6 +27,7 @@ import java.util.Collections;
 
 /**
  * Message headers for the status polling of an asynchronous operation.
+ * 异步操作状态轮询的消息头。
  *
  * @param <V> type of the operation result
  * @param <M> type of the message parameters
@@ -36,6 +37,7 @@ public abstract class AsynchronousOperationStatusMessageHeaders<V, M extends Mes
 
     /**
      * Returns the class of the value wrapped in the {@link AsynchronousOperationResult}.
+     * 返回包装在 {@link AsynchronousOperationResult} 中的值的类。
      *
      * @return value class
      */

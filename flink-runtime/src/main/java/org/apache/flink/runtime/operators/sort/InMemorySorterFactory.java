@@ -27,6 +27,7 @@ public interface InMemorySorterFactory<T> {
 
     /**
      * Create an {@link InMemorySorter} instance with the given memory segments.
+     * 使用给定的内存段创建一个 {@link InMemorySorter} 实例。
      *
      * @param sortSegments to initialize the InMemorySorter with
      * @return new InMemorySorter instance

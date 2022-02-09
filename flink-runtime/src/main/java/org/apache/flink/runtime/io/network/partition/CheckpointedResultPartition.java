@@ -23,10 +23,13 @@ import java.io.IOException;
 /**
  * Interface for partitions that are checkpointed, meaning they store data as part of unaligned
  * checkpoints.
+ * 带有检查点的分区的接口，这意味着它们将数据存储为未对齐检查点的一部分。
  */
 public interface CheckpointedResultPartition {
 
-    /** Gets the checkpointed subpartition with the given subpartitionIndex. */
+    /** Gets the checkpointed subpartition with the given subpartitionIndex.
+     * 获取具有给定 subpartitionIndex 的检查点子分区。
+     * */
     CheckpointedResultSubpartition getCheckpointedSubpartition(int subpartitionIndex);
 
     void finishReadRecoveredState(boolean notifyAndBlockOnCompletion) throws IOException;

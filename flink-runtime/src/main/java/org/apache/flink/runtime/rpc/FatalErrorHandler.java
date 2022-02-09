@@ -23,9 +23,11 @@ public interface FatalErrorHandler {
 
     /**
      * Being called when a fatal error occurs.
+     * 发生致命错误时调用。
      *
      * <p>IMPORTANT: This call should never be blocking since it might be called from within the
      * main thread of an {@link RpcEndpoint}.
+     * 重要提示：此调用永远不应阻塞，因为它可能会从 {@link RpcEndpoint} 的主线程中调用。
      *
      * @param exception cause
      */

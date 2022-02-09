@@ -30,6 +30,8 @@ import java.util.List;
  * This class represents the snapshot of a {@link CopyOnWriteStateTable} and has a role in operator
  * state checkpointing. This class is also responsible for writing the state in the process of
  * checkpointing.
+ * 此类表示 {@link CopyOnWriteStateTable} 的快照，并在操作员状态检查点中发挥作用。
+ * 该类还负责在 checkpointing 过程中写入状态。
  *
  * @param <K> type of key
  * @param <N> type of namespace

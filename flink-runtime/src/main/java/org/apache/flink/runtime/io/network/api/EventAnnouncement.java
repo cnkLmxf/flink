@@ -29,6 +29,7 @@ import java.util.Objects;
 /**
  * {@link EventAnnouncement} is announcing presence or receiving of an {@link AbstractEvent}. That
  * {@link #announcedEvent} is identified by it's sequence number.
+ * {@link EventAnnouncement} 宣布存在或接收 {@link AbstractEvent}。 {@link #announcedEvent} 由它的序列号标识。
  */
 public class EventAnnouncement extends RuntimeEvent {
 
@@ -57,6 +58,9 @@ public class EventAnnouncement extends RuntimeEvent {
     //  but would require the CheckpointBarrier to be mutable. Since all serialization
     //  for events goes through the EventSerializer class, which has special serialization
     //  for the CheckpointBarrier, we don't need these methods
+    // 这些方法继承自 AbstractEvent 的通用序列化，但要求 CheckpointBarrier 是可变的。
+    // 由于事件的所有序列化都通过 EventSerializer 类，
+    // 该类对 CheckpointBarrier 具有特殊的序列化，因此我们不需要这些方法
     //
 
     @Override

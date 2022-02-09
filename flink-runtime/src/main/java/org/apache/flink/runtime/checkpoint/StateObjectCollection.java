@@ -36,6 +36,8 @@ import java.util.function.Predicate;
  * This class represents a generic collection for {@link StateObject}s. Being a state object itself,
  * it delegates {@link #discardState()} to all contained state objects and computes {@link
  * #getStateSize()} as sum of the state sizes of all contained objects.
+ * 此类表示 {@link StateObject} 的通用集合。 作为状态对象本身，它将 {@link #discardState()} 委托给所有包含的状态对象，
+ * 并计算 {@link #getStateSize()} 作为所有包含对象的状态大小的总和。
  *
  * @param <T> type of the contained state objects.
  */
@@ -47,16 +49,21 @@ public class StateObjectCollection<T extends StateObject> implements Collection<
     private static final StateObjectCollection<?> EMPTY =
             new StateObjectCollection<>(Collections.emptyList());
 
-    /** Wrapped collection that contains the state objects. */
+    /** Wrapped collection that contains the state objects.
+     * 包含状态对象的包装集合。
+     * */
     private final Collection<T> stateObjects;
 
-    /** Creates a new StateObjectCollection that is backed by an {@link ArrayList}. */
+    /** Creates a new StateObjectCollection that is backed by an {@link ArrayList}.
+     * 创建一个由 {@link ArrayList} 支持的新 StateObjectCollection。
+     * */
     public StateObjectCollection() {
         this.stateObjects = new ArrayList<>();
     }
 
     /**
      * Creates a new StateObjectCollection wraps the given collection and delegates to it.
+     * 创建一个新的 StateObjectCollection 包装给定的集合并委托给它。
      *
      * @param stateObjects collection of state objects to wrap.
      */

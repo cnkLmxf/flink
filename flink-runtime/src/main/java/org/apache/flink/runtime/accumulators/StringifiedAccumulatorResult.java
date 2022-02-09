@@ -29,7 +29,9 @@ import javax.annotation.Nullable;
 
 import java.util.Map;
 
-/** Container class that transports the result of an accumulator as set of strings. */
+/** Container class that transports the result of an accumulator as set of strings.
+ * 将累加器的结果作为字符串集传输的容器类。
+ * */
 public class StringifiedAccumulatorResult implements java.io.Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(StringifiedAccumulatorResult.class);
 
@@ -64,6 +66,7 @@ public class StringifiedAccumulatorResult implements java.io.Serializable {
     /**
      * Flatten a map of accumulator names to Accumulator instances into an array of
      * StringifiedAccumulatorResult values.
+     * 将累加器名称到累加器实例的映射展平为 StringifiedAccumulatorResult 值的数组。
      */
     public static StringifiedAccumulatorResult[] stringifyAccumulatorResults(
             Map<String, OptionalFailure<Accumulator<?, ?>>> accs) {

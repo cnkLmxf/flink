@@ -21,7 +21,9 @@ package org.apache.flink.runtime.io.network.metrics;
 import org.apache.flink.metrics.Gauge;
 import org.apache.flink.runtime.io.network.partition.consumer.SingleInputGate;
 
-/** Gauge metric measuring the number of queued input buffers for {@link SingleInputGate}s. */
+/** Gauge metric measuring the number of queued input buffers for {@link SingleInputGate}s.
+ * 衡量 {@link SingleInputGate} 的排队输入缓冲区数量的计量指标。
+ * */
 public class InputBuffersGauge implements Gauge<Integer> {
 
     private final SingleInputGate[] inputGates;

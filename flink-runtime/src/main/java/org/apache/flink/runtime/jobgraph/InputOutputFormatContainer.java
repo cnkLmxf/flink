@@ -41,6 +41,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * A container for {@link InputFormat InputFormats} and {@link OutputFormat OutputFormats}, along
  * with their {@link Configuration}.
+ * {@link InputFormat InputFormats} 和 {@link OutputFormat OutputFormats} 及其 {@link Configuration} 的容器。
  */
 public class InputOutputFormatContainer {
 

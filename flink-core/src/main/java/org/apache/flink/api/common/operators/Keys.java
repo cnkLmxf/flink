@@ -55,7 +55,9 @@ public abstract class Keys<T> {
         return getNumberOfKeyFields() == 0;
     }
 
-    /** Check if two sets of keys are compatible to each other (matching types, key counts) */
+    /** Check if two sets of keys are compatible to each other (matching types, key counts)
+     * 检查两组密钥是否相互兼容（匹配类型、密钥计数）
+     * */
     public boolean areCompatible(Keys<?> other) throws IncompatibleKeysException {
 
         TypeInformation<?>[] thisKeyFieldTypes = this.getKeyFieldTypes();
@@ -198,7 +200,9 @@ public abstract class Keys<T> {
         }
     }
 
-    /** Represents (nested) field access through string and integer-based keys */
+    /** Represents (nested) field access through string and integer-based keys
+     * 表示通过基于字符串和整数的键的（嵌套）字段访问
+     * */
     public static class ExpressionKeys<T> extends Keys<T> {
 
         public static final String SELECT_ALL_CHAR = "*";
@@ -214,25 +218,34 @@ public abstract class Keys<T> {
                                 + ")$");
 
         // Flattened fields representing keys fields
+        // 表示键字段的展平字段
         private List<FlatFieldDescriptor> keyFields;
         private TypeInformation<?>[] originalKeyTypes;
 
-        /** ExpressionKeys that is defined by the full data type. */
+        /** ExpressionKeys that is defined by the full data type.
+         * 由完整数据类型定义的 ExpressionKeys。
+         * */
         public ExpressionKeys(TypeInformation<T> type) {
             this(SELECT_ALL_CHAR, type);
         }
 
-        /** Create int-based (non-nested) field position keys on a tuple type. */
+        /** Create int-based (non-nested) field position keys on a tuple type.
+         * 在元组类型上创建基于 int（非嵌套）的字段位置键。
+         * */
         public ExpressionKeys(int keyPosition, TypeInformation<T> type) {
             this(new int[] {keyPosition}, type, false);
         }
 
-        /** Create int-based (non-nested) field position keys on a tuple type. */
+        /** Create int-based (non-nested) field position keys on a tuple type.
+         * 在元组类型上创建基于 int（非嵌套）的字段位置键。
+         * */
         public ExpressionKeys(int[] keyPositions, TypeInformation<T> type) {
             this(keyPositions, type, false);
         }
 
-        /** Create int-based (non-nested) field position keys on a tuple type. */
+        /** Create int-based (non-nested) field position keys on a tuple type.
+         * 在元组类型上创建基于 int（非嵌套）的字段位置键。
+         * */
         public ExpressionKeys(int[] keyPositions, TypeInformation<T> type, boolean allowEmpty) {
 
             if (!type.isTupleType() || !(type instanceof CompositeType)) {

@@ -29,6 +29,8 @@ import java.util.Set;
  * Default {@link ExecutionDeploymentReconciler} implementation. Detects missing/unknown
  * deployments, and defers to a provided {@link ExecutionDeploymentReconciliationHandler} to resolve
  * them.
+ * 默认 {@link ExecutionDeploymentReconciler} 实现。
+ * 检测丢失/未知的部署，并遵循提供的 {@link ExecutionDeploymentReconciliationHandler} 来解决它们。
  */
 public class DefaultExecutionDeploymentReconciler implements ExecutionDeploymentReconciler {
 

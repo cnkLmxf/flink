@@ -22,7 +22,9 @@ import org.apache.flink.runtime.rpc.FatalErrorHandler;
 
 import org.apache.flink.shaded.curator4.org.apache.curator.framework.CuratorFramework;
 
-/** {@link LeaderRetrievalDriverFactory} implementation for Zookeeper. */
+/** {@link LeaderRetrievalDriverFactory} implementation for Zookeeper.
+ * Zookeeper 的 {@link LeaderRetrievalDriverFactory} 实现。
+ * */
 public class ZooKeeperLeaderRetrievalDriverFactory implements LeaderRetrievalDriverFactory {
 
     private final CuratorFramework client;

@@ -21,6 +21,7 @@ package org.apache.flink.runtime.operators.chaining;
 /**
  * A special exception to indicate that an exception occurred in the nested call of a chained stub.
  * The exception's only purpose is to be identifiable as such and to carry the cause exception.
+ * 一个特殊的异常，表示在链式存根的嵌套调用中发生了异常。 异常的唯一目的是可识别并携带原因异常。
  */
 public class ExceptionInChainedStubException extends RuntimeException {
 

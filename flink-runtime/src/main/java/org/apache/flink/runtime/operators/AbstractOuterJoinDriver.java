@@ -40,6 +40,8 @@ import org.slf4j.LoggerFactory;
  * The abstract outer join driver implements the logic of an outer join operator at runtime. It
  * instantiates a sort-merge based strategy to find joining pairs of records or joining records with
  * null depending on the outer join type.
+ * 抽象外连接驱动程序在运行时实现外连接运算符的逻辑。
+ * 它实例化了一个基于排序合并的策略，以根据外部连接类型查找记录的连接对或使用空值连接的记录。
  *
  * @see FlatJoinFunction
  */

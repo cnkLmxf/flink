@@ -30,6 +30,7 @@ import java.io.Serializable;
 /**
  * Implementations of this interface decorate streams with a compression scheme. Subclasses should
  * be stateless.
+ * 此接口的实现使用压缩方案装饰流。 子类应该是无状态的。
  */
 @Internal
 public abstract class StreamCompressionDecorator implements Serializable {
@@ -38,9 +39,11 @@ public abstract class StreamCompressionDecorator implements Serializable {
 
     /**
      * Decorates the stream by wrapping it into a stream that applies a compression.
+     * 通过将流包装到应用压缩的流中来装饰流。
      *
      * <p>IMPORTANT: For streams returned by this method, {@link OutputStream#close()} is not
      * propagated to the inner stream. The inner stream must be closed separately.
+     * 重要提示：对于此方法返回的流，{@link OutputStream#close()} 不会传播到内部流。 内部流必须单独关闭。
      *
      * @param stream the stream to decorate.
      * @return an output stream that is decorated by the compression scheme.
@@ -52,6 +55,7 @@ public abstract class StreamCompressionDecorator implements Serializable {
     /**
      * IMPORTANT: For streams returned by this method, {@link InputStream#close()} is not propagated
      * to the inner stream. The inner stream must be closed separately.
+     * 重要提示：对于此方法返回的流，{@link InputStream#close()} 不会传播到内部流。 内部流必须单独关闭。
      *
      * @param stream the stream to decorate.
      * @return an input stream that is decorated by the compression scheme.

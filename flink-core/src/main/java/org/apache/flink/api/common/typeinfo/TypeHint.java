@@ -25,6 +25,7 @@ import org.apache.flink.util.FlinkRuntimeException;
 
 /**
  * A utility class for describing generic types. It can be used to obtain a type information via:
+ * 用于描述泛型类型的实用程序类。 它可用于通过以下方式获取类型信息：
  *
  * <pre>{@code
  * TypeInformation<Tuple2<String, Long>> info = TypeInformation.of(new TypeHint<Tuple2<String, Long>>(){});

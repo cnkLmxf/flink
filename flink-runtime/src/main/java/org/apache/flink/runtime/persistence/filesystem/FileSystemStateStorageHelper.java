@@ -34,6 +34,7 @@ import java.io.Serializable;
 /**
  * {@link RetrievableStateStorageHelper} implementation which stores the state in the given
  * filesystem path.
+ * {@link RetrievableStateStorageHelper} 实现将状态存储在给定的文件系统路径中。
  *
  * @param <T> The type of the data that can be stored by this storage helper.
  */

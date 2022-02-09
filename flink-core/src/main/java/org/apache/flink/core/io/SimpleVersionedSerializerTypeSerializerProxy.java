@@ -32,10 +32,13 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * A {@link TypeSerializer} that delegates to an underlying {@link SimpleVersionedSerializer}.
+ * 委托给底层 {@link SimpleVersionedSerializer} 的 {@link TypeSerializer}。
  *
  * <p>This should not be used as a general {@link TypeSerializer}. It's meant to be used by internal
  * operators that need to work with both {@link SimpleVersionedSerializer} and {@link
  * TypeSerializer}.
+ * 这不应该用作一般的 {@link TypeSerializer}。
+ * 它旨在供需要同时使用 {@link SimpleVersionedSerializer} 和 {@link TypeSerializer} 的内部运算符使用。
  */
 @Internal
 public class SimpleVersionedSerializerTypeSerializerProxy<T> extends TypeSerializer<T> {

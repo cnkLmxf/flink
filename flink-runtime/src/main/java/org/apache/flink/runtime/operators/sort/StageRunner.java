@@ -23,12 +23,15 @@ import org.apache.flink.util.MutableObjectIterator;
 /**
  * An interface for different stages of the sorting process. Different stages can communicate via
  * the {@link StageMessageDispatcher}.
+ * 用于分拣过程不同阶段的界面。 不同的阶段可以通过 {@link StageMessageDispatcher} 进行通信。
  */
 public interface StageRunner extends AutoCloseable {
     /** Starts the stage. */
     void start();
 
-    /** A marker interface for sending messages to different stages. */
+    /** A marker interface for sending messages to different stages.
+     * 用于将消息发送到不同阶段的标记接口。
+     * */
     enum SortStage {
         READ,
         SORT,
@@ -38,6 +41,8 @@ public interface StageRunner extends AutoCloseable {
     /**
      * A dispatcher for inter-stage communication. It allows for returning a result to a {@link
      * Sorter} via {@link StageMessageDispatcher#sendResult(MutableObjectIterator)}
+     * 用于阶段间通信的调度程序。
+     * 它允许通过 {@link StageMessageDispatcher#sendResult(MutableObjectIterator)} 将结果返回给 {@link Sorter}
      */
     interface StageMessageDispatcher<E> extends AutoCloseable {
         /** Sends a message to the given stage. */
@@ -46,6 +51,7 @@ public interface StageRunner extends AutoCloseable {
         /**
          * Retrieves and removes the head of the given queue, waiting if necessary until an element
          * becomes available.
+         * 检索并删除给定队列的头部，如有必要，等待元素变为可用。
          *
          * @return the head of the queue
          */
@@ -54,12 +60,15 @@ public interface StageRunner extends AutoCloseable {
         /**
          * Retrieves and removes the head of the given stage queue, or returns {@code null} if the
          * queue is empty.
+         * 检索并删除给定阶段队列的头部，如果队列为空，则返回 {@code null}。
          *
          * @return the head of the queue, or {@code null} if the queue is empty
          */
         CircularElement<E> poll(SortStage stage);
 
-        /** Sends a result to the corresponding {@link Sorter}. */
+        /** Sends a result to the corresponding {@link Sorter}.
+         * 将结果发送到相应的 {@link Sorter}。
+         * */
         void sendResult(MutableObjectIterator<E> result);
     }
 }

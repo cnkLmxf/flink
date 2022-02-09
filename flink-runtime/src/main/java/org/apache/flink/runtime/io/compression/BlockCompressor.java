@@ -23,15 +23,19 @@ import java.nio.ByteBuffer;
 /**
  * A compressor which compresses a whole byte array each time. It will read from and write to byte
  * arrays given from the outside, reducing copy time.
+ * 每次压缩整个字节数组的压缩器。 它将读取和写入从外部给出的字节数组，从而减少复制时间。
  */
 public interface BlockCompressor {
 
-    /** Get the max compressed size for a given original size. */
+    /** Get the max compressed size for a given original size.
+     * 获取给定原始大小的最大压缩大小。
+     * */
     int getMaxCompressedSize(int srcSize);
 
     /**
      * Compress source data read from ({@link ByteBuffer#position()} + {@code srcOff}), and write
      * the compressed data to dst.
+     * 压缩从 ({@link ByteBuffer#position()} + {@code srcOff}) 读取的源数据，并将压缩后的数据写入 dst。
      *
      * @param src Uncompressed data to read from
      * @param srcOff The start offset of uncompressed data
@@ -46,6 +50,7 @@ public interface BlockCompressor {
 
     /**
      * Compress data read from src, and write the compressed data to dst.
+     * 压缩从 src 读取的数据，并将压缩后的数据写入 dst。
      *
      * @param src Uncompressed data to read from
      * @param srcOff The start offset of uncompressed data

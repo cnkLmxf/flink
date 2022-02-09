@@ -24,5 +24,6 @@ import org.apache.flink.runtime.taskexecutor.TaskExecutor;
 /**
  * This type of event can be used to exchange notification messages between different {@link
  * TaskExecutor} objects at runtime using the communication channels.
+ * 这种类型的事件可用于在运行时使用通信通道在不同的 {@link TaskExecutor} 对象之间交换通知消息。
  */
 public abstract class AbstractEvent implements IOReadableWritable {}

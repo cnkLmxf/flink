@@ -26,6 +26,8 @@ import java.util.List;
  * This class represents a {@link CompletedCheckpointStore} if checkpointing has been enabled.
  * Consequently, no component should use methods other than {@link
  * CompletedCheckpointStore#shutdown}.
+ * 如果启用了检查点，则此类表示 {@link CompletedCheckpointStore}。
+ * 因此，任何组件都不应使用 {@link CompletedCheckpointStore#shutdown} 以外的方法。
  */
 public enum DeactivatedCheckpointCompletedCheckpointStore implements CompletedCheckpointStore {
     INSTANCE;

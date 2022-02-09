@@ -49,13 +49,16 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
     // --------------------------------- Table Structure Auxiliaries
     // ------------------------------------
 
+    // 存储表结构中的溢出桶的段
     protected MemorySegment[]
             overflowSegments; // segments in which overflow buckets from the table structure are
     // stored
 
+    // overflowSegments 数组中的实际段数
     protected int
             numOverflowSegments; // the number of actual segments in the overflowSegments array
 
+    // 当前溢出段中的下一个空闲桶
     protected int nextOverflowBucket; // the next free bucket in the current overflow segment
 
     // -------------------------------------  Type Accessors
@@ -98,9 +101,11 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
     // ------------------------------------------ Spilling
     // ----------------------------------------------
 
+    // 如果分区溢出，构建端的通道写入器
     private BlockChannelWriter<MemorySegment>
             buildSideChannel; // the channel writer for the build side, if partition is spilled
 
+    // 如果分区溢出，则来自探测端的通道写入器
     protected BlockChannelWriter<MemorySegment>
             probeSideChannel; // the channel writer from the probe side, if partition is spilled
 
@@ -118,6 +123,7 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
     /**
      * Creates a new partition, initially in memory, with one buffer for the build side. The
      * partition is initialized to expect record insertions for the build side.
+     * 创建一个新分区，最初在内存中，为构建端提供一个缓冲区。 分区被初始化以期望构建端的记录插入。
      *
      * @param partitionNumber The number of the partition.
      * @param recursionLevel The recursion level - zero for partitions from the initial build, <i>n
@@ -153,6 +159,7 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
     /**
      * Constructor creating a partition from a spilled partition file that could be read in one
      * because it was known to completely fit into memory.
+     * 构造函数从溢出的分区文件创建一个分区，该分区文件可以读入一个分区，因为已知它完全适合内存。
      *
      * @param buildSideAccessors The data type accessors for the build side data-type.
      * @param probeSideAccessors The data type accessors for the probe side data-type.
@@ -204,6 +211,7 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
 
     /**
      * Gets this partition's recursion level.
+     * 获取此分区的递归级别。
      *
      * @return The partition's recursion level.
      */
@@ -213,6 +221,7 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
 
     /**
      * Checks whether this partition is in memory or spilled.
+     * 检查此分区是否在内存中或溢出。
      *
      * @return True, if the partition is in memory, false if it is spilled.
      */
@@ -223,6 +232,7 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
     /**
      * Gets the number of memory segments used by this partition, which includes build side memory
      * buffers and overflow memory segments.
+     * 获取此分区使用的内存段数，包括构建端内存缓冲区和溢出内存段。
      *
      * @return The number of occupied memory segments.
      */
@@ -267,6 +277,8 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
      * Inserts the given object into the current buffer. This method returns a pointer that can be
      * used to address the written record in this partition, if it is in-memory. The returned
      * pointers have no expressiveness in the case where the partition is spilled.
+     * 将给定对象插入当前缓冲区。 此方法返回一个指针，该指针可用于寻址该分区中的写入记录（如果它在内存中）。
+     * 在分区溢出的情况下，返回的指针没有表现力。
      *
      * @param record The object to be written to the partition.
      * @return A pointer to the object in the partition, or <code>-1</code>, if the partition is
@@ -289,9 +301,11 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
     /**
      * Inserts the given record into the probe side buffers. This method is only applicable when the
      * partition was spilled while processing the build side.
+     * 将给定的记录插入到探测端缓冲区中。 此方法仅适用于在处理构建端时分区溢出的情况。
      *
      * <p>If this method is invoked when the partition is still being built, it has undefined
      * behavior.
+     *如果在分区仍在构建时调用此方法，则它具有未定义的行为。
      *
      * @param record The record to be inserted into the probe side buffers.
      * @throws IOException Thrown, if the buffer is full, needs to be spilled, and spilling causes
@@ -307,6 +321,9 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See
      * added to it. The spilling process must free at least one buffer, either in the partition's
      * record buffers, or in the memory segments for overflow buckets. The partition immediately
      * takes back one buffer to use it for further spilling.
+     * 将此分区溢出到磁盘并将其设置为继续溢出添加到其中的记录。
+     * 溢出进程必须至少释放一个缓冲区，要么在分区的记录缓冲区中，要么在溢出桶的内存段中。
+     * 分区立即取回一个缓冲区以将其用于进一步溢出。
      *
      * @param target The list to which memory segments from overflow buckets are added.
      * @param ioAccess The I/O manager to be used to create a writer to disk.

@@ -17,19 +17,26 @@
 
 package org.apache.flink.runtime.jobmaster;
 
-/** Base interface for managers of services that are explicitly connected to / disconnected from. */
+/** Base interface for managers of services that are explicitly connected to / disconnected from.
+ * 显式连接/断开的服务管理器的基本接口。
+ * */
 public interface ServiceConnectionManager<S> {
 
     /**
      * Connect to the given service.
+     * 连接到给定的服务。
      *
      * @param service service to connect to
      */
     void connect(S service);
 
-    /** Disconnect from the current service. */
+    /** Disconnect from the current service.
+     * 断开与当前服务的连接。
+     * */
     void disconnect();
 
-    /** Close the service connection manager. A closed manager must not be used again. */
+    /** Close the service connection manager. A closed manager must not be used again.
+     * 关闭服务连接管理器。 不得再次使用已关闭的管理器。
+     * */
     void close();
 }

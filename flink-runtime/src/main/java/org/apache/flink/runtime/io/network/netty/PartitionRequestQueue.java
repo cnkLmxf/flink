@@ -48,6 +48,7 @@ import static org.apache.flink.runtime.io.network.netty.NettyMessage.BufferRespo
 /**
  * A nonEmptyReader of partition queues, which listens for channel writability changed events before
  * writing and flushing {@link Buffer} instances.
+ * 分区队列的 nonEmptyReader，它在写入和刷新 {@link Buffer} 实例之前侦听通道可写性更改事件。
  */
 class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
 
@@ -56,10 +57,14 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
     private final ChannelFutureListener writeListener =
             new WriteAndFlushNextMessageIfPossibleListener();
 
-    /** The readers which are already enqueued available for transferring data. */
+    /** The readers which are already enqueued available for transferring data.
+     * 已排队的读取器可用于传输数据。
+     * */
     private final ArrayDeque<NetworkSequenceViewReader> availableReaders = new ArrayDeque<>();
 
-    /** All the readers created for the consumers' partition requests. */
+    /** All the readers created for the consumers' partition requests.
+     * 为消费者的分区请求创建的所有读取器。
+     * */
     private final ConcurrentMap<InputChannelID, NetworkSequenceViewReader> allReaders =
             new ConcurrentHashMap<>();
 
@@ -82,19 +87,24 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
         // creating the queue and the initial notification happen in the same method call.
         // This can be resolved by separating the creation of the view and allowing
         // notifications.
+        // 通知可能来自同一个线程。 对于初始写入，这可能发生在读取器设置其对视图的引用之前，
+        // 因为创建队列和初始通知发生在同一个方法调用中。 这可以通过分离视图的创建和允许通知来解决。
 
         // TODO This could potentially have a bad performance impact as in the
         // worst case (network consumes faster than the producer) each buffer
         // will trigger a separate event loop task being scheduled.
+        // TODO 这可能会对性能产生不良影响，因为在最坏的情况下（网络消耗比生产者更快）每个缓冲区将触发一个单独的事件循环任务被调度。
         ctx.executor().execute(() -> ctx.pipeline().fireUserEventTriggered(reader));
     }
 
     /**
      * Try to enqueue the reader once receiving credit notification from the consumer or receiving
      * non-empty reader notification from the producer.
+     * 一旦收到来自消费者的信用通知或收到来自生产者的非空阅读器通知，请尝试将阅读器排队。
      *
      * <p>NOTE: Only one thread would trigger the actual enqueue after checking the reader's
      * availability, so there is no race condition here.
+     * 注意：在检查阅读器的可用性后，只有一个线程会触发实际的入队，因此这里没有竞争条件。
      */
     private void enqueueAvailableReader(final NetworkSequenceViewReader reader) throws Exception {
         if (reader.isRegisteredAsAvailable() || !reader.isAvailable()) {
@@ -113,8 +123,10 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
 
     /**
      * Accesses internal state to verify reader registration in the unit tests.
+     * 访问内部状态以验证单元测试中的阅读器注册。
      *
      * <p><strong>Do not use anywhere else!</strong>
+     * <strong>请勿在其他任何地方使用！</strong>
      *
      * @return readers which are enqueued available for transferring data
      */
@@ -142,6 +154,7 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
     /**
      * Adds unannounced credits from the consumer or resumes data consumption after an exactly-once
      * checkpoint and enqueues the corresponding reader for this consumer (if not enqueued yet).
+     * 添加来自消费者的未通知信用或在恰好一次检查点之后恢复数据消费并将该消费者的相应读取器入队（如果尚未入队）。
      *
      * @param receiverId The input channel id to identify the consumer.
      * @param operation The operation to be performed (add credit or resume data consumption).
@@ -168,6 +181,7 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
     public void userEventTriggered(ChannelHandlerContext ctx, Object msg) throws Exception {
         // The user event triggered event loop callback is used for thread-safe
         // hand over of reader queues and cancelled producers.
+        // 用户事件触发的事件循环回调用于线程安全的读者队列和取消生产者的移交。
 
         if (msg instanceof NetworkSequenceViewReader) {
             enqueueAvailableReader((NetworkSequenceViewReader) msg);
@@ -201,6 +215,7 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
         // The logic here is very similar to the combined input gate and local
         // input channel logic. You can think of this class acting as the input
         // gate and the consumed views as the local input channels.
+        // 这里的逻辑与组合输入门和本地输入通道逻辑非常相似。 您可以将此类视为输入门，将消费视图视为本地输入通道。
 
         BufferAndAvailability next = null;
         try {
@@ -313,6 +328,7 @@ class PartitionRequestQueue extends ChannelInboundHandlerAdapter {
     // This listener is called after an element of the current nonEmptyReader has been
     // flushed. If successful, the listener triggers further processing of the
     // queues.
+    // 在当前 nonEmptyReader 的元素被刷新后调用此侦听器。 如果成功，侦听器将触发对队列的进一步处理。
     private class WriteAndFlushNextMessageIfPossibleListener implements ChannelFutureListener {
 
         @Override

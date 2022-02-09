@@ -30,6 +30,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * This tracker remembers CompletableFutures as long as they are incomplete and allows us to fail
  * them later.
+ * 只要 CompletableFutures 不完整，这个跟踪器就会记住它们，并允许我们稍后让它们失败。
  */
 public final class IncompleteFuturesTracker {
 

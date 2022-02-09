@@ -28,7 +28,9 @@ import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-/** Simple serializer for the {@link LocalRecoverable}. */
+/** Simple serializer for the {@link LocalRecoverable}.
+ * {@link LocalRecoverable} 的简单序列化程序。
+ * */
 @Internal
 class LocalRecoverableSerializer implements SimpleVersionedSerializer<LocalRecoverable> {
 
@@ -38,7 +40,9 @@ class LocalRecoverableSerializer implements SimpleVersionedSerializer<LocalRecov
 
     private static final int MAGIC_NUMBER = 0x1e744b57;
 
-    /** Do not instantiate, use reusable {@link #INSTANCE} instead. */
+    /** Do not instantiate, use reusable {@link #INSTANCE} instead.
+     * 不要实例化，而是使用可重用的 {@link #INSTANCE}。
+     * */
     private LocalRecoverableSerializer() {}
 
     @Override

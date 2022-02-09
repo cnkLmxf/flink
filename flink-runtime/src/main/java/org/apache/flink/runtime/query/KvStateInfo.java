@@ -27,6 +27,7 @@ import java.util.Objects;
 /**
  * Metadata about a {@link InternalKvState}. This includes the serializers for the key, the
  * namespace, and the values kept in the state.
+ * 关于 {@link InternalKvState} 的元数据。 这包括键、命名空间和保存在状态中的值的序列化程序。
  *
  * @param <K> The type of key the state is associated to
  * @param <N> The type of the namespace the state is associated to
@@ -65,6 +66,7 @@ public class KvStateInfo<K, N, V> {
     /**
      * Creates a deep copy of the current {@link KvStateInfo} by duplicating all the included
      * serializers.
+     * 通过复制所有包含的序列化程序来创建当前 {@link KvStateInfo} 的深层副本。
      *
      * <p>This method assumes correct implementation of the {@link TypeSerializer#duplicate()}
      * method of the included serializers.

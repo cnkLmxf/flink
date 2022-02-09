@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 /**
  * {@link JobManagerJobMetricGroupFactory} which returns an unregistered {@link
  * JobManagerJobMetricGroup}.
+ * {@link JobManagerJobMetricGroupFactory} 返回一个未注册的 {@link JobManagerJobMetricGroup}。
  */
 public enum UnregisteredJobManagerJobMetricGroupFactory implements JobManagerJobMetricGroupFactory {
     INSTANCE;

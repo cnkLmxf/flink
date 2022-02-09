@@ -38,16 +38,20 @@ import java.util.Map;
 /**
  * A FieldParser is used parse a field from a sequence of bytes. Fields occur in a byte sequence and
  * are terminated by the end of the byte sequence or a delimiter.
+ * FieldParser 用于从字节序列中解析字段。 字段以字节序列出现，并以字节序列的结尾或分隔符终止。
  *
  * <p>The parsers do not throw exceptions in general, but set an error state. That way, they can be
  * used in functions that ignore invalid lines, rather than failing on them.
+ * 解析器一般不会抛出异常，而是设置错误状态。 这样，它们可以在忽略无效行的函数中使用，而不是在它们上失败。
  *
  * @param <T> The type that is parsed.
  */
 @PublicEvolving
 public abstract class FieldParser<T> {
 
-    /** An enumeration of different types of errors that may occur. */
+    /** An enumeration of different types of errors that may occur.
+     * 可能发生的不同类型错误的枚举。
+     * */
     public static enum ParseErrorState {
         /** No error occurred. */
         NONE,

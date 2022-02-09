@@ -26,7 +26,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
-/** Immutable unordered collection of fields IDs. */
+/** Immutable unordered collection of fields IDs.
+ * 字段 ID 的不可变无序集合。
+ * */
 @Internal
 public class FieldSet implements Iterable<Integer> {
 

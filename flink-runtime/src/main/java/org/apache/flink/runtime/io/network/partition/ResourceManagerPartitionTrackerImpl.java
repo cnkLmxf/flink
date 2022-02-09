@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
  *
  * <p>Internal tracking info must only be updated upon reception of a {@link
  * ClusterPartitionReport}, as the task executor state is the source of truth.
+ * 内部跟踪信息只能在收到 {@link ClusterPartitionReport} 时更新，因为任务执行器状态是事实的来源。
  */
 public class ResourceManagerPartitionTrackerImpl implements ResourceManagerPartitionTracker {
 
@@ -137,6 +138,7 @@ public class ResourceManagerPartitionTrackerImpl implements ResourceManagerParti
     /**
      * Updates the data sets for which the given task executor is hosting partitions and returns
      * data sets that were corrupted due to a loss of partitions.
+     * 更新给定任务执行器为其托管分区的数据集，并返回由于分区丢失而损坏的数据集。
      *
      * @param taskExecutorId ID of the hosting TaskExecutor
      * @param reportEntries IDs of data sets for which partitions are hosted
@@ -275,6 +277,7 @@ public class ResourceManagerPartitionTrackerImpl implements ResourceManagerParti
     /**
      * Returns whether all maps are empty; used for checking for resource leaks in case entries
      * aren't properly removed.
+     * 返回是否所有地图都为空； 用于在未正确删除条目的情况下检查资源泄漏。
      *
      * @return whether all contained maps are empty
      */

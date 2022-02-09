@@ -21,7 +21,9 @@ import org.apache.flink.runtime.taskexecutor.partition.ClusterPartitionReport;
 
 import java.io.Serializable;
 
-/** Payload for heartbeats sent from the TaskExecutor to the ResourceManager. */
+/** Payload for heartbeats sent from the TaskExecutor to the ResourceManager.
+ * 从 TaskExecutor 发送到 ResourceManager 的心跳的有效负载。
+ * */
 public class TaskExecutorHeartbeatPayload implements Serializable {
 
     private static final long serialVersionUID = -4556838854992435612L;

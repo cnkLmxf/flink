@@ -28,20 +28,27 @@ import java.util.Arrays;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Simple serialization / deserialization methods for the {@link SimpleVersionedSerializer}. */
+/** Simple serialization / deserialization methods for the {@link SimpleVersionedSerializer}.
+ * {@link SimpleVersionedSerializer} 的简单序列化/反序列化方法。
+ * */
 @PublicEvolving
 public class SimpleVersionedSerialization {
 
     /**
      * Serializes the version and datum into a stream.
+     * 将版本和数据序列化为流。
      *
      * <p>Data serialized via this method can be deserialized via {@link
      * #readVersionAndDeSerialize(SimpleVersionedSerializer, DataInputView)}.
+     * 通过此方法序列化的数据可以通过 {@link #readVersionAndDeSerialize(SimpleVersionedSerializer, DataInputView)} 进行反序列化。
      *
      * <p>The first four bytes will be occupied by the version, as returned by {@link
      * SimpleVersionedSerializer#getVersion()}. The remaining bytes will be the serialized datum, as
      * produced by {@link SimpleVersionedSerializer#serialize(Object)}, plus its length. The
      * resulting array will hence be eight bytes larger than the serialized datum.
+     * 前四个字节将被版本占用，由 {@link SimpleVersionedSerializer#getVersion()} 返回。
+     * 剩余的字节将是由 {@link SimpleVersionedSerializer#serialize(Object)} 生成的序列化数据，加上它的长度。
+     * 因此，结果数组将比序列化数据大 8 个字节。
      *
      * @param serializer The serializer to serialize the datum with.
      * @param datum The datum to serialize.
@@ -63,14 +70,18 @@ public class SimpleVersionedSerialization {
 
     /**
      * Deserializes the version and datum from a stream.
+     * 反序列化流中的版本和数据。
      *
      * <p>This method deserializes data serialized via {@link
      * #writeVersionAndSerialize(SimpleVersionedSerializer, Object, DataOutputView)}.
+     * 此方法反序列化通过 {@link #writeVersionAndSerialize(SimpleVersionedSerializer, Object, DataOutputView)} 序列化的数据。
      *
      * <p>The first four bytes will be interpreted as the version. The next four bytes will be
      * interpreted as the length of the datum bytes, then length-many bytes will be read. Finally,
      * the datum is deserialized via the {@link SimpleVersionedSerializer#deserialize(int, byte[])}
      * method.
+     * 前四个字节将被解释为版本。 接下来的四个字节将被解释为数据字节的长度，然后将读取 length-many 个字节。
+     * 最后，通过 {@link SimpleVersionedSerializer#deserialize(int, byte[])} 方法对数据进行反序列化。
      *
      * @param serializer The serializer to serialize the datum with.
      * @param in The stream to deserialize from.
@@ -94,9 +105,13 @@ public class SimpleVersionedSerialization {
      * <i>big-endian</i> encoding. The remaining bytes will be the serialized datum, as produced by
      * {@link SimpleVersionedSerializer#serialize(Object)}. The resulting array will hence be four
      * bytes larger than the serialized datum.
+     * 将版本和数据序列化为字节数组。 前四个字节将被版本占用（由 {@link SimpleVersionedSerializer#getVersion()} 返回），
+     * 以 <i>big-endian</i> 编码编写。 其余字节将是序列化数据，由 {@link SimpleVersionedSerializer#serialize(Object)} 生成。
+     * 因此，结果数组将比序列化数据大四个字节。
      *
      * <p>Data serialized via this method can be deserialized via {@link
      * #readVersionAndDeSerialize(SimpleVersionedSerializer, byte[])}.
+     * 通过此方法序列化的数据可以通过 {@link #readVersionAndDeSerialize(SimpleVersionedSerializer, byte[])} 进行反序列化。
      *
      * @param serializer The serializer to serialize the datum with.
      * @param datum The datum to serialize.
@@ -135,6 +150,8 @@ public class SimpleVersionedSerialization {
      * the version, in <i>big-endian</i> encoding. The remaining bytes will be passed to the
      * serializer for deserialization, via {@link SimpleVersionedSerializer#deserialize(int,
      * byte[])}.
+     * 从字节数组中反序列化版本和数据。 前四个字节将作为版本读取，采用 <i>big-endian</i> 编码。
+     * 剩余的字节将通过 {@link SimpleVersionedSerializer#deserialize(int, byte[])} 传递给序列化器进行反序列化。
      *
      * @param serializer The serializer to deserialize the datum with.
      * @param bytes The bytes to deserialize from.

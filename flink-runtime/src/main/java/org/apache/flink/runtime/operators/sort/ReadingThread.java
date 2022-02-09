@@ -26,13 +26,17 @@ import java.io.IOException;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The thread that consumes the input data and puts it into a buffer that will be sorted. */
+/** The thread that consumes the input data and puts it into a buffer that will be sorted.
+ * 消耗输入数据并将其放入将被排序的缓冲区的线程。
+ * */
 final class ReadingThread<E> extends ThreadBase<E> {
 
     /** The input channels to read from. */
     private final MutableObjectIterator<E> reader;
 
-    /** The object into which the thread reads the data from the input. */
+    /** The object into which the thread reads the data from the input.
+     * 线程从输入中读取数据的对象。
+     * */
     private final E readTarget;
 
     private final SorterInputGateway<E> sorterGateway;

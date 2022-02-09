@@ -78,28 +78,44 @@ public class SlotManagerImpl implements SlotManager {
     /** Scheduled executor for timeouts. */
     private final ScheduledExecutor scheduledExecutor;
 
-    /** Timeout for slot requests to the task manager. */
+    /** Timeout for slot requests to the task manager.
+     * 对任务管理器的槽请求超时。
+     * */
     private final Time taskManagerRequestTimeout;
 
-    /** Timeout after which an allocation is discarded. */
+    /** Timeout after which an allocation is discarded.
+     * 分配被丢弃的超时时间。
+     * */
     private final Time slotRequestTimeout;
 
-    /** Timeout after which an unused TaskManager is released. */
+    /** Timeout after which an unused TaskManager is released.
+     * 释放未使用的 TaskManager 后的超时。
+     * */
     private final Time taskManagerTimeout;
 
-    /** Map for all registered slots. */
+    /** Map for all registered slots.
+     * 所有已注册插槽的映射。
+     * */
     private final HashMap<SlotID, TaskManagerSlot> slots;
 
-    /** Index of all currently free slots. */
+    /** Index of all currently free slots.
+     * 所有当前空闲插槽的索引。
+     * */
     private final LinkedHashMap<SlotID, TaskManagerSlot> freeSlots;
 
-    /** All currently registered task managers. */
+    /** All currently registered task managers.
+     * 所有当前注册的任务管理器。
+     * */
     private final HashMap<InstanceID, TaskManagerRegistration> taskManagerRegistrations;
 
-    /** Map of fulfilled and active allocations for request deduplication purposes. */
+    /** Map of fulfilled and active allocations for request deduplication purposes.
+     * 用于请求重复数据删除目的的已完成和活动分配的映射。
+     * */
     private final HashMap<AllocationID, SlotID> fulfilledSlotRequests;
 
-    /** Map of pending/unfulfilled slot allocation requests. */
+    /** Map of pending/unfulfilled slot allocation requests.
+     * 待处理/未完成的插槽分配请求的映射。
+     * */
     private final HashMap<AllocationID, PendingSlotRequest> pendingSlotRequests;
 
     private final HashMap<TaskManagerSlotId, PendingTaskManagerSlot> pendingSlots;
@@ -109,7 +125,9 @@ public class SlotManagerImpl implements SlotManager {
     /** ResourceManager's id. */
     private ResourceManagerId resourceManagerId;
 
-    /** Executor for future callbacks which have to be "synchronized". */
+    /** Executor for future callbacks which have to be "synchronized".
+     * 必须“同步”的未来回调的执行者。
+     * */
     private Executor mainThreadExecutor;
 
     /** Callbacks for resource (de-)allocations. */
@@ -119,18 +137,25 @@ public class SlotManagerImpl implements SlotManager {
 
     private ScheduledFuture<?> slotRequestTimeoutCheck;
 
-    /** True iff the component has been started. */
+    /** True iff the component has been started.
+     * 如果组件已启动，则为真。
+     * */
     private boolean started;
 
     /**
      * Release task executor only when each produced result partition is either consumed or failed.
+     * 仅当每个生成的结果分区被消耗或失败时才释放任务执行器。
      */
     private final boolean waitResultConsumedBeforeRelease;
 
-    /** Defines the max limitation of the total number of slots. */
+    /** Defines the max limitation of the total number of slots.
+     * 定义插槽总数的最大限制。
+     * */
     private final int maxSlotNum;
 
-    /** Defines the number of redundant taskmanagers. */
+    /** Defines the number of redundant taskmanagers.
+     * 定义冗余任务管理器的数量。
+     * */
     private final int redundantTaskManagerNum;
 
     /**
@@ -138,10 +163,14 @@ public class SlotManagerImpl implements SlotManager {
      * to pend. A slot request is considered unfulfillable if it cannot be fulfilled by neither a
      * slot that is already registered (including allocated ones) nor a pending slot that the {@link
      * ResourceActions} can allocate.
+     * 如果为 true，则立即使无法完成的插槽请求失败。 否则，允许挂起无法完成的请求。
+     * 如果一个槽请求既不能被已经注册的槽（包括分配的槽）也不能被 {@link ResourceActions} 可以分配的待处理槽完成，则它被认为是不可完成的。
      */
     private boolean failUnfulfillableRequest = true;
 
-    /** The default resource spec of workers to request. */
+    /** The default resource spec of workers to request.
+     * 要请求的工作人员的默认资源规范。
+     * */
     private final WorkerResourceSpec defaultWorkerResourceSpec;
 
     private final int numSlotsPerWorker;
@@ -296,6 +325,7 @@ public class SlotManagerImpl implements SlotManager {
 
     /**
      * Starts the slot manager with the given leader id and resource manager actions.
+     * 使用给定的领导者 ID 和资源管理器操作启动槽管理器。
      *
      * @param newResourceManagerId to use for communication with the task managers
      * @param newMainThreadExecutor to use to run code in the ResourceManager's main thread
@@ -340,7 +370,9 @@ public class SlotManagerImpl implements SlotManager {
                 MetricNames.TASK_SLOTS_TOTAL, () -> (long) getNumberRegisteredSlots());
     }
 
-    /** Suspends the component. This clears the internal state of the slot manager. */
+    /** Suspends the component. This clears the internal state of the slot manager.
+     * 挂起组件。 这将清除槽管理器的内部状态。
+     * */
     @Override
     public void suspend() {
         LOG.info("Suspending the SlotManager.");
@@ -407,6 +439,7 @@ public class SlotManagerImpl implements SlotManager {
 
     /**
      * Requests a slot with the respective resource profile.
+     * 请求具有相应资源配置文件的插槽。
      *
      * @param slotRequest specifying the requested slot specs
      * @return true if the slot request was registered; false if the request is a duplicate
@@ -444,6 +477,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Cancels and removes a pending slot request with the given allocation id. If there is no such
      * pending request, then nothing is done.
+     * 取消并删除具有给定分配 ID 的待处理槽请求。 如果没有这样的未决请求，则什么也不做。
      *
      * @param allocationId identifying the pending slot request
      * @return True if a pending slot request was found; otherwise false
@@ -472,6 +506,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Registers a new task manager at the slot manager. This will make the task managers slots
      * known and, thus, available for allocation.
+     * 在槽管理器中注册一个新的任务管理器。 这将使任务管理器插槽已知，因此可用于分配。
      *
      * @param taskExecutorConnection for the new task manager
      * @param initialSlotReport for the new task manager
@@ -564,6 +599,7 @@ public class SlotManagerImpl implements SlotManager {
 
     /**
      * Reports the current slot allocations for a task manager identified by the given instance id.
+     * 报告给定实例 id 标识的任务管理器的当前槽分配。
      *
      * @param instanceId identifying the task manager for which to report the slot status
      * @param slotReport containing the status for all of its slots
@@ -598,6 +634,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Free the given slot from the given allocation. If the slot is still allocated by the given
      * allocation id, then the slot will be marked as free and will be subject to new slot requests.
+     * 从给定的分配中释放给定的插槽。 如果插槽仍然由给定的分配 id 分配，则该插槽将被标记为空闲，并将接受新的插槽请求。
      *
      * @param slotId identifying the slot to free
      * @param allocationId with which the slot is presumably allocated
@@ -674,9 +711,11 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Finds a matching slot request for a given resource profile. If there is no such request, the
      * method returns null.
+     * 查找给定资源配置文件的匹配槽请求。 如果没有这样的请求，该方法返回 null。
      *
      * <p>Note: If you want to change the behaviour of the slot manager wrt slot allocation and
      * request fulfillment, then you should override this method.
+     * 注意：如果要更改槽管理器的槽分配和请求执行的行为，则应覆盖此方法。
      *
      * @param slotResourceProfile defining the resources of an available slot
      * @return A matching slot request which can be deployed in a slot with the given resource
@@ -698,9 +737,12 @@ public class SlotManagerImpl implements SlotManager {
      * Finds a matching slot for a given resource profile. A matching slot has at least as many
      * resources available as the given resource profile. If there is no such slot available, then
      * the method returns null.
+     * 查找给定资源配置文件的匹配槽。 匹配的插槽至少具有与给定资源配置文件一样多的可用资源。
+     * 如果没有这样的插槽可用，则该方法返回 null。
      *
      * <p>Note: If you want to change the behaviour of the slot manager wrt slot allocation and
      * request fulfillment, then you should override this method.
+     * 注意：如果要更改槽管理器的槽分配和请求执行的行为，则应覆盖此方法。
      *
      * @param requestResourceProfile specifying the resource requirements for the a slot request
      * @return A matching slot which fulfills the given resource profile. {@link Optional#empty()}
@@ -736,6 +778,8 @@ public class SlotManagerImpl implements SlotManager {
      * Registers a slot for the given task manager at the slot manager. The slot is identified by
      * the given slot id. The given resource profile defines the available resources for the slot.
      * The task manager connection can be used to communicate with the task manager.
+     * 在槽管理器中为给定的任务管理器注册一个槽。 插槽由给定的插槽 id 标识。
+     * 给定的资源配置文件定义了插槽的可用资源。 任务管理器连接可用于与任务管理器进行通信。
      *
      * @param slotId identifying the slot on the task manager
      * @param allocationId which is currently deployed in the slot
@@ -848,6 +892,7 @@ public class SlotManagerImpl implements SlotManager {
 
     /**
      * Updates a slot with the given allocation id.
+     * 使用给定的分配 id 更新插槽。
      *
      * @param slotId to update
      * @param allocationId specifying the current allocation of the slot
@@ -963,6 +1008,7 @@ public class SlotManagerImpl implements SlotManager {
      * Tries to allocate a slot for the given slot request. If there is no slot available, the
      * resource manager is informed to allocate more resources and a timeout for the request is
      * registered.
+     * 尝试为给定的槽请求分配一个槽。 如果没有可用的插槽，则通知资源管理器分配更多资源并注册请求的超时。
      *
      * @param pendingSlotRequest to allocate a slot for
      * @throws ResourceManagerException if the slot request failed or is unfulfillable
@@ -1056,6 +1102,7 @@ public class SlotManagerImpl implements SlotManager {
 
     /**
      * Allocate a number of workers based on the input param.
+     * 根据输入参数分配多个工人。
      *
      * @param workerNum the number of workers to allocate.
      * @return the number of allocated workers successfully.
@@ -1207,6 +1254,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Handles a free slot. It first tries to find a pending slot request which can be fulfilled. If
      * there is no such request, then it will add the slot to the set of free slots.
+     * 处理一个空闲槽。 它首先尝试找到可以满足的待处理槽请求。 如果没有这样的请求，那么它将把槽添加到空闲槽的集合中。
      *
      * @param freeSlot to find a new slot request for
      */
@@ -1224,6 +1272,7 @@ public class SlotManagerImpl implements SlotManager {
 
     /**
      * Removes the given set of slots from the slot manager.
+     * 从插槽管理器中删除给定的一组插槽。
      *
      * @param slotsToRemove identifying the slots to remove from the slot manager
      * @param cause for removing the slots
@@ -1270,6 +1319,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Removes a pending slot request identified by the given allocation id from a slot identified
      * by the given slot id.
+     * 从给定槽 id 标识的槽中删除由给定分配 id 标识的待处理槽请求。
      *
      * @param slotId identifying the slot
      * @param allocationId identifying the presumable assigned pending slot request
@@ -1310,6 +1360,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Handles a failed slot request. The slot manager tries to find a new slot fulfilling the
      * resource requirements for the failed slot request.
+     * 处理失败的槽请求。 槽管理器尝试找到一个新槽来满足失败槽请求的资源要求。
      *
      * @param slotId identifying the slot which was assigned to the slot request before
      * @param allocationId identifying the failed slot request
@@ -1346,6 +1397,7 @@ public class SlotManagerImpl implements SlotManager {
     /**
      * Rejects the pending slot request by failing the request future with a {@link
      * SlotAllocationException}.
+     * 通过使用 {@link SlotAllocationException} 使请求未来失败来拒绝挂起的插槽请求。
      *
      * @param pendingSlotRequest to reject
      * @param cause of the rejection

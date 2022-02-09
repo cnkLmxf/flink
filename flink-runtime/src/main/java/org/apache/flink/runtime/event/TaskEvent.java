@@ -21,5 +21,6 @@ package org.apache.flink.runtime.event;
 /**
  * Subclasses of this event are recognized as custom events that are not part of the core flink
  * runtime.
+ * 此事件的子类被识别为不属于核心 flink 运行时的自定义事件。
  */
 public abstract class TaskEvent extends AbstractEvent {}

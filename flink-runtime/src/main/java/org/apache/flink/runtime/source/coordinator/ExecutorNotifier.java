@@ -31,6 +31,7 @@ import java.util.function.BiConsumer;
 /**
  * This class is used to coordinate between two components, where one component has an executor
  * following the mailbox model and the other component notifies it when needed.
+ * 此类用于在两个组件之间进行协调，其中一个组件具有遵循邮箱模型的执行器，而另一个组件在需要时通知它。
  */
 public class ExecutorNotifier implements AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(ExecutorNotifier.class);

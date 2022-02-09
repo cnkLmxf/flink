@@ -20,7 +20,9 @@ package org.apache.flink.runtime.resourcemanager.slotmanager;
 
 import org.apache.flink.util.AbstractID;
 
-/** Id of {@link TaskManagerSlot} and {@link PendingTaskManagerSlot}. */
+/** Id of {@link TaskManagerSlot} and {@link PendingTaskManagerSlot}.
+ * {@link TaskManagerSlot} 和 {@link PendingTaskManagerSlot} 的 ID。
+ * */
 public class TaskManagerSlotId extends AbstractID {
 
     private static final long serialVersionUID = -4024240625523472071L;

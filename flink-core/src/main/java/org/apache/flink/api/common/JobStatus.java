@@ -20,7 +20,9 @@ package org.apache.flink.api.common;
 
 import org.apache.flink.annotation.PublicEvolving;
 
-/** Possible states of a job once it has been accepted by the dispatcher. */
+/** Possible states of a job once it has been accepted by the dispatcher.
+ * 作业被调度员接受后的可能状态。
+ * */
 @PublicEvolving
 public enum JobStatus {
     /**
@@ -80,9 +82,11 @@ public enum JobStatus {
      * Checks whether this state is <i>globally terminal</i>. A globally terminal job is complete
      * and cannot fail any more and will not be restarted or recovered by another standby master
      * node.
+     * 检查此状态是否为<i>全局终端</i>。 一个全局终端作业已经完成，不能再失败，也不会被另一个备用主节点重新启动或恢复。
      *
      * <p>When a globally terminal state has been reached, all recovery data for the job is dropped
      * from the high-availability services.
+     * 当达到全局终端状态时，作业的所有恢复数据都会从高可用性服务中删除。
      *
      * @return True, if this job status is globally terminal, false otherwise.
      */
@@ -94,9 +98,12 @@ public enum JobStatus {
      * Checks whether this state is <i>locally terminal</i>. Locally terminal refers to the state of
      * a job's execution graph within an executing JobManager. If the execution graph is locally
      * terminal, the JobManager will not continue executing or recovering the job.
+     * 检查此状态是否为<i>本地终端</i>。 本地终端是指正在执行的 JobManager 中作业的执行图的状态。
+     * 如果执行图是本地终端，JobManager 将不会继续执行或恢复作业。
      *
      * <p>The only state that is locally terminal, but not globally terminal is {@link #SUSPENDED},
      * which is typically entered when the executing JobManager looses its leader status.
+     * 唯一的本地终端状态，而不是全局终端状态是 {@link #SUSPENDED}，通常在执行的 JobManager 失去其领导者状态时进入。
      *
      * @return True, if this job status is terminal, false otherwise.
      */

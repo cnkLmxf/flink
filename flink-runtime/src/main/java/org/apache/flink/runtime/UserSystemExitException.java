@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime;
 
-/** Indicates that user tried to exit JVM. */
+/** Indicates that user tried to exit JVM.
+ * 表示用户试图退出 JVM。
+ * */
 public class UserSystemExitException extends SecurityException {
     private static final long serialVersionUID = -5732392967744534811L;
 

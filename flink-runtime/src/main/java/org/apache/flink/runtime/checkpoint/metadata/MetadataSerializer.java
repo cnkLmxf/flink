@@ -26,13 +26,16 @@ import java.io.IOException;
 /**
  * Deserializer for checkpoint metadata. Different deserializers exist to deserialize from different
  * format versions.
+ * 检查点元数据的反序列化器。 存在不同的反序列化器以从不同的格式版本反序列化。
  *
  * <p>Version-specific serializers are accessed via the {@link MetadataSerializers} helper.
+ * 通过 {@link MetadataSerializers} 帮助程序访问特定于版本的序列化程序。
  */
 public interface MetadataSerializer extends Versioned {
 
     /**
      * Deserializes a savepoint from an input stream.
+     * 从输入流反序列化保存点。
      *
      * @param dis Input stream to deserialize savepoint from
      * @param userCodeClassLoader the user code class loader

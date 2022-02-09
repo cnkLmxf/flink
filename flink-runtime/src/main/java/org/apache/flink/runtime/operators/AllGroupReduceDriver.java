@@ -38,9 +38,16 @@ import org.slf4j.LoggerFactory;
  * case of a ALL_GROUP_REDUCE_COMBINE it uses the combine function of the supplied user function. In
  * case of the ALL_GROUP_REDUCE, it uses the reduce function of the supplied user function to
  * process all elements. In either case, the function is executed on all elements.
+ * GroupReduceDriver 任务，由任务管理器执行。 该任务有一个输入和一个或多个输出。
+ * 它提供了 GroupReduceFunction 实现或 RichGroupReduceFunction。 此驱动程序根据 DriverStrategy 执行多项任务。
+ * 在 ALL_GROUP_REDUCE_COMBINE 的情况下，它使用提供的用户函数的组合函数。
+ * 在 ALL_GROUP_REDUCE 的情况下，它使用提供的用户函数的 reduce 函数来处理所有元素。
+ * 在任何一种情况下，函数都会在所有元素上执行。
  *
  * <p>The AllGroupReduceDriver creates an iterator over all records from its input. The iterator is
  * handed to the <code>reduce()</code> method of the GroupReduceFunction.
+ * AllGroupReduceDriver 在其输入的所有记录上创建一个迭代器。
+ * 迭代器被交给 GroupReduceFunction 的 <code>reduce()</code> 方法。
  *
  * @see org.apache.flink.api.common.functions.GroupReduceFunction
  */

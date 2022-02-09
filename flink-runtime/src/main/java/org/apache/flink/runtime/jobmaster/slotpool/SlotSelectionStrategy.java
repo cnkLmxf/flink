@@ -28,13 +28,17 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
 
-/** Interface for slot selection strategies. */
+/** Interface for slot selection strategies.
+ * 插槽选择策略的界面。
+ * */
 public interface SlotSelectionStrategy {
 
     /**
      * Selects the best {@link SlotInfo} w.r.t. a certain selection criterion from the provided list
      * of available slots and considering the given {@link SlotProfile} that describes the
      * requirements.
+     * 选择最好的 {@link SlotInfo} w.r.t。 从提供的可用插槽列表中选择某个选择标准，
+     * 并考虑描述要求的给定 {@link SlotProfile}。
      *
      * @param availableSlots a list of the available slots together with their remaining resources
      *     to select from.
@@ -48,6 +52,7 @@ public interface SlotSelectionStrategy {
     /**
      * This class is a value type that combines a {@link SlotInfo} with its remaining {@link
      * ResourceProfile}.
+     * 此类是一个结合了 {@link SlotInfo} 及其剩余 {@link ResourceProfile} 的值类型。
      */
     final class SlotInfoAndResources {
 
@@ -89,7 +94,9 @@ public interface SlotSelectionStrategy {
         }
     }
 
-    /** This class is a value type that combines a {@link SlotInfo} with a {@link Locality} hint. */
+    /** This class is a value type that combines a {@link SlotInfo} with a {@link Locality} hint.
+     * 此类是结合了 {@link SlotInfo} 和 {@link Locality} 提示的值类型。
+     * */
     final class SlotInfoAndLocality {
 
         @Nonnull private final SlotInfo slotInfo;

@@ -29,6 +29,8 @@ import java.util.Map;
  * Base class which imitates the reporting of the existing {@link JobManagerMetricGroup} in order to
  * guarantee backwards compatibility of metrics which are factored out of the {@link
  * JobManagerMetricGroup}.
+ * 模仿现有 {@link JobManagerMetricGroup} 报告的基类，
+ * 以保证从 {@link JobManagerMetricGroup} 中分解出来的指标的向后兼容性。
  */
 class AbstractImitatingJobManagerMetricGroup extends AbstractMetricGroup<AbstractMetricGroup<?>> {
     protected final String hostname;

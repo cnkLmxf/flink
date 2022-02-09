@@ -26,9 +26,11 @@ import java.util.Collections;
 
 /**
  * {@link JobGraph} instances for JobManagers running in {@link HighAvailabilityMode#NONE}.
+ * 在 {@link HighAvailabilityMode#NONE} 中运行的 JobManager 的 {@link JobGraph} 实例。
  *
  * <p>All operations are NoOps, because {@link JobGraph} instances cannot be recovered in this
  * recovery mode.
+ * 所有操作都是 NoOps，因为在这种恢复模式下无法恢复 {@link JobGraph} 实例。
  */
 public class StandaloneJobGraphStore implements JobGraphStore {
 

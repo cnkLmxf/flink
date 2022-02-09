@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadFactory;
 /**
  * Thread factory that creates threads with a given name, associates them with a given thread group,
  * and set them to daemon mode.
+ * 线程工厂创建具有给定名称的线程，将它们与给定线程组相关联，并将它们设置为守护程序模式。
  */
 public class DispatcherThreadFactory implements ThreadFactory {
 

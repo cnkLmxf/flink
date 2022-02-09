@@ -35,6 +35,7 @@ public interface DispatcherGateway extends FencedRpcGateway<DispatcherId>, Restf
 
     /**
      * Submit a job to the dispatcher.
+     * 向调度员提交工作。
      *
      * @param jobGraph JobGraph to submit
      * @param timeout RPC timeout
@@ -44,6 +45,7 @@ public interface DispatcherGateway extends FencedRpcGateway<DispatcherId>, Restf
 
     /**
      * List the current set of submitted jobs.
+     * 列出当前提交的作业集。
      *
      * @param timeout RPC timeout
      * @return A future collection of currently submitted jobs
@@ -52,6 +54,7 @@ public interface DispatcherGateway extends FencedRpcGateway<DispatcherId>, Restf
 
     /**
      * Returns the port of the blob server.
+     * 返回 blob 服务器的端口。
      *
      * @param timeout of the operation
      * @return A future integer of the blob server port

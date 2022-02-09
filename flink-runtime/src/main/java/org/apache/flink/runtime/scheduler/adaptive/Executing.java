@@ -42,7 +42,9 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledFuture;
 
-/** State which represents a running job with an {@link ExecutionGraph} and assigned slots. */
+/** State which represents a running job with an {@link ExecutionGraph} and assigned slots.
+ * 表示具有 {@link ExecutionGraph} 和分配槽的正在运行的作业的状态。
+ * */
 class Executing extends StateWithExecutionGraph implements ResourceConsumer {
 
     private final Context context;

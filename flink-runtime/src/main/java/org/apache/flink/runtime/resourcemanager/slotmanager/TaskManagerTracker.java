@@ -26,7 +26,9 @@ import org.apache.flink.runtime.util.ResourceCounter;
 
 import java.util.Map;
 
-/** Tracks TaskManager's resource and slot status. */
+/** Tracks TaskManager's resource and slot status.
+ * 跟踪 TaskManager 的资源和插槽状态。
+ * */
 interface TaskManagerTracker
         extends TaskManagerResourceInfoProvider, ClusterResourceStatisticsProvider {
 
@@ -62,6 +64,7 @@ interface TaskManagerTracker
 
     /**
      * Remove a pending task manager and it associated allocation records.
+     * 删除一个挂起的任务管理器及其相关的分配记录。
      *
      * @param pendingTaskManagerId of the pending task manager
      * @return the allocation records associated to the removed pending task manager
@@ -91,12 +94,15 @@ interface TaskManagerTracker
     /**
      * Clear all previous pending slot allocation records if any, and record new pending slot
      * allocations.
+     * 如果有的话，清除所有以前的挂起的槽分配记录，并记录新的挂起的槽分配。
      *
      * @param pendingSlotAllocations new pending slot allocations be recorded
      */
     void replaceAllPendingAllocations(
             Map<PendingTaskManagerId, Map<JobID, ResourceCounter>> pendingSlotAllocations);
 
-    /** Removes all state from the tracker. */
+    /** Removes all state from the tracker.
+     * 从跟踪器中删除所有状态。
+     * */
     void clear();
 }

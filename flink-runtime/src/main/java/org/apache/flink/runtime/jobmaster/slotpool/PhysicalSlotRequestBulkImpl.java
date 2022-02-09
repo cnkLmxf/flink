@@ -29,7 +29,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-/** Represents a bulk of physical slot requests. */
+/** Represents a bulk of physical slot requests.
+ * 表示大量物理插槽请求。
+ * */
 class PhysicalSlotRequestBulkImpl implements PhysicalSlotRequestBulk {
 
     private final Map<SlotRequestId, ResourceProfile> pendingRequests;

@@ -23,6 +23,7 @@ import org.apache.flink.annotation.Public;
 /**
  * An accumulator that computes the average value. Input can be {@code long}, {@code integer}, or
  * {@code double} and the result is {@code double}.
+ * 一个计算平均值的累加器。 输入可以是 {@code long}、{@code integer} 或 {@code double}，结果是 {@code double}。
  */
 @Public
 public class AverageAccumulator implements SimpleAccumulator<Double> {

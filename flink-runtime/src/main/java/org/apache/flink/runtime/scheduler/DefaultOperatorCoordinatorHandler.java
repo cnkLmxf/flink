@@ -43,7 +43,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-/** Default handler for the {@link OperatorCoordinator OperatorCoordinators}. */
+/** Default handler for the {@link OperatorCoordinator OperatorCoordinators}.
+ * {@link OperatorCoordinator OperatorCoordinators} 的默认处理程序。
+ * */
 public class DefaultOperatorCoordinatorHandler implements OperatorCoordinatorHandler {
     private final ExecutionGraph executionGraph;
 

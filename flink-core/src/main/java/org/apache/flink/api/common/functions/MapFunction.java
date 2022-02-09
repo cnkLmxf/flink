@@ -28,6 +28,9 @@ import java.io.Serializable;
  * are parsing elements, converting data types, or projecting out fields. Operations that produce
  * multiple result elements from a single input element can be implemented using the {@link
  * FlatMapFunction}.
+ * map功能的基本接口。 Map 函数接受元素并转换它们，元素明智。 Map 函数始终为每个输入元素生成单个结果元素。
+ * 典型的应用是解析元素、转换数据类型或投影出字段。
+ * 可以使用 {@link FlatMapFunction} 实现从单个输入元素生成多个结果元素的操作。
  *
  * <p>The basic syntax for using a MapFunction is as follows:
  *
@@ -47,6 +50,7 @@ public interface MapFunction<T, O> extends Function, Serializable {
     /**
      * The mapping method. Takes an element from the input data set and transforms it into exactly
      * one element.
+     * 映射方法。 从输入数据集中获取一个元素并将其转换为一个元素。
      *
      * @param value The input value.
      * @return The transformed value

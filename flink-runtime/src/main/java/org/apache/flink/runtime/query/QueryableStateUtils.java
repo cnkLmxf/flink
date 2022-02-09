@@ -28,7 +28,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
-/** Utility class to initialize entities used in queryable state. */
+/** Utility class to initialize entities used in queryable state.
+ * 用于初始化在可查询状态中使用的实体的实用程序类。
+ * */
 public final class QueryableStateUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(QueryableStateUtils.class);
@@ -40,6 +42,7 @@ public final class QueryableStateUtils {
     /**
      * Initializes the {@link KvStateClientProxy client proxy} responsible for receiving requests
      * from the external (to the cluster) client and forwarding them internally.
+     * 初始化负责从外部（到集群）客户端接收请求并在内部转发它们的 {@link KvStateClientProxy 客户端代理}。
      *
      * @param address the address to bind to.
      * @param ports the range of ports the proxy will attempt to listen to (see {@link
@@ -98,6 +101,7 @@ public final class QueryableStateUtils {
     /**
      * Initializes the {@link KvStateServer server} responsible for sending the requested internal
      * state to the {@link KvStateClientProxy client proxy}.
+     * 初始化负责将请求的内部状态发送到 {@link KvStateClientProxy 客户端代理}的 {@link KvStateServer 服务器}。
      *
      * @param address the address to bind to.
      * @param ports the range of ports the state server will attempt to listen to (see {@link

@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * This class wraps list state with latency tracking logic.
+ * 此类使用延迟跟踪逻辑包装列表状态。
  *
  * @param <K> The type of key the state is associated to
  * @param <N> The type of the namespace

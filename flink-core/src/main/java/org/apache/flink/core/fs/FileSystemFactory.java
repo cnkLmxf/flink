@@ -27,20 +27,25 @@ import java.net.URI;
 
 /**
  * A factory to create file systems.
- *
+
+ 创建文件系统的工厂。 *
  * <p>The factory is typically configured via {@link #configure(Configuration)} before creating file
  * systems via {@link #create(URI)}.
+ * 在通过 {@link #create(URI)} 创建文件系统之前，工厂通常通过 {@link #configure(Configuration)} 进行配置。
  */
 @PublicEvolving
 public interface FileSystemFactory extends Plugin {
 
-    /** Gets the scheme of the file system created by this factory. */
+    /** Gets the scheme of the file system created by this factory.
+     * 获取此工厂创建的文件系统的方案。
+     * */
     String getScheme();
 
     /**
      * Creates a new file system for the given file system URI. The URI describes the type of file
      * system (via its scheme) and optionally the authority (for example the host) of the file
      * system.
+     * 为给定的文件系统 URI 创建一个新的文件系统。 URI 描述文件系统的类型（通过其方案）和文件系统的可选权限（例如主机）。
      *
      * @param fsUri The URI that describes the file system.
      * @return A new instance of the specified file system.

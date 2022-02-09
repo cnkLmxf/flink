@@ -22,6 +22,7 @@ import org.apache.flink.api.common.JobID;
 
 /**
  * Exception which is returned upon job submission if the submitted job is currently being executed.
+ * 如果提交的作业当前正在执行，则在作业提交时返回的异常。
  */
 public class DuplicateJobSubmissionException extends JobSubmissionException {
 

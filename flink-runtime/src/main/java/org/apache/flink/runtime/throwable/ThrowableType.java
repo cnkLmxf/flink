@@ -18,7 +18,9 @@
 
 package org.apache.flink.runtime.throwable;
 
-/** Enum for the classification of {@link Throwable} objects into failure/recovery classes. */
+/** Enum for the classification of {@link Throwable} objects into failure/recovery classes.
+ * 用于将 {@link Throwable} 对象分类为故障/恢复类的枚举。
+ * */
 public enum ThrowableType {
 
     /**

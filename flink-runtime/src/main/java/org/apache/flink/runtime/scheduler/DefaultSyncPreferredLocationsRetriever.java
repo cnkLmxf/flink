@@ -36,6 +36,11 @@ import java.util.concurrent.CompletableFuture;
  * InputsLocationsRetriever} with {@link AvailableInputsLocationsRetriever} and hence making it
  * synchronous without blocking. As {@link StateLocationRetriever} is already synchronous, the
  * overall location retrieval becomes synchronous without blocking.
+ * 此类将 {@link DefaultPreferredLocationsRetriever} 转换为 {@link SyncPreferredLocationsRetriever}。
+ * {@link #getPreferredLocations(ExecutionVertexID, Set)} 方法不返回首选位置的 {@link CompletableFuture}，
+ * 它只返回立即可用的位置。 这种行为是通过用 {@link AvailableInputsLocationsRetriever} 包装原始的
+ * {@link InputsLocationsRetriever} 来实现的，从而使其同步而不阻塞。
+ * 由于 {@link StateLocationRetriever} 已经同步，因此整体位置检索变得同步而不会阻塞。
  */
 class DefaultSyncPreferredLocationsRetriever implements SyncPreferredLocationsRetriever {
     private final PreferredLocationsRetriever asyncPreferredLocationsRetriever;

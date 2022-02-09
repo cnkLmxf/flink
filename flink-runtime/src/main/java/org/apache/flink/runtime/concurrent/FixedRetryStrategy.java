@@ -22,7 +22,9 @@ import org.apache.flink.util.Preconditions;
 
 import java.time.Duration;
 
-/** An implementation of {@link RetryStrategy} that retries at a fixed delay. */
+/** An implementation of {@link RetryStrategy} that retries at a fixed delay.
+ * 以固定延迟重试的 {@link RetryStrategy} 的实现。
+ * */
 public class FixedRetryStrategy implements RetryStrategy {
     private final int remainingRetries;
     private final Duration retryDelay;

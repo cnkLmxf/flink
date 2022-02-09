@@ -32,9 +32,11 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
  * A {@code ConfigOption} describes a configuration parameter. It encapsulates the configuration
  * key, deprecated older versions of the key, and an optional default value for the configuration
  * parameter.
+ * {@code ConfigOption} 描述了一个配置参数。 它封装了配置密钥、不推荐使用的旧版本密钥以及配置参数的可选默认值。
  *
  * <p>{@code ConfigOptions} are built via the {@link ConfigOptions} class. Once created, a config
  * option is immutable.
+ * {@code ConfigOptions} 是通过 {@link ConfigOptions} 类构建的。 创建后，配置选项是不可变的。
  *
  * @param <T> The type of value associated with the configuration option.
  */
@@ -113,11 +115,14 @@ public class ConfigOption<T> {
     /**
      * Creates a new config option, using this option's key and default value, and adding the given
      * fallback keys.
+     * 创建一个新的配置选项，使用此选项的键和默认值，并添加给定的回退键。
      *
      * <p>When obtaining a value from the configuration via {@link
      * Configuration#getValue(ConfigOption)}, the fallback keys will be checked in the order
      * provided to this method. The first key for which a value is found will be used - that value
      * will be returned.
+     * 通过 {@link Configuration#getValue(ConfigOption)} 从配置中获取值时，将按照提供给此方法的顺序检查回退键。
+     * 将使用找到值的第一个键 - 将返回该值。
      *
      * @param fallbackKeys The fallback keys, in the order in which they should be checked.
      * @return A new config options, with the given fallback keys.
@@ -137,11 +142,14 @@ public class ConfigOption<T> {
     /**
      * Creates a new config option, using this option's key and default value, and adding the given
      * deprecated keys.
+     * 创建一个新的配置选项，使用此选项的键和默认值，并添加给定的已弃用键。
      *
      * <p>When obtaining a value from the configuration via {@link
      * Configuration#getValue(ConfigOption)}, the deprecated keys will be checked in the order
      * provided to this method. The first key for which a value is found will be used - that value
      * will be returned.
+     * 通过 {@link Configuration#getValue(ConfigOption)} 从配置中获取值时，将按照提供给此方法的顺序检查已弃用的键。
+     * 将使用找到值的第一个键 - 将返回该值。
      *
      * @param deprecatedKeys The deprecated keys, in the order in which they should be checked.
      * @return A new config options, with the given deprecated keys.
@@ -162,6 +170,7 @@ public class ConfigOption<T> {
     /**
      * Creates a new config option, using this option's key and default value, and adding the given
      * description. The given description is used when generation the configuration documention.
+     * 创建一个新的配置选项，使用该选项的键和默认值，并添加给定的描述。 生成配置文档时使用给定的描述。
      *
      * @param description The description for this option.
      * @return A new config option, with given description.
@@ -173,6 +182,7 @@ public class ConfigOption<T> {
     /**
      * Creates a new config option, using this option's key and default value, and adding the given
      * description. The given description is used when generation the configuration documention.
+     * 创建一个新的配置选项，使用该选项的键和默认值，并添加给定的描述。 生成配置文档时使用给定的描述。
      *
      * @param description The description for this option.
      * @return A new config option, with given description.

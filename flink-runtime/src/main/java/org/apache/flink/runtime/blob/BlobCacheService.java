@@ -27,17 +27,24 @@ import java.net.InetSocketAddress;
 
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** The BLOB cache provides access to BLOB services for permanent and transient BLOBs. */
+/** The BLOB cache provides access to BLOB services for permanent and transient BLOBs.
+ * BLOB 缓存提供对永久和临时 BLOB 的 BLOB 服务的访问。
+ * */
 public class BlobCacheService implements BlobService {
 
-    /** Caching store for permanent BLOBs. */
+    /** Caching store for permanent BLOBs.
+     * 永久 BLOB 的缓存存储。
+     * */
     private final PermanentBlobCache permanentBlobCache;
 
-    /** Store for transient BLOB files. */
+    /** Store for transient BLOB files.
+     * 存储瞬态 BLOB 文件。
+     * */
     private final TransientBlobCache transientBlobCache;
 
     /**
      * Instantiates a new BLOB cache.
+     * 实例化一个新的 BLOB 缓存。
      *
      * @param blobClientConfig global configuration
      * @param blobView (distributed) blob store file system to retrieve files from first

@@ -36,7 +36,9 @@ import java.util.stream.Collectors;
 
 import static org.apache.flink.util.Preconditions.checkState;
 
-/** Utility for computing pipelined regions. */
+/** Utility for computing pipelined regions.
+ * 用于计算流水线regions的实用程序。
+ * */
 public final class PipelinedRegionComputeUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(PipelinedRegionComputeUtil.class);

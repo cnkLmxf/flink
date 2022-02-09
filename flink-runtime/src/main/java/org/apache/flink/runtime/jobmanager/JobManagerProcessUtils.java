@@ -38,7 +38,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/** JobManager utils to calculate {@link JobManagerProcessSpec} and JVM args. */
+/** JobManager utils to calculate {@link JobManagerProcessSpec} and JVM args.
+ * JobManager 工具用于计算 {@link JobManagerProcessSpec} 和 JVM 参数。
+ * */
 public class JobManagerProcessUtils {
 
     static final ProcessMemoryOptions JM_PROCESS_MEMORY_OPTIONS =

@@ -29,7 +29,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** Thread-safe Utility for tracking partitions. */
+/** Thread-safe Utility for tracking partitions.
+ * 用于跟踪分区的线程安全实用程序。
+ * */
 @ThreadSafe
 public class PartitionTable<K> {
 

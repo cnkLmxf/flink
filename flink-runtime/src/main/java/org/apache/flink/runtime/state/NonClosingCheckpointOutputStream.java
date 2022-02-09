@@ -28,6 +28,7 @@ import java.io.OutputStream;
 /**
  * Abstract class to implement custom checkpoint output streams which should not be closable for
  * user code.
+ * 实现自定义检查点输出流的抽象类，用户代码不应关闭。
  *
  * @param <T> type of the returned state handle.
  */

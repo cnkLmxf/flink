@@ -24,11 +24,14 @@ import org.apache.flink.runtime.leaderretrieval.LeaderRetrievalService;
  * {@code ClientHighAvailabilityServices} provides services those are required on client-side. At
  * the moment only the REST endpoint leader retriever is required because all communication between
  * the client and cluster happens via the REST endpoint.
+ * {@code ClientHighAvailabilityServices} 提供客户端所需的服务。
+ * 目前只需要 REST 端点领导检索器，因为客户端和集群之间的所有通信都是通过 REST 端点进行的。
  */
 public interface ClientHighAvailabilityServices extends AutoCloseable {
 
     /**
      * Get the leader retriever for the cluster's rest endpoint.
+     * 获取集群的 REST 端点的领导检索器。
      *
      * @return the leader retriever for cluster's rest endpoint.
      */

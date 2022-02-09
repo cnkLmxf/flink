@@ -25,7 +25,9 @@ import java.util.Objects;
 import static org.apache.flink.util.Preconditions.checkArgument;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
-/** Encapsulates meta-information the TaskExecutor requires to be kept for each partition. */
+/** Encapsulates meta-information the TaskExecutor requires to be kept for each partition.
+ * 封装 TaskExecutor 需要为每个分区保留的元信息。
+ * */
 public final class TaskExecutorPartitionInfo {
 
     private final ResultPartitionID resultPartitionId;

@@ -22,7 +22,9 @@ import org.apache.flink.annotation.Internal;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-/** Allows to write data to the log. Scoped to a single writer (e.g. state backend). */
+/** Allows to write data to the log. Scoped to a single writer (e.g. state backend).
+ * 允许将数据写入日志。 作用于单个作者（例如状态后端）。
+ * */
 @Internal
 public interface StateChangelogWriter<Handle extends StateChangelogHandle<?>>
         extends AutoCloseable {

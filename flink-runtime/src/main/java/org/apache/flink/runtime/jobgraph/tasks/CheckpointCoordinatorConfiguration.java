@@ -30,6 +30,8 @@ import java.util.Objects;
  * Configuration settings for the {@link CheckpointCoordinator}. This includes the checkpoint
  * interval, the checkpoint timeout, the pause between checkpoints, the maximum number of concurrent
  * checkpoints and settings for externalized checkpoints.
+ * {@link CheckpointCoordinator} 的配置设置。
+ * 这包括检查点间隔、检查点超时、检查点之间的暂停、最大并发检查点数和外部检查点设置。
  */
 public class CheckpointCoordinatorConfiguration implements Serializable {
 
@@ -55,6 +57,8 @@ public class CheckpointCoordinatorConfiguration implements Serializable {
      * </code>, at least once mode has been configured. This is not a necessary attribute, because
      * the checkpointing mode is only relevant for the stream tasks, but we expose it here to
      * forward it to the web runtime UI.
+     * 指示是否已配置检查点模式的标志。 如果 <code>false </code>，则至少配置了一次模式。
+     * 这不是必须的属性，因为 checkpointing 模式只与流任务相关，但我们在这里公开它以将其转发到 Web 运行时 UI。
      */
     private final boolean isExactlyOnce;
 

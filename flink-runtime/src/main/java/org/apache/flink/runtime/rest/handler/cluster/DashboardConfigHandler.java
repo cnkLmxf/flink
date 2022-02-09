@@ -34,7 +34,9 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** Handler which returns the dashboard configuration. */
+/** Handler which returns the dashboard configuration.
+ * 返回仪表板配置的处理程序。
+ * */
 public class DashboardConfigHandler
         extends AbstractRestHandler<
                 RestfulGateway, EmptyRequestBody, DashboardConfiguration, EmptyMessageParameters> {

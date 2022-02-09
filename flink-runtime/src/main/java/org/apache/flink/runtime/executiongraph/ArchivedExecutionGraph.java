@@ -43,22 +43,32 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-/** An archived execution graph represents a serializable form of an {@link ExecutionGraph}. */
+/** An archived execution graph represents a serializable form of an {@link ExecutionGraph}.
+ * 归档执行图表示 {@link ExecutionGraph} 的可序列化形式。
+ * */
 public class ArchivedExecutionGraph implements AccessExecutionGraph, Serializable {
 
     private static final long serialVersionUID = 7231383912742578428L;
     // --------------------------------------------------------------------------------------------
 
-    /** The ID of the job this graph has been built for. */
+    /** The ID of the job this graph has been built for.
+     * 此图为其构建的作业的 ID。
+     * */
     private final JobID jobID;
 
-    /** The name of the original job graph. */
+    /** The name of the original job graph.
+     * 原始作业图的名称。
+     * */
     private final String jobName;
 
-    /** All job vertices that are part of this graph. */
+    /** All job vertices that are part of this graph.
+     * 属于此图的所有作业顶点。
+     * */
     private final Map<JobVertexID, ArchivedExecutionJobVertex> tasks;
 
-    /** All vertices, in the order in which they were created. * */
+    /** All vertices, in the order in which they were created.
+     * 所有顶点，按照它们的创建顺序。
+     * * */
     private final List<ArchivedExecutionJobVertex> verticesInCreationOrder;
 
     /**
@@ -66,24 +76,31 @@ public class ArchivedExecutionGraph implements AccessExecutionGraph, Serializabl
      * execution graph transitioned into a certain state. The index into this array is the ordinal
      * of the enum value, i.e. the timestamp when the graph went into state "RUNNING" is at {@code
      * stateTimestamps[RUNNING.ordinal()]}.
+     * 时间戳（以毫秒为单位，当执行图转换到某个状态时由 {@code System.currentTimeMillis()} 返回。
+     * 该数组的索引是枚举值的序号，即图进入状态“RUNNING”时的时间戳 " 位于 {@code stateTimestamps[RUNNING.ordinal()]}。
      */
     private final long[] stateTimestamps;
 
     // ------ Configuration of the Execution -------
 
     // ------ Execution status and progress. These values are volatile, and accessed under the lock
+    // ------ 执行状态和进度。 这些值是易失的，并且在锁下访问
     // -------
 
-    /** Current status of the job execution. */
+    /** Current status of the job execution.
+     * 作业执行的当前状态。
+     * */
     private final JobStatus state;
 
     /**
      * The exception that caused the job to fail. This is set to the first root exception that was
      * not recoverable and triggered job failure
+     * 导致作业失败的异常。 这设置为第一个不可恢复并触发作业失败的根异常
      */
     @Nullable private final ErrorInfo failureCause;
 
     // ------ Fields that are only relevant for archived execution graphs ------------
+    // ------ 仅与存档执行图相关的字段 ------------
     private final String jsonPlan;
     private final StringifiedAccumulatorResult[] archivedUserAccumulators;
     private final ArchivedExecutionConfig archivedExecutionConfig;
@@ -309,6 +326,7 @@ public class ArchivedExecutionGraph implements AccessExecutionGraph, Serializabl
 
     /**
      * Create a {@link ArchivedExecutionGraph} from the given {@link ExecutionGraph}.
+     * 从给定的 {@link ExecutionGraph} 创建一个 {@link ArchivedExecutionGraph}。
      *
      * @param executionGraph to create the ArchivedExecutionGraph from
      * @return ArchivedExecutionGraph created from the given ExecutionGraph
@@ -319,6 +337,7 @@ public class ArchivedExecutionGraph implements AccessExecutionGraph, Serializabl
 
     /**
      * Create a {@link ArchivedExecutionGraph} from the given {@link ExecutionGraph}.
+     * 从给定的 {@link ExecutionGraph} 创建一个 {@link ArchivedExecutionGraph}。
      *
      * @param executionGraph to create the ArchivedExecutionGraph from
      * @param statusOverride optionally overrides the JobStatus of the ExecutionGraph with a
@@ -381,6 +400,7 @@ public class ArchivedExecutionGraph implements AccessExecutionGraph, Serializabl
     /**
      * Create a sparse ArchivedExecutionGraph for a job while it is still initializing. Most fields
      * will be empty, only job status and error-related fields are set.
+     * 为仍在初始化的作业创建稀疏 ArchivedExecutionGraph。 大多数字段将为空，仅设置作业状态和错误相关字段。
      */
     public static ArchivedExecutionGraph createFromInitializingJob(
             JobID jobId,

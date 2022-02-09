@@ -33,10 +33,13 @@ import java.util.concurrent.RejectedExecutionException;
 /**
  * This registry manages state that is shared across (incremental) checkpoints, and is responsible
  * for deleting shared state that is no longer used in any valid checkpoint.
+ * 此注册表管理在（增量）checkpoint之间共享的状态，并负责删除任何有效检查点中不再使用的共享状态。
  *
  * <p>A {@code SharedStateRegistry} will be deployed in the {@link
  * org.apache.flink.runtime.checkpoint.CheckpointCoordinator} to maintain the reference count of
  * {@link StreamStateHandle}s by a key that (logically) identifies them.
+ * {@code SharedStateRegistry} 将部署在 {@link org.apache.flink.runtime.checkpoint.CheckpointCoordinator} 中，
+ * 以通过（逻辑上）标识它们的键来维护 {@link StreamStateHandle} 的引用计数。
  */
 public class SharedStateRegistry implements AutoCloseable {
 
@@ -45,14 +48,20 @@ public class SharedStateRegistry implements AutoCloseable {
     /** A singleton object for the default implementation of a {@link SharedStateRegistryFactory} */
     public static final SharedStateRegistryFactory DEFAULT_FACTORY = SharedStateRegistry::new;
 
-    /** All registered state objects by an artificial key */
+    /** All registered state objects by an artificial key
+     * 通过人工key注册的所有状态对象
+     * */
     private final Map<SharedStateRegistryKey, SharedStateRegistry.SharedStateEntry>
             registeredStates;
 
-    /** This flag indicates whether or not the registry is open or if close() was called */
+    /** This flag indicates whether or not the registry is open or if close() was called
+     * 此标志指示注册表是否打开或是否调用了 close()
+     * */
     private boolean open;
 
-    /** Executor for async state deletion */
+    /** Executor for async state deletion
+     * 用于异步状态删除的 Executor
+     * */
     private final Executor asyncDisposalExecutor;
 
     /** Default uses direct executor to delete unreferenced state */
@@ -72,14 +81,19 @@ public class SharedStateRegistry implements AutoCloseable {
      * it with a reference count of 1. If there is already a state handle registered under the given
      * key, we dispose the given "new" state handle, uptick the reference count of the previously
      * existing state handle and return it as a replacement with the result.
+     * 在注册表中注册对给定共享状态的引用。 这将执行以下操作：我们通过 registrationKey 检查状态句柄是否实际上是新的。
+     * 如果它是新的，我们用引用计数 1 注册它。如果在给定的键下已经注册了一个状态句柄，我们处理给定的“新”状态句柄，
+     * 增加先前存在的状态句柄的引用计数并返回 它作为结果的替代品。
      *
      * <p>IMPORTANT: caller should check the state handle returned by the result, because the
      * registry is performing de-duplication and could potentially return a handle that is supposed
      * to replace the one from the registration request.
+     * 重要提示：调用者应该检查结果返回的状态句柄，因为注册表正在执行重复数据删除，并且可能返回一个应该替换注册请求中的句柄。
      *
      * @param state the shared state for which we register a reference.
      * @return the result of this registration request, consisting of the state handle that is
      *     registered under the key by the end of the operation and its current reference count.
+     *     此注册请求的结果，由操作结束时在键下注册的状态句柄及其当前引用计数组成。
      */
     public Result registerReference(
             SharedStateRegistryKey registrationKey, StreamStateHandle state) {

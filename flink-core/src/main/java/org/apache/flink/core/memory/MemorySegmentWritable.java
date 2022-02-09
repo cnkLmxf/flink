@@ -22,13 +22,16 @@ import org.apache.flink.annotation.Internal;
 
 import java.io.IOException;
 
-/** Provides the interface for write(Segment). */
+/** Provides the interface for write(Segment).
+ * 提供 write(Segment) 的接口。
+ * */
 @Internal
 public interface MemorySegmentWritable {
 
     /**
      * Writes {@code len} bytes from memory segment {@code segment} starting at offset {@code off},
      * in order, to the output.
+     * 从偏移量 {@code off} 开始的内存段 {@code segment} 中依次写入 {@code len} 个字节到输出。
      *
      * @param segment memory segment to copy the bytes from.
      * @param off the start offset in the memory segment.

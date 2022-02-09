@@ -24,7 +24,9 @@ import org.apache.flink.util.Preconditions;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Utility class for counting pending workers per {@link WorkerResourceSpec}. */
+/** Utility class for counting pending workers per {@link WorkerResourceSpec}.
+ * 用于计算每个 {@link WorkerResourceSpec} 的待处理工作人员的实用程序类。
+ * */
 class PendingWorkerCounter {
     private final Map<WorkerResourceSpec, Integer> pendingWorkerNums;
 

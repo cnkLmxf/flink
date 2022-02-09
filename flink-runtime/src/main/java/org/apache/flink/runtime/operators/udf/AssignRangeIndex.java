@@ -29,6 +29,8 @@ import java.util.List;
 /**
  * This mapPartition function require a DataSet with RangeBoundaries as broadcast input, it generate
  * Tuple2 which includes range index and record itself as output.
+ * 这个 mapPartition 函数需要一个带有 RangeBoundaries 的 DataSet 作为广播输入，
+ * 它生成包含范围索引的 Tuple2 并将其自身记录为输出。
  *
  * @param <IN> The original data type.
  */

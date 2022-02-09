@@ -22,7 +22,9 @@ import org.apache.flink.runtime.jobgraph.IntermediateDataSetID;
 
 import java.util.Set;
 
-/** Interface for releasing cluster partitions on a task executor. */
+/** Interface for releasing cluster partitions on a task executor.
+ * 用于在任务执行器上释放集群分区的接口。
+ * */
 @FunctionalInterface
 public interface TaskExecutorClusterPartitionReleaser {
     void releaseClusterPartitions(

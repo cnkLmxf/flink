@@ -24,6 +24,7 @@ import java.io.IOException;
  * Exception for covering all the scenarios of consuming partition failure which causes the consumer
  * task failed, and the job master would decide whether to restart the producer based on this
  * exception.
+ * 异常覆盖所有消费分区失败导致消费者任务失败的场景，job master会根据这个异常决定是否重启生产者。
  */
 public abstract class PartitionException extends IOException {
 

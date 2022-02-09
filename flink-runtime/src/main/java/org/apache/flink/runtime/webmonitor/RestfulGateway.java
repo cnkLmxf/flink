@@ -44,9 +44,11 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Gateway for restful endpoints.
+ * restful端点的网关。
  *
  * <p>Gateways which implement this method run a REST endpoint which is reachable under the returned
  * address.
+ * 实现此方法的网关运行一个 REST 端点，该端点可在返回的地址下访问。
  */
 public interface RestfulGateway extends RpcGateway {
 
@@ -62,6 +64,8 @@ public interface RestfulGateway extends RpcGateway {
     /**
      * Requests the {@link ArchivedExecutionGraph} for the given jobId. If there is no such graph,
      * then the future is completed with a {@link FlinkJobNotFoundException}.
+     * 为给定的 jobId 请求 {@link ArchivedExecutionGraph}。
+     * 如果没有这样的图，那么未来会以 {@link FlinkJobNotFoundException} 完成。
      *
      * @param jobId identifying the job whose {@link ArchivedExecutionGraph} is requested
      * @param timeout for the asynchronous operation
@@ -78,6 +82,8 @@ public interface RestfulGateway extends RpcGateway {
      * Requests the {@link ExecutionGraphInfo} containing additional information besides the {@link
      * ArchivedExecutionGraph}. If there is no such graph, then the future is completed with a
      * {@link FlinkJobNotFoundException}.
+     * 请求包含 {@link ArchivedExecutionGraph} 之外的其他信息的 {@link ExecutionGraphInfo}。
+     * 如果没有这样的图，那么未来会以 {@link FlinkJobNotFoundException} 完成。
      *
      * @param jobId identifying the job whose {@link ExecutionGraphInfo} is requested
      * @param timeout for the asynchronous operation
@@ -89,6 +95,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Requests the {@link JobResult} of a job specified by the given jobId.
+     * 请求给定 jobId 指定的作业的 {@link JobResult}。
      *
      * @param jobId identifying the job for which to retrieve the {@link JobResult}.
      * @param timeout for the asynchronous operation
@@ -98,6 +105,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Requests job details currently being executed on the Flink cluster.
+     * 请求当前在 Flink 集群上执行的作业详情。
      *
      * @param timeout for the asynchronous operation
      * @return Future containing the job details
@@ -106,6 +114,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Requests the cluster status overview.
+     * 请求集群状态概览。
      *
      * @param timeout for the asynchronous operation
      * @return Future containing the status overview
@@ -114,6 +123,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Requests the addresses of the {@link MetricQueryService} to query.
+     * 请求 {@link MetricQueryService} 的地址进行查询。
      *
      * @param timeout for the asynchronous operation
      * @return Future containing the collection of metric query service addresses to query
@@ -123,6 +133,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Requests the addresses for the TaskManagers' {@link MetricQueryService} to query.
+     * 请求 TaskManager 的 {@link MetricQueryService} 查询的地址。
      *
      * @param timeout for the asynchronous operation
      * @return Future containing the collection of instance ids and the corresponding metric query
@@ -133,6 +144,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Triggers a savepoint with the given savepoint directory as a target.
+     * 以给定的保存点目录作为目标触发保存点。
      *
      * @param jobId ID of the job for which the savepoint should be triggered.
      * @param targetDirectory Target directory for the savepoint.
@@ -165,6 +177,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Dispose the given savepoint.
+     * 处置给定的保存点。
      *
      * @param savepointPath identifying the savepoint to dispose
      * @param timeout RPC timeout
@@ -192,6 +205,7 @@ public interface RestfulGateway extends RpcGateway {
 
     /**
      * Deliver a coordination request to a specified coordinator and return the response.
+     * 向指定的协调者发送协调请求并返回响应。
      *
      * @param jobId identifying the job which the coordinator belongs to
      * @param operatorId identifying the coordinator to receive the request

@@ -29,7 +29,11 @@ import java.util.concurrent.CompletableFuture;
 /**
  * {@code StopWithSavepointTerminationHandler} handles the steps necessary for the
  * stop-with-savepoint operation to finish. The order of the operations matter:
- *
+ * {@code StopWithSavepointTerminationHandler} 处理完成 stop-with-savepoint 操作所需的步骤。 操作的顺序很重要：
+ *<ol>
+ *     <li>创建保存点需要完成
+ *     <li>等待底层作业的执行完成
+ * </ol>
  * <ol>
  *   <li>Creating a savepoint needs to be completed
  *   <li>Waiting for the executions of the underlying job to finish

@@ -21,9 +21,11 @@ package org.apache.flink.runtime.state;
 /**
  * The scope for a chunk of checkpointed state. Defines whether state is owned by one checkpoint, or
  * whether it is shared by multiple checkpoints.
+ * 一大块检查点状态的范围。 定义状态是由一个检查点拥有，还是由多个检查点共享。
  *
  * <p>Different checkpoint storage implementations may treat checkpointed state of different scopes
  * differently, for example put it into different folders or tables.
+ * 不同的检查点存储实现可能会以不同的方式对待不同范围的检查点状态，例如将其放入不同的文件夹或表中。
  */
 public enum CheckpointedStateScope {
 

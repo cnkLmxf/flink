@@ -30,21 +30,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  * A Channel represents a collection of files that belong logically to the same resource. An example
  * is a collection of files that contain sorted runs of data from the same stream, that will later
  * on be merged together.
+ * Channel 表示逻辑上属于同一资源的文件的集合。 一个示例是包含来自同一流的已排序数据运行的文件集合，这些数据稍后将合并在一起。
  */
 public interface FileIOChannel {
 
     /**
      * Gets the channel ID of this I/O channel.
+     * 获取此 I/O 通道的通道 ID。
      *
      * @return The channel ID.
      */
     ID getChannelID();
 
-    /** Gets the size (in bytes) of the file underlying the channel. */
+    /** Gets the size (in bytes) of the file underlying the channel.
+     * 获取通道底层文件的大小（以字节为单位）。
+     * */
     long getSize() throws IOException;
 
     /**
      * Checks whether the channel has been closed.
+     * 检查通道是否已关闭。
      *
      * @return True if the channel has been closed, false otherwise.
      */
@@ -54,6 +59,8 @@ public interface FileIOChannel {
      * Closes the channel. For asynchronous implementations, this method waits until all pending
      * requests are handled. Even if an exception interrupts the closing, the underlying
      * <tt>FileChannel</tt> is closed.
+     * 关闭通道。 对于异步实现，此方法会一直等待，直到处理完所有待处理的请求。
+     * 即使异常中断了关闭，底层的 <tt>FileChannel</tt> 也会关闭。
      *
      * @throws IOException Thrown, if an error occurred while waiting for pending requests.
      */
@@ -61,6 +68,7 @@ public interface FileIOChannel {
 
     /**
      * Deletes the file underlying this I/O channel.
+     * 删除此 I/O 通道下的文件。
      *
      * @throws IllegalStateException Thrown, when the channel is still open.
      */
@@ -71,6 +79,7 @@ public interface FileIOChannel {
     /**
      * Closes the channel and deletes the underlying file. For asynchronous implementations, this
      * method waits until all pending requests are handled.
+     * 关闭通道并删除基础文件。 对于异步实现，此方法会一直等待，直到处理完所有待处理的请求。
      *
      * @throws IOException Thrown, if an error occurred while waiting for pending requests.
      */
