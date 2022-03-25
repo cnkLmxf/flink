@@ -30,6 +30,7 @@ import org.apache.flink.util.Preconditions;
 
 public class RpcCheckpointResponder implements CheckpointResponder {
 
+    //checkpointCoordinator应该在Jobmanager上
     private final CheckpointCoordinatorGateway checkpointCoordinatorGateway;
 
     public RpcCheckpointResponder(CheckpointCoordinatorGateway checkpointCoordinatorGateway) {

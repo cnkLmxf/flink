@@ -31,7 +31,7 @@ import static org.apache.flink.util.Preconditions.checkState;
 /**
  * The result partition manager keeps track of all currently produced/consumed partitions of a task
  * manager.
- * 结果分区管理器跟踪任务管理器的所有当前生成/使用的分区。
+ * 结果分区管理器跟踪任务管理器的所有当前produced/consumed的分区。
  */
 public class ResultPartitionManager implements ResultPartitionProvider {
 

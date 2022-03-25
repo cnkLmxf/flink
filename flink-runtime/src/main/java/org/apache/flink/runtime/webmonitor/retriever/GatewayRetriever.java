@@ -41,6 +41,7 @@ public interface GatewayRetriever<T extends RpcGateway> {
     /**
      * Returns the currently retrieved gateway if there is such an object. Otherwise it returns an
      * empty optional.
+     * 如果存在这样的对象，则返回当前检索到的网关。 否则它返回一个空的可选项。
      *
      * @return Optional object to retrieve
      */

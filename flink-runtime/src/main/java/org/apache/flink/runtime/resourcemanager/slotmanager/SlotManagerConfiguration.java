@@ -45,6 +45,7 @@ public class SlotManagerConfiguration {
     private final Time taskManagerTimeout;
     private final boolean waitResultConsumedBeforeRelease;
     private final SlotMatchingStrategy slotMatchingStrategy;
+    //单个worker持有的资源
     private final WorkerResourceSpec defaultWorkerResourceSpec;
     private final int numSlotsPerWorker;
     private final int maxSlotNum;

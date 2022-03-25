@@ -276,7 +276,7 @@ public abstract class ResourceManager<WorkerType extends ResourceIDRetrievable>
         try {
             leaderElectionService =
                     highAvailabilityServices.getResourceManagerLeaderElectionService();
-
+            //这里会启动taskmanager
             initialize();
 
             leaderElectionService.start(this);

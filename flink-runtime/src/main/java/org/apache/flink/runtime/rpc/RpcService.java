@@ -57,6 +57,8 @@ public interface RpcService {
      * Connect to a remote rpc server under the provided address. Returns a rpc gateway which can be
      * used to communicate with the rpc server. If the connection failed, then the returned future
      * is failed with a {@link RpcConnectionException}.
+     * 连接到提供的地址下的远程 rpc 服务器。 返回可用于与 rpc 服务器通信的 rpc 网关。
+     * 如果连接失败，则返回的 future 失败并带有 {@link RpcConnectionException}。
      *
      * @param address Address of the remote rpc server
      * @param clazz Class of the rpc gateway to return

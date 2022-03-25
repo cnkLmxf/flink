@@ -30,7 +30,10 @@ import org.apache.flink.runtime.webmonitor.RestfulGateway;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
-/** Gateway for the Dispatcher component. */
+/** Gateway for the Dispatcher component.
+ * gateway的作用是服务的管家，外围系统接收到命令通过gateway调用dispatcher系统，
+ * gateway不是客户端的角色，而是站在服务端，声明服务端能提供的服务的角色。其方法调用后会进入到dispather的执行范畴
+ * */
 public interface DispatcherGateway extends FencedRpcGateway<DispatcherId>, RestfulGateway {
 
     /**

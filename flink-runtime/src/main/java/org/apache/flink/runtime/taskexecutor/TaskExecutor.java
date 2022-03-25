@@ -319,11 +319,14 @@ public class TaskExecutor extends RpcEndpoint implements TaskExecutorGateway {
 
         final ResourceID resourceId =
                 taskExecutorServices.getUnresolvedTaskManagerLocation().getResourceID();
+        //和jobmanager的心跳
         this.jobManagerHeartbeatManager =
                 createJobManagerHeartbeatManager(heartbeatServices, resourceId);
+        //和resourceManager的心跳
         this.resourceManagerHeartbeatManager =
                 createResourceManagerHeartbeatManager(heartbeatServices, resourceId);
 
+        //采样执行器
         ExecutorThreadFactory sampleThreadFactory =
                 new ExecutorThreadFactory.Builder()
                         .setPoolName("flink-thread-info-sampler")
@@ -401,15 +404,18 @@ public class TaskExecutor extends RpcEndpoint implements TaskExecutorGateway {
     private void startTaskExecutorServices() throws Exception {
         try {
             // start by connecting to the ResourceManager
+            //启动和resourcemanager的连接
             resourceManagerLeaderRetriever.start(new ResourceManagerLeaderListener());
 
             // tell the task slot table who's responsible for the task slot actions
+            // 告诉任务槽表谁负责任务槽的动作
             taskSlotTable.start(new SlotActionsImpl(), getMainThreadExecutor());
 
             // start the job leader service
+            //和job leader建立连接，并监听jobleader的变化。taskmanager会监听其上的所有job的jobmanager
             jobLeaderService.start(
                     getAddress(), getRpcService(), haServices, new JobLeaderListenerImpl());
-
+            //文件缓存服务
             fileCache =
                     new FileCache(
                             taskManagerConfiguration.getTmpDirectories(),
@@ -668,7 +674,7 @@ public class TaskExecutor extends RpcEndpoint implements TaskExecutorGateway {
                             jobId,
                             tdd.getAllocationId(),
                             taskInformation.getJobVertexId(),
-                            tdd.getSubtaskIndex());
+                            tdd.getSubtaskIndex());//第几个并行度
 
             final JobManagerTaskRestore taskRestore = tdd.getTaskRestore();
 

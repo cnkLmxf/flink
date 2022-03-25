@@ -25,6 +25,7 @@ public interface MetricQueryServiceRetriever {
 
     /**
      * Retrieves for the given query service address a {@link MetricQueryServiceGateway}.
+     * 检索给定查询服务地址 {@link MetricQueryServiceGateway}。
      *
      * @param rpcServiceAddress under which the QueryService can be reached
      * @return Future containing the resolved QueryServiceGateway

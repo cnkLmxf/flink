@@ -124,6 +124,7 @@ public class ZooKeeperLeaderElectionDriver
         running = true;
 
         leaderLatch.addListener(this);
+        //启动选举争抢
         leaderLatch.start();
 
         cache.getListenable().addListener(this);

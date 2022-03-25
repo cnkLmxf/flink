@@ -52,6 +52,7 @@ public class SlotManagerUtils {
     /**
      * This must be consist with {@link
      * org.apache.flink.runtime.taskexecutor.TaskExecutorResourceUtils#generateDefaultSlotResourceProfile}.
+     * //每个slot在taskmanager上能分配到的平均资源
      */
     public static ResourceProfile generateDefaultSlotResourceProfile(
             ResourceProfile resourceProfile, int numSlotsPerWorker) {
@@ -95,7 +96,7 @@ public class SlotManagerUtils {
             ResourceProfile requirement, ResourceProfile defaultResourceProfile) {
         return requirement.equals(ResourceProfile.UNKNOWN) ? defaultResourceProfile : requirement;
     }
-
+    //单worker的资源profile
     public static ResourceProfile generateTaskManagerTotalResourceProfile(
             WorkerResourceSpec workerResourceSpec) {
         return ResourceProfile.newBuilder()

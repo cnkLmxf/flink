@@ -265,12 +265,15 @@ public class TaskManagerServices {
         // pre-start checks
         checkTempDirs(taskManagerServicesConfiguration.getTmpDirPaths());
 
+        //事件分发器
         final TaskEventDispatcher taskEventDispatcher = new TaskEventDispatcher();
 
         // start the I/O manager, it will create some temp directories.
+        //io管理器，在给定目录写文件
         final IOManager ioManager =
                 new IOManagerAsync(taskManagerServicesConfiguration.getTmpDirPaths());
 
+        //shuffle环境，定义了路径及内存大小
         final ShuffleEnvironment<?, ?> shuffleEnvironment =
                 createShuffleEnvironment(
                         taskManagerServicesConfiguration,
@@ -281,6 +284,7 @@ public class TaskManagerServices {
 
         final KvStateService kvStateService =
                 KvStateService.fromConfiguration(taskManagerServicesConfiguration);
+        //用户状态查询的server
         kvStateService.start();
 
         final UnresolvedTaskManagerLocation unresolvedTaskManagerLocation =
@@ -294,7 +298,7 @@ public class TaskManagerServices {
                                 : listeningDataPort);
 
         final BroadcastVariableManager broadcastVariableManager = new BroadcastVariableManager();
-
+        //task slot表
         final TaskSlotTable<Task> taskSlotTable =
                 createTaskSlotTable(
                         taskManagerServicesConfiguration.getNumberOfSlots(),
@@ -302,14 +306,16 @@ public class TaskManagerServices {
                         taskManagerServicesConfiguration.getTimerServiceShutdownTimeout(),
                         taskManagerServicesConfiguration.getPageSize(),
                         ioExecutor);
-
+        //job表
         final JobTable jobTable = DefaultJobTable.create();
 
+        //job leader服务，通过ha服务进行监听
         final JobLeaderService jobLeaderService =
                 new DefaultJobLeaderService(
                         unresolvedTaskManagerLocation,
                         taskManagerServicesConfiguration.getRetryingRegistrationConfiguration());
 
+        //本地恢复文件夹
         final String[] stateRootDirectoryStrings =
                 taskManagerServicesConfiguration.getLocalRecoveryStateRootDirectories();
 
@@ -334,6 +340,7 @@ public class TaskManagerServices {
                 taskManagerServicesConfiguration
                         .getConfiguration()
                         .getBoolean(CoreOptions.CHECK_LEAKED_CLASSLOADER);
+        // lib 缓存服务
         final LibraryCacheManager libraryCacheManager =
                 new BlobLibraryCacheManager(
                         permanentBlobService,
@@ -366,6 +373,7 @@ public class TaskManagerServices {
             final long timerServiceShutdownTimeout,
             final int pageSize,
             final Executor memoryVerificationExecutor) {
+        //定时服务
         final TimerService<AllocationID> timerService =
                 new TimerService<>(new ScheduledThreadPoolExecutor(1), timerServiceShutdownTimeout);
         return new TaskSlotTableImpl<>(

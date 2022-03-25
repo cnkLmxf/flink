@@ -567,7 +567,9 @@ public class Task
         executingThread.start();
     }
 
-    /** The core work method that bootstraps the task and executes its code. */
+    /** The core work method that bootstraps the task and executes its code.
+     * 引导任务并执行其代码的核心工作方法。
+     * */
     @Override
     public void run() {
         try {
@@ -590,6 +592,7 @@ public class Task
                 }
             } else if (current == ExecutionState.FAILED) {
                 // we were immediately failed. tell the TaskManager that we reached our final state
+                // 我们立即失败了。 告诉 TaskManager 我们到达了最终状态
                 notifyFinalState();
                 if (metrics != null) {
                     metrics.close();
@@ -616,6 +619,7 @@ public class Task
 
         // all resource acquisitions and registrations from here on
         // need to be undone in the end
+        // 从这里开始的所有资源获取和注册最终都需要撤消
         Map<String, Future<Path>> distributedCacheEntries = new HashMap<>();
         AbstractInvokable invokable = null;
 

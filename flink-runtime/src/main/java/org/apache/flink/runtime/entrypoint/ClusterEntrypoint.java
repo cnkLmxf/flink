@@ -238,6 +238,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
     private void runCluster(Configuration configuration, PluginManager pluginManager)
             throws Exception {
         synchronized (lock) {
+            //初始化服务
             initializeServices(configuration, pluginManager);
 
             // write host information into configuration
@@ -292,6 +293,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
         LOG.info("Initializing cluster services.");
 
         synchronized (lock) {
+            //启动一个remoteactorsystem用于通信
             commonRpcService =
                     AkkaRpcServiceUtils.createRemoteRpcService(
                             configuration,
@@ -305,7 +307,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
             // update the configuration used to create the high availability services
             configuration.setString(JobManagerOptions.ADDRESS, commonRpcService.getAddress());
             configuration.setInteger(JobManagerOptions.PORT, commonRpcService.getPort());
-
+            //用于io的线程池
             ioExecutor =
                     Executors.newFixedThreadPool(
                             ClusterEntrypointUtils.getPoolSize(configuration),

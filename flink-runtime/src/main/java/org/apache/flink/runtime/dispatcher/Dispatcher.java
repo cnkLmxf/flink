@@ -466,7 +466,7 @@ public abstract class Dispatcher extends PermanentlyFencedRpcEndpoint<Dispatcher
     JobManagerRunner createJobManagerRunner(JobGraph jobGraph, long initializationTimestamp)
             throws Exception {
         final RpcService rpcService = getRpcService();
-
+        //包含jobmanagerserviceprocess,jobmanagerleaderElection等服务。
         JobManagerRunner runner =
                 jobManagerRunnerFactory.createJobManagerRunner(
                         jobGraph,

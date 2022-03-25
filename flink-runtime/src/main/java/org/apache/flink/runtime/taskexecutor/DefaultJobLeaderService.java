@@ -96,6 +96,7 @@ public class DefaultJobLeaderService implements JobLeaderService {
 
         // Has to be a concurrent hash map because tests might access this service
         // concurrently via containsJob
+        // 必须是并发哈希映射，因为测试可能通过 containsJob 并发访问此服务
         jobLeaderServices = new ConcurrentHashMap<>(4);
 
         state = DefaultJobLeaderService.State.CREATED;

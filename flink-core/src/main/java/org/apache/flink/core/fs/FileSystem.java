@@ -449,7 +449,7 @@ public abstract class FileSystem {
                             e);
                 }
             }
-
+            //允许回滚的文件系统
             ALLOWED_FALLBACK_FILESYSTEMS.clear();
             final Iterable<String> allowedFallbackFilesystems =
                     Splitter.on(';')

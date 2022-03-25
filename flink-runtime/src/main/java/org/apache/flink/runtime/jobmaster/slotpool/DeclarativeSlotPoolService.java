@@ -120,6 +120,7 @@ public class DeclarativeSlotPoolService implements SlotPoolService {
         this.jobMasterId = Preconditions.checkNotNull(jobMasterId);
         this.jobManagerAddress = Preconditions.checkNotNull(address);
 
+        //这个连接管理器负责向连接的服务发送新的资源需求。 如果出现故障，它会继续重试以指数退避策略向服务发送最新的资源需求。
         this.resourceRequirementServiceConnectionManager =
                 DefaultDeclareResourceRequirementServiceConnectionManager.create(
                         mainThreadExecutor);

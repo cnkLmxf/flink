@@ -179,10 +179,12 @@ public interface JobTable extends AutoCloseable {
 
     /**
      * A connection contains services bound to the lifetime of a connection with a JobManager.
+     * 连接包含绑定到与 JobManager 的连接生命周期的服务。
      *
      * <p>A connection can be disconnected by calling {@link #disconnect()}. Disconnecting a
      * connection will close all services bound to the connection and return the remaining job
      * instance.
+     * 可以通过调用 {@link #disconnect()} 断开连接。 断开连接将关闭绑定到该连接的所有服务并返回剩余的作业实例。
      *
      * <p>Accessing any methods after a connection has been disconnected will throw an {@link
      * IllegalStateException}.

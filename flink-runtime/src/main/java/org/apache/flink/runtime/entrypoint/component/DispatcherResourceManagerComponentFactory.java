@@ -42,7 +42,7 @@ public interface DispatcherResourceManagerComponentFactory {
             HeartbeatServices heartbeatServices,
             MetricRegistry metricRegistry,
             ExecutionGraphInfoStore executionGraphInfoStore,
-            MetricQueryServiceRetriever metricQueryServiceRetriever,
+            MetricQueryServiceRetriever metricQueryServiceRetriever,//metric查询连接器服务
             FatalErrorHandler fatalErrorHandler)
             throws Exception;
 }

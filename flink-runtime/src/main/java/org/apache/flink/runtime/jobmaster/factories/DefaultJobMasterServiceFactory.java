@@ -101,25 +101,25 @@ public class DefaultJobMasterServiceFactory implements JobMasterServiceFactory {
 
         final JobMaster jobMaster =
                 new JobMaster(
-                        rpcService,
+                        rpcService,//通用的rpc服务
                         JobMasterId.fromUuidOrNull(leaderSessionId),
                         jobMasterConfiguration,
                         ResourceID.generate(),
-                        jobGraph,
-                        haServices,
-                        slotPoolServiceSchedulerFactory,
-                        jobManagerSharedServices,
-                        heartbeatServices,
+                        jobGraph,//job信息
+                        haServices,//ha服务
+                        slotPoolServiceSchedulerFactory,//slotpool相关信息
+                        jobManagerSharedServices,//共享服务类
+                        heartbeatServices,//心跳服务
                         jobManagerJobMetricGroupFactory,
                         onCompletionActions,
                         fatalErrorHandler,
                         userCodeClassloader,
-                        shuffleMaster,
+                        shuffleMaster,//shuffle服务
                         lookup ->
                                 new JobMasterPartitionTrackerImpl(
                                         jobGraph.getJobID(), shuffleMaster, lookup),
-                        new DefaultExecutionDeploymentTracker(),
-                        DefaultExecutionDeploymentReconciler::new,
+                        new DefaultExecutionDeploymentTracker(),//执行部署跟踪器
+                        DefaultExecutionDeploymentReconciler::new,//检测丢失/未知的部署，并遵循提供的 {@link ExecutionDeploymentReconciliationHandler} 来解决它们。
                         initializationTimestamp);
 
         jobMaster.start();

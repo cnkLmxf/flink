@@ -227,6 +227,7 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
             long initializationTimestamp)
             throws Exception {
 
+        //这里初始化rpc 信息
         super(rpcService, AkkaRpcServiceUtils.createRandomName(JOB_MANAGER_NAME), jobMasterId);
 
         final ExecutionDeploymentReconciliationHandler executionStateReconciliationHandler =
@@ -317,6 +318,7 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
 
         this.jobManagerJobMetricGroup = jobMetricGroupFactory.create(jobGraph);
         this.jobStatusListener = new JobManagerJobStatusListener();
+        //非常重要
         this.schedulerNG =
                 createScheduler(
                         slotPoolServiceSchedulerFactory,
@@ -876,12 +878,13 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
                 jobGraph.getName(),
                 jobGraph.getJobID(),
                 getFencingToken());
-
+        //重要，开启调度，里边会提交作业
         startScheduling();
     }
 
     private void startJobMasterServices() throws Exception {
         try {
+            //创建好内部就立即启动了心跳
             this.taskManagerHeartbeatManager = createTaskManagerHeartbeatManager(heartbeatServices);
             this.resourceManagerHeartbeatManager =
                     createResourceManagerHeartbeatManager(heartbeatServices);
@@ -893,6 +896,10 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
             //   - activate leader retrieval for the resource manager
             //   - on notification of the leader, the connection will be established and
             //     the slot pool will start requesting slots
+            // 作业准备就绪，尝试与资源管理器建立连接
+            // - 激活资源管理器的领导者检索
+            // - 在通知领导者时，将建立连接并且槽池将开始请求槽
+            //resouceManagerLeader的连接器，监听leader变化并建立连接
             resourceManagerLeaderRetriever.start(new ResourceManagerLeaderListener());
         } catch (Exception e) {
             handleStartJobMasterServicesError(e);
@@ -1056,7 +1063,7 @@ public class JobMaster extends PermanentlyFencedRpcEndpoint<JobMasterId>
                         resourceManagerAddress.getAddress(),
                         resourceManagerAddress.getResourceManagerId(),
                         scheduledExecutorService);
-
+        //jobmaster启动和resourcemanager的连接
         resourceManagerConnection.start();
     }
 

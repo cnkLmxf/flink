@@ -68,9 +68,10 @@ public enum JobMasterServiceLeadershipRunnerFactory implements JobManagerRunnerF
 
         final RunningJobsRegistry runningJobsRegistry =
                 highAvailabilityServices.getRunningJobsRegistry();
+        //jobmanager leader选举服务
         final LeaderElectionService jobManagerLeaderElectionService =
                 highAvailabilityServices.getJobManagerLeaderElectionService(jobGraph.getJobID());
-
+        //构建slotpoolservice,及其scheduler
         final SlotPoolServiceSchedulerFactory slotPoolServiceSchedulerFactory =
                 DefaultSlotPoolServiceSchedulerFactory.fromConfiguration(
                         configuration, jobGraph.getJobType());
@@ -83,10 +84,12 @@ public enum JobMasterServiceLeadershipRunnerFactory implements JobManagerRunnerF
                     "Adaptive Scheduler is required for reactive mode");
         }
 
+        //shuffle服务，基于netty的网络或本地文件的shuffle
         final ShuffleMaster<?> shuffleMaster =
                 ShuffleServiceLoader.loadShuffleServiceFactory(configuration)
                         .createShuffleMaster(configuration);
 
+        //类加载器租约，job是有效的，则job的类加载器就是有效的
         final LibraryCacheManager.ClassLoaderLease classLoaderLease =
                 jobManagerServices
                         .getLibraryCacheManager()
@@ -106,12 +109,12 @@ public enum JobMasterServiceLeadershipRunnerFactory implements JobManagerRunnerF
                         jobGraph,
                         highAvailabilityServices,
                         slotPoolServiceSchedulerFactory,
-                        jobManagerServices,
+                        jobManagerServices,//jobmaster服务
                         heartbeatServices,
                         jobManagerJobMetricGroupFactory,
                         fatalErrorHandler,
                         userCodeClassLoader,
-                        shuffleMaster,
+                        shuffleMaster,//shuffle服务
                         initializationTimestamp);
 
         final DefaultJobMasterServiceProcessFactory jobMasterServiceProcessFactory =

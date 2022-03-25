@@ -193,10 +193,14 @@ public class TaskSlot<T extends TaskSlotPayload> implements AutoCloseableAsync {
      * Add the given task to the task slot. This is only possible if there is not already another
      * task with the same execution attempt id added to the task slot. In this case, the method
      * returns true. Otherwise the task slot is left unchanged and false is returned.
+     * 将给定的任务添加到任务槽。 仅当尚未将具有相同执行尝试 ID 的另一个任务添加到任务槽时，才有可能。
+     * 在这种情况下，该方法返回 true。 否则，任务槽保持不变并返回 false。
      *
      * <p>In case that the task slot state is not active an {@link IllegalStateException} is thrown.
      * In case that the task's job id and allocation id don't match with the job id and allocation
      * id for which the task slot has been allocated, an {@link IllegalArgumentException} is thrown.
+     * 如果任务槽状态未激活，则抛出 {@link IllegalStateException}。
+     * 如果任务的作业 ID 和分配 ID 与已分配任务槽的作业 ID 和分配 ID 不匹配，则会抛出 {@link IllegalArgumentException}。
      *
      * @param task to be added to the task slot
      * @throws IllegalStateException if the task slot is not in state active

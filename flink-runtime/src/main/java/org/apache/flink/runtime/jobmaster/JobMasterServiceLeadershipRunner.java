@@ -172,6 +172,9 @@ public class JobMasterServiceLeadershipRunner implements JobManagerRunner, Leade
     @Override
     public void start() throws Exception {
         LOG.debug("Start leadership runner for job {}.", getJobID());
+        //yarn.resourcemanager.am.max-attempts是对整个yarn集群生效，  yarn.application-attempts 只对当前application（对应flink集群）生效，
+        // 一个是yarn的配置，一个是flink的配置，如果yarn.application-attempts>yarn.resourcemanager.am.max-attempts，会被yarn.resourcemanager.am.max-attempts覆盖
+        //flink on yarn的高可用只会启动一个jobmanager，高可用下会将jobmanager内部信息持久化，当jobmanager挂了之后由yarn重新拉起jobmanager，并恢复其中的信息
         leaderElectionService.start(this);
     }
 
@@ -325,7 +328,7 @@ public class JobMasterServiceLeadershipRunner implements JobManagerRunner, Leade
                             getJobID()),
                     e);
         }
-
+        //创建jobMasterServiceProcess
         jobMasterServiceProcess = jobMasterServiceProcessFactory.create(leaderSessionId);
 
         forwardIfValidLeader(

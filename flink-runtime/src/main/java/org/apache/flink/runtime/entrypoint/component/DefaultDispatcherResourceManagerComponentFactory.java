@@ -170,10 +170,11 @@ public class DefaultDispatcherResourceManagerComponentFactory
                             fatalErrorHandler);
 
             log.debug("Starting Dispatcher REST endpoint.");
+            //构建基于netty的http服务
             webMonitorEndpoint.start();
 
             final String hostname = RpcUtils.getHostname(rpcService);
-
+            //负责worker的创建等
             resourceManager =
                     resourceManagerFactory.createResourceManager(
                             configuration,
@@ -188,6 +189,7 @@ public class DefaultDispatcherResourceManagerComponentFactory
                             hostname,
                             ioExecutor);
 
+            //归档jobmanager中的任务
             final HistoryServerArchivist historyServerArchivist =
                     HistoryServerArchivist.createHistoryServerArchivist(
                             configuration, webMonitorEndpoint, ioExecutor);
@@ -220,7 +222,7 @@ public class DefaultDispatcherResourceManagerComponentFactory
 
             log.debug("Starting ResourceManager.");
             resourceManager.start();
-
+            //gatewayRetriever是一个监听器，当监听到事件变化后则执行通知，retriever意思是连接到对应节点
             resourceManagerRetrievalService.start(resourceManagerGatewayRetriever);
             dispatcherLeaderRetrievalService.start(dispatcherGatewayRetriever);
 

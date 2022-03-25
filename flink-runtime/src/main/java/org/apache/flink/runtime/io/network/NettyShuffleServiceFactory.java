@@ -110,10 +110,10 @@ public class NettyShuffleServiceFactory
         checkNotNull(metricGroup);
 
         NettyConfig nettyConfig = config.nettyConfig();
-
+        //文件channel管理者
         FileChannelManager fileChannelManager =
                 new FileChannelManagerImpl(config.getTempDirs(), DIR_NAME_PREFIX);
-
+        // 上游的网络连接，存在client和server，但是不知道server是干啥的
         ConnectionManager connectionManager =
                 nettyConfig != null
                         ? new NettyConnectionManager(
@@ -129,6 +129,8 @@ public class NettyShuffleServiceFactory
         // we create a separated buffer pool here for batch shuffle instead of reusing the network
         // buffer pool directly to avoid potential side effects of memory contention, for example,
         // dead lock or "insufficient network buffer" error
+        // 我们在这里创建一个单独的缓冲池用于批量洗牌，而不是直接重用网络缓冲池，
+        // 以避免内存争用的潜在副作用，例如死锁或“网络缓冲区不足”错误
         BatchShuffleReadBufferPool batchShuffleReadBufferPool =
                 new BatchShuffleReadBufferPool(
                         config.batchShuffleReadMemoryBytes(), config.networkBufferSize());
@@ -136,6 +138,8 @@ public class NettyShuffleServiceFactory
         // we create a separated IO executor pool here for batch shuffle instead of reusing the
         // TaskManager IO executor pool directly to avoid the potential side effects of execution
         // contention, for example, too long IO or waiting time leading to starvation or timeout
+        // 我们在这里创建一个单独的 IO 执行器池用于批量 shuffle，而不是直接重用 TaskManager IO 执行器池，
+        // 以避免执行争用的潜在副作用，例如，IO 太长或等待时间导致饥饿或超时
         ExecutorService batchShuffleReadIOExecutor =
                 Executors.newFixedThreadPool(
                         Math.max(

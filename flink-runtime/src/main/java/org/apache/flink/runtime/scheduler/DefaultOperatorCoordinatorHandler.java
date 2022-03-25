@@ -65,6 +65,7 @@ public class DefaultOperatorCoordinatorHandler implements OperatorCoordinatorHan
             ExecutionGraph executionGraph) {
         Map<OperatorID, OperatorCoordinatorHolder> coordinatorMap = new HashMap<>();
         for (ExecutionJobVertex vertex : executionGraph.getAllVertices().values()) {
+            //每个vertex有可能有多个holder，原因是operator可能进行了chain，这样，一个vertex就可能存在多个operator了
             for (OperatorCoordinatorHolder holder : vertex.getOperatorCoordinators()) {
                 coordinatorMap.put(holder.operatorId(), holder);
             }

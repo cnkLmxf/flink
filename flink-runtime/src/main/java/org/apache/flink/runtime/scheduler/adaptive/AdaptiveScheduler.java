@@ -763,6 +763,7 @@ public class AdaptiveScheduler
     }
 
     private ResourceCounter calculateDesiredResources() {
+        //计算需要的slot，如果在一个slotshareGroup,则只需要最大并行度的那个
         return slotAllocator.calculateRequiredSlots(jobInformation.getVertices());
     }
 
@@ -1121,6 +1122,7 @@ public class AdaptiveScheduler
      * Transition the scheduler to another state. This method guards against state transitions while
      * there is already a transition ongoing. This effectively means that you can not call this
      * method from a State constructor or State#onLeave.
+     * 将调度程序转换到另一个状态。 此方法可防止已在进行转换时发生状态转换。 这实际上意味着您不能从 State 构造函数或 State#onLeave 调用此方法。
      *
      * @param targetState State to transition to
      * @param <T> Type of the target state

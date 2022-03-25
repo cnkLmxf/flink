@@ -599,6 +599,7 @@ public class JobGraph implements Serializable {
     /**
      * Gets the list of assigned user jar paths.
      * 获取分配的用户 jar 路径列表。
+     * 这里存放的不光是jar文件，用户自定义的非jar文件也会在里边
      *
      * @return The list of assigned user jar paths
      */
@@ -676,6 +677,7 @@ public class JobGraph implements Serializable {
     public void writeUserArtifactEntriesToConfiguration() {
         for (Map.Entry<String, DistributedCache.DistributedCacheEntry> userArtifact :
                 userArtifacts.entrySet()) {
+            //指定各个文件的信息，比如名称，位置，是否可执行等
             DistributedCache.writeFileInfoToConfig(
                     userArtifact.getKey(), userArtifact.getValue(), jobConfiguration);
         }

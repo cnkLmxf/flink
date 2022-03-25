@@ -138,6 +138,7 @@ public class DefaultExecutionTopology implements SchedulingTopology {
         EdgeManager edgeManager = executionGraph.getEdgeManager();
 
         ExecutionGraphIndex executionGraphIndex =
+                //计算除了executionGraph的边和节点信息
                 computeExecutionGraphIndex(
                         executionGraph.getAllExecutionVertices(),
                         executionGraph.getTotalNumberOfVertices(),
@@ -165,7 +166,9 @@ public class DefaultExecutionTopology implements SchedulingTopology {
             int vertexNumber,
             EdgeManager edgeManager) {
         Map<ExecutionVertexID, DefaultExecutionVertex> executionVerticesById = new HashMap<>();
+        //节点的信息
         List<DefaultExecutionVertex> executionVerticesList = new ArrayList<>(vertexNumber);
+        //边的信息
         Map<IntermediateResultPartitionID, DefaultResultPartition> resultPartitionsById =
                 new HashMap<>();
         for (ExecutionVertex vertex : executionVertices) {

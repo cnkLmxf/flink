@@ -143,6 +143,8 @@ public class AkkaOptions {
     // ==================================================
 
     public static final ConfigOption<Double> FORK_JOIN_EXECUTOR_PARALLELISM_FACTOR =
+            //并行度因子用于使用以下公式确定线程池大小：ceil（可用处理器 * 因子）。
+            // 然后，生成的大小受并行度最小值和并行度最大值的限制。
             ConfigOptions.key("akka.fork-join-executor.parallelism-factor")
                     .doubleType()
                     .defaultValue(2.0)

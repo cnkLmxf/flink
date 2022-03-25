@@ -48,7 +48,7 @@ import java.util.concurrent.TimeUnit;
  * #getLeaderId(JobID)}. The future will only be completed with an exception in case the service
  * will be stopped.
  * 为已注册的作业检索当前作业领导者 ID（负责该作业的作业经理的领导者 ID）的服务。
- * 领导者 ID 将通过 {@link #getLeaderId(JobID)} 公开为未来。 未来只会在服务停止的情况下完成。
+ * 领导者 ID 将通过 {@link #getLeaderId(JobID)} 公开为future。 future只会在服务停止的情况下完成。
  */
 public class DefaultJobLeaderIdService implements JobLeaderIdService {
 

@@ -105,7 +105,7 @@ public class ActiveResourceManager<WorkerType extends ResourceIDRetrievable>
      * Incompletion of this future indicates that the max failure rate of start worker is reached
      * and the resource manager should not retry starting new worker until the future become
      * completed again. It's guaranteed to be modified in main thread.
-     * 这个未来的不完成表明启动工人的最大失败率已经达到，资源管理器不应该重试启动新的工人，直到未来再次完成。
+     * 这个future的不完成表明启动工人的最大失败率已经达到，资源管理器不应该重试启动新的工人，直到future再次完成。
      * 保证在主线程中进行修改。
      */
     private CompletableFuture<Void> startWorkerCoolDown;

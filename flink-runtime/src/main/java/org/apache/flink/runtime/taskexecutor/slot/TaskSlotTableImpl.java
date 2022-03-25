@@ -130,15 +130,16 @@ public class TaskSlotTableImpl<T extends TaskSlotPayload> implements TaskSlotTab
         this.taskSlots = new HashMap<>(numberSlots);
 
         this.timerService = Preconditions.checkNotNull(timerService);
-
+        //资源预留服务，如果申请预留的资源不够则拒绝
         budgetManager =
                 new ResourceBudgetManager(
                         Preconditions.checkNotNull(totalAvailableResourceProfile));
 
+        //allocateid和slot映射
         allocatedSlots = new HashMap<>(numberSlots);
 
         taskSlotMappings = new HashMap<>(4 * numberSlots);
-
+        //每个job申请的slot
         slotsPerJob = new HashMap<>(4);
 
         slotActions = null;

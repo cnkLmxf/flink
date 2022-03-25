@@ -183,10 +183,10 @@ public class BootstrapTools {
      *
      * @param configuration The Flink configuration.
      * @param actorSystemName Name of the started {@link ActorSystem}
-     * @param externalAddress The external address to access the ActorSystem.
-     * @param externalPort The external port to access the ActorSystem.
-     * @param bindAddress The local address to bind to.
-     * @param bindPort The local port to bind to.
+     * @param externalAddress The external address to access the ActorSystem.接收外部请求的地址，外网ip
+     * @param externalPort The external port to access the ActorSystem.接收外部请求的端口
+     * @param bindAddress The local address to bind to.外部ip:port的请求重定向到内部地址
+     * @param bindPort The local port to bind to.外部ip:port的请求重定向到内部地址的端口
      * @param logger the logger to output log information.
      * @param actorSystemExecutorConfiguration configuration for the ActorSystem's underlying
      *     executor
@@ -590,6 +590,10 @@ public class BootstrapTools {
         /**
          * Create the executor {@link Config} for the respective executor.
          * 为各自的执行者创建执行者 {@link Config}。
+         * akka.actor.default-dispatcher.executor.fork-join-executor.parallelism-factor
+         * akka.actor.default-dispatcher.executor.fork-join-executor.parallelism-min
+         * akka.actor.default-dispatcher.executor.fork-join-executor.parallelism-max
+         * 从配置可以看出，dispatcher有可选的executor，并且可以设置并行度，这里的并行度是线程池大小
          *
          * @return Akka config for the respective executor
          */
@@ -633,6 +637,7 @@ public class BootstrapTools {
 
         public static ForkJoinExecutorConfiguration fromConfiguration(
                 final Configuration configuration) {
+            //以下参数决定了线程池大小
             final double parallelismFactor =
                     configuration.getDouble(AkkaOptions.FORK_JOIN_EXECUTOR_PARALLELISM_FACTOR);
             final int minParallelism =

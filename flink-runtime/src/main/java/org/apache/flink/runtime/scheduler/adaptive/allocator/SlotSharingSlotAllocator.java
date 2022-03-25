@@ -79,6 +79,7 @@ public class SlotSharingSlotAllocator implements SlotAllocator {
         return ResourceCounter.withResource(ResourceProfile.UNKNOWN, numTotalRequiredSlots);
     }
 
+    //以SlotSharingGroupId最为map key 计算需要的slot
     private static Map<SlotSharingGroupId, Integer> getMaxParallelismForSlotSharingGroups(
             Iterable<JobInformation.VertexInformation> vertices) {
         final Map<SlotSharingGroupId, Integer> maxParallelismForSlotSharingGroups = new HashMap<>();

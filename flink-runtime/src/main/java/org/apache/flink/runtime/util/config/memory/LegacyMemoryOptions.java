@@ -23,9 +23,11 @@ import org.apache.flink.configuration.MemorySize;
 
 /**
  * Legacy JVM heap/process memory options.
+ * 旧版 JVM 堆/进程内存选项。
  *
  * <p>If these memory options are set, they are interpreted as other new memory options for the
  * backwards compatibility in {@link MemoryBackwardsCompatibilityUtils}.
+ * 如果设置了这些内存选项，它们将被解释为 {@link MemoryBackwardsCompatibilityUtils} 中向后兼容的其他新内存选项。
  */
 public class LegacyMemoryOptions {
     private final String envVar;

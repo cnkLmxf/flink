@@ -296,6 +296,7 @@ public class RestClusterClient<T> implements ClusterClient<T> {
         return retry(operation, unknownJobStateRetryable);
     }
 
+    //jobGraph会以文件形式进行传递
     @Override
     public CompletableFuture<JobID> submitJob(@Nonnull JobGraph jobGraph) {
         CompletableFuture<java.nio.file.Path> jobGraphFileFuture =

@@ -46,9 +46,11 @@ public class MemoryBackwardsCompatibilityUtils {
 
     public Configuration getConfWithLegacyHeapSizeMappedToNewConfigOption(
             Configuration configuration, ConfigOption<MemorySize> configOption) {
+        //新版配置存在直接返回
         if (configuration.contains(configOption)) {
             return configuration;
         }
+        //否则获取旧版配置，转换为新版配置
         return getLegacyHeapMemoryIfExplicitlyConfigured(configuration)
                 .map(
                         legacyHeapSize -> {

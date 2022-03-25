@@ -34,8 +34,9 @@ public class ResourceManagerRuntimeServicesConfiguration {
 
     private final SlotManagerConfiguration slotManagerConfiguration;
 
+    //启用声明性资源管理
     private final boolean enableDeclarativeResourceManagement;
-
+    //启用细粒度资源管理
     private final boolean enableFineGrainedResourceManagement;
 
     public ResourceManagerRuntimeServicesConfiguration(

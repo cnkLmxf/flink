@@ -43,6 +43,7 @@ import java.util.Map;
 /**
  * {@link SimpleChannelInboundHandler} which encapsulates the leader retrieval logic for the REST
  * endpoints.
+ * {@link SimpleChannelInboundHandler} 封装了 REST 端点的领导者检索逻辑。
  *
  * @param <T> type of the leader to retrieve
  */

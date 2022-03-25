@@ -35,6 +35,7 @@ public class RpcMetricQueryServiceRetriever implements MetricQueryServiceRetriev
 
     @Override
     public CompletableFuture<MetricQueryServiceGateway> retrieveService(String rpcServiceAddress) {
+        //和address创建连接，其中的proxy引用gateway
         return rpcService.connect(rpcServiceAddress, MetricQueryServiceGateway.class);
     }
 }

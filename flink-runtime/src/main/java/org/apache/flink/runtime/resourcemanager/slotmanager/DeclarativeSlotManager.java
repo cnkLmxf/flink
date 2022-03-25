@@ -474,6 +474,7 @@ public class DeclarativeSlotManager implements SlotManager {
             final ResourceCounter unfulfilledJobRequirements =
                     tryAllocateSlotsForJob(jobId, resourceRequirements.getValue());
             if (!unfulfilledJobRequirements.isEmpty()) {
+                //未满足的要求
                 unfulfilledRequirements.put(jobId, unfulfilledJobRequirements);
             }
         }

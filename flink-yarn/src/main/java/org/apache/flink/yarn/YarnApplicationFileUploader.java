@@ -70,6 +70,7 @@ class YarnApplicationFileUploader implements AutoCloseable {
 
     private final ApplicationId applicationId;
 
+    //stage dir
     private final Path homeDir;
 
     private final Path applicationDir;
@@ -175,6 +176,7 @@ class YarnApplicationFileUploader implements AutoCloseable {
         }
 
         final File localFile = new File(resourcePath.toUri().getPath());
+        //上传到hdfs
         final Tuple2<Path, Long> remoteFileInfo =
                 uploadLocalFileToRemote(resourcePath, relativeDstPath);
         final YarnLocalResourceDescriptor descriptor =
@@ -196,7 +198,7 @@ class YarnApplicationFileUploader implements AutoCloseable {
         final File localFile = new File(localSrcPath.toUri().getPath());
         checkArgument(
                 !localFile.isDirectory(), "File to copy cannot be a directory: " + localSrcPath);
-
+        //发送到hdfs
         final Path dst = copyToRemoteApplicationDir(localSrcPath, relativeDstPath, fileReplication);
 
         // Note: If we directly used registerLocalResource(FileSystem, Path) here, we would access

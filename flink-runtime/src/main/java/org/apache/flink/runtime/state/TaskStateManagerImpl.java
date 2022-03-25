@@ -70,7 +70,9 @@ public class TaskStateManagerImpl implements TaskStateManager {
      */
     @Nullable private final JobManagerTaskRestore jobManagerTaskRestore;
 
-    /** The local state store to which this manager reports local state snapshots. */
+    /** The local state store to which this manager reports local state snapshots.
+     * 此管理器向其报告本地状态快照的本地状态存储。
+     * */
     private final TaskLocalStateStore localStateStore;
 
     /** The checkpoint responder through which this manager can report to the job manager. */

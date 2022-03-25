@@ -92,6 +92,7 @@ public class TaskExecutorLocalStateStoresManager {
                     && !localStateRecoveryRootDir.mkdirs()
                     // we double check for exists in case another task created the directory
                     // concurrently.
+                    // 如果另一个任务同时创建了目录，我们会仔细检查是否存在。
                     && !localStateRecoveryRootDir.exists()) {
                 throw new IOException(
                         "Could not create root directory for local recovery: "

@@ -61,6 +61,7 @@ import static org.apache.flink.runtime.resourcemanager.slotmanager.SlotManagerUt
 public class DefaultResourceAllocationStrategy implements ResourceAllocationStrategy {
     private final ResourceProfile defaultSlotResourceProfile;
     private final ResourceProfile totalResourceProfile;
+    //每个taskmanager的slot个数
     private final int numSlotsPerWorker;
 
     public DefaultResourceAllocationStrategy(

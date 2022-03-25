@@ -73,14 +73,17 @@ public class ProcessMemoryUtils<FM extends FlinkMemory> {
         if (options.getRequiredFineGrainedOptions().stream().allMatch(config::contains)) {
             // all internal memory options are configured, use these to derive total Flink and
             // process memory
+            // 所有内部内存选项都已配置，使用这些选项来推导 Flink 和进程的总内存
             return deriveProcessSpecWithExplicitInternalMemory(config);
         } else if (config.contains(options.getTotalFlinkMemoryOption())) {
             // internal memory options are not configured, total Flink memory is configured,
             // derive from total flink memory
+            // 内部内存选项未配置，配置了total Flink memory，从total flink memory派生
             return deriveProcessSpecWithTotalFlinkMemory(config);
         } else if (config.contains(options.getTotalProcessMemoryOption())) {
             // total Flink memory is not configured, total process memory is configured,
             // derive from total process memory
+            // 未配置总 Flink 内存，配置总进程内存，从总进程内存中导出
             return deriveProcessSpecWithTotalProcessMemory(config);
         }
         return failBecauseRequiredOptionsNotConfigured();

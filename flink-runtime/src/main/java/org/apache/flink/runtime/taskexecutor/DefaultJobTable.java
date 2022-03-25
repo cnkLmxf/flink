@@ -105,6 +105,7 @@ public final class DefaultJobTable implements JobTable {
         }
     }
 
+    //一个taskmanager中的一个job只有一个JobOrConnection
     private final class JobOrConnection implements JobTable.Job, JobTable.Connection {
 
         private final JobID jobId;
@@ -258,6 +259,7 @@ public final class DefaultJobTable implements JobTable {
         private final JobMasterGateway jobMasterGateway;
 
         // Task manager actions with respect to the connected job manager
+        // task和taskmanager的通信接口
         private final TaskManagerActions taskManagerActions;
 
         // Checkpoint responder for the specific job manager
@@ -267,6 +269,7 @@ public final class DefaultJobTable implements JobTable {
         private final GlobalAggregateManager globalAggregateManager;
 
         // Result partition consumable notifier for the specific job manager
+        //可消费通知器
         private final ResultPartitionConsumableNotifier resultPartitionConsumableNotifier;
 
         // Partition state checker for the specific job manager

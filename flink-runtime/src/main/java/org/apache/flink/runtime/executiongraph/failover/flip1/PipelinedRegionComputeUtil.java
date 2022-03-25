@@ -84,7 +84,9 @@ public final class PipelinedRegionComputeUtil {
                     // check if it is the same as the producer region, if so skip the merge
                     // this check can significantly reduce compute complexity in All-to-All
                     // PIPELINED edge case
+                    // 检查它是否与生产者区域相同，如果是，则跳过合并此检查可以显着降低 All-to-All PIPELINED 边缘情况下的计算复杂度
                     if (currentRegion != producerRegion) {
+                        //返回所有的前置依赖region
                         currentRegion = mergeRegions(currentRegion, producerRegion, vertexToRegion);
                     }
                 }

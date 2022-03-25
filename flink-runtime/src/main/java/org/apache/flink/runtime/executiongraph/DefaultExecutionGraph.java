@@ -822,6 +822,7 @@ public class DefaultExecutionGraph implements ExecutionGraph, InternalExecutionG
         registerExecutionVerticesAndResultPartitions(this.verticesInCreationOrder);
 
         // the topology assigning should happen before notifying new vertices to failoverStrategy
+        // 拓扑分配应该在通知新顶点到 failoverStrategy 之前发生
         executionTopology = DefaultExecutionTopology.fromExecutionGraph(this);
 
         partitionReleaseStrategy =

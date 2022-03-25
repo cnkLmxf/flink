@@ -73,7 +73,7 @@ public class DirectoryBasedPluginFinder implements PluginFinder {
             throw new IOException(
                     "Plugins root directory [" + pluginsRootDir + "] does not exist!");
         }
-
+        //遍历每个subdirectory,记录每个subdirectory下的文件，一个subdirectory代表一个plugin
         return Files.list(pluginsRootDir)
                 .filter((Path path) -> Files.isDirectory(path))
                 .map(FunctionUtils.uncheckedFunction(this::createPluginDescriptorForSubDirectory))

@@ -69,6 +69,7 @@ public abstract class ResourceManagerFactory<T extends ResourceIDRetrievable> {
         final SlotManagerMetricGroup slotManagerMetricGroup =
                 SlotManagerMetricGroup.create(metricRegistry, hostname);
 
+        //包含slotmanager和jobLeaderIdservice组件
         final ResourceManagerRuntimeServices resourceManagerRuntimeServices =
                 createResourceManagerRuntimeServices(
                         effectiveResourceManagerAndRuntimeServicesConfig,

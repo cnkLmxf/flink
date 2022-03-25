@@ -85,13 +85,14 @@ public class ResourceManagerRuntimeServices {
             SlotManagerMetricGroup slotManagerMetricGroup) {
         final SlotManagerConfiguration slotManagerConfiguration =
                 configuration.getSlotManagerConfiguration();
+        //细粒度资源管理
         if (configuration.isEnableFineGrainedResourceManagement()) {
             return new FineGrainedSlotManager(
                     scheduledExecutor,
                     slotManagerConfiguration,
                     slotManagerMetricGroup,
-                    new DefaultResourceTracker(),
-                    new FineGrainedTaskManagerTracker(),
+                    new DefaultResourceTracker(),//跟踪每个作业需要/获取多少资源。
+                    new FineGrainedTaskManagerTracker(),//跟踪 TaskManager 的资源和插槽状态。
                     new DefaultSlotStatusSyncer(
                             slotManagerConfiguration.getTaskManagerRequestTimeout()),
                     new DefaultResourceAllocationStrategy(
@@ -99,6 +100,7 @@ public class ResourceManagerRuntimeServices {
                                     slotManagerConfiguration.getDefaultWorkerResourceSpec()),
                             slotManagerConfiguration.getNumSlotsPerWorker()),
                     Time.milliseconds(REQUIREMENTS_CHECK_DELAY_MS));
+        //声明式资源管理
         } else if (configuration.isDeclarativeResourceManagementEnabled()) {
             return new DeclarativeSlotManager(
                     scheduledExecutor,

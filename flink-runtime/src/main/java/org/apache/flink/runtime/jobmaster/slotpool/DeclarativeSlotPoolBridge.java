@@ -98,7 +98,7 @@ public class DeclarativeSlotPoolBridge extends DeclarativeSlotPoolService implem
         this.componentMainThreadExecutor = componentMainThreadExecutor;
 
         getDeclarativeSlotPool().registerNewSlotsListener(this::newSlotsAreAvailable);
-
+        //检测资源请求超时
         componentMainThreadExecutor.schedule(
                 this::checkIdleSlotTimeout,
                 idleSlotTimeout.toMilliseconds(),
